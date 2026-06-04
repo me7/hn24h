@@ -1,0 +1,18 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Environments
+.venv/
+env/
+venv/
+ENV/
+
+# Project specific
+hn_knowledge_base.db
+HN_*.html
+
+# OS files
+.DS_Store
+Thumbs.db
