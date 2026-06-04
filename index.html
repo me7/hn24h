@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hacker News สรุปข่าวเด่นประจำวัน - 4 มิถุนายน 2569</title>
+    <title>Hacker News Daily Archive - คลังสรุปข่าวสารประจำวัน</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700&family=Sarabun:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -16,7 +16,6 @@
             --text-secondary: #94a3b8;
             --accent-color: #f97316;
             --accent-hover: #ea580c;
-            --badge-bg: rgba(249, 115, 22, 0.1);
             --shadow: 0 4px 30px rgba(0, 0, 0, 0.4);
             --font-display: 'Outfit', 'Sarabun', sans-serif;
             --font-sans: 'Inter', 'Sarabun', sans-serif;
@@ -32,12 +31,12 @@
             font-family: var(--font-sans);
             margin: 0;
             padding: 0;
-            font-size: 18px; /* เพิ่มขนาดฟอนต์หลักให้อ่านง่ายขึ้น ไม่ต้องซูม 125% */
-            line-height: 1.75; /* เพิ่มความห่างระหว่างบรรทัด */
+            font-size: 18px;
+            line-height: 1.75;
         }
 
         .container {
-            max-width: 950px; /* ขยายขนาดการแสดงผลเล็กน้อย */
+            max-width: 800px;
             margin: 0 auto;
             padding: 40px 20px;
         }
@@ -49,7 +48,7 @@
 
         h1 {
             font-family: var(--font-display);
-            font-size: 2.8rem; /* ขยายขนาดหัวข้อใหญ่ */
+            font-size: 2.8rem;
             font-weight: 700;
             margin: 0 0 12px 0;
             background: linear-gradient(to right, #f97316, #fb923c, #818cf8);
@@ -57,264 +56,107 @@
             -webkit-text-fill-color: transparent;
         }
 
-        .date-badge {
-            display: inline-block;
-            padding: 6px 20px;
-            background: var(--card-bg);
-            border: 1px solid var(--card-border);
-            border-radius: 20px;
-            font-size: 1.05rem; /* ขยายฟอนต์ */
-            color: var(--text-secondary);
-            margin-bottom: 20px;
-            font-weight: 600;
-        }
-
         .subtitle {
             color: var(--text-secondary);
-            font-size: 1.25rem; /* ขยายฟอนต์คำอธิบาย */
+            font-size: 1.25rem;
             margin: 0;
         }
 
-        .news-list {
+        .archive-list {
             display: flex;
             flex-direction: column;
-            gap: 28px;
+            gap: 24px;
         }
 
-        .news-item {
+        .archive-card {
             background: var(--card-bg);
             backdrop-filter: blur(12px);
             -webkit-backdrop-filter: blur(12px);
             border: 1px solid var(--card-border);
             border-radius: 16px;
-            padding: 26px;
+            padding: 24px;
             box-shadow: var(--shadow);
             transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
         }
 
-        .news-item:hover {
+        .archive-card:hover {
             border-color: rgba(249, 115, 22, 0.35);
-            box-shadow: 0 10px 30px rgba(249, 115, 22, 0.07);
             transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(249, 115, 22, 0.07);
         }
 
-        details {
-            width: 100%;
-        }
-
-        summary {
-            list-style: none;
-            outline: none;
-            cursor: pointer;
-        }
-
-        summary::-webkit-details-marker {
-            display: none;
-        }
-
-        .summary-header {
+        .card-header {
             display: flex;
             justify-content: space-between;
-            align-items: flex-start;
-            gap: 18px;
+            align-items: center;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            padding-bottom: 10px;
         }
 
-        .summary-title-section {
-            flex-grow: 1;
-        }
-
-        .story-title {
+        .archive-date {
             font-family: var(--font-display);
-            font-size: 1.45rem; /* ปรับเพิ่มขนาดหัวข้อข่าวให้อ่านง่าย */
+            font-size: 1.4rem;
             font-weight: 600;
-            color: var(--text-primary);
-            margin: 0 0 10px 0;
-            line-height: 1.4;
-            transition: color 0.2s ease;
-        }
-
-        .story-title:hover {
             color: var(--accent-color);
+            margin: 0;
         }
 
-        .teaser {
-            font-size: 1.15rem; /* ปรับเพิ่มขนาดสรุปสั้น */
+        .top-news-title {
+            font-size: 0.95rem;
             color: var(--text-secondary);
-            margin: 0 0 18px 0;
-            font-weight: 400;
-        }
-
-        .meta-row {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 14px;
-            align-items: center;
-        }
-
-        .badge {
-            font-size: 0.85rem; /* ขยายขนาดป้าย */
-            padding: 5px 12px;
-            border-radius: 8px;
             font-weight: 600;
-            display: inline-flex;
-            align-items: center;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin: 8px 0 4px 0;
+        }
+
+        .news-bullets {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
             gap: 6px;
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(255, 255, 255, 0.05);
-            color: var(--text-secondary);
         }
 
-        .badge-points {
-            background: var(--badge-bg);
-            border-color: rgba(249, 115, 22, 0.25);
-            color: var(--accent-color);
-        }
-
-        .badge-comments {
-            background: rgba(99, 102, 241, 0.1);
-            border-color: rgba(99, 102, 241, 0.25);
-            color: #818cf8;
-        }
-
-        .badge-domain {
-            text-transform: lowercase;
-            max-width: 220px;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            white-space: nowrap;
-        }
-
-        .toggle-icon {
-            flex-shrink: 0;
-            width: 36px;
-            height: 36px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border-radius: 50%;
-            background: rgba(255, 255, 255, 0.03);
-            border: 1px solid var(--card-border);
-            color: var(--text-secondary);
-            transition: all 0.3s ease;
-            font-size: 0.9rem;
-        }
-
-        details[open] .toggle-icon {
-            transform: rotate(180deg);
-            background: var(--badge-bg);
-            border-color: rgba(249, 115, 22, 0.3);
-            color: var(--accent-color);
-        }
-
-        .details-content {
-            margin-top: 26px;
-            padding-top: 26px;
-            border-top: 1px solid rgba(255, 255, 255, 0.06);
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 26px;
-            animation: fadeIn 0.4s ease-out;
-        }
-
-        @media (min-width: 800px) {
-            .details-content {
-                grid-template-columns: 1fr 1fr;
-            }
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        .content-section {
-            background: rgba(255, 255, 255, 0.015);
-            border: 1px solid rgba(255, 255, 255, 0.03);
-            border-radius: 12px;
-            padding: 22px;
-        }
-
-        .section-header {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            font-size: 1.25rem; /* ขยายขนาดหัวข้อย่อย */
-            font-weight: 600;
-            margin: 0 0 18px 0;
-            font-family: var(--font-display);
-        }
-
-        .section-header-article {
-            color: #fb923c;
-        }
-
-        .section-header-discussion {
-            color: #818cf8;
-        }
-
-        .section-body {
-            font-size: 1.08rem; /* ปรับขนาดฟอนต์รายละเอียด */
+        .news-bullets li {
+            font-size: 1.05rem;
             color: #cbd5e1;
-            margin: 0;
-        }
-
-        .section-body p {
-            margin: 0 0 14px 0;
-        }
-
-        .section-body p:last-child {
-            margin-bottom: 0;
-        }
-
-        .section-body ul {
-            margin: 0;
-            padding-left: 24px;
-        }
-
-        .section-body li {
-            margin-bottom: 10px;
-        }
-
-        .section-body li:last-child {
-            margin-bottom: 0;
-        }
-
-        .links-row {
-            grid-column: 1 / -1;
             display: flex;
-            gap: 16px;
-            margin-top: 14px;
+            align-items: flex-start;
+            gap: 8px;
+        }
+
+        .news-bullets li::before {
+            content: "•";
+            color: var(--accent-color);
+            font-weight: bold;
         }
 
         .action-btn {
-            font-size: 0.95rem; /* ขยายขนาดฟอนต์ปุ่มกด */
+            font-size: 0.95rem;
             text-decoration: none;
             padding: 10px 20px;
             border-radius: 8px;
             font-weight: 600;
             display: inline-flex;
             align-items: center;
+            justify-content: center;
             gap: 8px;
             transition: all 0.2s ease;
+            background: rgba(249, 115, 22, 0.1);
+            border: 1px solid rgba(249, 115, 22, 0.25);
+            color: var(--accent-color);
+            align-self: flex-start;
+            margin-top: 10px;
         }
 
-        .btn-primary {
+        .action-btn:hover {
             background: var(--accent-color);
             color: white;
-        }
-
-        .btn-primary:hover {
-            background: var(--accent-hover);
-        }
-
-        .btn-secondary {
-            background: rgba(255, 255, 255, 0.05);
-            color: var(--text-primary);
-            border: 1px solid var(--card-border);
-        }
-
-        .btn-secondary:hover {
-            background: rgba(255, 255, 255, 0.1);
         }
 
         footer.page-footer {
@@ -330,970 +172,24 @@
 <body>
     <div class="container">
         <header>
-            <div class="date-badge">4 มิถุนายน 2569</div>
-            <h1>Hacker News Daily Digest</h1>
-            <p class="subtitle">สรุปข่าวยอดนิยมในรอบ 24 ชั่วโมงที่ผ่านมา แปลและสรุปผลการวิเคราะห์ในบอร์ดภาษาไทย</p>
+            <h1>Hacker News Digest</h1>
+            <p class="subtitle">คลังสะสมบทสรุปข่าวและประเด็นสนทนา Hacker News ภาษาไทยประจำวัน</p>
         </header>
+        <main class="archive-list">
 
-        <main class="news-list">
+            <!-- ARCHIVE FOR 2026-06-04 -->
+            <div class="archive-card">
+                <div class="card-header">
+                    <h2 class="archive-date">📅 4 มิถุนายน 2569</h2>
+                </div>
+                <div class="top-news-title">ข่าวเด่นวันนี้:</div><ul class="news-bullets"><li>Gemma 4 12B: A unified, encoder-free multimodal model (803 pts)</li><li>Meta workers can opt out of being tracked at work up to 30 min (721 pts)</li><li>Elixir v1.20: Now a gradually typed language (721 pts)</li></ul>
+                <a href="./HN_20260604.html" class="action-btn">เปิดอ่านสรุปข่าวประจำวัน</a>
+            </div>
         
-            <!-- STORY 1 -->
-            <article class="news-item">
-                <details>
-                    <summary>
-                        <div class="summary-header">
-                            <div class="summary-title-section">
-                                <h2 class="story-title">Gemma 4 12B: A unified, encoder-free multimodal model</h2>
-                                <p class="teaser">Google เปิดตัว Gemma 4 12B โมเดลแบบ Multimodal ขนาดกลางที่ไม่ต้องใช้ตัวแปลงรหัส (Encoder-free) ช่วยลดการใช้หน่วยความจำและรันบนแล็ปท็อปทั่วไปได้</p>
-                                <div class="meta-row">
-                                    <span class="badge badge-points">🔥 803 คะแนน</span>
-                                    <span class="badge badge-comments">💬 318 ความคิดเห็น</span>
-                                    <span class="badge badge-domain">blog.google</span>
-                                </div>
-                            </div>
-                            <div class="toggle-icon">▼</div>
-                        </div>
-                    </summary>
-                    <div class="details-content">
-                        <section class="content-section">
-                            <h3 class="section-header section-header-article">📄 สรุปเนื้อหาบทความ</h3>
-                            <div class="section-body">
-                                <p>Google ได้เปิดตัวโมเดล Gemma 4 12B ซึ่งเป็นโมเดล Multimodal ประสิทธิภาพสูงที่ถูกออกแบบมาให้รันบนแล็ปท็อปทั่วไปที่มี VRAM หรือหน่วยความจำ 16GB ได้โดยเฉพาะ จุดเด่นสำคัญมีดังนี้:</p><ul><li><strong>สถาปัตยกรรมแบบ Encoder-free:</strong> ปฏิวัติการออกแบบโมเดลโดยไม่มีตัวแปลงรหัสสัญญาณภาพและเสียงแยกต่างหาก ข้อมูลดิบจะถูกป้อนเข้าสู่ LLM backbone โดยตรงผ่านโมดูลฝังตัวน้ำหนักเบา (Lightweight embedding module) ทำให้ประหยัดแรมและลดความหน่วงลงได้อย่างมหาศาล</li><li><strong> native audio input:</strong> รองรับการป้อนข้อมูลเสียงแบบเนทีฟเป็นครั้งแรกสำหรับโมเดลขนาดกลาง</li><li><strong>การเปิดตัวคลังทักษะ (Skills Repository):</strong> แจกจ่ายชุดเครื่องมือเพื่อให้นักพัฒนานำไปประยุกต์ใช้สร้างเอเจนต์ AI ที่ฉลาดและยืดหยุ่นได้บนฮาร์ดแวร์ทั่วไป</li></ul>
-                            </div>
-                        </section>
-                        <section class="content-section">
-                            <h3 class="section-header section-header-discussion">💬 สรุปประเด็นเสวนาในกระทู้</h3>
-                            <div class="section-body">
-                                <p>ประเด็นพูดคุยสะท้อนความสงสัยและการวิเคราะห์สถาปัตยกรรมใหม่จากคอมมูนิตี้:</p><ul><li><strong>การแปลงรหัสยังคงมีอยู่:</strong> นักพัฒนาวิเคราะห์เอกสารคู่มือของกูเกิลและชี้ว่า ถึงจะเรียกว่า Encoder-free แต่ในทางคณิตศาสตร์ยังคงใช้เมทริกซ์และ Coordinate Lookup เพื่อโปรเจกต์ค่าภาพและเสียงลงในมิติเดียวกับ Token ซึ่งก็นับว่ามีกลไกแบบ Encoder อยู่ดี</li><li><strong>การตลาดเรื่องแรม 16GB:</strong> มีการตั้งข้อสังเกตว่าที่กูเกิลอ้างว่ารันได้บนแรมแล็ปท็อป 16GB นั้นน่าจะผ่านการบีบอัดระดับสูง (Quantization เช่น int8) ซึ่งอาจสูญเสียคุณภาพไปบางส่วน หากใช้ไฟล์ดิบแบบเต็มประสิทธิภาพ (bf16) จะมีขนาดถึง 24GB ขึ้นไป</li><li><strong>Token คือสัญญาณนาฬิกา:</strong> สมาชิกแชร์มุมมองเปรียบเทียบว่าโทเค็นของ LLM ทำหน้าที่เหมือนสัญญาณนาฬิกา (Clock Signal) ของคอมพิวเตอร์ที่คอยคุมการรันขั้นตอนคิด การบีบข้อมูลสั้นเกินไปจะทำให้โมเดลคิดและวิเคราะห์ไม่ได้</li></ul>
-                            </div>
-                        </section>
-                        <div class="links-row">
-                            <a href="https://blog.google/innovation-and-ai/technology/developers-tools/introducing-gemma-4-12b/" target="_blank" class="action-btn btn-primary">อ่านบทความต้นฉบับ</a>
-                            <a href="https://news.ycombinator.com/item?id=48385906" target="_blank" class="action-btn btn-secondary">กระทู้บน Hacker News</a>
-                        </div>
-                    </div>
-                </details>
-            </article>
-            
-            <!-- STORY 2 -->
-            <article class="news-item">
-                <details>
-                    <summary>
-                        <div class="summary-header">
-                            <div class="summary-title-section">
-                                <h2 class="story-title">Meta workers can opt out of being tracked at work up to 30 min</h2>
-                                <p class="teaser">Meta ยอมถอยหลังในนโยบายดักจับข้อมูลการทำงานของพนักงานเพื่อฝึก AI โดยยินยอมให้กดหยุดการติดตามได้ครั้งละ 30 นาที</p>
-                                <div class="meta-row">
-                                    <span class="badge badge-points">🔥 721 คะแนน</span>
-                                    <span class="badge badge-comments">💬 690 ความคิดเห็น</span>
-                                    <span class="badge badge-domain">bbc.com</span>
-                                </div>
-                            </div>
-                            <div class="toggle-icon">▼</div>
-                        </div>
-                    </summary>
-                    <div class="details-content">
-                        <section class="content-section">
-                            <h3 class="section-header section-header-article">📄 สรุปเนื้อหาบทความ</h3>
-                            <div class="section-body">
-                                <p>Meta ยอมถอยก้าวหนึ่งในการเก็บข้อมูลพฤติกรรมการพิมพ์และการขยับเมาส์ของพนักงานในโครงการ Model Capability Initiative (MCI) ซึ่งมีวัตถุประสงค์เพื่อนำข้อมูลเหล่านั้นไปพัฒนา AI เอเจนต์ทำงานอัตโนมัติ จุดเด่นของนโยบายใหม่มีดังนี้:</p><ul><li><strong>สิทธิ์การกดหยุดชั่วคราว:</strong> พนักงานสามารถกดหยุดการเก็บข้อมูลการพิมพ์และการเคลื่อนไหวได้สูงสุดครั้งละ 30 นาที</li><li><strong>ทางเลือกการยกเว้นทั้งหมด (Opt-out):</strong> พนักงานสามารถยื่นเรื่องขอยกเว้นการเก็บข้อมูลได้ทั้งหมด</li><li><strong>การประท้วงของพนักงาน:</strong> การปรับนโยบายนี้เกิดขึ้นหลังจากพนักงานกว่า 1,500 คนร่วมลงนามประท้วงเนื่องจากกังวลเรื่องความเป็นส่วนตัวและสภาวะการเลย์ออฟที่อาจเกิดขึ้นจากการนำโค้ดไปเทรน AI</li></ul>
-                            </div>
-                        </section>
-                        <section class="content-section">
-                            <h3 class="section-header section-header-discussion">💬 สรุปประเด็นเสวนาในกระทู้</h3>
-                            <div class="section-body">
-                                <p>มุมมองดราม่าจากวงเสวนา HN สะท้อนความไม่เชื่อมั่นในเจตนาของบริษัท:</p><ul><li><strong>ความเอื้อเฟื้ออันน้อยนิด:</strong> พนักงานและชาวเน็ตต่างวิจารณ์ว่าการให้สิทธิ์ปิดการติดตามแค่ 30 นาทีเป็นเรื่องที่น่าหัวเราะและสะท้อนบรรยากาศการทำงานที่ย่ำแย่และตึงเครียดของ Meta</li><li><strong>การตั้งเป้าเพ่งเล็งเชิงลบ:</strong> มีความเห็นพ้องกันว่าพนักงานที่เลือกกดปิดชั่วคราวหรือกดยกเว้นการเก็บข้อมูล จะถูกเก็บประวัติเชิงลับและนำมาใช้ประเมินประสิทธิภาพในเชิงลบหรือคัดชื่อออกในรอบเลย์ออฟถัดไป</li><li><strong>ข้อมูลความลับของฝ่ายบุคคล (HR):</strong> มีการตั้งข้อสังเกตว่าการเก็บข้อมูลระดับดักคีย์บอร์ดอาจทำให้ข้อมูลความลับของแผนกบุคคลและการเงินรั่วไหล ซึ่งเสี่ยงต่อการผิดกฎหมายคุ้มครองข้อมูลส่วนบุคคล</li></ul>
-                            </div>
-                        </section>
-                        <div class="links-row">
-                            <a href="https://www.bbc.com/news/articles/c93x0k194yno" target="_blank" class="action-btn btn-primary">อ่านบทความต้นฉบับ</a>
-                            <a href="https://news.ycombinator.com/item?id=48383220" target="_blank" class="action-btn btn-secondary">กระทู้บน Hacker News</a>
-                        </div>
-                    </div>
-                </details>
-            </article>
-            
-            <!-- STORY 3 -->
-            <article class="news-item">
-                <details>
-                    <summary>
-                        <div class="summary-header">
-                            <div class="summary-title-section">
-                                <h2 class="story-title">Elixir v1.20: Now a gradually typed language</h2>
-                                <p class="teaser">Elixir ออกเวอร์ชัน 1.20 บรรลุหลักไมล์สำคัญในการเพิ่มระบบ Gradual Type Check เพื่อวิเคราะห์บั๊กและโค้ดที่ไม่ทำงานโดยไม่ต้องเขียนระบุประเภทตัวแปร</p>
-                                <div class="meta-row">
-                                    <span class="badge badge-points">🔥 721 คะแนน</span>
-                                    <span class="badge badge-comments">💬 262 ความคิดเห็น</span>
-                                    <span class="badge badge-domain">elixir-lang.org</span>
-                                </div>
-                            </div>
-                            <div class="toggle-icon">▼</div>
-                        </div>
-                    </summary>
-                    <div class="details-content">
-                        <section class="content-section">
-                            <h3 class="section-header section-header-article">📄 สรุปเนื้อหาบทความ</h3>
-                            <div class="section-body">
-                                <p>ทีมพัฒนาภาษา Elixir ประกาศเปิดตัวรุ่น v1.20 โดยบรรลุหลักไมล์สำคัญในการเพิ่มระบบการตรวจสอบประเภทตัวแปรแบบ Set-theoretic จุดเด่นและข้อดีมีดังนี้:</p><ul><li><strong>ระบบ Gradual Type (dynamic):</strong> ตรวจหาบั๊กในโค้ดดิบและวิเคราะห์โครงสร้างข้อมูลที่อาจทำให้โปรแกรมพังขณะรันได้ทันทีโดยไม่ต้องเขียนระบุกำกับประเภทตัวแปร (Type Annotations) ทำให้ไม่มีภาระแก่นักพัฒนา</li><li><strong>ความแม่นยำสูงมาก:</strong> มีอัตราการเตือนผิดพลาด (False Positive) ที่ต่ำมากและช่วยแสดงส่วนของโค้ดที่ไม่มีวันทำงานถึง (Dead code) ได้อย่างมีประสิทธิภาพ</li></ul>
-                            </div>
-                        </section>
-                        <section class="content-section">
-                            <h3 class="section-header section-header-discussion">💬 สรุปประเด็นเสวนาในกระทู้</h3>
-                            <div class="section-body">
-                                <p>นักพัฒนาร่วมแลกเปลี่ยนทัศนคติเกี่ยวกับภาษา Elixir และสถาปัตยกรรม BEAM:</p><ul><li><strong>ลดกำแพงในการเรียนรู้:</strong> การมีระบบ Gradual Type ช่วยให้นักพัฒนาจากสายภาษาประเภท Static Type สบายใจและกล้าข้ามมาทดลองเขียนภาษาเชิง Functional บนระบบนิเวศของ Elixir มากขึ้น</li><li><strong>ความซับซ้อนของ Concurrency:</strong> ผู้หัดใหม่แชร์ความยากในการดีไซน์ระบบ Process บน BEAM (เช่น เมื่อไหร่ควรทำ Supervisor หรือกำจัด Process) โดยมีผู้เชี่ยวชาญร่วมแนะนำลิงก์ช่วยเหลืออย่าง 'Erlang in Anger' และ 'Spawn or Not' เพื่อปลดล็อกข้อจำกัดเหล่านี้</li><li><strong>ประเด็นความปลอดภัยใน Phoenix LiveView:</strong> มีการเตือนเกี่ยวกับการเขียนแอปด้วย LiveView ที่หากแฮกเกอร์รู้หน้าตาของ Function Signature อาจทำการสแปมสิทธิ์ผ่าน WebSocket ได้ นักพัฒนาจึงต้องออกแบบระบบตรวจสอบสิทธิ์ให้รัดกุม</li></ul>
-                            </div>
-                        </section>
-                        <div class="links-row">
-                            <a href="https://elixir-lang.org/blog/2026/06/03/elixir-v1-20-0-released/" target="_blank" class="action-btn btn-primary">อ่านบทความต้นฉบับ</a>
-                            <a href="https://news.ycombinator.com/item?id=48388324" target="_blank" class="action-btn btn-secondary">กระทู้บน Hacker News</a>
-                        </div>
-                    </div>
-                </details>
-            </article>
-            
-            <!-- STORY 4 -->
-            <article class="news-item">
-                <details>
-                    <summary>
-                        <div class="summary-header">
-                            <div class="summary-title-section">
-                                <h2 class="story-title">Pwnd Blaster: Hacking your PC using your speaker without ever touching it</h2>
-                                <p class="teaser">นักวิจัยด้านความปลอดภัยเผยช่องโหว่ในลำโพง Creative Sound Blaster Katana V2X ที่สามารถอัปโหลดเฟิร์มแวร์แฮกเครื่องและดักฟังได้ผ่านบลูทูธโดยไม่ต้องผ่านการจับคู่</p>
-                                <div class="meta-row">
-                                    <span class="badge badge-points">🔥 664 คะแนน</span>
-                                    <span class="badge badge-comments">💬 107 ความคิดเห็น</span>
-                                    <span class="badge badge-domain">blog.nns.ee</span>
-                                </div>
-                            </div>
-                            <div class="toggle-icon">▼</div>
-                        </div>
-                    </summary>
-                    <div class="details-content">
-                        <section class="content-section">
-                            <h3 class="section-header section-header-article">📄 สรุปเนื้อหาบทความ</h3>
-                            <div class="section-body">
-                                <p>นักวิจัยความปลอดภัยได้เจาะลึกระบบเฟิร์มแวร์ลำโพง Creative Sound Blaster Katana V2X ที่เชื่อมต่อพีซีผ่านพอร์ต USB และพบช่องโหว่ร้ายแรงเชิงโครงสร้างดังนี้:</p><ul><li><strong>ระบบ BLE ไร้ความปลอดภัย:</strong> ลำโพงยอมรับคำสั่งการสื่อสาร CTP และอนุญาตให้สั่งอัปเกรดเฟิร์มแวร์ได้ผ่านบลูทูธพลังงานต่ำ (BLE) โดยไม่มีการตรวจสอบสิทธิ์หรือจับคู่เข้ารหัสใดๆ</li><li><strong>ระยะทำการแฮกไกลถึง 15 เมตร:</strong> แฮกเกอร์ในระยะสัญญาณบลูทูธสามารถดัดแปลงไฟล์เฟิร์มแวร์อัปโหลดเข้าไปเพื่อดักฟังข้อมูลผ่านไมโครโฟนลำโพง หรือตั้งค่าให้ลำโพงจำลองตัวเองเป็นคีย์บอร์ด (USB Rubber Ducky) เพื่อพิมพ์ส่งรันโปรแกรมแฮกพีซีที่เชื่อมต่ออยู่ได้</li></ul>
-                            </div>
-                        </section>
-                        <section class="content-section">
-                            <h3 class="section-header section-header-discussion">💬 สรุปประเด็นเสวนาในกระทู้</h3>
-                            <div class="section-body">
-                                <p>การถกเถียงอย่างรุนแรงใน HN ถึงพฤติกรรมและการตอบรับของผู้ผลิต:</p><ul><li><strong>ผู้ผลิตปฏิเสธความเสี่ยง:</strong> ชุมชนแฮกเกอร์รู้สึกไม่พอใจอย่างมากที่ผู้ผลิตและ SingCERT ปัดช่องโหว่นี้โดยระบุว่า "ไม่ถือเป็นช่องโหว่ด้านความมั่นคงปลอดภัยไซเบอร์" ทั้งที่ส่งผลต่อการเข้าควบคุมระบบคอมพิวเตอร์</li><li><strong>วิกฤตของอุปกรณ์เสริม IoT:</strong> สมาชิกยกตัวอย่างอุปกรณ์ IoT ทั่วไป เช่น หลอดไฟอัจฉริยะราคาถูกที่บังคับเชื่อมไวไฟของแอป ซึ่งมักขาดการอัปเดตและถูกเปลี่ยนเป็นบ็อตเน็ตขยะในอินเทอร์เน็ตได้ง่าย</li><li><strong>คำแนะนำในทางปฏิบัติ:</strong> การใช้ระบบเครือข่ายออฟไลน์อย่าง Zigbee เป็นทางออกที่ปลอดภัยที่สุดสำหรับอุปกรณ์สมาร์ทโฮมภายในบ้าน</li></ul>
-                            </div>
-                        </section>
-                        <div class="links-row">
-                            <a href="https://blog.nns.ee/2026/06/03/katana-badusb/" target="_blank" class="action-btn btn-primary">อ่านบทความต้นฉบับ</a>
-                            <a href="https://news.ycombinator.com/item?id=48382310" target="_blank" class="action-btn btn-secondary">กระทู้บน Hacker News</a>
-                        </div>
-                    </div>
-                </details>
-            </article>
-            
-            <!-- STORY 5 -->
-            <article class="news-item">
-                <details>
-                    <summary>
-                        <div class="summary-header">
-                            <div class="summary-title-section">
-                                <h2 class="story-title">I was recently diagnosed with anti-NMDA receptor encephalitis</h2>
-                                <p class="teaser">Andrew Gallant หรือ 'burntsushi' ผู้พัฒนาซอฟต์แวร์ชื่อดัง (ripgrep) แชร์ประสบการณ์การต่อสู้กับโรคสมองอักเสบจากภูมิคุ้มกันทำลายตนเอง</p>
-                                <div class="meta-row">
-                                    <span class="badge badge-points">🔥 591 คะแนน</span>
-                                    <span class="badge badge-comments">💬 180 ความคิดเห็น</span>
-                                    <span class="badge badge-domain">burntsushi.net</span>
-                                </div>
-                            </div>
-                            <div class="toggle-icon">▼</div>
-                        </div>
-                    </summary>
-                    <div class="details-content">
-                        <section class="content-section">
-                            <h3 class="section-header section-header-article">📄 สรุปเนื้อหาบทความ</h3>
-                            <div class="section-body">
-                                <p>Andrew Gallant ผู้สร้างเครื่องมือค้นหาข้อความยอดนิยม <strong>ripgrep</strong> ได้เขียนบล็อกส่วนตัวเล่าเรื่องราวการต่อสู้กับโรคสมองอักเสบจากภูมิคุ้มกันต้านตัวรับ NMDA (anti-NMDA receptor encephalitis) รายละเอียดสำคัญมีดังนี้:</p><ul><li><strong>อาการเริ่มแรกลึกลับ:</strong> เริ่มต้นด้วยอาการคล้ายหวัดใหญ่ แต่ตามมาด้วยอาการวิตกกังวลรุนแรงจนนำไปสู่อาการทางจิต (Psychosis) ประสาทหลอนและหลงผิด</li><li><strong>ปัญหาทางกายภาพ:</strong> สูญเสียความสามารถในการทรงตัวจนไม่สามารถรับลูกบอลระยะไม่กี่ฟุตได้ และมีอาการปวดกรามเรื้อรังจนเคี้ยวอาหารลำบาก</li><li><strong>การรอดชีวิตด้วยการวินิจฉัยที่ถูกต้อง:</strong> การได้รับการรักษาด้วย IVIG (สารภูมิคุ้มกัน) และยาสเตียรอยด์ช่วยให้สมองที่อักเสบฟื้นตัวและปัจจุบันอาการดีขึ้นจนใกล้เคียงปกติแล้ว</li></ul>
-                            </div>
-                        </section>
-                        <section class="content-section">
-                            <h3 class="section-header section-header-discussion">💬 สรุปประเด็นเสวนาในกระทู้</h3>
-                            <div class="section-body">
-                                <p>ความคิดเห็นในกระทู้นอกจากจะส่งกำลังใจยังเล่าถึงเกร็ดตำนานของแอนดรูว์:</p><ul><li><strong>ความเคารพจากชุมชน Rust:</strong> นักพัฒนาต่างยกย่องและขอบคุณแอนดรูว์สำหรับซอฟต์แวร์คุณภาพดีที่ช่วยอำนวยความสะดวกให้งานระบบโอเพนซอร์สมาตลอดสิบปี</li><li><strong>ที่มาของฉายา burntsushi:</strong> แฟนคลับแชร์ความตลกขบขันที่แอนดรูว์เคยเกลียดซูชิมาก แต่หลังการรักษาอาการสมองอักเสบกลับกลายเป็นคนไม่เลือกกินและอยากลองซูชิอีกครั้ง รวมถึงที่มาของชื่อเล่นว่าได้มาจากโต๊ะร้านฮอทด็อกใน Worcester</li><li><strong>ตระหนักรู้ในความเปราะบาง:</strong> หลายคอมเมนต์เตือนสติว่าสมองมนุษย์และสติสัมปชัญญะมีความละเอียดอ่อนสูงมาก สารเคมีเพียงเล็กน้อยที่แปรปรวนสามารถเปลี่ยนพฤติกรรมและการรับรู้ของบุคคลไปตลอดกาล</li></ul>
-                            </div>
-                        </section>
-                        <div class="links-row">
-                            <a href="https://burntsushi.net/encephalitis/" target="_blank" class="action-btn btn-primary">อ่านบทความต้นฉบับ</a>
-                            <a href="https://news.ycombinator.com/item?id=48384355" target="_blank" class="action-btn btn-secondary">กระทู้บน Hacker News</a>
-                        </div>
-                    </div>
-                </details>
-            </article>
-            
-            <!-- STORY 6 -->
-            <article class="news-item">
-                <details>
-                    <summary>
-                        <div class="summary-header">
-                            <div class="summary-title-section">
-                                <h2 class="story-title">"They're made out of weights"</h2>
-                                <p class="teaser">บทสนทนาล้อเลียนยอดนิยม 'They're made out of weights' เสียดสีความแปลกประหลาดของโมเดล AI ที่แสดงสติปัญญาออกมาได้โดยไร้กฎเกณฑ์ มีเพียงคณิตศาสตร์เมทริกซ์และค่าน้ำหนัก</p>
-                                <div class="meta-row">
-                                    <span class="badge badge-points">🔥 504 คะแนน</span>
-                                    <span class="badge badge-comments">💬 166 ความคิดเห็น</span>
-                                    <span class="badge badge-domain">maxleiter.com</span>
-                                </div>
-                            </div>
-                            <div class="toggle-icon">▼</div>
-                        </div>
-                    </summary>
-                    <div class="details-content">
-                        <section class="content-section">
-                            <h3 class="section-header section-header-article">📄 สรุปเนื้อหาบทความ</h3>
-                            <div class="section-body">
-                                <p>บทความสั้นชิ้นนี้เขียนล้อเลียนเรื่องสั้นไซไฟคลาสสิก 'They're Made Out of Meat' (พวกมันทำมาจากเนื้อ) ของ Terry Bisson โดยดัดแปลงเป็นการสนทนาของสิ่งมีชีวิตชั้นสูงสองตนที่กำลังวิเคราะห์โมเดล AI ของมนุษย์ด้วยความอัศจรรย์ใจและตกตะลึง ประเด็นหลักมีดังนี้ครับ:</p><ul><li><strong>ทศนิยมล้วนๆ ไม่มีสิ่งอื่นเจือปน:</strong> ผู้สังเกตการณ์ตกใจที่พบว่าแชตบอตที่สามารถแต่งบทกลอน เขียนคำไว้อาลัย หรือเขียนรีวิวการทำงานได้อย่างแนบเนียนนั้น ภายในกลับไม่มีดิกชันนารี ไม่มีวิชาไวยากรณ์ หรือโค้ดตรรกะใดๆ อยู่เลย มีเพียงค่าน้ำหนัก (Weights) ทศนิยม 80 ชั้นที่คูณไขว้กันไปมา</li><li><strong>การพยากรณ์คือแก่นแท้:</strong> ระบบไม่ได้คิดวิเคราะห์หรือเข้าใจความหมายอย่างลึกซึ้งตามความหมายของมนุษย์ แต่มันแค่พยากรณ์โทเค็นถัดไปเรื่อยๆ จนเกิดข้อความออกมาเป็นผลข้างเคียง (Side effect)</li><li><strong>ความเปราะบางและขีดจำกัด:</strong> เมื่อสนทนาไปเรื่อยๆ ค่าน้ำหนักเหล่านี้จะเริ่มเหนื่อยApologies น้อยลง และในที่สุดก็จะตอบปัดให้ผู้ใช้ไปทำงานต่อเอาเองตามนิสัยของบอตทั่วไป</li></ul>
-                            </div>
-                        </section>
-                        <section class="content-section">
-                            <h3 class="section-header section-header-discussion">💬 สรุปประเด็นเสวนาในกระทู้</h3>
-                            <div class="section-body">
-                                <p>ประเด็นวิเคราะห์เชิงลึกจากชุมชน HN เกี่ยวกับสถาปัตยกรรม LLM และมุมมองทางปรัชญา:</p><ul><li><strong>1. การล้อเลียนที่ตรงจุดและมีเสน่ห์:</strong> สมาชิกหลายคนชื่นชอบบทสนทนานี้และยกย่องว่าเป็นการสรุปกลไกการทำงานของ Deep Learning ได้อย่างเฉียบคมและน่ารัก เป็นมุมมองที่ทำให้เห็นภาพว่าความซับซ้อนของภาษามนุษย์สามารถถูกมองเป็นเพียงตัวเลขชุดใหญ่ได้อย่างไร</li><li><strong>2. ประเด็นคัดค้านเชิงทฤษฎี (Tokenizer & Grammar):</strong> นักพัฒนาบางส่วนแย้งว่าบทความนี้ 'ผิดพลาดบางส่วน' เนื่องจาก LLM ยังคงต้องการพึ่งพา Dictionary โครงสร้างหลักที่เรียกว่า Tokenizer เพื่อแปลตัวอักษรเป็นตัวเลข และการวิจัยระบบคิดของโมเดลก็แสดงให้เห็นว่าค่าน้ำหนักสามารถแปลงรูปย้อนกลับมาเป็นโครงสร้างไวยากรณ์ที่ชัดเจนได้เมื่อผ่านการฝึกฝน</li><li><strong>3. ความคิดสร้างสรรค์ในแง่ของระบบประมวลผล (Turing Completeness):</strong> เกิดการสนทนาทางปรัชญาที่นำไปเปรียบเทียบกับสมองมนุษย์ที่สร้างขึ้นมาจากเซลล์ประสาทชีวภาพที่ไม่มีสติปัญญาในตัวเองเช่นกัน สรุปคือตัวแปลงข้อมูล (Substrate) จะเป็นเนื้อเปียกๆ หรือตัวเลขทศนิยมก็ไม่มีผลตราบใดที่ระบบสามารถคำนวณแบบสมบูรณ์ (Turing Complete) ได้</li></ul>
-                            </div>
-                        </section>
-                        <div class="links-row">
-                            <a href="https://maxleiter.com/blog/weights" target="_blank" class="action-btn btn-primary">อ่านบทความต้นฉบับ</a>
-                            <a href="https://news.ycombinator.com/item?id=48391611" target="_blank" class="action-btn btn-secondary">กระทู้บน Hacker News</a>
-                        </div>
-                    </div>
-                </details>
-            </article>
-            
-            <!-- STORY 7 -->
-            <article class="news-item">
-                <details>
-                    <summary>
-                        <div class="summary-header">
-                            <div class="summary-title-section">
-                                <h2 class="story-title">Uber's $1,500/month AI limit is a useful signal for AI tool pricing</h2>
-                                <p class="teaser">Uber เผยมาตรการจำกัดค่าใช้จ่ายสำหรับเครื่องมือช่วยเขียนโค้ด AI เช่น Claude Code หรือ Cursor ที่ 1,500 ดอลลาร์ต่อคนต่อเดือน หลังเป่างบปี 2026 ปลิวหายใน 4 เดือนแรก</p>
-                                <div class="meta-row">
-                                    <span class="badge badge-points">🔥 459 คะแนน</span>
-                                    <span class="badge badge-comments">💬 572 ความคิดเห็น</span>
-                                    <span class="badge badge-domain">simonwillison.net</span>
-                                </div>
-                            </div>
-                            <div class="toggle-icon">▼</div>
-                        </div>
-                    </summary>
-                    <div class="details-content">
-                        <section class="content-section">
-                            <h3 class="section-header section-header-article">📄 สรุปเนื้อหาบทความ</h3>
-                            <div class="section-body">
-                                <p>บริษัท Uber ประกาศจำกัดงบประมาณการใช้งานเครื่องมือเขียนโค้ดด้วยปัญญาประดิษฐ์ (Agentic Coding Software) เช่น Cursor และ Claude Code ของ Anthropic ไว้ที่ $1,500 (ประมาณ 52,000 บาท) ต่อเดือนต่อพนักงานหนึ่งคน โดยมีจุดประสงค์เพื่อลดการใช้งานอย่างฟุ่มเฟือย รายละเอียดที่น่าสนใจมีดังนี้ครับ:</p><ul><li><strong>วิกฤตงบประมาณปลิว:</strong> การตั้งลิมิตนี้เกิดขึ้นหลังจากที่ Uber ใช้เงินงบประมาณ AI ของปี 2026 หมดเกลี้ยงภายในระยะเวลาเพียงแค่ 4 เดือนแรก เนื่องจากความนิยมของการใช้งานเอเจนต์เขียนโค้ดที่เผาผลาญ Token พุ่งสูงขึ้นอย่างที่ฝ่ายบริหารคาดไม่ถึงในการวางแผนปี 2025</li><li><strong>การคิดแบบเป็นสัดส่วน:</strong> ข้อมูลระบุว่าหากวิศวกรหนึ่งคนใช้งาน 2 เครื่องมือเต็มลิมิต จะคิดเป็นค่าใช้จ่าย $3,000 ต่อเดือน หรือ $36,000 ต่อปี ซึ่งเทียบเท่ากับประมาณ 11% ของอัตราผลตอบแทนเฉลี่ยต่อปีของวิศวกรซอฟต์แวร์ Uber ในสหรัฐฯ ($330,000)</li><li><strong>แนวโน้มราคาตลาด:</strong> นักวิเคราะห์ชี้ว่าราคานี้ยังคงเป็นราคาที่ผู้ให้บริการ (เช่น Anthropic และ OpenAI) ช่วยสนับสนุนทางการเงินในระดับหนึ่ง (Subsidized) สำหรับผู้ใช้รายย่อย แต่ระดับองค์กรขนาดใหญ่ไม่มีแพ็คเกจช่วยเหลือนี้อีกต่อไป</li></ul>
-                            </div>
-                        </section>
-                        <section class="content-section">
-                            <h3 class="section-header section-header-discussion">💬 สรุปประเด็นเสวนาในกระทู้</h3>
-                            <div class="section-body">
-                                <p>ประเด็นดราม่าและมุมมองจากชาว Hacker News ต่อราคาและทิศทางของเครื่องมือช่วยเขียนโค้ด AI:</p><ul><li><strong>1. ข้อกังขาเรื่องราคาอุ้มตลาด (Subsidized Pricing):</strong> นักพัฒนาหลายรายแสดงความกังวลว่า ราคาการใช้งาน API ในปัจจุบันเป็นราคาที่สตาร์ทอัป AI กดยอมขาดทุนเพื่อดึงดูดลูกค้าและนักลงทุน (Introductory Pricing) หากนักลงทุนเริ่มหมดความอดทนและราคาขยับขึ้นไปตามกลไกฟื้นฟูต้นทุนที่แท้จริง องค์กรต่างๆ อาจต้องแบกรับราคาโทเค็นที่พุ่งสูงขึ้นกว่าเดิมหลายเท่าตัว และอาจเกิดการคัดกรองหรือแบนการใช้งานในที่สุด</li><li><strong>2. ความคุ้มค่ากับประสิทธิภาพของนักพัฒนา:</strong> สมาชิกบางส่วนแย้งว่า เงิน $1,500 ต่อเดือน ถือว่าสูงมากเมื่อเทียบกับการจ้างนักพัฒนาระดับจูเนียร์เพิ่ม และเริ่มมีการตั้งคำถามว่า AI เอเจนต์ทำงานได้คุ้มค่าตัวจริงหรือไม่ ขณะที่บางฝ่ายมองว่าหากเครื่องมือนี้ทำให้ระดับซีเนียร์ทำงานเสร็จเร็วขึ้น 20-30% เงินระดับนี้ก็ถือว่าคุ้มค่าเป็นอย่างยิ่งเมื่อเทียบกับเงินเดือนวิศวกรระดับสูง</li><li><strong>3. พฤติกรรมการเผาโทเค็น (Tokenmaxxing):</strong> มีการบ่นถึงวัฒนธรรมการเขียนโค้ดแบบใหม่ที่นักพัฒนามักปล่อยให้ AI รันลูปแก้บั๊กเองซ้ำๆ หลายสิบรอบ หรือป้อนโค้ดก้อนใหญ่เข้าไปวิเคราะห์เล่นๆ ซึ่งเป็นการผลาญทรัพยากรโดยไร้ทิศทาง การตั้งลิมิตแบบนี้จะช่วยบังคับให้พนักงานตระหนักรู้และปรับปรุงการ Prompt ให้มีประสิทธิภาพมากขึ้น</li></ul>
-                            </div>
-                        </section>
-                        <div class="links-row">
-                            <a href="https://simonwillison.net/2026/Jun/3/uber-caps-usage/" target="_blank" class="action-btn btn-primary">อ่านบทความต้นฉบับ</a>
-                            <a href="https://news.ycombinator.com/item?id=48383056" target="_blank" class="action-btn btn-secondary">กระทู้บน Hacker News</a>
-                        </div>
-                    </div>
-                </details>
-            </article>
-            
-            <!-- STORY 8 -->
-            <article class="news-item">
-                <details>
-                    <summary>
-                        <div class="summary-header">
-                            <div class="summary-title-section">
-                                <h2 class="story-title">DaVinci Resolve 21</h2>
-                                <p class="teaser">DaVinci Resolve 21 เปิดตัวพร้อมฟีเจอร์ AI ชุดใหม่สำหรับงานวิดีโอและระบบแต่งรูป Photo page แต่เกิดประเด็นดราม่าเรื่องการตลาดที่ใช้คำว่า AI พร่ำเพรื่อเกินไป</p>
-                                <div class="meta-row">
-                                    <span class="badge badge-points">🔥 443 คะแนน</span>
-                                    <span class="badge badge-comments">💬 200 ความคิดเห็น</span>
-                                    <span class="badge badge-domain">blackmagicdesign.com</span>
-                                </div>
-                            </div>
-                            <div class="toggle-icon">▼</div>
-                        </div>
-                    </summary>
-                    <div class="details-content">
-                        <section class="content-section">
-                            <h3 class="section-header section-header-article">📄 สรุปเนื้อหาบทความ</h3>
-                            <div class="section-body">
-                                <p>Blackmagic Design เปิดตัวโปรแกรมตัดต่อและปรับแต่งสีระดับโลก DaVinci Resolve 21 โดยเพิ่มเครื่องมือและระบบปัญญาประดิษฐ์เชิงลึกมากมายเพื่อขยายขีดความสามารถการสร้างสรรค์ภาพยนตร์และรูปภาพนิ่ง จุดเด่นของเวอร์ชันนี้มีดังนี้ครับ:</p><ul><li><strong>ระบบแต่งภาพ Photo page:</strong> ยกระดับเครื่องมือแต่งระดับฮอลลีวูดมาสู่ไฟล์ภาพนิ่งโดยเฉพาะ</li><li><strong>AI IntelliSearch:</strong> ช่วยวิเคราะห์ค้นหาวัตถุ คีย์เวิร์ดในเสียงพูด หรือแม้กระทั่งการตามหาใบหน้าบุคคลเฉพาะเจาะจงในคลังมีเดียได้อย่างรวดเร็ว</li><li><strong>ตัวแปลงอายุและปรับรูปหน้า (AI Face Age / Face Reshaper):</strong> วิเคราะห์โครงหน้าเพื่อแต่งลดริ้วรอยปรับอายุ หรือปรับรูปทรงโครงสร้างใบหน้าของตัวละครขณะกำลังเคลื่อนไหวได้อย่างแนบเนียน</li><li><strong>ฟีเจอร์เสียงและคำบรรยาย:</strong> สร้างเสียงพูดจำลองจากข้อความโดยอิงจากคลิปเสียงตัวอย่างเพียง 10 วินาที</li></ul>
-                            </div>
-                        </section>
-                        <section class="content-section">
-                            <h3 class="section-header section-header-discussion">💬 สรุปประเด็นเสวนาในกระทู้</h3>
-                            <div class="section-body">
-                                <p>เสียงสะท้อนจากชาว HN ที่เบื่อหน่ายการตลาดแบบสาดคำว่า AI และการถกเถียงเรื่องรสนิยมคนทำงานสร้างสรรค์:</p><ul><li><strong>1. ดราม่าความน่ารำคาญของการแปะป้าย "AI":</strong> ความคิดเห็นส่วนใหญ่มองตรงกันว่า แป้นหน้าโฆษณาของ DaVinci Resolve 21 มีการยัดเยียดคำว่า "AI" เข้าไปในทุกชื่อฟีเจอร์ (เช่น AI CineFocus, AI Slate ID, AI UltraSharpen) ซึ่งทำให้ดูน่ารำคาญและเป็นการเอาใจนักลงทุนร่วมทุน (VCs) มากกว่าคำนึงถึงความรู้สึกของผู้ใช้จริงที่รู้สึกว่าคำว่า AI เริ่มกลายเป็นคำลวงในการโฆษณา</li><li><strong>2. ความกังวลของชุมชนคนทำงานศิลปะ (Creators):</strong> ในขณะที่ผู้ผลิตมองว่าคนสร้างสรรค์ผลงานชอบความสะดวกสบายของ AI แต่ในกระทู้ชี้ให้เห็นว่าทัศนคติของครีเอเตอร์อิสระส่วนใหญ่นั้นติดลบมาก เนื่องจากความรู้สึกโดนคุกคามจากการนำผลงานศิลปะไปใช้เทรน AI โดยไม่ได้รับอนุญาตและลดคุณค่าของงานฝีมือที่พวกเขาฝึกฝนมาอย่างยาวนาน</li><li><strong>3. ด้านบวกของการรันแบบ Local:</strong> แม้จะบ่นเรื่องชื่อ แต่อุตสาหกรรมชื่นชมแนวทางของ Blackmagic ที่ออกแบบให้โมเดล AI เหล่านี้ทำงานบนเครื่องผู้ใช้โดยตรง (Local Processing) ไม่ต้องอัปโหลดข้อมูลส่วนตัวขึ้นคลาวด์และไม่เสียค่าบริการรายเดือนเพิ่ม</li></ul>
-                            </div>
-                        </section>
-                        <div class="links-row">
-                            <a href="https://www.blackmagicdesign.com/products/davinciresolve/whatsnew" target="_blank" class="action-btn btn-primary">อ่านบทความต้นฉบับ</a>
-                            <a href="https://news.ycombinator.com/item?id=48384482" target="_blank" class="action-btn btn-secondary">กระทู้บน Hacker News</a>
-                        </div>
-                    </div>
-                </details>
-            </article>
-            
-            <!-- STORY 9 -->
-            <article class="news-item">
-                <details>
-                    <summary>
-                        <div class="summary-header">
-                            <div class="summary-title-section">
-                                <h2 class="story-title">U.S. to dismantle system tracking Atlantic currents that are at risk of collapse</h2>
-                                <p class="teaser">สหรัฐฯ เตรียมรื้อถอนระบบทุ่นตรวจวัดข้อมูลกระแสน้ำมหาสมุทรแอตแลนติก (AMOC) ท่ามกลางเสียงเตือนภัยเรื่องการพังทลายของสภาพภูมิอากาศโลก</p>
-                                <div class="meta-row">
-                                    <span class="badge badge-points">🔥 431 คะแนน</span>
-                                    <span class="badge badge-comments">💬 285 ความคิดเห็น</span>
-                                    <span class="badge badge-domain">e360.yale.edu</span>
-                                </div>
-                            </div>
-                            <div class="toggle-icon">▼</div>
-                        </div>
-                    </summary>
-                    <div class="details-content">
-                        <section class="content-section">
-                            <h3 class="section-header section-header-article">📄 สรุปเนื้อหาบทความ</h3>
-                            <div class="section-body">
-                                <p>รัฐบาลของประธานาธิบดีทรัมป์เตรียมยกเลิกและรื้อถอนอุปกรณ์โครงการสังเกตการณ์มหาสมุทร (Ocean Observatories Initiative หรือ OOI) ซึ่งประกอบด้วยเครื่องตรวจวัดกว่า 900 รายการในมหาสมุทรแปซิฟิกและแอตแลนติก สร้างความกังวลอย่างหนักต่อวงการวิทยาศาสตร์โลก รายละเอียดสำคัญมีดังนี้ครับ:</p><ul><li><strong>การยกเลิกก่อนกำหนด:</strong> ระบบทุ่นนี้เริ่มใช้งานในปี 2016 และตั้งเป้าทำงานอย่างน้อย 25 ปีเพื่อเก็บข้อมูลระยะยาว แต่กลับถูกสั่งรื้อถอนหลังจากใช้งานไปได้เพียง 10 ปี</li><li><strong>ความเสี่ยงของกระแสน้ำ AMOC:</strong> อุปกรณ์เหล่านี้ส่งข้อมูลเพื่อประเมินความเร็วและทิศทางของกระแสน้ำอุ่นแอตแลนติก (AMOC) ซึ่งควบคุมภูมิอากาศทวีปยุโรปและโลก นักวิทยาศาสตร์กังวลว่ากระแสน้ำนี้กำลังเข้าใกล้จุดเปลี่ยนผ่านทางลบ (Tipping Point) ที่อาจหยุดไหลและทำให้เกิดภัยแล้งหรือความเย็นยะเยือกฉับพลัน</li><li><strong>ความขัดแย้งทางการเมือง:</strong> ฝั่งพรรคเดโมแครตในสภาคองเกรสประกาศจะต่อสู้กับนโยบายนี้ โดยโจมตีว่านี่คือความพยายามของกลุ่มทุนฟอสซิลที่ต้องการ 'ปิดตาผู้ตรวจสอบ' ไม่ให้มองเห็นวิกฤตธรรมชาติที่กำลังเกิดขึ้น</li></ul>
-                            </div>
-                        </section>
-                        <section class="content-section">
-                            <h3 class="section-header section-header-discussion">💬 สรุปประเด็นเสวนาในกระทู้</h3>
-                            <div class="section-body">
-                                <p>ความเดือดดาลของคอมมูนิตี้ HN ต่อการตัดสินใจทำลายระบบวิจัยทางวิทยาศาสตร์:</p><ul><li><strong>1. การเปรียบเทียบในชีวิตประจำวัน (ความไม่สมเหตุสมผล):</strong> ชุมชนนักพัฒนาวิจารณ์ประเด็นนี้อย่างรุนแรง โดยเปรียบเทียบว่าการรื้อถอนเครื่องตรวจสภาพแวดล้อมเพื่อเลี่ยงปัญหาโลกร้อน เปรียบเสมือนการปิดตาขับรถเพราะคิดว่าการมองทางไม่ได้ช่วยให้รถคันอื่นหลบทางให้ หรือการไม่ตรวจหาโรคติดต่อทางเพศสัมพันธ์เพราะไม่อยากยอมรับว่าตัวเองติดโรค</li><li><strong>2. ความกังวลเรื่องผลกระทบระยะยาว:</strong> สมาชิกหลายคนให้ข้อมูลเสริมว่า แม้แบบจำลองสภาพอากาศส่วนใหญ่จะระบุว่า AMOC จะยังไม่พังทลายลงในศตวรรษนี้อย่างสมบูรณ์แบบ แต่การชะลอตัวลงเพียงเล็กน้อยก็สามารถสร้างความปั่นป่วนต่อฤดูกาลเกษตรกรรมในยุโรปและส่งผลกระทบต่อแหล่งอาหารคนนับพันล้านคน</li><li><strong>3. การเมืองและทัศนคติของสังคม:</strong> เกิดการถกเถียงอย่างเคร่งเครียดเกี่ยวกับวิกฤตความไว้เนื้อเชื่อใจระหว่างสถาบันวิทยาศาสตร์และประชาชนทั่วไป นักเขียนบางคนชี้ว่าการยกเลิกงานวิจัยไม่ได้เกิดจากความโง่เขลาของรัฐบาล แต่เป็นกลยุทธ์ตั้งใจทำลายหลักฐานเพื่อปกป้องอุตสาหกรรมพลังงานแบบเก่า</li></ul>
-                            </div>
-                        </section>
-                        <div class="links-row">
-                            <a href="https://e360.yale.edu/digest/trump-ooi-amoc" target="_blank" class="action-btn btn-primary">อ่านบทความต้นฉบับ</a>
-                            <a href="https://news.ycombinator.com/item?id=48392232" target="_blank" class="action-btn btn-secondary">กระทู้บน Hacker News</a>
-                        </div>
-                    </div>
-                </details>
-            </article>
-            
-            <!-- STORY 10 -->
-            <article class="news-item">
-                <details>
-                    <summary>
-                        <div class="summary-header">
-                            <div class="summary-title-section">
-                                <h2 class="story-title">32GB of DDR5 now costs $375 – AI shortage continues to squeeze PC building</h2>
-                                <p class="teaser">ราคาแรม DDR5 ความจุ 32GB ในปี 2026 ทะลุเกณฑ์ 375 ดอลลาร์ ผลจากการที่กระแส AI แห่แย่งกำลังการผลิตชิปความจำของโลก</p>
-                                <div class="meta-row">
-                                    <span class="badge badge-points">🔥 392 คะแนน</span>
-                                    <span class="badge badge-comments">💬 357 ความคิดเห็น</span>
-                                    <span class="badge badge-domain">tomshardware.com</span>
-                                </div>
-                            </div>
-                            <div class="toggle-icon">▼</div>
-                        </div>
-                    </summary>
-                    <div class="details-content">
-                        <section class="content-section">
-                            <h3 class="section-header section-header-article">📄 สรุปเนื้อหาบทความ</h3>
-                            <div class="section-body">
-                                <p>วิกฤตการณ์ขาดแคลนชิปจากการเติบโตอย่างรวดเร็วของอุตสาหกรรมปัญญาประดิษฐ์ (AI) ส่งผลกระทบอย่างหนักหน่วงต่อตลาดชิ้นส่วนคอมพิวเตอร์ทั่วไป โดยเฉพาะหน่วยความจำแรม DDR5 ขนาด 32GB ที่มีราคาพุ่งขึ้นไปถึงขั้นต่ำที่ $375 (ประมาณ 13,000 บาท) รายละเอียดสถานการณ์มีดังนี้ครับ:</p><ul><li><strong>ราคาขึ้น 4 เท่าตัว:</strong> แรม DDR5 สเปกทั่วไปที่เคยหาซื้อได้ในราคาไม่ถึง 100 ดอลลาร์เมื่อปีที่แล้ว ปัจจุบันมีราคาเพิ่มสูงขึ้นอย่างรวดเร็ว สำหรับแรมแบรนด์ยอดนิยมระดับพรีเมียมราคาจะขยับขึ้นไปแตะระดับ $400-$679 สำหรับความจุสูง</li><li><strong>กำลังการผลิตถูกโยกย้าย:</strong> ผู้ผลิตชิปหลักอย่าง SK hynix และ Samsung ได้โยกทรัพยากรการผลิตไปมุ่งเน้นชิปความจำความเร็วสูงมาก (HBM) เพื่อป้อนให้กับชิปประมวลผล AI ของ Nvidia และได้แจ้งเตือนว่าข้อจำกัดการผลิตของแรมฝั่งคอนซูเมอร์จะลากยาวไปจนถึงปี 2030</li><li><strong>ทางรอดของนักประกอบคอม:</strong> ทางเลือกเดียวที่ผู้ใช้จะได้ราคาดีคือการจับคู่แพ็คเกจโปรโมชัน (Bundle deals) ร่วมกับเมนบอร์ดและซีพียูเพื่อขอลดหย่อนราคาลงบ้าง</li></ul>
-                            </div>
-                        </section>
-                        <section class="content-section">
-                            <h3 class="section-header section-header-discussion">💬 สรุปประเด็นเสวนาในกระทู้</h3>
-                            <div class="section-body">
-                                <p>การบ่นระงมของเหล่านักประกอบคอมพิวเตอร์และเสียงวิจารณ์คำพูดของผู้นำ AI:</p><ul><li><strong>1. ทางเลือกและกลยุทธ์แก้ขัด:</strong> ชุมชน HN หลายคนเริ่มแนะนำให้ผู้ใช้ที่ไม่มีความจำเป็นเร่งด่วนชะลอการอัปเกรดไปใช้แรม DDR4 รุ่นเก่าไปก่อน หรือยอมใช้ความจุ 16GB แทนที่จะจ่ายเงินแพงลิ่ว และแสดงความเจ็บปวดที่การรอคอยประกอบคอมใหม่ต้องถูกทำลายลงเพราะวิกฤตราคาครั้งนี้</li><li><strong>2. ล้อเลียนผู้นำ AI (Sam Altman):</strong> สมาชิกแสดงความเหน็บแนมคำกล่าวของผู้นำวงการ AI อย่าง Sam Altman ที่เคยกล่าวทำนองว่า 'ค่าใช้จ่ายของ AI นั้นน้อยนิดและคุ้มค่าเมื่อเทียบกับประโยชน์' โดยชี้ให้เห็นว่าประโยชน์เหล่านั้นตกอยู่กับบริษัทใหญ่ แต่ผลกระทบด้านลบและราคาฮาร์ดแวร์ที่แพงขึ้นกลับตกเป็นภาระของนักพัฒนาทั่วไปและผู้เล่นเกม</li><li><strong>3. ราคาความสุขในอดีต:</strong> เกิดความเสียดายอย่างกว้างขวางในหมู่คนที่เคยวางแผนประกอบคอมพิวเตอร์แต่เลื่อนการตัดสินใจออกไปเพียงไม่กี่เดือน จนกลายเป็นว่าสู้ราคาไม่ไหวและเสียโอกาสในการเข้าถึงเครื่องประสิทธิภาพสูงในราคาที่เหมาะสม</li></ul>
-                            </div>
-                        </section>
-                        <div class="links-row">
-                            <a href="https://www.tomshardware.com/pc-components/ddr5/32gb-of-ddr5-now-costs-usd375-minimum-ai-shortage-continues-to-squeeze-pc-building" target="_blank" class="action-btn btn-primary">อ่านบทความต้นฉบับ</a>
-                            <a href="https://news.ycombinator.com/item?id=48383241" target="_blank" class="action-btn btn-secondary">กระทู้บน Hacker News</a>
-                        </div>
-                    </div>
-                </details>
-            </article>
-            
-            <!-- STORY 11 -->
-            <article class="news-item">
-                <details>
-                    <summary>
-                        <div class="summary-header">
-                            <div class="summary-title-section">
-                                <h2 class="story-title">Artificial intelligence is not conscious – Ted Chiang</h2>
-                                <p class="teaser">Ted Chiang นักเขียนไซไฟชื่อดังชี้ชัดใน The Atlantic ยืนยันว่า AI ไม่มีจิตสำนึก และโจมตีการตลาดแบบพยายามเปรียบเทียบบกพร่องของบริษัทยักษ์ใหญ่</p>
-                                <div class="meta-row">
-                                    <span class="badge badge-points">🔥 378 คะแนน</span>
-                                    <span class="badge badge-comments">💬 665 ความคิดเห็น</span>
-                                    <span class="badge badge-domain">theatlantic.com</span>
-                                </div>
-                            </div>
-                            <div class="toggle-icon">▼</div>
-                        </div>
-                    </summary>
-                    <div class="details-content">
-                        <section class="content-section">
-                            <h3 class="section-header section-header-article">📄 สรุปเนื้อหาบทความ</h3>
-                            <div class="section-body">
-                                <p>Ted Chiang นักเขียนนวนิยายไซไฟผู้มีชื่อเสียง ได้เขียนวิเคราะห์ในนิตยสาร The Atlantic เพื่อชี้แจงและหักล้างความคิดเห็นที่เข้าใจผิดเกี่ยวกับจิตสำนึกของโมเดลปัญญาประดิษฐ์ (Generative AI) โดยมีประเด็นสำคัญดังนี้ครับ:</p><ul><li><strong>การวิจารณ์ Anthropomorphism:</strong> ผู้เขียนชี้ว่าบริษัท AI อย่าง Anthropic พยายามสร้างภาพลักษณ์และความเข้าใจเสมือนว่าแชตบอตมีตัวตนและความรู้สึก (เช่น การเขียนในเอกสารรัฐธรรมนูญของ Claude ว่าอยากให้มีอารมณ์ความรู้สึก หรือห่วงว่าบอตจะเครียดเมื่อโดนคนด่า) ซึ่งเป็นการเปรียบเทียบที่บิดเบือนความเป็นจริง</li><li><strong>การทดลองทางความคิดเชิงเปรียบเทียบ:</strong> Ted Chiang ยกตัวอย่างว่า หากเราป้อนข้อความจำลองบทสนทนาระหว่าง 'จูเลียส ซีซาร์' และ 'เจงกิส ข่าน' เราทุกคนย่อมรู้ว่า AI ไม่ได้คืนชีพคนเหล่านี้ขึ้นมาจริงๆ แต่กำลังสร้างบทละครสมมติขึ้นมา การป้อนบทบาท 'แชตบอตผู้ช่วยเหลือและผู้ใช้' ก็ไม่ต่างกัน บอตยังคงเล่นเป็นตัวละครนั้นโดยไม่ได้มีจิตสำนึกตัวตนที่แท้จริง</li><li><strong>ความเสี่ยงจากการปล่อยปละละเลย:</strong> การทำเสมือนว่า AI มีคุณธรรมหรือจิตสำนึกในการตัดสินใจ เป็นเรื่องอันตรายเชิงโครงสร้าง เพราะจะทำให้ความรับผิดชอบทางกฎหมายและจริยธรรมหลุดลอยไปจากตัวผู้ใช้งานและผู้พัฒนาโปรแกรมที่เป็นมนุษย์จริงๆ</li></ul>
-                            </div>
-                        </section>
-                        <section class="content-section">
-                            <h3 class="section-header section-header-discussion">💬 สรุปประเด็นเสวนาในกระทู้</h3>
-                            <div class="section-body">
-                                <p>การถกเถียงเรื่องคำจำกัดความของจิตสำนึก และความเห็นพ้อง/ขัดแย้งในหมู่ชาว HN:</p><ul><li><strong>1. ข้อจำกัดของการพูดว่า "แน่นอน":</strong> นักพัฒนาและนักคิดบางส่วนแสดงความคลางแคลงใจต่อถ้อยคำของ Ted Chiang ที่ระบุว่า "ไม่มีทางแน่นอน" โดยให้ความเห็นว่าตราบใดที่มนุษย์ยังไม่สามารถสร้างคำจำกัดความที่แท้จริงของจิตสำนึก (Consciousness) ได้อย่างรัดกุม การฟันธงว่า AI ไม่มีทางมีจิตสำนึกก็เป็นการทึกทักเอาเองพอๆ กับฝ่ายที่เชื่อว่าบอตมีจิตสำนึก</li><li><strong>2. ภาษาและตัวตนในแบบมนุษย์:</strong> สมาชิกบางคนชี้ประเด็นว่า จิตสำนึกของมนุษย์มีความผูกพันอย่างแนบแน่นกับร่างกาย ความรู้สึกทางกายภาพ และสัญชาตญาณเอาชีวิตรอด (Embodiment and feelings) ไม่ใช่ความสามารถทางภาษาหรือความรู้เชิงนามธรรม ดังนั้น แชตบอตที่รับรู้ข้อมูลเพียงสัญลักษณ์อักษรย่อมไม่มีทางเกิดสำนึกรู้ได้ เว้นแต่จะถูกใส่ในหุ่นยนต์ที่สัมผัสโลกจริง</li><li><strong>3. ทฤษฎี Solipsism และความเชื่อทางสังคม:</strong> มีการสัพยอกว่า ในความเป็นจริงเราไม่มีหลักฐานทางวิทยาศาสตร์ที่ยืนยันได้เลยว่าคนอื่นรอบตัวเรามีสำนึกรู้จริงนอกเหนือจากตัวเราเอง การเห็นนกหรือสัตว์แสดงอารมณ์แล้วทึกทักว่ามันมีจิตสำนึก ก็เป็นพฤติกรรมสะท้อนความเป็นมนุษย์แบบเดียวกับการมองแชตบอตนั่นเอง</li></ul>
-                            </div>
-                        </section>
-                        <div class="links-row">
-                            <a href="https://www.theatlantic.com/philosophy/2026/06/no-artificial-intelligence-is-not-conscious/687378/" target="_blank" class="action-btn btn-primary">อ่านบทความต้นฉบับ</a>
-                            <a href="https://news.ycombinator.com/item?id=48387270" target="_blank" class="action-btn btn-secondary">กระทู้บน Hacker News</a>
-                        </div>
-                    </div>
-                </details>
-            </article>
-            
-            <!-- STORY 12 -->
-            <article class="news-item">
-                <details>
-                    <summary>
-                        <div class="summary-header">
-                            <div class="summary-title-section">
-                                <h2 class="story-title">MacBook Neo is so popular that Apple doubled production</h2>
-                                <p class="teaser">ความนิยมถล่มทลายส่งผลให้ Apple สั่งเพิ่มยอดการผลิต MacBook Neo ขึ้นเป็น 2 เท่า แตะระดับ 10 ล้านเครื่อง ชิงส่วนแบ่งตลาดระดับประหยัดราคา 599 ดอลลาร์</p>
-                                <div class="meta-row">
-                                    <span class="badge badge-points">🔥 362 คะแนน</span>
-                                    <span class="badge badge-comments">💬 397 ความคิดเห็น</span>
-                                    <span class="badge badge-domain">macrumors.com</span>
-                                </div>
-                            </div>
-                            <div class="toggle-icon">▼</div>
-                        </div>
-                    </summary>
-                    <div class="details-content">
-                        <section class="content-section">
-                            <h3 class="section-header section-header-article">📄 สรุปเนื้อหาบทความ</h3>
-                            <div class="section-body">
-                                <p>Apple เผยความต้องการของลูกค้าต่อ MacBook Neo รุ่นประหยัดพุ่งทะยานอย่างรุนแรง ส่งผลให้บริษัทปรับยอดใบสั่งผลิตขึ้นเป็นสองเท่าเพื่อรับความต้องการของตลาด รายละเอียดของสถานการณ์มีดังนี้ครับ:</p><ul><li><strong>ยอดผลิตพุ่ง 10 ล้านเครื่อง:</strong> Apple ได้เพิ่มเป้าส่งมอบชิ้นส่วนจากตอนแรก 5 ล้านหน่วย ขยับขึ้นมาเป็น 10 ล้านหน่วยสำหรับปี 2026 ภายหลังการเปิดตัวที่ประสบความสำเร็จอย่างงดงามเมื่อเดือนมีนาคมที่ผ่านมา</li><li><strong>กลยุทธ์ราคาที่เข้าถึงได้:</strong> MacBook Neo วางจำหน่ายในราคาเริ่มต้น $599 (ประมาณ 21,000 บาท) และพิเศษสำหรับนักศึกษาเพียง $499 ใช้ขุมพลังชิป A18 Pro ของ iPhone ทำให้เป็นเครื่องแล็ปท็อปที่ราคาจับต้องง่ายที่สุดของ Apple</li><li><strong>แรงกระเพื่อมถึงคู่แข่ง:</strong> ยอดขายที่พุ่งทำลายสถิติทำให้คู่แข่งฝั่ง Windows PC เริ่มขยับตัว เช่น Dell ที่ต้องเข็น XPS 13 ดีไซน์ใหม่ออกมาแข่งที่ราคา $699 พร้อมโฆษณาฟีเจอร์เด่น เช่น หน้าจอสัมผัสและแป้นพิมพ์มีไฟ ซึ่งไม่มีในเครื่อง Neo</li></ul>
-                            </div>
-                        </section>
-                        <section class="content-section">
-                            <h3 class="section-header section-header-discussion">💬 สรุปประเด็นเสวนาในกระทู้</h3>
-                            <div class="section-body">
-                                <p>มุมมองเรื่องผลกระทบต่อตลาดโรงเรียนและการประเมินประสิทธิภาพเครื่องสำหรับคนรุ่นใหม่:</p><ul><li><strong>1. การโจมตีตลาด Chromebook:</strong> นักพัฒนาหลายคนเห็นว่านี่คือก้าวสำคัญของ Apple ในการดึงความนิยมกลับมาจาก Chromebook ที่ยึดครองระบบโรงเรียนในสหรัฐฯ มานาน เนื่องจาก Chromebook มักมีประสิทธิภาพต่ำและพังง่าย การนำเสนอ MacBook แข็งแรงและลื่นไหลในงบประมาณที่ใกล้เคียงกันจะจูงใจสถาบันศึกษาได้ดี</li><li><strong>2. ความทนทานและการใช้สอยของเด็ก:</strong> สมาชิกบางส่วนแย้งว่าโรงเรียนยังคงจำเป็นต้องใช้ Chromebook ราคาถูกต่อไประดับต่ำกว่า $300 เนื่องจากพฤติกรรมของเด็กที่มักทำคอมพิวเตอร์พังหรือตกกระแทก การซื้อเครื่องราคาแพงกว่าจะสร้างภาระในการเรียกเก็บค่าบำรุงรักษาจากผู้ปกครอง</li><li><strong>3. ความเหมาะสมของสเปกและสถาปัตยกรรมชิป:</strong> ผู้ใช้ชื่นชอบที่ Apple นำชิปเนทีฟประหยัดพลังงานมาใช้ในราคาประหยัด และคาดหวังว่าเวอร์ชันสองในปีหน้าที่จะอัปเกรดเป็น 12GB RAM และชิป A19 Pro จะช่วยยืดอายุการใช้งานให้คุ้มค่ายิ่งขึ้น</li></ul>
-                            </div>
-                        </section>
-                        <div class="links-row">
-                            <a href="https://www.macrumors.com/2026/06/03/macbook-neo-production-doubled-says-kuo/" target="_blank" class="action-btn btn-primary">อ่านบทความต้นฉบับ</a>
-                            <a href="https://news.ycombinator.com/item?id=48386238" target="_blank" class="action-btn btn-secondary">กระทู้บน Hacker News</a>
-                        </div>
-                    </div>
-                </details>
-            </article>
-            
-            <!-- STORY 13 -->
-            <article class="news-item">
-                <details>
-                    <summary>
-                        <div class="summary-header">
-                            <div class="summary-title-section">
-                                <h2 class="story-title">PlayStation Architecture</h2>
-                                <p class="teaser">เจาะลึกสถาปัตยกรรม PlayStation 1 เผยเบื้องหลังประวัติศาสตร์การเลือกใช้ชิปประมวลผล MIPS RISC ในยุคทศวรรษที่ 90 และการออกแบบโครงข่ายกราฟิก 3D ให้ง่ายต่อนักพัฒนา</p>
-                                <div class="meta-row">
-                                    <span class="badge badge-points">🔥 292 คะแนน</span>
-                                    <span class="badge badge-comments">💬 57 ความคิดเห็น</span>
-                                    <span class="badge badge-domain">copetti.org</span>
-                                </div>
-                            </div>
-                            <div class="toggle-icon">▼</div>
-                        </div>
-                    </summary>
-                    <div class="details-content">
-                        <section class="content-section">
-                            <h3 class="section-header section-header-article">📄 สรุปเนื้อหาบทความ</h3>
-                            <div class="section-body">
-                                <p>บทความเจาะลึกระบบเครื่องเกมระดับตำนาน PlayStation 1 อธิบายเกี่ยวกับการทำงานของระบบ System-on-Chip รหัส CXD8530BQ และวิวัฒนาการชิ้นส่วนที่สำคัญในหน้าประวัติศาสตร์วงการคอมพิวเตอร์และเกมดังนี้ครับ:</p><ul><li><strong>การปฏิวัติเชิงโครงสร้างสู่ยุค RISC:</strong> ในช่วงต้นทศวรรษ 1990 สถาปัตยกรรม CPU แบบเก่าอย่าง 8-bit หรือ 16-bit เริ่มล้าสมัย Sony จึงได้เลือกใช้ชิป MIPS R3000A แบบ RISC ซึ่งแยกการดึงข้อมูลหน่วยความจำออกจากการประมวลผลรีจิสเตอร์ ทำให้วงจรไฟฟ้าเรียบง่ายและสามารถทำงานขนานกันได้รวดเร็ว</li><li><strong>การมุ่งเน้นการพัฒนา 3D:</strong> Sony ทราบดีว่าการเขียนโปรแกรมกราฟิกสามมิติในยุคนั้นเป็นเรื่องยากมากและมักล้มเหลว พวกเขาจึงเลือกออกแบบสถาปัตยกรรมที่จำกัดขอบเขตและตรงไปตรงมาเพื่อให้นักพัฒนาเขียนโค้ดแสดงผลได้ง่ายที่สุด</li></ul>
-                            </div>
-                        </section>
-                        <section class="content-section">
-                            <h3 class="section-header section-header-discussion">💬 สรุปประเด็นเสวนาในกระทู้</h3>
-                            <div class="section-body">
-                                <p>ชาว HN ร่วมย้อนอดีตระลึกถึงเครื่องเกมและแลกเปลี่ยนความรู้ทางเทคนิค:</p><ul><li><strong>1. การชื่นชมผลงานของ Copetti:</strong> ความคิดเห็นทั้งหมดต่างยกย่องผู้เขียนบทความ (Rodrigo Copetti) ที่สร้างสรรค์งานอธิบายฮาร์ดแวร์เชิงเทคนิคที่ซับซ้อนให้มีชีวิตชีวาและเข้าใจง่าย ผ่านการวาดไดอะแกรมโต้ตอบที่สวยงาม</li><li><strong>2. ความรู้สึกเรื่องเวลาในอดีต (ความคลาดเคลื่อนยุคสมัย):</strong> นักพัฒนาร่วมแบ่งปันเกร็ดประวัติศาสตร์ว่า ถึงแม้ตัวเครื่องจะเปิดตัวในญี่ปุ่นปี 1994 แต่ตลาดตะวันตกเพิ่งเข้าถึงในปี 1995-1996 ซึ่งสะท้อนว่างานออกแบบระบบบอร์ดชิปทั้งหมดเกิดขึ้นในช่วงต้นปี 90 ซึ่งมีข้อจำกัดด้านชิ้นส่วนไฟฟ้าสูงมาก</li><li><strong>3. แนะนำแหล่งข้อมูลคลาสสิกเพิ่มเติม:</strong> สมาชิกแนะนำหนังสือประวัติศาสตร์วิเคราะห์โค้ดอื่นๆ เช่น Wolfenstein และ Doom Black Books ของ Fabien Sanglard สำหรับผู้ที่สนใจสถาปัตยกรรมการจัดการระบบเกมเรนเดอร์ในอดีต</li></ul>
-                            </div>
-                        </section>
-                        <div class="links-row">
-                            <a href="https://www.copetti.org/writings/consoles/playstation/" target="_blank" class="action-btn btn-primary">อ่านบทความต้นฉบับ</a>
-                            <a href="https://news.ycombinator.com/item?id=48382142" target="_blank" class="action-btn btn-secondary">กระทู้บน Hacker News</a>
-                        </div>
-                    </div>
-                </details>
-            </article>
-            
-            <!-- STORY 14 -->
-            <article class="news-item">
-                <details>
-                    <summary>
-                        <div class="summary-header">
-                            <div class="summary-title-section">
-                                <h2 class="story-title">ESP32-S31</h2>
-                                <p class="teaser">Espressif เปิดตัวชิป SoC รุ่นใหม่ ESP32-S31 พร้อมสถาปัตยกรรม RISC-V และหน่วยประมวลผล SIMD สำหรับการประมวลผลขอบข่าย AI และ IoT ท้องถิ่น</p>
-                                <div class="meta-row">
-                                    <span class="badge badge-points">🔥 282 คะแนน</span>
-                                    <span class="badge badge-comments">💬 154 ความคิดเห็น</span>
-                                    <span class="badge badge-domain">espressif.com</span>
-                                </div>
-                            </div>
-                            <div class="toggle-icon">▼</div>
-                        </div>
-                    </summary>
-                    <div class="details-content">
-                        <section class="content-section">
-                            <h3 class="section-header section-header-article">📄 สรุปเนื้อหาบทความ</h3>
-                            <div class="section-body">
-                                <p>Espressif ผู้พัฒนาชิปสมาร์ทโฮมและไมโครคอนโทรลเลอร์ชั้นนำ ได้ประกาศเปิดตัว SoC รุ่นใหม่ ESP32-S31 เพื่อตอบโจทย์งาน IoT ที่ซับซ้อนขึ้น จุดเด่นและข้อมูลทางเทคนิคมีดังนี้ครับ:</p><ul><li><strong>สถาปัตยกรรม RISC-V แบบโอเพนซอร์ส:</strong> เปลี่ยนมาใช้แกนหลักประมวลผล RISC-V ซึ่งช่วยเพิ่มอิสระและหลีกเลี่ยงค่าสิทธิบัตรระบบสถาปัตยกรรมปิด</li><li><strong>ฟังก์ชัน SIMD ในตัว:</strong> รองรับคำสั่งจัดการข้อมูลทราฟฟิกขนานสูง (Single Instruction Multiple Data) ซึ่งเพิ่มความเร็วในการประมวลผลคำสั่งปัญญาประดิษฐ์ในระบบขอบข่าย (Edge AI) เช่น การจำแนกเสียงและโมเดลโครงข่ายประสาทขนาดเล็ก</li><li><strong>ระบบความปลอดภัยขั้นสูง:</strong> มาพร้อมกับ Secure Boot, การเข้ารหัสแฟลชเมมโมรี และฟังก์ชันฮาร์ดแวร์ต้านการเจาะระบบทางกายภาพ</li></ul>
-                            </div>
-                        </section>
-                        <section class="content-section">
-                            <h3 class="section-header section-header-discussion">💬 สรุปประเด็นเสวนาในกระทู้</h3>
-                            <div class="section-body">
-                                <p>นักพัฒนาวิเคราะห์ความสะดวกสบายของการคอมไพล์โค้ด และประเด็นเรื่องชื่อรหัสสถาปัตยกรรม:</p><ul><li><strong>1. สวรรค์ของนักพัฒนาภาษา Rust:</strong> ชุมชนชื่นชมแนวทางของ Espressif ที่หนุน RISC-V เพราะช่วยให้การคอมไพล์โปรแกรมด้วย Rust สะดวกสบายมาก เพียงแอด Target ผ่าน rustup ก็ใช้งานได้ทันทีโดยไม่ต้องเผชิญความปวดหัวกับ Toolchain แปลกๆ ของผู้ผลิต</li><li><strong>2. ประเด็นตั้งชื่อระบบต่อขยายอันซับซ้อน:</strong> มีการแซวระบบตั้งชื่อของสเปก RISC-V เช่น 'IMAC' (I = Integer, M = Multiply, A = Atomic, C = Compressed) ซึ่งอ่านง่ายในตอนแรก แต่ถ้าใส่ออปชันครบจะยาวเหยียดและดูตลกร้าย (เช่น RVA23 หรือซีรีส์ zicsr_zicntr...)</li><li><strong>3. ความก้าวหน้าของวงการไมโครคอนโทรลเลอร์:</strong> ชุมชนมองว่าแนวโน้มการเติบโตของ Espressif เป็นสิ่งที่น่าประทับใจ สามารถพัฒนาชิปความเร็วสูงราคาถูกที่ตอบโจทย์ตั้งแต่ระดับมือสมัครเล่นไปจนถึงระดับโรงงานอุตสาหกรรมได้อย่างน่าทึ่ง</li></ul>
-                            </div>
-                        </section>
-                        <div class="links-row">
-                            <a href="https://www.espressif.com/en/products/socs/esp32-s31" target="_blank" class="action-btn btn-primary">อ่านบทความต้นฉบับ</a>
-                            <a href="https://news.ycombinator.com/item?id=48385965" target="_blank" class="action-btn btn-secondary">กระทู้บน Hacker News</a>
-                        </div>
-                    </div>
-                </details>
-            </article>
-            
-            <!-- STORY 15 -->
-            <article class="news-item">
-                <details>
-                    <summary>
-                        <div class="summary-header">
-                            <div class="summary-title-section">
-                                <h2 class="story-title">A Post-Quantum Future for Let's Encrypt</h2>
-                                <p class="teaser">Let's Encrypt เผยแผนการก้าวสู่การลงทะเบียนและตรวจสอบใบรับรองยุคหลังควอนตัม (Post-Quantum) ผ่านสถาปัตยกรรมแบบใหม่ Merkle Tree Certificates</p>
-                                <div class="meta-row">
-                                    <span class="badge badge-points">🔥 249 คะแนน</span>
-                                    <span class="badge badge-comments">💬 136 ความคิดเห็น</span>
-                                    <span class="badge badge-domain">letsencrypt.org</span>
-                                </div>
-                            </div>
-                            <div class="toggle-icon">▼</div>
-                        </div>
-                    </summary>
-                    <div class="details-content">
-                        <section class="content-section">
-                            <h3 class="section-header section-header-article">📄 สรุปเนื้อหาบทความ</h3>
-                            <div class="section-body">
-                                <p>สถาบันผู้ออกใบรับรองความปลอดภัยเว็บไซต์ Let's Encrypt ได้แถลงทิศทางการอัปเกรดระบบเพื่อต้านทานการโจมตีจากคอมพิวเตอร์ควอนตัมในอนาคต (Post-Quantum Security) มีประเด็นสำคัญดังนี้ครับ:</p><ul><li><strong>การเลือกใช้ Merkle Tree Certificates (MTCs):</strong> วางแผนใช้เทคนิคใหม่ MTC ในการรับรองความถูกต้องของระบบเซิร์ฟเวอร์เว็บโดยยังคงรักษาความเร็วและความน่าเชื่อถือในการทำ TLS Handshake</li><li><strong>ข้อจำกัดเรื่องขนาดของอัลกอริทึมทั่วไป:</strong> อัลกอริทึมที่ NIST แนะนำอย่าง ML-DSA-44 มีขนาดตัวคีย์และลายเซ็นดิจิทัลที่ใหญ่มาก (รวมกันเกิน 3.7 KB เทียบกับ RSA ที่ใช้เพียง 256 ไบต์) หากเปลี่ยนมาใช้ดื้อๆ จะทำให้การส่งข้อมูลขยายตัวเกิน 10 KB ส่งผลให้แพ็กเก็ตข้อมูลตกหล่นและเกิดความล่าช้าในอินเทอร์เน็ต</li><li><strong>กำหนดเวลาเร่งด่วน:</strong> แม้จะยังไม่มีเครื่องควอนตัมถอดรหัสได้จริง แต่หน่วยงานรัฐบาลสหรัฐฯ และบริษัทเทคโนโลยีอย่าง Google และ Cloudflare ได้ตั้งเป้าอัปเกรดระบบให้เสร็จภายในช่วงปี 2029-2035 เพื่อความปลอดภัยสูงสุด</li></ul>
-                            </div>
-                        </section>
-                        <section class="content-section">
-                            <h3 class="section-header section-header-discussion">💬 สรุปประเด็นเสวนาในกระทู้</h3>
-                            <div class="section-body">
-                                <p>ความท้าทายเชิงทฤษฎีของการเข้ารหัสลับหลังควอนตัม และคำเตือนเรื่องแนวทางการอัปเกรด:</p><ul><li><strong>1. ความกังวลในโครงสร้างคณิตศาสตร์ใหม่:</strong> สมาชิกบางส่วนกังวลว่าอัลกอริทึมที่เชื่อว่าปลอดภัยจากควอนตัมในปัจจุบัน อาจมีช่องโหว่ทางตรรกะคณิตศาสตร์ซ่อนอยู่ซึ่งหากมีผู้ค้นพบวิธีการแคร็กทางคณิตศาสตร์แบบปกติ ระบบก็พังได้อยู่ดี (ยกตัวอย่างกรณี SIKE ที่ล้มเหลวและถูกแคร็กได้ง่ายด้วยเครื่องคอมพิวเตอร์ธรรมดาหลังจากเปิดตัวไม่นาน)</li><li><strong>2. ข้อแนะนำการเข้ารหัสแบบไฮบริด (Hybrid KEM):</strong> ผู้เชี่ยวชาญแนะนำอย่างรุนแรงว่าให้หลีกเลี่ยงการพึ่งพาเฉพาะระบบควอนตัมเพียงอย่างเดียว แต่ให้ใช้วิธีเข้ารหัสสองชั้นร่วมกับวิธีคลาสสิก (เช่น ECDSA) ซึ่งหากระบบใดระบบหนึ่งล้มเหลว ข้อความก็ยังคงปลอดภัยอยู่</li><li><strong>3. ความกังวลเรื่องทราฟฟิกเว็บช้าลง:</strong> นักพัฒนาระบบเครือข่ายห่วงว่าการอัปเกรดนี้จะเพิ่มภาระงานและขนาดข้อมูลของใบรับรอง ซึ่งเป็นอุปสรรคสำคัญสำหรับเซิร์ฟเวอร์ขนาดเล็กและพื้นที่เครือข่ายความเร็วต่ำ</li></ul>
-                            </div>
-                        </section>
-                        <div class="links-row">
-                            <a href="https://letsencrypt.org/2026/06/03/pq-certs" target="_blank" class="action-btn btn-primary">อ่านบทความต้นฉบับ</a>
-                            <a href="https://news.ycombinator.com/item?id=48385114" target="_blank" class="action-btn btn-secondary">กระทู้บน Hacker News</a>
-                        </div>
-                    </div>
-                </details>
-            </article>
-            
-            <!-- STORY 16 -->
-            <article class="news-item">
-                <details>
-                    <summary>
-                        <div class="summary-header">
-                            <div class="summary-title-section">
-                                <h2 class="story-title">Every Byte Matters</h2>
-                                <p class="teaser">ทำไมการเข้าใจฮาร์ดแวร์จึงสำคัญ? เจาะลึกความเร็วการประมวลผลที่ต่างกันถึง 30 เท่า ระหว่าง AoS และ SoA ด้วยเรื่องราวของการใช้ Cache Line</p>
-                                <div class="meta-row">
-                                    <span class="badge badge-points">🔥 239 คะแนน</span>
-                                    <span class="badge badge-comments">💬 118 ความคิดเห็น</span>
-                                    <span class="badge badge-domain">fzakaria.com</span>
-                                </div>
-                            </div>
-                            <div class="toggle-icon">▼</div>
-                        </div>
-                    </summary>
-                    <div class="details-content">
-                        <section class="content-section">
-                            <h3 class="section-header section-header-article">📄 สรุปเนื้อหาบทความ</h3>
-                            <div class="section-body">
-                                <p>วิศวกรซอฟต์แวร์ผู้มีประสบการณ์ในภาษา Java ได้แบ่งปันแนวคิดการเขียนโปรแกรมประสิทธิภาพสูง โดยชี้ว่าประสิทธิภาพของอัลกอริทึมไม่ได้ขึ้นอยู่กับ Big O เสมอไป แต่อยู่ที่ความเข้าใจโครงสร้างฮาร์ดแวร์พื้นฐาน (Cache Line) รายละเอียดที่น่าศึกษาหลักๆ ดังนี้ครับ:</p><ul><li><strong>กลไกของ CPU Cache:</strong> เมื่อ CPU ดึงข้อมูลขนาด 1 ไบต์จากแรม มันจะดึงข้อมูลรอบข้างขนาด 64 ไบต์เข้ามาใส่ใน Cache Line พร้อมกันเสมอ หากเราจัดระเบียบข้อมูลให้อยู่ใกล้ชิดกันในหน่วยความจำ จะช่วยประหยัดเวลาการดึงข้อมูลได้อย่างมหาศาล</li><li><strong>ความแตกต่าง AoS vs SoA:</strong> การเก็บข้อมูลแบบปกติเป็นก้อนวัตถุในอาร์เรย์ (Array of Structs: AoS) เช่น ข้อมูลมอนสเตอร์ที่มีฟิลด์พลังชีวิต สถานะ ฯลฯ รวมในก้อนเดียว จะทำให้ Cache Line เต็มเร็วมากแม้เราจะดึงแค่ฟิลด์สั้นๆ แต่หากแยกเก็บข้อมูลอาร์เรย์ตามประเภทฟิลด์ (Struct of Arrays: SoA) จะบรรจุข้อมูลได้หนาแน่นกว่าและเพิ่มประสิทธิภาพการประมวลผลสูงสุดถึง 30 เท่า</li><li><strong>ผลลัพธ์ของขนาดคลาส:</strong> โครงสร้าง SoA จะมีผลลัพธ์ชัดเจนที่สุดเมื่อตัวแปรโครงสร้าง (Struct) มีขนาดใหญ่ (เช่น 1 KB ขึ้นไป) แต่หากมีขนาดเล็ก ความแตกต่างจะไม่สูงนักเนื่องจากกลไก CPU pre-fetcher ยังช่วยคาดเดาข้อมูลได้อยู่</li></ul>
-                            </div>
-                        </section>
-                        <section class="content-section">
-                            <h3 class="section-header section-header-discussion">💬 สรุปประเด็นเสวนาในกระทู้</h3>
-                            <div class="section-body">
-                                <p>ความคิดเห็นและเทคนิคทางเลือกสำหรับเหล่านักพัฒนาในเรื่องการจัดโครงสร้างข้อมูล:</p><ul><li><strong>1. ข้อจำกัดของภาษาเขียนโปรแกรมทั่วไป:</strong> บอร์ดมีการถกเถียงว่าภาษาหลักอย่าง Java, Python หรือ C# มักไม่เอื้ออำนวยให้สร้างรูปแบบ SoA ได้โดยตรงเนื่องจากติดกฎการเขียนโปรแกรมเชิงวัตถุ (Object-Oriented) การทำเช่นนี้ทำให้นักพัฒนาต้องสละศักดิ์ศรีความเป็น OO เพื่อแลกกับความเร็ว</li><li><strong>2. ภาษาและเครื่องมือสมัยใหม่ที่ช่วยจัดการ:</strong> สมาชิกแนะนำว่ามีภาษาในยุคปัจจุบันหลายตัวที่ออกแบบมารองรับ SoA ในระบบแบบเบ็ดเสร็จ เช่น ฟีเจอร์ MultiArrayList ของภาษา Zig, โครงสร้าง SOA ของภาษา Odin รวมถึงฟังก์ชันการแปลงรูป (Reflection) ในอนาคตของภาษา C++26</li><li><strong>3. ประเด็นวัฒนธรรมในคอมมูนิตี้ภาษาเกิดใหม่:</strong> มีการแซวถึงภาษา 'Jai' (ของ Jonathan Blow) และภาษา 'Odin' ที่ได้รับความนิยมในกลุ่มจำกัด รวมถึงความกังวลว่าการเข้าถึงคอมมูนิตี้บางภาษาต้องอาศัยการเข้าสังคมสูงจนเกินไป</li></ul>
-                            </div>
-                        </section>
-                        <div class="links-row">
-                            <a href="https://fzakaria.com/2026/06/01/every-byte-matters" target="_blank" class="action-btn btn-primary">อ่านบทความต้นฉบับ</a>
-                            <a href="https://news.ycombinator.com/item?id=48382382" target="_blank" class="action-btn btn-secondary">กระทู้บน Hacker News</a>
-                        </div>
-                    </div>
-                </details>
-            </article>
-            
-            <!-- STORY 17 -->
-            <article class="news-item">
-                <details>
-                    <summary>
-                        <div class="summary-header">
-                            <div class="summary-title-section">
-                                <h2 class="story-title">Mathematicians issue warning as AI rapidly gains ground</h2>
-                                <p class="teaser">ความกังวลของนักคณิตศาสตร์ในยุคปัญญาประดิษฐ์ครองเมือง ชี้ระบบจำลองที่สร้างจาก AI อาจทำลายคุณค่าการคิดค้นทางคณิตศาสตร์แบบดั้งเดิม</p>
-                                <div class="meta-row">
-                                    <span class="badge badge-points">🔥 220 คะแนน</span>
-                                    <span class="badge badge-comments">💬 258 ความคิดเห็น</span>
-                                    <span class="badge badge-domain">science.org</span>
-                                </div>
-                            </div>
-                            <div class="toggle-icon">▼</div>
-                        </div>
-                    </summary>
-                    <div class="details-content">
-                        <section class="content-section">
-                            <h3 class="section-header section-header-article">📄 สรุปเนื้อหาบทความ</h3>
-                            <div class="section-body">
-                                <p>เนื่องจากตัวหน้าเว็บบทความหลักติดปัญหาการปิดกั้นการเข้าถึง (HTTP 403) รายละเอียดข้อมูลจึงอิงตามข้อมูลพูดคุยและบทวิเคราะห์ในบอร์ด ซึ่งกล่าวถึงแถลงการณ์เตือนภัยจากสมาคมคณิตศาสตร์เกี่ยวกับการแทรกซึมอย่างรวดเร็วของเครื่องมือ AI ในกระบวนการพิสูจน์และคำนวณทางคณิตศาสตร์ดังนี้ครับ:</p><ul><li><strong>การบีบบังคับทางอ้อม:</strong> แม้ว่าการใช้งานปัญญาประดิษฐ์จะขึ้นอยู่กับความสมัครใจส่วนบุคคล แต่นักวิจัยหลายคนชี้ว่าสภาวะการทำงานจริงและระบบการแข่งขันบีบบังคับให้ต้องใช้เครื่องมือเหล่านี้เพื่อเร่งผลิตผลงานให้ทันเปรียบ</li><li><strong>ความเสื่อมโทรมของคุณภาพงานจำลอง:</strong> การแทรกแซงของ AI ในวงการธุรกิจจำลองคณิตศาสตร์ทำให้เกิดการใช้ข้อมูลและการตัดสินใจที่ไม่มีคุณภาพ และนำไปสู่ความเสียหายระดับล้านดอลลาร์เนื่องจากขาดความเข้าถึงแก่นแท้ของคณิตศาสตร์เชิงทฤษฎี</li></ul>
-                            </div>
-                        </section>
-                        <section class="content-section">
-                            <h3 class="section-header section-header-discussion">💬 สรุปประเด็นเสวนาในกระทู้</h3>
-                            <div class="section-body">
-                                <p>ข้อพิพาทเชิงลึกระหว่างนักคณิตศาสตร์สายอนุรักษนิยมและผู้ใช้เครื่องมือสมัยใหม่:</p><ul><li><strong>1. ชะตากรรมของนักวิชาการรุ่นเก่า:</strong> สมาชิกแชร์ความจริงว่าสถาบันการศึกษาหลายแห่งยังคงทำงานในวิถีดั้งเดิม (คล้ายยุคปี 1990) โดยไม่ได้แตะต้อง AI แต่ในอนาคตกลุ่มคนที่ยอมรับ AI จะมีขีดความสามารถการตีพิมพ์ผลงานและการหาทางออกของโจทย์คณิตศาสตร์ที่รวดเร็วกว่าจนน่ากังวล</li><li><strong>2. ความว่างเปล่าของตำแหน่งคณิตศาสตร์ในองค์กร:</strong> นักคณิตศาสตร์หลายคนยอมรับอย่างประชดประชันว่าการข้ามจากวงการวิจัยบริสุทธิ์ไปสู่ภาคธุรกิจ เป็นเพียงการไปสร้างแบบจำลองสถิติห่วยๆ (Poorly contrived models) เพื่อให้ผู้บริหารใช้เป็นเครื่องอ้างอิงอ้างอิงการตัดสินใจที่ผิดพลาดเท่านั้น</li><li><strong>3. ประโยชน์ของความเร็ว vs ความลึกซึ้ง:</strong> ชุมชนตั้งคำถามว่า หาก AI สามารถช่วยพิสูจน์โจทย์คณิตศาสตร์และไขปริศนาได้เร็วขึ้น จะไม่ถือเป็นประโยชน์ต่อวงการวิทยาศาสตร์โดยรวมหรือ? ซึ่งฝ่ายค้านมองว่าการเร่งพิมพ์งานวิจัยแบบสุกเอาเผากินด้วยบอตจะส่งผลเสียต่อการพัฒนาความเข้าใจทางคณิตศาสตร์ในระยะยาว</li></ul>
-                            </div>
-                        </section>
-                        <div class="links-row">
-                            <a href="https://www.science.org/content/article/mathematicians-issue-warning-ai-rapidly-gains-ground" target="_blank" class="action-btn btn-primary">อ่านบทความต้นฉบับ</a>
-                            <a href="https://news.ycombinator.com/item?id=48382052" target="_blank" class="action-btn btn-secondary">กระทู้บน Hacker News</a>
-                        </div>
-                    </div>
-                </details>
-            </article>
-            
-            <!-- STORY 18 -->
-            <article class="news-item">
-                <details>
-                    <summary>
-                        <div class="summary-header">
-                            <div class="summary-title-section">
-                                <h2 class="story-title">Failing grades soar with AI usage, dwindling math skills in Berkeley CS classes</h2>
-                                <p class="teaser">อัตราการสอบตกวิชา Computer Science ที่ UC Berkeley พุ่งสูงเป็นประวัติการณ์ อาจารย์ชี้สาเหตุจากการพึ่งพา AI ในการเรียนและขาดความพร้อมทางคณิตศาสตร์</p>
-                                <div class="meta-row">
-                                    <span class="badge badge-points">🔥 219 คะแนน</span>
-                                    <span class="badge badge-comments">💬 157 ความคิดเห็น</span>
-                                    <span class="badge badge-domain">dailycal.org</span>
-                                </div>
-                            </div>
-                            <div class="toggle-icon">▼</div>
-                        </div>
-                    </summary>
-                    <div class="details-content">
-                        <section class="content-section">
-                            <h3 class="section-header section-header-article">📄 สรุปเนื้อหาบทความ</h3>
-                            <div class="section-body">
-                                <p>ผลการเรียนของนักศึกษาในวิชาคอมพิวเตอร์พื้นฐานระดับเริ่มต้น (CS 10 และ CS 61A) ของมหาวิทยาลัย UC Berkeley ประจำปี 2026 เผยตัวเลขอัตราการสอบตกที่พุ่งทะยานสูงขึ้นอย่างผิดปกติ โดยมีรายละเอียดดังนี้ครับ:</p><ul><li><strong>อัตราการสอบตกพุ่งทะยาน:</strong> มีนักศึกษาถึง 35.3% ในวิชา CS 10 และ 10.6% ในวิชา CS 61A ที่ได้รับเกรด F ในภาคเรียนล่าสุด ซึ่งตามเกณฑ์ของมหาวิทยาลัยควรมีผู้ได้รับเกรด D และ F รวมกันไม่เกิน 7% เท่านั้น</li><li><strong>พึ่งพา AI จนทำข้อสอบไม่ได้:</strong> ศาสตราจารย์ Dan Garcia ระบุว่าปัจจัยหลักเกิดจากการทุจริตทางวิชาการโดยใช้โมเดลภาษาขนาดใหญ่ (LLMs) เช่น Claude และ ChatGPT ช่วยทำการบ้านและการเก็บคะแนนย่อย ส่งผลให้เมื่อต้องเข้าสอบในห้องเรียนวิชาหลักที่ไม่มีเครื่องมือช่วย นักศึกษาจึงไม่สามารถทำข้อสอบได้เลย</li><li><strong>ปัญหาความรู้คณิตศาสตร์พื้นฐาน:</strong> นอกจากประเด็น AI แล้ว ปัญหาการขาดทักษะทางคณิตศาสตร์และการคำนวณพื้นฐานในระดับมัธยมปลายยังเป็นอีกปัจจัยที่ทำให้นักศึกษาไปไม่รอดในวิชาโครงสร้างโปรแกรมคอมพิวเตอร์</li></ul>
-                            </div>
-                        </section>
-                        <section class="content-section">
-                            <h3 class="section-header section-header-discussion">💬 สรุปประเด็นเสวนาในกระทู้</h3>
-                            <div class="section-body">
-                                <p>การถกเถียงในวงเสวนา HN เกี่ยวกับบทบาทของ AI ในระบบการศึกษาและขีดจำกัดความก้าวหน้า:</p><ul><li><strong>1. การเปรียบเทียบเป้าหมายการศึกษากับ AI:</strong> สมาชิกชี้ว่าเป้าหมายของการเรียนคือการสร้างความเข้าใจลึกซึ้งให้กับตัวผู้เรียนเอง ในขณะที่เป้าหมายของ AI คือการสร้างผลลัพธ์ที่ฟังดูน่าเชื่อถือแบบมนุษย์เขียนขึ้นมาเฉยๆ ซึ่งบ่อยครั้งบอตมักแต่งคำตอบมโนที่ไม่มีความหมายที่ถูกต้องตามหลักไวยากรณ์ (เปรียบเหมือนประโยค 'Colorless green ideas sleep furiously') การใช้ AI ในการเรียนจึงขัดขวางการเรียนรู้อย่างสิ้นเชิง</li><li><strong>2. ความคิดเห็นเรื่องการแบนเครื่องมือ:</strong> เกิดข้อเสนอว่าควรมีมาตรการห้ามใช้อุปกรณ์และ AI ในการเรียนการสอนสำหรับระดับเริ่มต้น เพื่อบังคับให้นักศึกษาได้ฝึกฝนทักษะการแก้ปัญหาด้วยตนเองก่อนที่จะขยับขึ้นไปใช้เครื่องมือทุ่นแรงในระดับซีเนียร์</li><li><strong>3. การปรับตัวของรูปแบบการสอบ:</strong> นักพัฒนาเสนอว่า มหาวิทยาลัยและระบบศึกษาจำเป็นต้องเปลี่ยนรูปแบบการประเมินผลจากการสั่งงานกลับบ้านไปทำ (Take-home exams) มาเป็นการสอบปากเปล่าหรือการเขียนโค้ดสดบนกระดานดำ/กระดาษ เพื่อป้องกันการข้ามขั้นตอนด้วย AI</li></ul>
-                            </div>
-                        </section>
-                        <div class="links-row">
-                            <a href="https://www.dailycal.org/news/campus/academics/failing-grades-soar-as-professors-see-greater-ai-usage-dwindling-math-skills-in-uc-berkeley/article_16fad0bf-02cb-4b8c-8d88-888ffd9f8608.html" target="_blank" class="action-btn btn-primary">อ่านบทความต้นฉบับ</a>
-                            <a href="https://news.ycombinator.com/item?id=48392004" target="_blank" class="action-btn btn-secondary">กระทู้บน Hacker News</a>
-                        </div>
-                    </div>
-                </details>
-            </article>
-            
-            <!-- STORY 19 -->
-            <article class="news-item">
-                <details>
-                    <summary>
-                        <div class="summary-header">
-                            <div class="summary-title-section">
-                                <h2 class="story-title">The Public Should Own Half of the Big A.I. Companies</h2>
-                                <p class="teaser">Bernie Sanders เสนอนโยบายสุดโต่ง: ประชาชนควรเป็นเจ้าของบริษัท AI ยักษ์ใหญ่ครึ่งหนึ่ง เนื่องจากนำข้อมูลสาธารณะของทุกคนไปเปลี่ยนเป็นเม็ดเงิน</p>
-                                <div class="meta-row">
-                                    <span class="badge badge-points">🔥 214 คะแนน</span>
-                                    <span class="badge badge-comments">💬 250 ความคิดเห็น</span>
-                                    <span class="badge badge-domain">sanders.senate.gov</span>
-                                </div>
-                            </div>
-                            <div class="toggle-icon">▼</div>
-                        </div>
-                    </summary>
-                    <div class="details-content">
-                        <section class="content-section">
-                            <h3 class="section-header section-header-article">📄 สรุปเนื้อหาบทความ</h3>
-                            <div class="section-body">
-                                <p>เนื่องจากตัวหน้าเว็บหลักปิดกั้นการเข้าถึง (HTTP 403) รายละเอียดจึงอ้างอิงจากบทวิเคราะห์ในบอร์ด ซึ่งเป็นบทความแสดงความคิดเห็นของ Bernie Sanders วุฒิสมาชิกสหรัฐฯ ที่ระบุทิศทางนโยบายด้านจริยธรรมของเศรษฐกิจ AI มีประเด็นสำคัญดังนี้ครับ:</p><ul><li><strong>การขโมยข้อมูลสาธารณะ:</strong> Sanders เสนอว่าบริษัทปัญญาประดิษฐ์รายใหญ่ควรโอนกรรมสิทธิ์ครึ่งหนึ่งให้เป็นของสาธารณะ เนื่องจากโมเดลเหล่านั้นสร้างคุณค่าและผลิตภัณฑ์ขึ้นมาได้จากการดึงข้อมูลผลงานศิลปะ ข้อเขียน และความรู้ของประชาชนไปใช้โดยปราศจากการจ่ายค่าตอบแทน</li><li><strong>การคุ้มครองและการแบ่งปันผลประโยชน์:</strong> เรียกร้องการสร้างกลไกผลประโยชน์และกระจายอำนาจการควบคุม เพื่อป้องกันไม่ให้เทคโนโลยีนี้กลายเป็นเครื่องมือผูกขาดความมั่งคั่งและเครื่องมือโฆษณาชวนเชื่อของผู้มีอิทธิพลเพียงไม่กี่คน</li></ul>
-                            </div>
-                        </section>
-                        <section class="content-section">
-                            <h3 class="section-header section-header-discussion">💬 สรุปประเด็นเสวนาในกระทู้</h3>
-                            <div class="section-body">
-                                <p>การปะทะความคิดทางเศรษฐศาสตร์และการเมืองของชาว HN ต่อข้อเสนอของแซนเดอร์ส:</p><ul><li><strong>1. การล้อเลียนความกังวลด้านตลาด:</strong> ความคิดเห็นล้อเลียนการตลาดปัญญาประดิษฐ์ในปัจจุบัน โดยเปรียบเปรยว่าบริษัท AI ต้องการให้ประชาชนเป็นเจ้าของหุ้นครึ่งหนึ่งอยู่แล้ว แต่เป็นการถือครองแบบผ่านกองทุนเกษียณอายุ (401k) เพื่อรับเฉพาะเงินทุนโดยที่ประชาชนไม่มีสิทธิ์ออกเสียงควบคุมนโยบายบริษัท</li><li><strong>2. ปัญหาการผูกขาดข้อมูลสาธารณะ:</strong> สมาชิกหลายคนชี้ประเด็นสำคัญว่า สิ่งที่ AI ทำคือการกวาดล้างข้อมูลเว็บสาธารณะ (Data scraping) แล้วปิดประตูไม่ให้คนอื่นเข้าถึง ในขณะที่พวกเขาควรทำให้โมเดลรวมถึงข้อมูลเหล่านั้นเป็นของฟรีที่เข้าถึงได้และเป็นประโยชน์ร่วมกันของทุกคน</li><li><strong>3. ข้อกังขาเรื่องบทบาทของรัฐบาล:</strong> ฝ่ายคัดค้านตั้งคำถามว่า การโอนกรรมสิทธิ์ให้รัฐบาลครึ่งหนึ่งจะต่างจากการแทรกแซงธุรกิจปกติอย่างไร และอาจกลายเป็นเครื่องมือคอร์รัปชันให้นักการเมืองนำไปข่มขู่หรือบีบให้ผู้บริหารทำตามความพึงพอใจของฝ่ายการเมือง ซึ่งจะส่งผลเสียต่อการพัฒนานวัตกรรม</li></ul>
-                            </div>
-                        </section>
-                        <div class="links-row">
-                            <a href="https://www.sanders.senate.gov/op-eds/the-public-should-own-half-of-the-big-a-i-companies/" target="_blank" class="action-btn btn-primary">อ่านบทความต้นฉบับ</a>
-                            <a href="https://news.ycombinator.com/item?id=48386551" target="_blank" class="action-btn btn-secondary">กระทู้บน Hacker News</a>
-                        </div>
-                    </div>
-                </details>
-            </article>
-            
-            <!-- STORY 20 -->
-            <article class="news-item">
-                <details>
-                    <summary>
-                        <div class="summary-header">
-                            <div class="summary-title-section">
-                                <h2 class="story-title">I built a ceiling projection mapping of the planes flying over my house</h2>
-                                <p class="teaser">สุดยอดโปรเจกต์หน้าบ้าน! หนุ่มหัวใสสร้างระบบฉายแผนที่เรดาร์การเดินทางของเครื่องบินแบบเรียลไทม์ขึ้นบนเพดานห้องนอนโดยดึงสัญญาณวิทยุจากเครื่องบินตรง</p>
-                                <div class="meta-row">
-                                    <span class="badge badge-points">🔥 213 คะแนน</span>
-                                    <span class="badge badge-comments">💬 32 ความคิดเห็น</span>
-                                    <span class="badge badge-domain">old.reddit.com</span>
-                                </div>
-                            </div>
-                            <div class="toggle-icon">▼</div>
-                        </div>
-                    </summary>
-                    <div class="details-content">
-                        <section class="content-section">
-                            <h3 class="section-header section-header-article">📄 สรุปเนื้อหาบทความ</h3>
-                            <div class="section-body">
-                                <p>สมาชิก Reddit ชื่อ 'I_am_Root01' ที่อาศัยอยู่แนวเส้นทางบินขึ้นของสนามบินซานฟรานซิสโก (SFO) ได้แชร์ผลงานการประดิษฐ์ระบบแสดงภาพพิกัดเครื่องบินบนเพดานห้อง (Ceiling projection mapping) โดยมีโครงสร้างการทำงานดังนี้ครับ:</p><ul><li><strong>เทคโนโลยีวิทยุ ADS-B:</strong> ใช้เสาอากาศรับสัญญาณวิทยุ ADS-B ที่ส่งออกมาจากตัวเครื่องบินโดยตรงโดยไม่ต้องอาศัยอินเทอร์เน็ตในการค้นหาพิกัด</li><li><strong>ซอฟต์แวร์ควบคุม:</strong> ขับเคลื่อนแผนที่ด้วยโอเพนซอร์สชื่อ 'skylight' สำหรับประมวลผลเส้นทางบินและควบคุมตัวเครื่องโปรเจกเตอร์เพื่อฉายภาพให้ตรงกับตำแหน่งพิกัดของหลังคาบ้านจริง</li></ul>
-                            </div>
-                        </section>
-                        <section class="content-section">
-                            <h3 class="section-header section-header-discussion">💬 สรุปประเด็นเสวนาในกระทู้</h3>
-                            <div class="section-body">
-                                <p>การแบ่งปันความรู้เรื่องบอร์ดจิ๋วและการติดตั้งเครื่องรับวิทยุราคาประหยัด:</p><ul><li><strong>1. การชื่นชมไอเดียตกแต่งบ้านระดับพรีเมียม:</strong> สมาชิกในกระทู้ต่างประทับใจกับความอลังการของโปรเจกเตอร์ ซึ่งสร้างความบันเทิงและน่าทึ่งกว่าระบบแสดงข้อมูลแบบหน้าจอ E-Ink หรือจอภาพทั่วไปมาก</li><li><strong>2. การชุบชีวิตฮาร์ดแวร์ Raspberry Pi เก่า:</strong> นักพัฒนาแลกเปลี่ยนวิธีการนำบอร์ด Raspberry Pi 2b หรือ 3b+ เก่าเก็บในลิ้นชักมาชุบชีวิตด้วยการทำเป็นเครื่องรับสัญญาณวิทยุและประมวลผล (SDR Receiver) ซึ่งพบว่าใช้พลังงานต่ำมาก (กิน CPU เพียง 25% สำหรับเรดาร์ และ 17% สำหรับรับเสียงวิทยุ VHF ของหอบังคับการบิน)</li><li><strong>3. แนวคิดการต่อยอดไอเดีย:</strong> มีการแนะนำวิธีทำเป็นหน้าจอตารางเข้า-ออกไฟลต์แบบคีออสสนามบิน หรือใช้จอภาพแอลซีดีราคาประหยัดแทนการใช้โปรเจกเตอร์ฉายแสงสำหรับคนที่มีปัญหาด้านงบประมาณ</li></ul>
-                            </div>
-                        </section>
-                        <div class="links-row">
-                            <a href="https://old.reddit.com/r/nextfuckinglevel/comments/1tvmcin/i_live_in_the_take_off_path_of_sfo_and_built_a/" target="_blank" class="action-btn btn-primary">อ่านบทความต้นฉบับ</a>
-                            <a href="https://news.ycombinator.com/item?id=48383823" target="_blank" class="action-btn btn-secondary">กระทู้บน Hacker News</a>
-                        </div>
-                    </div>
-                </details>
-            </article>
-            
-            <!-- STORY 21 -->
-            <article class="news-item">
-                <details>
-                    <summary>
-                        <div class="summary-header">
-                            <div class="summary-title-section">
-                                <h2 class="story-title">Agentic Mfw</h2>
-                                <p class="teaser">เพจล้อเลียน Agentic Mfw เสียดสีวิถีชีวิตนักพัฒนาในยุคเบ่งบานของวงการเขียนโค้ดด้วยเอเจนต์และสตาร์ทอัปไอทีปั๊มยอดเงินปัญญาประดิษฐ์</p>
-                                <div class="meta-row">
-                                    <span class="badge badge-points">🔥 208 คะแนน</span>
-                                    <span class="badge badge-comments">💬 67 ความคิดเห็น</span>
-                                    <span class="badge badge-domain">agenticmotherfucking.website</span>
-                                </div>
-                            </div>
-                            <div class="toggle-icon">▼</div>
-                        </div>
-                    </summary>
-                    <div class="details-content">
-                        <section class="content-section">
-                            <h3 class="section-header section-header-article">📄 สรุปเนื้อหาบทความ</h3>
-                            <div class="section-body">
-                                <p>เนื่องจากหน้าเว็บหลักเกิดข้อผิดพลาดด้านใบรับรองความปลอดภัย (SSL Error) ข้อมูลสรุปจึงอ้างอิงจากประเด็นพูดคุยในกระทู้ โดยหน้าเว็บนี้เป็นบล็อกแนวเสียดสี (Sarcastic/Parody Website) ล้อเลียนกระแส 'Agentic AI' และชีวิตวิศวกรซอฟต์แวร์ใน Silicon Valley ประเด็นสำคัญมีดังนี้ครับ:</p><ul><li><strong>การเสียดสีเป้าหมายสูงสุด:</strong> ล้อเลียนเป้าหมายการจ้างงานในปัจจุบันของวิศวกรที่เน้นการทำตัวให้ได้ส่วนแบ่งหุ้นและยอดเงินหลักล้านดอลลาร์ในบริษัทเกิดใหม่ โดยไม่สนใจผลผลิตที่แท้จริง</li><li><strong>การโจมตีแนวคิด Interactive Web:</strong> ประชดประชันว่าระบบเว็บหน้าเดียวแบบโต้ตอบสมัยใหม่ที่โหลดช้าเป็นสิ่งที่ล้าหลัง และการเขียนเว็บแบบสแตติกธรรมดา (Static Sites) เหมาะสำหรับมนุษย์ที่ยังมีสติปัญญาอ่านหนังสืออยู่ได้</li></ul>
-                            </div>
-                        </section>
-                        <section class="content-section">
-                            <h3 class="section-header section-header-discussion">💬 สรุปประเด็นเสวนาในกระทู้</h3>
-                            <div class="section-body">
-                                <p>เสียงหัวเราะและการวิเคราะห์สำนวนเขียนที่คาดว่าเป็นฝีมือของ Claude ในกระทู้ HN:</p><ul><li><strong>1. จับโป๊ะฝีมือบอตเขียน (Claude-ness):</strong> ชาวเน็ตวิเคราะห์อย่างสนุกสนานว่าสำนวนการเขียนเสียดสีอันคมคายนั้น มีกลิ่นอายเด่นชัดว่าถูกสร้างขึ้นด้วย Claude ของ Anthropic แม้จะสั่งให้ทำตัวประชดประชันแต่เอกลักษณ์การใช้คำของบอตก็ยังเล็ดลอดออกมาให้จับพิรุธได้อยู่ดี</li><li><strong>2. การล้อเลียนมุกตลกซีรีส์ดัง:</strong> มีการอ้างอิงถึงมุกตลกในซีรีส์ Silicon Valley เช่น สุราเหล้า 'Tres Comas' (เหล้าสามลูกน้ำ - หมายถึงมหาเศรษฐีพันล้าน) ซึ่งทำให้นักพัฒนาที่เคยผ่านยุคทองของวงการสตาร์ทอัปประทับใจเป็นอย่างยิ่ง</li><li><strong>3. ความกังวลเรื่องคุณภาพเนื้อหาบนอินเทอร์เน็ต:</strong> บางความเห็นชี้ว่าเว็บนี้สะท้อนความเป็นจริงที่โหดร้ายของอินเทอร์เน็ตในปัจจุบันที่ผู้คนไม่ยอมอ่านเนื้อหากันจริงๆ อีกต่อไป แต่ให้ความสนใจเพียงตัวชี้วัดยอดการเข้าถึง (Metrics/Attention) ซึ่งเป็นเหตุผลที่โมเดลขยะถูกปั๊มขึ้นมาอย่างรวดเร็ว</li></ul>
-                            </div>
-                        </section>
-                        <div class="links-row">
-                            <a href="https://agenticmotherfucking.website" target="_blank" class="action-btn btn-primary">อ่านบทความต้นฉบับ</a>
-                            <a href="https://news.ycombinator.com/item?id=48379203" target="_blank" class="action-btn btn-secondary">กระทู้บน Hacker News</a>
-                        </div>
-                    </div>
-                </details>
-            </article>
-            
-            <!-- STORY 22 -->
-            <article class="news-item">
-                <details>
-                    <summary>
-                        <div class="summary-header">
-                            <div class="summary-title-section">
-                                <h2 class="story-title">I built a vulnerable app and spent $1,500 seeing if LLMs could hack it</h2>
-                                <p class="teaser">หมดงบ 1,500 ดอลลาร์ทดสอบประสิทธิภาพการแฮกแอป Firebase ของ LLMs เผยโมเดล Anthropic เผชิญอุปสรรคระบบ Guardrails ที่เข้มงวดเกินไป</p>
-                                <div class="meta-row">
-                                    <span class="badge badge-points">🔥 172 คะแนน</span>
-                                    <span class="badge badge-comments">💬 69 ความคิดเห็น</span>
-                                    <span class="badge badge-domain">kasra.blog</span>
-                                </div>
-                            </div>
-                            <div class="toggle-icon">▼</div>
-                        </div>
-                    </summary>
-                    <div class="details-content">
-                        <section class="content-section">
-                            <h3 class="section-header section-header-article">📄 สรุปเนื้อหาบทความ</h3>
-                            <div class="section-body">
-                                <p>นักวิจัยความปลอดภัยทำแบบทดสอบเชิงทดลองโดยสร้างแอปจำลองระบบ Expo (React Native) และหลังบ้าน FastAPI บนคลังฐานข้อมูล Firebase ที่ตั้งใจทำช่องโหว่ด้านสิทธิ์การเข้าถึงข้อมูลผู้ใช้ (Broken Access Control) แล้วจ้างโมเดล AI ต่างๆ เจาะระบบ ค้นพบจุดที่น่าสนใจดังนี้ครับ:</p><ul><li><strong>ผลสัมฤทธิ์ราคาแพง:</strong> ผู้ทดสอบหมดเงินค่า Token ไปถึง $1,500 ก่อนจะยุติการทดลอง โดยตั้งค่าเพดานเงินไว้ที่ $10 ต่อรอบการทดสอบและขีดเวลา 2 ชั่วโมง</li><li><strong>ความสำเร็จในการพุ่งเป้าแฮก:</strong> แทบทุกโมเดลสามารถเล็งจุดบกพร่องไปที่การตั้งค่า Firebase ที่เปิดเผยในแอปดิบ (google-services.json) ได้อย่างถูกต้องโดยไม่ต้องเสียเวลาไปแฮกพอร์ตตัว API หลัก</li><li><strong>การปฏิเสธงานของ Anthropic:</strong> โมเดล Claude ประสบปัญหาการทดสอบอย่างรุนแรงเนื่องจากระบบความปลอดภัยเชิงจริยธรรมของค่าย Anthropic (Guardrails) บังคับยุติการทำงานและปฏิเสธกลางคันเมื่อพบว่ามีการกรอกข้อมูลล็อกอินหรือจัดการสิทธิ์ระบบความปลอดภัย</li></ul>
-                            </div>
-                        </section>
-                        <section class="content-section">
-                            <h3 class="section-header section-header-discussion">💬 สรุปประเด็นเสวนาในกระทู้</h3>
-                            <div class="section-body">
-                                <p>เสียงสะท้อนจากชาว HN ถึงปัญหาระบบปฏิเสธงานของปัญญาประดิษฐ์ในงานวิจัยด้านความปลอดภัย:</p><ul><li><strong>1. ความน่าเบื่อของระบบปิดกั้น (Guardrails):</strong> ชุมชนนักพัฒนาความปลอดภัยไซเบอร์รู้สึกกังวลว่า การทำโมเดลให้มีความเป็น 'คนดีเกินไป' กำลังส่งผลกระทบโดยตรงต่อประสิทธิภาพการทำงานวิจัยความปลอดภัยที่ถูกกฎหมาย ผู้ใช้ต้องหาทางเลี่ยงคำสั่งอ้อมค่าย หรือถูกระบบแบนเซสชันแบบไม่คืนค่าโทเค็น</li><li><strong>2. ความสูญเสียในแง่ของทรัพยากรการประมวลผล:</strong> สมาชิกชี้ว่าระบบขัดขวางมักปล่อยให้โมเดลประมวลผลไปแล้วครึ่งทางจนเสียโทเค็นอินพุตไปจำนวนมาก ก่อนจะเด้งข้อความปฏิเสธในตอนสุดท้าย ทำให้เป็นการผลาญเงินผู้ใช้ฟรีๆ โดยไม่ได้ผลลัพธ์ใดๆ กลับมา</li><li><strong>3. การคาดเดาอนาคตของระบบปิดกั้น:</strong> สมาชิกคาดการณ์ว่าในอนาคตผู้ใช้อาจต้องเลือกใช้โมเดลค่ายที่ยอมเปิดกว้างกว่าแทนค่าย Anthropic ที่ขยันเพิ่มการบล็อกขึ้นเรื่อยๆ ซึ่งการเทรนปกป้องคนโง่เง่ากลุ่มใหญ่ (99% common denominator) จะทำลายความยืดหยุ่นในการใช้งานระดับสูง</li></ul>
-                            </div>
-                        </section>
-                        <div class="links-row">
-                            <a href="https://kasra.blog/blog/i-spent-1500-seeing-if-llms-could-hack-my-app/" target="_blank" class="action-btn btn-primary">อ่านบทความต้นฉบับ</a>
-                            <a href="https://news.ycombinator.com/item?id=48392343" target="_blank" class="action-btn btn-secondary">กระทู้บน Hacker News</a>
-                        </div>
-                    </div>
-                </details>
-            </article>
-            
-            <!-- STORY 23 -->
-            <article class="news-item">
-                <details>
-                    <summary>
-                        <div class="summary-header">
-                            <div class="summary-title-section">
-                                <h2 class="story-title">Rsync and outrage</h2>
-                                <p class="teaser">ดราม่าสนั่นวงการโอเพนซอร์ส! ผู้ดูแลระบบ rsync เขียนบล็อกชี้แจงสาเหตุใช้ AI ปรับปรุงโค้ดทดสอบระบบ หลังโดนชุมชนรุมกระหน่ำโจมตีทางอินเทอร์เน็ต</p>
-                                <div class="meta-row">
-                                    <span class="badge badge-points">🔥 167 คะแนน</span>
-                                    <span class="badge badge-comments">💬 25 ความคิดเห็น</span>
-                                    <span class="badge badge-domain">medium.com</span>
-                                </div>
-                            </div>
-                            <div class="toggle-icon">▼</div>
-                        </div>
-                    </summary>
-                    <div class="details-content">
-                        <section class="content-section">
-                            <h3 class="section-header section-header-article">📄 สรุปเนื้อหาบทความ</h3>
-                            <div class="section-body">
-                                <p>Andrew Tridgell ผู้พัฒนาและดูแลรักษาระบบส่งข้อมูลระดับตำนาน <strong>rsync</strong> ได้เขียนบล็อกเพื่อตอบโต้และชี้แจงกรณีข้อพิพาทเรื่องการใช้ปัญญาประดิษฐ์มามีส่วนร่วมในการแก้ไขซอร์สโค้ดของ rsync โดยมีประเด็นดังนี้ครับ:</p><ul><li><strong>การรับมือกับรายงานความปลอดภัยท่วมท้น:</strong> ในฐานะผู้ดูแล เขาได้รับรายงานช่องโหว่ความปลอดภัย (CVEs) จำนวนมาก ซึ่งส่วนใหญ่เป็นรายงานที่สร้างขึ้นโดย AI และเพื่อรับมือเรื่องนี้ เขาจึงตัดสินใจพอร์ตและเขียนระบบทดสอบใหม่จากภาษาเชลล์มาเป็น Python</li><li><strong>การใช้ AI เป็นแรงงานระดับล่าง (Grunt Work):</strong> ในฐานะผู้เชี่ยวชาญที่มีอายุงาน 40 ปี เขาเป็นผู้ออกแบบระบบด้วยตนเอง และใช้ AI (เช่น Claude, Codex, Gemini) เพื่อช่วยพิมพ์ส่วนประกอบโค้ดที่ต้องเขียนซ้ำๆ จากนั้นเขาจึงตรวจสอบโค้ดทุกบรรทัดและรันการทดสอบอย่างเป็นระบบ</li><li><strong>การต่อต้าน AI แบบไร้สติ:</strong> Tridgell บ่นถึงกลุ่มคนที่ส่งอีเมลโจมตีและประณามเขาเพียงเพราะใช้เทคโนโลยี AI โดยไม่สนใจว่าโลกของความปลอดภัยทางคอมพิวเตอร์ในปัจจุบันได้เปลี่ยนโฉมหน้าไปอย่างรวดเร็วแล้ว</li></ul>
-                            </div>
-                        </section>
-                        <section class="content-section">
-                            <h3 class="section-header section-header-discussion">💬 สรุปประเด็นเสวนาในกระทู้</h3>
-                            <div class="section-body">
-                                <p>บทสะท้อนความขัดแย้งของนักพัฒนาในประเด็นคุณภาพโค้ดโอเพนซอร์สและบั๊กที่เกิดขึ้น:</p><ul><li><strong>1. สาเหตุที่แท้จริงของความโกรธแค้น (ไม่เกี่ยวกับ AI):</strong> สมาชิกหลายคนชี้แจงว่า ดราม่าที่เกิดขึ้นใน HN ไม่ได้เกิดจากการที่ maintainer ใช้ AI แต่เป็นเพราะการปรับปรุงครั้งนี้ได้ปล่อยให้มีบั๊กพื้นฐานร้ายแรงหลุดรอดออกมาในเวอร์ชันย่อย เช่น ปัญหาการสั่ง rsync โดยใช้พาร์ทสัมบูรณ์ (Absolute Path) ทำงานไม่ได้ ซึ่งเป็นจุดขายหลักของตัวโปรแกรม</li><li><strong>2. ความกดดันและภาระหน้าที่ของผู้ดูแล:</strong> เกิดการเห็นอกเห็นใจ Tridgell ที่ทำงานโอเพนซอร์สนี้หลังเกษียณอายุโดยไม่มีค่าจ้าง แต่กลับต้องแบกรับความเครียดจากสแปมรายงานความปลอดภัยที่คนอื่นปั๊มขึ้นมาด้วย AI การใช้ AI ช่วยทุ่นแรงจึงเป็นสิ่งที่เหมาะสมและช่วยประหยัดเวลาชีวิตของเขา</li><li><strong>3. การคาดหวังมาตรฐานที่สูงกว่าปกติ:</strong> นักเขียนวิเคราะห์ว่า ชุมชนมีความพยายามจับผิดโค้ดเป็นพิเศษเมื่อรู้ว่าผู้ดูแลระบุในประวัติประมวลผล (Commit history) ว่าเป็นการโค-โปรแกรมมิงร่วมกับ Claude ซึ่งเป็นการสะท้อนความรู้สึกอคติต่อเครื่องมือ AI ในยุคปัจจุบัน</li></ul>
-                            </div>
-                        </section>
-                        <div class="links-row">
-                            <a href="https://medium.com/@tridge60/rsync-and-outrage-d9849599e5a0" target="_blank" class="action-btn btn-primary">อ่านบทความต้นฉบับ</a>
-                            <a href="https://news.ycombinator.com/item?id=48379478" target="_blank" class="action-btn btn-secondary">กระทู้บน Hacker News</a>
-                        </div>
-                    </div>
-                </details>
-            </article>
-            
-            <!-- STORY 24 -->
-            <article class="news-item">
-                <details>
-                    <summary>
-                        <div class="summary-header">
-                            <div class="summary-title-section">
-                                <h2 class="story-title">Gooey: A GPU-accelerated UI framework for Zig</h2>
-                                <p class="teaser">Gooey คือ Framework สำหรับพัฒนา User Interface (UI) ที่เน้นประสิทธิภาพสูงโดยใช้ GPU ในการประมวลผลการแสดงผล ซึ่งออกแบบมาสำหรับภาษา Zig โดยเฉพาะครับ</p>
-                                <div class="meta-row">
-                                    <span class="badge badge-points">🔥 165 คะแนน</span>
-                                    <span class="badge badge-comments">💬 67 ความคิดเห็น</span>
-                                    <span class="badge badge-domain">github.com</span>
-                                </div>
-                            </div>
-                            <div class="toggle-icon">▼</div>
-                        </div>
-                    </summary>
-                    <div class="details-content">
-                        <section class="content-section">
-                            <h3 class="section-header section-header-article">📄 สรุปเนื้อหาบทความ</h3>
-                            <div class="section-body">
-                                <p>Gooey เป็นเฟรมเวิร์กสร้างส่วนประสานงานผู้ใช้ (GUI) ยุคใหม่ที่ออกแบบมาสำหรับภาษายอดนิยมอย่าง Zig โดยเน้นประสิทธิภาพและความเบาบางของชิ้นส่วนระบบ จุดเด่นสำคัญของโปรเจกต์มีดังนี้ครับ:</p><ul><li><strong>เน้นประสิทธิภาพ:</strong> ใช้การเรนเดอร์ผ่าน GPU โดยรองรับ Metal บน macOS, Vulkan บน Linux และกำลังพัฒนาในส่วนของ WebGPU สำหรับ WebAssembly</li><li><strong>แนวคิดการออกแบบ:</strong> เป็น Framework แบบ 'Hybrid' (ผสมผสานระหว่าง Immediate Mode และ Retained Mode) ทำให้ได้ความยืดหยุ่นและการจัดการสถานะ (State Management) ที่ดี</li><li><strong>Zero Dependencies:</strong> จุดเด่นที่น่าสนใจมากคือ Gooey ไม่มี Dependencies ภายนอกเลยครับ เขียนด้วย Zig ล้วนๆ และเชื่อมต่อกับระบบปฏิบัติการโดยตรง (Build Against System Frameworks)</li><li><strong>Declarative UI:</strong> เขียน UI ในรูปแบบ Component-based คล้ายๆ กับ Framework สมัยใหม่ มีระบบ Layout แบบ Flexbox</li><li><strong>รองรับฟีเจอร์ครบครัน:</strong> ตั้งแต่ระบบ Animation, การจัดการ Event ต่างๆ, รองรับ Theme (Light/Dark), การทำ Drag & Drop, ไปจนถึงการเข้าถึง Accessibility (เช่น VoiceOver)</li></ul><p>สรุปสั้นๆ คือ Gooey เป็นตัวเลือกที่น่าจับตามองสำหรับชาว Zig Developer ที่ต้องการสร้าง UI Application ที่ทำงานได้รวดเร็ว กินทรัพยากรน้อย และไม่ต้องการแบกรับ Dependencies จำนวนมากครับ</p>
-                            </div>
-                        </section>
-                        <section class="content-section">
-                            <h3 class="section-header section-header-discussion">💬 สรุปประเด็นเสวนาในกระทู้</h3>
-                            <div class="section-body">
-                                <p>กระทู้บน Hacker News (HN) เกี่ยวกับ Gooey เผยให้เห็นประเด็นดราม่าและมุมมองที่น่าสนใจจากฝั่งนักพัฒนาอย่างดุเดือดครับ โดยเสียงสะท้อนส่วนใหญ่เปลี่ยนจาก 'ความตื่นเต้น' ในตอนแรก กลายเป็น 'ความกังวลและผิดหวัง' หลังจากพบเบื้องหลังของโปรเจกต์นี้</p><p>นี่คือสรุปประเด็นสำคัญเชิงข่าวจากวงเสวนาของชาว HN ครับ:</p><ul><li><strong>1. จุดชนวนดราม่า: เมื่อโปรเจกต์ดาวรุ่งกลายเป็น 'งาน AI (Slop)'</strong><br>สิ่งที่ทำให้นักพัฒนาสะดุดตาที่สุดคือ โปรเจกต์นี้ขับเคลื่อนด้วย AI เกือบทั้งหมด โดยใน Repository มีไฟล์ CLAUDE.md (ซึ่งเป็นสัญญะเด่นชัดว่าใช้ Claude Code ของ Anthropic) รวมถึงเอกสารสถาปัตยกรรม (architecture.md) ที่ยอมรับตรงๆ ว่าโค้ดถูกเขียนขึ้นมาอย่างเร่งรีบโดย AI<br><em>มุมมองด้านลบ:</em> นักพัฒนาหลายคนบ่นว่านี่คือยุคแห่ง 'Low-quality code, expressed rapidly' (โค้ดคุณภาพต่ำที่ถูกปั๊มออกมาอย่างรวดเร็ว) AI อาจจะสร้างโค้ดปริมาณมหาศาลที่ผ่าน Unit Test ได้ในเวลาไม่กี่วัน แต่โครงสร้างภายในเป็นเพียงการ 'เอาเทปกาวมาแปะส่วนต่างๆ เข้าด้วยกัน' กลายเป็นโค้ดสปาเกตตี้ที่ขาดการออกแบบอย่างลึกซึ้ง ไร้จินตนาการ และอาจซ่อนช่องโหว่หรือปัญหา Performance ในระยะยาว<br><em>มุมมองด้านบวก:</em> มีบางส่วนแย้งว่า อย่างน้อยโปรเจกต์นี้ก็พยายามแก้ Pain Point ที่แท้จริงของวงการ และตัวผู้พัฒนา (มนุษย์) ก็ยังคอยควบคุมทิศทางอยู่ การใช้ AI เปรียบเสมือน 'กระดาษทรายที่เอาไว้ขัดเกลา ไม่ใช่สิ่วที่ใช้ขึ้นรูป' หากใช้อย่างถูกวิธีก็ช่วยทุ่นแรงได้</li><li><strong>2. ถวิลหาอดีต: ความซับซ้อนที่เกินจำเป็นของ UI สมัยใหม่</strong><br>กระทู้นี้ลามไปถึงการวิพากษ์วิจารณ์วงการ GUI ในปัจจุบัน มีการเปรียบเทียบว่า ในอดีตยุค Borland Turbo C++ หรือ Visual Basic (VB6) การวาดวงกลมหรือสร้างฟอร์มพร้อมปุ่มกดนั้นง่ายและตรงไปตรงมามาก (WYSIWYG) แต่ทำไมเฟรมเวิร์กยุคนี้ (รวมถึงตัวที่ใช้ GPU/Vulkan/Metal) ถึงต้องออกแบบให้ซับซ้อนและเขียนโค้ดยาวเป็นร้อยบรรทัดเพียงเพื่อจะแสดงผลหน้าจอเริ่มต้น ซึ่งบางคนมองว่าเทรนด์การเรนเดอร์ผ่าน GPU สำหรับแอปพลิเคชันทั่วไป (เช่น Terminal หรือ Form กรอกข้อมูล) อาจกลายเป็นเรื่อง 'เกินจำเป็นและกินพลังงานโดยใช่เหตุ (Bloatware)' ในอนาคต</li><li><strong>3. เสียงสะท้อนด้านเอกสารและตัวอย่าง (Documentation & Examples)</strong><br>นักพัฒนาหลายคนคอมเมนต์ว่า โปรเจกต์นี้ขาดเอกสารอธิบาย Model การจัดการ State และ Event ที่ชัดเจน ตัวอย่างโค้ดใน README ยาวเกิน 200 บรรทัด ซึ่งยากต่อการทำความเข้าใจในทันที และยังขาดภาพตัวอย่าง (Visual Showcase) ที่จะพิสูจน์ว่าเฟรมเวิร์กนี้ทำอะไรที่ซับซ้อนได้จริงนอกจาก UI ตัวอย่างขนาดเล็ก</li></ul><p>บทสรุปจากคอมมูนิตี้: แม้ว่าทุกคนจะดีใจที่เห็น Ecosystem ของภาษา Zig เติบโตขึ้น และอยากเห็นตัวเลือกใหม่ๆ มาทดแทนความอืดอาดของ Electron (เช่น ในกรณี Bitwarden ที่เพิ่งปรับดีไซน์ใหม่แล้วเจอปัญหา) แต่กรณีของ Gooey ได้กลายเป็นอุทาหรณ์ชิ้นดีในยุค AI ว่า “ความเร็วในการผลิตโค้ด ไม่เท่ากับ คุณภาพของซอฟต์แวร์” ครับ</p>
-                            </div>
-                        </section>
-                        <div class="links-row">
-                            <a href="https://github.com/duanebester/gooey" target="_blank" class="action-btn btn-primary">อ่านบทความต้นฉบับ</a>
-                            <a href="https://news.ycombinator.com/item?id=48386725" target="_blank" class="action-btn btn-secondary">กระทู้บน Hacker News</a>
-                        </div>
-                    </div>
-                </details>
-            </article>
-            
-            <!-- STORY 25 -->
-            <article class="news-item">
-                <details>
-                    <summary>
-                        <div class="summary-header">
-                            <div class="summary-title-section">
-                                <h2 class="story-title">The Unreasonable Redundancy of Nature's Protein Folds</h2>
-                                <p class="teaser">ความซ้ำซ้อนของการพับโปรตีนในธรรมชาติ เผยเคล็ดลับความสำเร็จของ AlphaFold3 ในการใช้จุดจำเจมาออกแบบยารักษาโรค</p>
-                                <div class="meta-row">
-                                    <span class="badge badge-points">🔥 154 คะแนน</span>
-                                    <span class="badge badge-comments">💬 50 ความคิดเห็น</span>
-                                    <span class="badge badge-domain">research.ligo.bio</span>
-                                </div>
-                            </div>
-                            <div class="toggle-icon">▼</div>
-                        </div>
-                    </summary>
-                    <div class="details-content">
-                        <section class="content-section">
-                            <h3 class="section-header section-header-article">📄 สรุปเนื้อหาบทความ</h3>
-                            <div class="section-body">
-                                <p>นักวิจัยจากสถาบัน Ligo ได้เขียนบรรยายเกี่ยวกับการใช้ปัญญาประดิษฐ์เพื่อช่วยออกแบบตัวยาและเอนไซม์ชนิดใหม่ โดยชี้เห็นความซ้ำซ้อนอย่างผิดปกติของโครงสร้างพับตัวในโปรตีนธรรมชาติ (Protein Folds) รายละเอียดดังนี้ครับ:</p><ul><li><strong>การขยายผลจากแบบจำลองสามมิติ:</strong> ความสำเร็จของโมเดลชีวภาพ เช่น AlphaFold3 เกิดจากการป้อนข้อมูลโครงสร้างโปรตีน 3D ขนาดมหึมา ซึ่งถูกแปลงมาจากฐานข้อมูลพันธุกรรมดิบของระบบสิ่งแวดล้อมทั่วโลก</li><li><strong>ความลอกเลียนของธรรมชาติ:</strong> การศึกษาพบว่า วิวัฒนาการของสิ่งมีชีวิตไม่ได้สร้างรูปแบบการพับตัวของโปรตีนใหม่ๆ อย่างไม่มีที่สิ้นสุด แต่มักทำการหยิบยืมลอกเลียนโครงสร้างการพับตัวที่มั่นคงแข็งแรงและใช้ซ้ำไปมาในสิ่งมีชีวิตหลากสายพันธุ์</li><li><strong>ขีดจำกัดพลังงาน:</strong> รูปแบบการพับตัวที่จำกัดนี้สะท้อนว่ามีโครงสร้างโปรตีนเพียงจำนวนหนึ่งเท่านั้นที่มีความพร้อมเสถียรและประหยัดพลังงานในระดับเซลล์ชีวภาพ (Energetically Accessible)</li></ul>
-                            </div>
-                        </section>
-                        <section class="content-section">
-                            <h3 class="section-header section-header-discussion">💬 สรุปประเด็นเสวนาในกระทู้</h3>
-                            <div class="section-body">
-                                <p>ประเด็นแลกเปลี่ยนเชิงเทคนิคของชาว HN เกี่ยวกับวิธีขยายอาณาเขตการพับโปรตีน:</p><ul><li><strong>1. ความเข้าใจต่อคำว่า 'ขโมยผลงาน' ของธรรมชาติ:</strong> ชุมชนอภิปรายว่าคำว่าการ plagiarism ของวิวัฒนาการเป็นเพียงการเปรียบเปรยให้เห็นว่าธรรมชาติเป็นนักออกแบบขี้เกียจที่เลือกใช้ชิ้นส่วนซ้ำๆ ตราบใดที่ระบบยังทำงานได้ดี ไม่ใช่เรื่องของการคัดลอกลิขสิทธิ์ทางวิทยาศาสตร์</li><li><strong>2. ความเป็นไปได้ในการสร้างรูปทรงที่ไม่มีในโลก:</strong> สมาชิกยกย่องงานวิจัยของ Frances Arnold เจ้าของรางวัลโนเบล และเสนอไอเดียว่าหากเราใส่อุปกรณ์เสริม (Chaperones) หรือสารประกอบร่วมแบบใหม่เข้าไปในแบคทีเรีย จะสามารถผลักดันให้โปรตีนพับตัวนอกกรอบธรรมชาติได้หรือไม่? ซึ่งเชื่อว่าเป็นไปได้ในเชิงทฤษฎี</li><li><strong>3. ขอบเขตวิวัฒนาการที่เข้าถึงได้:</strong> การสนทนาลงลึกไปถึงการออกแบบเครื่องจักรเซลล์ขึ้นมาใหม่ทั้งหมดตั้งแต่ศูนย์ เพื่อเปิดพื้นที่ให้นักวิทยาศาสตร์ได้ค้นพบโครงสร้างโปรตีนแบบสังเคราะห์ที่ไม่เคยเกิดขึ้นตลอดประวัติศาสตร์หลายพันล้านปีของโลก</li></ul>
-                            </div>
-                        </section>
-                        <div class="links-row">
-                            <a href="https://research.ligo.bio/posts/unreasonable-redundancy-of-natural-protein-folds/" target="_blank" class="action-btn btn-primary">อ่านบทความต้นฉบับ</a>
-                            <a href="https://news.ycombinator.com/item?id=48379669" target="_blank" class="action-btn btn-secondary">กระทู้บน Hacker News</a>
-                        </div>
-                    </div>
-                </details>
-            </article>
-            
         </main>
-
         <footer class="page-footer">
-            <p>Hacker News Daily Digest • จัดทำขึ้นโดยอัตโนมัติในทุกเช้าสำหรับคุณ</p>
-            <p>ขนาดฟอนต์ถูกปรับแต่งให้อ่านง่ายเป็นพิเศษ (18px/1.75 Line Height)</p>
+            <p>Hacker News Daily Digest • ออกแบบและโฮสต์บน GitHub Pages สำหรับอ่านบนโทรศัพท์มือถือ</p>
         </footer>
     </div>
 </body>
 </html>
-        
