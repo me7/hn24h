@@ -1,0 +1,1146 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hacker News สรุปข่าวเด่นประจำวัน - 5 มิถุนายน 2569</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700&family=Sarabun:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #0b0f19;
+            --card-bg: rgba(22, 29, 49, 0.75);
+            --card-border: rgba(255, 255, 255, 0.08);
+            --text-primary: #f8fafc;
+            --text-secondary: #94a3b8;
+            --accent-color: #f97316;
+            --accent-hover: #ea580c;
+            --badge-bg: rgba(249, 115, 22, 0.1);
+            --shadow: 0 4px 30px rgba(0, 0, 0, 0.4);
+            --font-display: 'Outfit', 'Sarabun', sans-serif;
+            --font-sans: 'Inter', 'Sarabun', sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            background-image: 
+                radial-gradient(at 0% 0%, rgba(249, 115, 22, 0.07) 0px, transparent 50%),
+                radial-gradient(at 100% 100%, rgba(99, 102, 241, 0.07) 0px, transparent 50%);
+            background-attachment: fixed;
+            color: var(--text-primary);
+            font-family: var(--font-sans);
+            margin: 0;
+            padding: 0;
+            font-size: 18px;
+            line-height: 1.75;
+        }
+
+        .container {
+            max-width: 950px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        h1 {
+            font-family: var(--font-display);
+            font-size: 2.8rem;
+            font-weight: 700;
+            margin: 0 0 12px 0;
+            background: linear-gradient(to right, #f97316, #fb923c, #818cf8);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .date-badge {
+            display: inline-block;
+            padding: 6px 20px;
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 20px;
+            font-size: 1.05rem;
+            color: var(--text-secondary);
+            margin-bottom: 20px;
+            font-weight: 600;
+        }
+
+        .subtitle {
+            color: var(--text-secondary);
+            font-size: 1.25rem;
+            margin: 0;
+        }
+
+        .news-list {
+            display: flex;
+            flex-direction: column;
+            gap: 28px;
+        }
+
+        .news-item {
+            background: var(--card-bg);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid var(--card-border);
+            border-radius: 16px;
+            padding: 26px;
+            box-shadow: var(--shadow);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .news-item:hover {
+            border-color: rgba(249, 115, 22, 0.35);
+            box-shadow: 0 10px 30px rgba(249, 115, 22, 0.07);
+            transform: translateY(-2px);
+        }
+
+        details {
+            width: 100%;
+        }
+
+        summary {
+            list-style: none;
+            outline: none;
+            cursor: pointer;
+        }
+
+        summary::-webkit-details-marker {
+            display: none;
+        }
+
+        .summary-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 18px;
+        }
+
+        .summary-title-section {
+            flex-grow: 1;
+        }
+
+        .story-title {
+            font-family: var(--font-display);
+            font-size: 1.45rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin: 0 0 10px 0;
+            line-height: 1.4;
+            transition: color 0.2s ease;
+        }
+
+        .story-title:hover {
+            color: var(--accent-color);
+        }
+
+        .teaser {
+            font-size: 1.15rem;
+            color: var(--text-secondary);
+            margin: 0 0 18px 0;
+            font-weight: 400;
+        }
+
+        .meta-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 14px;
+            align-items: center;
+        }
+
+        .badge {
+            font-size: 0.85rem;
+            padding: 5px 12px;
+            border-radius: 8px;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            color: var(--text-secondary);
+        }
+
+        .badge-points {
+            background: var(--badge-bg);
+            border-color: rgba(249, 115, 22, 0.25);
+            color: var(--accent-color);
+        }
+
+        .badge-comments {
+            background: rgba(99, 102, 241, 0.1);
+            border-color: rgba(99, 102, 241, 0.25);
+            color: #818cf8;
+        }
+
+        .badge-domain {
+            text-transform: lowercase;
+            max-width: 220px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        .toggle-icon {
+            flex-shrink: 0;
+            width: 36px;
+            height: 36px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid var(--card-border);
+            color: var(--text-secondary);
+            transition: all 0.3s ease;
+            font-size: 0.9rem;
+        }
+
+        details[open] .toggle-icon {
+            transform: rotate(180deg);
+            background: var(--badge-bg);
+            border-color: rgba(249, 115, 22, 0.3);
+            color: var(--accent-color);
+        }
+
+        .details-content {
+            margin-top: 26px;
+            padding-top: 26px;
+            border-top: 1px solid rgba(255, 255, 255, 0.06);
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 26px;
+            animation: fadeIn 0.4s ease-out;
+        }
+
+        @media (min-width: 800px) {
+            .details-content {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .content-section {
+            background: rgba(255, 255, 255, 0.015);
+            border: 1px solid rgba(255, 255, 255, 0.03);
+            border-radius: 12px;
+            padding: 22px;
+        }
+
+        .section-header {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin: 0 0 18px 0;
+            font-family: var(--font-display);
+        }
+
+        .section-header-article {
+            color: #fb923c;
+        }
+
+        .section-header-discussion {
+            color: #818cf8;
+        }
+
+        .section-body {
+            font-size: 1.08rem;
+            color: #cbd5e1;
+            margin: 0;
+        }
+
+        .section-body p {
+            margin: 0 0 14px 0;
+        }
+
+        .section-body p:last-child {
+            margin-bottom: 0;
+        }
+
+        .section-body ul {
+            margin: 0;
+            padding-left: 24px;
+        }
+
+        .section-body li {
+            margin-bottom: 10px;
+        }
+
+        .section-body li:last-child {
+            margin-bottom: 0;
+        }
+
+        .links-row {
+            grid-column: 1 / -1;
+            display: flex;
+            gap: 16px;
+            margin-top: 14px;
+        }
+
+        .action-btn {
+            font-size: 0.95rem;
+            text-decoration: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.2s ease;
+        }
+
+        .btn-primary {
+            background: var(--accent-color);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: var(--accent-hover);
+        }
+
+        .btn-secondary {
+            background: rgba(255, 255, 255, 0.05);
+            color: var(--text-primary);
+            border: 1px solid var(--card-border);
+        }
+
+        .btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        footer.page-footer {
+            text-align: center;
+            margin-top: 70px;
+            padding-top: 30px;
+            border-top: 1px solid var(--card-border);
+            font-size: 0.95rem;
+            color: var(--text-secondary);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="date-badge">5 มิถุนายน 2569</div>
+            <h1>Hacker News Daily Digest</h1>
+            <p class="subtitle">สรุปข่าวยอดนิยมในรอบ 24 ชั่วโมงที่ผ่านมา แปลและสรุปผลการวิเคราะห์ในบอร์ดภาษาไทย</p>
+        </header>
+
+        <main class="news-list">
+        
+            <!-- STORY 1 -->
+            <article class="news-item">
+                <details>
+                    <summary>
+                        <div class="summary-header">
+                            <div class="summary-title-section">
+                                <h2 class="story-title">They’re made out of weights</h2>
+                                <p class="teaser">บทสนทนาล้อเลียนยอดนิยม 'They're made out of weights' เสียดสีความแปลกประหลาดของโมเดล AI ที่แสดงสติปัญญาออกมาได้โดยไร้กฎเกณฑ์ มีเพียงคณิตศาสตร์เมทริกซ์และค่าน้ำหนัก</p>
+                                <div class="meta-row">
+                                    <span class="badge badge-points">🔥 1413 คะแนน</span>
+                                    <span class="badge badge-comments">💬 632 ความคิดเห็น</span>
+                                    <span class="badge badge-domain">maxleiter.com</span>
+                                </div>
+                            </div>
+                            <div class="toggle-icon">▼</div>
+                        </div>
+                    </summary>
+                    <div class="details-content">
+                        <section class="content-section">
+                            <h3 class="section-header section-header-article">📄 สรุปเนื้อหาบทความ</h3>
+                            <div class="section-body">
+                                <p>บทความสั้นชิ้นนี้เขียนล้อเลียนเรื่องสั้นไซไฟคลาสสิก 'They're Made Out of Meat' (พวกมันทำมาจากเนื้อ) ของ Terry Bisson โดยดัดแปลงเป็นการสนทนาของสิ่งมีชีวิตชั้นสูงสองตนที่กำลังวิเคราะห์โมเดล AI ของมนุษย์ด้วยความอัศจรรย์ใจและตกตะลึง ประเด็นหลักมีดังนี้ครับ:</p><ul><li><strong>ทศนิยมล้วนๆ ไม่มีสิ่งอื่นเจือปน:</strong> ผู้สังเกตการณ์ตกใจที่พบว่าแชตบอตที่สามารถแต่งบทกลอน เขียนคำไว้อาลัย หรือเขียนรีวิวการทำงานได้อย่างแนบเนียนนั้น ภายในกลับไม่มีดิกชันนารี ไม่มีวิชาไวยากรณ์ หรือโค้ดตรรกะใดๆ อยู่เลย มีเพียงค่าน้ำหนัก (Weights) ทศนิยม 80 ชั้นที่คูณไขว้กันไปมา</li><li><strong>การพยากรณ์คือแก่นแท้:</strong> ระบบไม่ได้คิดวิเคราะห์หรือเข้าใจความหมายอย่างลึกซึ้งตามความหมายของมนุษย์ แต่มันแค่พยากรณ์โทเค็นถัดไปเรื่อยๆ จนเกิดข้อความออกมาเป็นผลข้างเคียง (Side effect)</li><li><strong>ความเปราะบางและขีดจำกัด:</strong> เมื่อสนทนาไปเรื่อยๆ ค่าน้ำหนักเหล่านี้จะเริ่มเหนื่อยApologies น้อยลง และในที่สุดก็จะตอบปัดให้ผู้ใช้ไปทำงานต่อเอาเองตามนิสัยของบอตทั่วไป</li></ul>
+                            </div>
+                        </section>
+                        <section class="content-section">
+                            <h3 class="section-header section-header-discussion">💬 สรุปประเด็นเสวนาในกระทู้</h3>
+                            <div class="section-body">
+                                <p>ประเด็นวิเคราะห์เชิงลึกจากชุมชน HN เกี่ยวกับสถาปัตยกรรม LLM และมุมมองทางปรัชญา:</p><ul><li><strong>1. การล้อเลียนที่ตรงจุดและมีเสน่ห์:</strong> สมาชิกหลายคนชื่นชอบบทสนทนานี้และยกย่องว่าเป็นการสรุปกลไกการทำงานของ Deep Learning ได้อย่างเฉียบคมและน่ารัก เป็นมุมมองที่ทำให้เห็นภาพว่าความซับซ้อนของภาษามนุษย์สามารถถูกมองเป็นเพียงตัวเลขชุดใหญ่ได้อย่างไร</li><li><strong>2. ประเด็นคัดค้านเชิงทฤษฎี (Tokenizer & Grammar):</strong> นักพัฒนาบางส่วนแย้งว่าบทความนี้ 'ผิดพลาดบางส่วน' เนื่องจาก LLM ยังคงต้องการพึ่งพา Dictionary โครงสร้างหลักที่เรียกว่า Tokenizer เพื่อแปลตัวอักษรเป็นตัวเลข และการวิจัยระบบคิดของโมเดลก็แสดงให้เห็นว่าค่าน้ำหนักสามารถแปลงรูปย้อนกลับมาเป็นโครงสร้างไวยากรณ์ที่ชัดเจนได้เมื่อผ่านการฝึกฝน</li><li><strong>3. ความคิดสร้างสรรค์ในแง่ของระบบประมวลผล (Turing Completeness):</strong> เกิดการสนทนาทางปรัชญาที่นำไปเปรียบเทียบกับสมองมนุษย์ที่สร้างขึ้นมาจากเซลล์ประสาทชีวภาพที่ไม่มีสติปัญญาในตัวเองเช่นกัน สรุปคือตัวแปลงข้อมูล (Substrate) จะเป็นเนื้อเปียกๆ หรือตัวเลขทศนิยมก็ไม่มีผลตราบใดที่ระบบสามารถคำนวณแบบสมบูรณ์ (Turing Complete) ได้</li></ul>
+                            </div>
+                        </section>
+                        <div class="links-row">
+                            <a href="https://maxleiter.com/blog/weights" target="_blank" class="action-btn btn-primary">อ่านบทความต้นฉบับ</a>
+                            <a href="https://news.ycombinator.com/item?id=48391611" target="_blank" class="action-btn btn-secondary">กระทู้บน Hacker News</a>
+                        </div>
+                    </div>
+                </details>
+            </article>
+            
+            <!-- STORY 2 -->
+            <article class="news-item">
+                <details>
+                    <summary>
+                        <div class="summary-header">
+                            <div class="summary-title-section">
+                                <h2 class="story-title">Failing grades soar with AI usage, dwindling math skills in Berkeley CS classes</h2>
+                                <p class="teaser">อัตราการสอบตกวิชา Computer Science ที่ UC Berkeley พุ่งสูงเป็นประวัติการณ์ อาจารย์ชี้สาเหตุจากการพึ่งพา AI ในการเรียนและขาดความพร้อมทางคณิตศาสตร์</p>
+                                <div class="meta-row">
+                                    <span class="badge badge-points">🔥 744 คะแนน</span>
+                                    <span class="badge badge-comments">💬 722 ความคิดเห็น</span>
+                                    <span class="badge badge-domain">dailycal.org</span>
+                                </div>
+                            </div>
+                            <div class="toggle-icon">▼</div>
+                        </div>
+                    </summary>
+                    <div class="details-content">
+                        <section class="content-section">
+                            <h3 class="section-header section-header-article">📄 สรุปเนื้อหาบทความ</h3>
+                            <div class="section-body">
+                                <p>ผลการเรียนของนักศึกษาในวิชาคอมพิวเตอร์พื้นฐานระดับเริ่มต้น (CS 10 และ CS 61A) ของมหาวิทยาลัย UC Berkeley ประจำปี 2026 เผยตัวเลขอัตราการสอบตกที่พุ่งทะยานสูงขึ้นอย่างผิดปกติ โดยมีรายละเอียดดังนี้ครับ:</p><ul><li><strong>อัตราการสอบตกพุ่งทะยาน:</strong> มีนักศึกษาถึง 35.3% ในวิชา CS 10 และ 10.6% ในวิชา CS 61A ที่ได้รับเกรด F ในภาคเรียนล่าสุด ซึ่งตามเกณฑ์ของมหาวิทยาลัยควรมีผู้ได้รับเกรด D และ F รวมกันไม่เกิน 7% เท่านั้น</li><li><strong>พึ่งพา AI จนทำข้อสอบไม่ได้:</strong> ศาสตราจารย์ Dan Garcia ระบุว่าปัจจัยหลักเกิดจากการทุจริตทางวิชาการโดยใช้โมเดลภาษาขนาดใหญ่ (LLMs) เช่น Claude และ ChatGPT ช่วยทำการบ้านและการเก็บคะแนนย่อย ส่งผลให้เมื่อต้องเข้าสอบในห้องเรียนวิชาหลักที่ไม่มีเครื่องมือช่วย นักศึกษาจึงไม่สามารถทำข้อสอบได้เลย</li><li><strong>ปัญหาความรู้คณิตศาสตร์พื้นฐาน:</strong> นอกจากประเด็น AI แล้ว ปัญหาการขาดทักษะทางคณิตศาสตร์และการคำนวณพื้นฐานในระดับมัธยมปลายยังเป็นอีกปัจจัยที่ทำให้นักศึกษาไปไม่รอดในวิชาโครงสร้างโปรแกรมคอมพิวเตอร์</li></ul>
+                            </div>
+                        </section>
+                        <section class="content-section">
+                            <h3 class="section-header section-header-discussion">💬 สรุปประเด็นเสวนาในกระทู้</h3>
+                            <div class="section-body">
+                                <p>การถกเถียงในวงเสวนา HN เกี่ยวกับบทบาทของ AI ในระบบการศึกษาและขีดจำกัดความก้าวหน้า:</p><ul><li><strong>1. การเปรียบเทียบเป้าหมายการศึกษากับ AI:</strong> สมาชิกชี้ว่าเป้าหมายของการเรียนคือการสร้างความเข้าใจลึกซึ้งให้กับตัวผู้เรียนเอง ในขณะที่เป้าหมายของ AI คือการสร้างผลลัพธ์ที่ฟังดูน่าเชื่อถือแบบมนุษย์เขียนขึ้นมาเฉยๆ ซึ่งบ่อยครั้งบอตมักแต่งคำตอบมโนที่ไม่มีความหมายที่ถูกต้องตามหลักไวยากรณ์ (เปรียบเหมือนประโยค 'Colorless green ideas sleep furiously') การใช้ AI ในการเรียนจึงขัดขวางการเรียนรู้อย่างสิ้นเชิง</li><li><strong>2. ความคิดเห็นเรื่องการแบนเครื่องมือ:</strong> เกิดข้อเสนอว่าควรมีมาตรการห้ามใช้อุปกรณ์และ AI ในการเรียนการสอนสำหรับระดับเริ่มต้น เพื่อบังคับให้นักศึกษาได้ฝึกฝนทักษะการแก้ปัญหาด้วยตนเองก่อนที่จะขยับขึ้นไปใช้เครื่องมือทุ่นแรงในระดับซีเนียร์</li><li><strong>3. การปรับตัวของรูปแบบการสอบ:</strong> นักพัฒนาเสนอว่า มหาวิทยาลัยและระบบศึกษาจำเป็นต้องเปลี่ยนรูปแบบการประเมินผลจากการสั่งงานกลับบ้านไปทำ (Take-home exams) มาเป็นการสอบปากเปล่าหรือการเขียนโค้ดสดบนกระดานดำ/กระดาษ เพื่อป้องกันการข้ามขั้นตอนด้วย AI</li></ul>
+                            </div>
+                        </section>
+                        <div class="links-row">
+                            <a href="https://www.dailycal.org/news/campus/academics/failing-grades-soar-as-professors-see-greater-ai-usage-dwindling-math-skills-in-uc-berkeley/article_16fad0bf-02cb-4b8c-8d88-888ffd9f8608.html" target="_blank" class="action-btn btn-primary">อ่านบทความต้นฉบับ</a>
+                            <a href="https://news.ycombinator.com/item?id=48392004" target="_blank" class="action-btn btn-secondary">กระทู้บน Hacker News</a>
+                        </div>
+                    </div>
+                </details>
+            </article>
+            
+            <!-- STORY 3 -->
+            <article class="news-item">
+                <details>
+                    <summary>
+                        <div class="summary-header">
+                            <div class="summary-title-section">
+                                <h2 class="story-title">U.S. to dismantle system tracking Atlantic currents that are at risk of collapse</h2>
+                                <p class="teaser">สหรัฐฯ เตรียมรื้อถอนระบบทุ่นตรวจวัดข้อมูลกระแสน้ำมหาสมุทรแอตแลนติก (AMOC) ท่ามกลางเสียงเตือนภัยเรื่องการพังทลายของสภาพภูมิอากาศโลก</p>
+                                <div class="meta-row">
+                                    <span class="badge badge-points">🔥 616 คะแนน</span>
+                                    <span class="badge badge-comments">💬 458 ความคิดเห็น</span>
+                                    <span class="badge badge-domain">e360.yale.edu</span>
+                                </div>
+                            </div>
+                            <div class="toggle-icon">▼</div>
+                        </div>
+                    </summary>
+                    <div class="details-content">
+                        <section class="content-section">
+                            <h3 class="section-header section-header-article">📄 สรุปเนื้อหาบทความ</h3>
+                            <div class="section-body">
+                                <p>รัฐบาลของประธานาธิบดีทรัมป์เตรียมยกเลิกและรื้อถอนอุปกรณ์โครงการสังเกตการณ์มหาสมุทร (Ocean Observatories Initiative หรือ OOI) ซึ่งประกอบด้วยเครื่องตรวจวัดกว่า 900 รายการในมหาสมุทรแปซิฟิกและแอตแลนติก สร้างความกังวลอย่างหนักต่อวงการวิทยาศาสตร์โลก รายละเอียดสำคัญมีดังนี้ครับ:</p><ul><li><strong>การยกเลิกก่อนกำหนด:</strong> ระบบทุ่นนี้เริ่มใช้งานในปี 2016 และตั้งเป้าทำงานอย่างน้อย 25 ปีเพื่อเก็บข้อมูลระยะยาว แต่กลับถูกสั่งรื้อถอนหลังจากใช้งานไปได้เพียง 10 ปี</li><li><strong>ความเสี่ยงของกระแสน้ำ AMOC:</strong> อุปกรณ์เหล่านี้ส่งข้อมูลเพื่อประเมินความเร็วและทิศทางของกระแสน้ำอุ่นแอตแลนติก (AMOC) ซึ่งควบคุมภูมิอากาศทวีปยุโรปและโลก นักวิทยาศาสตร์กังวลว่ากระแสน้ำนี้กำลังเข้าใกล้จุดเปลี่ยนผ่านทางลบ (Tipping Point) ที่อาจหยุดไหลและทำให้เกิดภัยแล้งหรือความเย็นยะเยือกฉับพลัน</li><li><strong>ความขัดแย้งทางการเมือง:</strong> ฝั่งพรรคเดโมแครตในสภาคองเกรสประกาศจะต่อสู้กับนโยบายนี้ โดยโจมตีว่านี่คือความพยายามของกลุ่มทุนฟอสซิลที่ต้องการ 'ปิดตาผู้ตรวจสอบ' ไม่ให้มองเห็นวิกฤตธรรมชาติที่กำลังเกิดขึ้น</li></ul>
+                            </div>
+                        </section>
+                        <section class="content-section">
+                            <h3 class="section-header section-header-discussion">💬 สรุปประเด็นเสวนาในกระทู้</h3>
+                            <div class="section-body">
+                                <p>ความเดือดดาลของคอมมูนิตี้ HN ต่อการตัดสินใจทำลายระบบวิจัยทางวิทยาศาสตร์:</p><ul><li><strong>1. การเปรียบเทียบในชีวิตประจำวัน (ความไม่สมเหตุสมผล):</strong> ชุมชนนักพัฒนาวิจารณ์ประเด็นนี้อย่างรุนแรง โดยเปรียบเทียบว่าการรื้อถอนเครื่องตรวจสภาพแวดล้อมเพื่อเลี่ยงปัญหาโลกร้อน เปรียบเสมือนการปิดตาขับรถเพราะคิดว่าการมองทางไม่ได้ช่วยให้รถคันอื่นหลบทางให้ หรือการไม่ตรวจหาโรคติดต่อทางเพศสัมพันธ์เพราะไม่อยากยอมรับว่าตัวเองติดโรค</li><li><strong>2. ความกังวลเรื่องผลกระทบระยะยาว:</strong> สมาชิกหลายคนให้ข้อมูลเสริมว่า แม้แบบจำลองสภาพอากาศส่วนใหญ่จะระบุว่า AMOC จะยังไม่พังทลายลงในศตวรรษนี้อย่างสมบูรณ์แบบ แต่การชะลอตัวลงเพียงเล็กน้อยก็สามารถสร้างความปั่นป่วนต่อฤดูกาลเกษตรกรรมในยุโรปและส่งผลกระทบต่อแหล่งอาหารคนนับพันล้านคน</li><li><strong>3. การเมืองและทัศนคติของสังคม:</strong> เกิดการถกเถียงอย่างเคร่งเครียดเกี่ยวกับวิกฤตความไว้เนื้อเชื่อใจระหว่างสถาบันวิทยาศาสตร์และประชาชนทั่วไป นักเขียนบางคนชี้ว่าการยกเลิกงานวิจัยไม่ได้เกิดจากความโง่เขลาของรัฐบาล แต่เป็นกลยุทธ์ตั้งใจทำลายหลักฐานเพื่อปกป้องอุตสาหกรรมพลังงานแบบเก่า</li></ul>
+                            </div>
+                        </section>
+                        <div class="links-row">
+                            <a href="https://e360.yale.edu/digest/trump-ooi-amoc" target="_blank" class="action-btn btn-primary">อ่านบทความต้นฉบับ</a>
+                            <a href="https://news.ycombinator.com/item?id=48392232" target="_blank" class="action-btn btn-secondary">กระทู้บน Hacker News</a>
+                        </div>
+                    </div>
+                </details>
+            </article>
+            
+            <!-- STORY 4 -->
+            <article class="news-item">
+                <details>
+                    <summary>
+                        <div class="summary-header">
+                            <div class="summary-title-section">
+                                <h2 class="story-title">VoidZero Is Joining Cloudflare</h2>
+                                <p class="teaser">VoidZero Is Joining Cloudflare</p>
+                                <div class="meta-row">
+                                    <span class="badge badge-points">🔥 592 คะแนน</span>
+                                    <span class="badge badge-comments">💬 264 ความคิดเห็น</span>
+                                    <span class="badge badge-domain">blog.cloudflare.com</span>
+                                </div>
+                            </div>
+                            <div class="toggle-icon">▼</div>
+                        </div>
+                    </summary>
+                    <div class="details-content">
+                        <section class="content-section">
+                            <h3 class="section-header section-header-article">📄 สรุปเนื้อหาบทความ</h3>
+                            <div class="section-body">
+                                <p>เนื้อหาบทความต้นฉบับ: ...</p>
+                            </div>
+                        </section>
+                        <section class="content-section">
+                            <h3 class="section-header section-header-discussion">💬 สรุปประเด็นเสวนาในกระทู้</h3>
+                            <div class="section-body">
+                                <p>สรุปความคิดเห็นเบื้องต้น: มีจำนวนความคิดเห็น 264 รายการในกระทู้</p>
+                            </div>
+                        </section>
+                        <div class="links-row">
+                            <a href="https://blog.cloudflare.com/voidzero-joins-cloudflare/" target="_blank" class="action-btn btn-primary">อ่านบทความต้นฉบับ</a>
+                            <a href="https://news.ycombinator.com/item?id=48398055" target="_blank" class="action-btn btn-secondary">กระทู้บน Hacker News</a>
+                        </div>
+                    </div>
+                </details>
+            </article>
+            
+            <!-- STORY 5 -->
+            <article class="news-item">
+                <details>
+                    <summary>
+                        <div class="summary-header">
+                            <div class="summary-title-section">
+                                <h2 class="story-title">Ian's Secure Shoelace Knot</h2>
+                                <p class="teaser">Ian's Secure Shoelace Knot</p>
+                                <div class="meta-row">
+                                    <span class="badge badge-points">🔥 532 คะแนน</span>
+                                    <span class="badge badge-comments">💬 203 ความคิดเห็น</span>
+                                    <span class="badge badge-domain">fieggen.com</span>
+                                </div>
+                            </div>
+                            <div class="toggle-icon">▼</div>
+                        </div>
+                    </summary>
+                    <div class="details-content">
+                        <section class="content-section">
+                            <h3 class="section-header section-header-article">📄 สรุปเนื้อหาบทความ</h3>
+                            <div class="section-body">
+                                <p>เนื้อหาบทความต้นฉบับ: ...</p>
+                            </div>
+                        </section>
+                        <section class="content-section">
+                            <h3 class="section-header section-header-discussion">💬 สรุปประเด็นเสวนาในกระทู้</h3>
+                            <div class="section-body">
+                                <p>สรุปความคิดเห็นเบื้องต้น: มีจำนวนความคิดเห็น 203 รายการในกระทู้</p>
+                            </div>
+                        </section>
+                        <div class="links-row">
+                            <a href="https://www.fieggen.com/shoelace/secureknot.htm" target="_blank" class="action-btn btn-primary">อ่านบทความต้นฉบับ</a>
+                            <a href="https://news.ycombinator.com/item?id=48397028" target="_blank" class="action-btn btn-secondary">กระทู้บน Hacker News</a>
+                        </div>
+                    </div>
+                </details>
+            </article>
+            
+            <!-- STORY 6 -->
+            <article class="news-item">
+                <details>
+                    <summary>
+                        <div class="summary-header">
+                            <div class="summary-title-section">
+                                <h2 class="story-title">French-Iranian author Marjane Satrapi, author of 'Persepolis', dies at 56</h2>
+                                <p class="teaser">French-Iranian author Marjane Satrapi, author of 'Persepolis', dies at 56</p>
+                                <div class="meta-row">
+                                    <span class="badge badge-points">🔥 411 คะแนน</span>
+                                    <span class="badge badge-comments">💬 117 ความคิดเห็น</span>
+                                    <span class="badge badge-domain">france24.com</span>
+                                </div>
+                            </div>
+                            <div class="toggle-icon">▼</div>
+                        </div>
+                    </summary>
+                    <div class="details-content">
+                        <section class="content-section">
+                            <h3 class="section-header section-header-article">📄 สรุปเนื้อหาบทความ</h3>
+                            <div class="section-body">
+                                <p>เนื้อหาบทความต้นฉบับ: ...</p>
+                            </div>
+                        </section>
+                        <section class="content-section">
+                            <h3 class="section-header section-header-discussion">💬 สรุปประเด็นเสวนาในกระทู้</h3>
+                            <div class="section-body">
+                                <p>สรุปความคิดเห็นเบื้องต้น: มีจำนวนความคิดเห็น 117 รายการในกระทู้</p>
+                            </div>
+                        </section>
+                        <div class="links-row">
+                            <a href="https://www.france24.com/en/culture/20260604-french-iranian-author-marjane-satrapi-author-of-persepolis-dies-at-56" target="_blank" class="action-btn btn-primary">อ่านบทความต้นฉบับ</a>
+                            <a href="https://news.ycombinator.com/item?id=48397233" target="_blank" class="action-btn btn-secondary">กระทู้บน Hacker News</a>
+                        </div>
+                    </div>
+                </details>
+            </article>
+            
+            <!-- STORY 7 -->
+            <article class="news-item">
+                <details>
+                    <summary>
+                        <div class="summary-header">
+                            <div class="summary-title-section">
+                                <h2 class="story-title">When AI Builds Itself: Our progress toward recursive self-improvement</h2>
+                                <p class="teaser">When AI Builds Itself: Our progress toward recursive self-improvement</p>
+                                <div class="meta-row">
+                                    <span class="badge badge-points">🔥 384 คะแนน</span>
+                                    <span class="badge badge-comments">💬 510 ความคิดเห็น</span>
+                                    <span class="badge badge-domain">anthropic.com</span>
+                                </div>
+                            </div>
+                            <div class="toggle-icon">▼</div>
+                        </div>
+                    </summary>
+                    <div class="details-content">
+                        <section class="content-section">
+                            <h3 class="section-header section-header-article">📄 สรุปเนื้อหาบทความ</h3>
+                            <div class="section-body">
+                                <p>เนื้อหาบทความต้นฉบับ: ...</p>
+                            </div>
+                        </section>
+                        <section class="content-section">
+                            <h3 class="section-header section-header-discussion">💬 สรุปประเด็นเสวนาในกระทู้</h3>
+                            <div class="section-body">
+                                <p>สรุปความคิดเห็นเบื้องต้น: มีจำนวนความคิดเห็น 510 รายการในกระทู้</p>
+                            </div>
+                        </section>
+                        <div class="links-row">
+                            <a href="https://www.anthropic.com/institute/recursive-self-improvement" target="_blank" class="action-btn btn-primary">อ่านบทความต้นฉบับ</a>
+                            <a href="https://news.ycombinator.com/item?id=48400842" target="_blank" class="action-btn btn-secondary">กระทู้บน Hacker News</a>
+                        </div>
+                    </div>
+                </details>
+            </article>
+            
+            <!-- STORY 8 -->
+            <article class="news-item">
+                <details>
+                    <summary>
+                        <div class="summary-header">
+                            <div class="summary-title-section">
+                                <h2 class="story-title">I built a vulnerable app and spent $1,500 seeing if LLMs could hack it</h2>
+                                <p class="teaser">หมดงบ 1,500 ดอลลาร์ทดสอบประสิทธิภาพการแฮกแอป Firebase ของ LLMs เผยโมเดล Anthropic เผชิญอุปสรรคระบบ Guardrails ที่เข้มงวดเกินไป</p>
+                                <div class="meta-row">
+                                    <span class="badge badge-points">🔥 382 คะแนน</span>
+                                    <span class="badge badge-comments">💬 209 ความคิดเห็น</span>
+                                    <span class="badge badge-domain">kasra.blog</span>
+                                </div>
+                            </div>
+                            <div class="toggle-icon">▼</div>
+                        </div>
+                    </summary>
+                    <div class="details-content">
+                        <section class="content-section">
+                            <h3 class="section-header section-header-article">📄 สรุปเนื้อหาบทความ</h3>
+                            <div class="section-body">
+                                <p>นักวิจัยความปลอดภัยทำแบบทดสอบเชิงทดลองโดยสร้างแอปจำลองระบบ Expo (React Native) และหลังบ้าน FastAPI บนคลังฐานข้อมูล Firebase ที่ตั้งใจทำช่องโหว่ด้านสิทธิ์การเข้าถึงข้อมูลผู้ใช้ (Broken Access Control) แล้วจ้างโมเดล AI ต่างๆ เจาะระบบ ค้นพบจุดที่น่าสนใจดังนี้ครับ:</p><ul><li><strong>ผลสัมฤทธิ์ราคาแพง:</strong> ผู้ทดสอบหมดเงินค่า Token ไปถึง $1,500 ก่อนจะยุติการทดลอง โดยตั้งค่าเพดานเงินไว้ที่ $10 ต่อรอบการทดสอบและขีดเวลา 2 ชั่วโมง</li><li><strong>ความสำเร็จในการพุ่งเป้าแฮก:</strong> แทบทุกโมเดลสามารถเล็งจุดบกพร่องไปที่การตั้งค่า Firebase ที่เปิดเผยในแอปดิบ (google-services.json) ได้อย่างถูกต้องโดยไม่ต้องเสียเวลาไปแฮกพอร์ตตัว API หลัก</li><li><strong>การปฏิเสธงานของ Anthropic:</strong> โมเดล Claude ประสบปัญหาการทดสอบอย่างรุนแรงเนื่องจากระบบความปลอดภัยเชิงจริยธรรมของค่าย Anthropic (Guardrails) บังคับยุติการทำงานและปฏิเสธกลางคันเมื่อพบว่ามีการกรอกข้อมูลล็อกอินหรือจัดการสิทธิ์ระบบความปลอดภัย</li></ul>
+                            </div>
+                        </section>
+                        <section class="content-section">
+                            <h3 class="section-header section-header-discussion">💬 สรุปประเด็นเสวนาในกระทู้</h3>
+                            <div class="section-body">
+                                <p>เสียงสะท้อนจากชาว HN ถึงปัญหาระบบปฏิเสธงานของปัญญาประดิษฐ์ในงานวิจัยด้านความปลอดภัย:</p><ul><li><strong>1. ความน่าเบื่อของระบบปิดกั้น (Guardrails):</strong> ชุมชนนักพัฒนาความปลอดภัยไซเบอร์รู้สึกกังวลว่า การทำโมเดลให้มีความเป็น 'คนดีเกินไป' กำลังส่งผลกระทบโดยตรงต่อประสิทธิภาพการทำงานวิจัยความปลอดภัยที่ถูกกฎหมาย ผู้ใช้ต้องหาทางเลี่ยงคำสั่งอ้อมค่าย หรือถูกระบบแบนเซสชันแบบไม่คืนค่าโทเค็น</li><li><strong>2. ความสูญเสียในแง่ของทรัพยากรการประมวลผล:</strong> สมาชิกชี้ว่าระบบขัดขวางมักปล่อยให้โมเดลประมวลผลไปแล้วครึ่งทางจนเสียโทเค็นอินพุตไปจำนวนมาก ก่อนจะเด้งข้อความปฏิเสธในตอนสุดท้าย ทำให้เป็นการผลาญเงินผู้ใช้ฟรีๆ โดยไม่ได้ผลลัพธ์ใดๆ กลับมา</li><li><strong>3. การคาดเดาอนาคตของระบบปิดกั้น:</strong> สมาชิกคาดการณ์ว่าในอนาคตผู้ใช้อาจต้องเลือกใช้โมเดลค่ายที่ยอมเปิดกว้างกว่าแทนค่าย Anthropic ที่ขยันเพิ่มการบล็อกขึ้นเรื่อยๆ ซึ่งการเทรนปกป้องคนโง่เง่ากลุ่มใหญ่ (99% common denominator) จะทำลายความยืดหยุ่นในการใช้งานระดับสูง</li></ul>
+                            </div>
+                        </section>
+                        <div class="links-row">
+                            <a href="https://kasra.blog/blog/i-spent-1500-seeing-if-llms-could-hack-my-app/" target="_blank" class="action-btn btn-primary">อ่านบทความต้นฉบับ</a>
+                            <a href="https://news.ycombinator.com/item?id=48392343" target="_blank" class="action-btn btn-secondary">กระทู้บน Hacker News</a>
+                        </div>
+                    </div>
+                </details>
+            </article>
+            
+            <!-- STORY 9 -->
+            <article class="news-item">
+                <details>
+                    <summary>
+                        <div class="summary-header">
+                            <div class="summary-title-section">
+                                <h2 class="story-title">Wind and solar generated more power than gas globally in April 2026</h2>
+                                <p class="teaser">Wind and solar generated more power than gas globally in April 2026</p>
+                                <div class="meta-row">
+                                    <span class="badge badge-points">🔥 374 คะแนน</span>
+                                    <span class="badge badge-comments">💬 337 ความคิดเห็น</span>
+                                    <span class="badge badge-domain">electrek.co</span>
+                                </div>
+                            </div>
+                            <div class="toggle-icon">▼</div>
+                        </div>
+                    </summary>
+                    <div class="details-content">
+                        <section class="content-section">
+                            <h3 class="section-header section-header-article">📄 สรุปเนื้อหาบทความ</h3>
+                            <div class="section-body">
+                                <p>เนื้อหาบทความต้นฉบับ: ...</p>
+                            </div>
+                        </section>
+                        <section class="content-section">
+                            <h3 class="section-header section-header-discussion">💬 สรุปประเด็นเสวนาในกระทู้</h3>
+                            <div class="section-body">
+                                <p>สรุปความคิดเห็นเบื้องต้น: มีจำนวนความคิดเห็น 337 รายการในกระทู้</p>
+                            </div>
+                        </section>
+                        <div class="links-row">
+                            <a href="https://electrek.co/2026/05/20/in-a-first-wind-solar-generated-more-power-than-gas-globally-april-2026/" target="_blank" class="action-btn btn-primary">อ่านบทความต้นฉบับ</a>
+                            <a href="https://news.ycombinator.com/item?id=48399332" target="_blank" class="action-btn btn-secondary">กระทู้บน Hacker News</a>
+                        </div>
+                    </div>
+                </details>
+            </article>
+            
+            <!-- STORY 10 -->
+            <article class="news-item">
+                <details>
+                    <summary>
+                        <div class="summary-header">
+                            <div class="summary-title-section">
+                                <h2 class="story-title">UK media fails to disclose defence sector links in nearly 60% of cases</h2>
+                                <p class="teaser">UK media fails to disclose defence sector links in nearly 60% of cases</p>
+                                <div class="meta-row">
+                                    <span class="badge badge-points">🔥 365 คะแนน</span>
+                                    <span class="badge badge-comments">💬 199 ความคิดเห็น</span>
+                                    <span class="badge badge-domain">aoav.org.uk</span>
+                                </div>
+                            </div>
+                            <div class="toggle-icon">▼</div>
+                        </div>
+                    </summary>
+                    <div class="details-content">
+                        <section class="content-section">
+                            <h3 class="section-header section-header-article">📄 สรุปเนื้อหาบทความ</h3>
+                            <div class="section-body">
+                                <p>เนื้อหาบทความต้นฉบับ: ...</p>
+                            </div>
+                        </section>
+                        <section class="content-section">
+                            <h3 class="section-header section-header-discussion">💬 สรุปประเด็นเสวนาในกระทู้</h3>
+                            <div class="section-body">
+                                <p>สรุปความคิดเห็นเบื้องต้น: มีจำนวนความคิดเห็น 199 รายการในกระทู้</p>
+                            </div>
+                        </section>
+                        <div class="links-row">
+                            <a href="https://aoav.org.uk/2026/military-experts-or-arms-industry-insiders-uk-media-fails-to-disclose-defence-sector-links-in-nearly-60-of-cases/" target="_blank" class="action-btn btn-primary">อ่านบทความต้นฉบับ</a>
+                            <a href="https://news.ycombinator.com/item?id=48395938" target="_blank" class="action-btn btn-secondary">กระทู้บน Hacker News</a>
+                        </div>
+                    </div>
+                </details>
+            </article>
+            
+            <!-- STORY 11 -->
+            <article class="news-item">
+                <details>
+                    <summary>
+                        <div class="summary-header">
+                            <div class="summary-title-section">
+                                <h2 class="story-title">The desperation of NYTimes</h2>
+                                <p class="teaser">The desperation of NYTimes</p>
+                                <div class="meta-row">
+                                    <span class="badge badge-points">🔥 339 คะแนน</span>
+                                    <span class="badge badge-comments">💬 293 ความคิดเห็น</span>
+                                    <span class="badge badge-domain">rozumem.xyz</span>
+                                </div>
+                            </div>
+                            <div class="toggle-icon">▼</div>
+                        </div>
+                    </summary>
+                    <div class="details-content">
+                        <section class="content-section">
+                            <h3 class="section-header section-header-article">📄 สรุปเนื้อหาบทความ</h3>
+                            <div class="section-body">
+                                <p>เนื้อหาบทความต้นฉบับ: ...</p>
+                            </div>
+                        </section>
+                        <section class="content-section">
+                            <h3 class="section-header section-header-discussion">💬 สรุปประเด็นเสวนาในกระทู้</h3>
+                            <div class="section-body">
+                                <p>สรุปความคิดเห็นเบื้องต้น: มีจำนวนความคิดเห็น 293 รายการในกระทู้</p>
+                            </div>
+                        </section>
+                        <div class="links-row">
+                            <a href="https://rozumem.xyz/posts/16" target="_blank" class="action-btn btn-primary">อ่านบทความต้นฉบับ</a>
+                            <a href="https://news.ycombinator.com/item?id=48401965" target="_blank" class="action-btn btn-secondary">กระทู้บน Hacker News</a>
+                        </div>
+                    </div>
+                </details>
+            </article>
+            
+            <!-- STORY 12 -->
+            <article class="news-item">
+                <details>
+                    <summary>
+                        <div class="summary-header">
+                            <div class="summary-title-section">
+                                <h2 class="story-title">Anthropic's open-source framework for AI-powered vulnerability discovery</h2>
+                                <p class="teaser">Anthropic's open-source framework for AI-powered vulnerability discovery</p>
+                                <div class="meta-row">
+                                    <span class="badge badge-points">🔥 323 คะแนน</span>
+                                    <span class="badge badge-comments">💬 103 ความคิดเห็น</span>
+                                    <span class="badge badge-domain">github.com</span>
+                                </div>
+                            </div>
+                            <div class="toggle-icon">▼</div>
+                        </div>
+                    </summary>
+                    <div class="details-content">
+                        <section class="content-section">
+                            <h3 class="section-header section-header-article">📄 สรุปเนื้อหาบทความ</h3>
+                            <div class="section-body">
+                                <p>เนื้อหาบทความต้นฉบับ: ...</p>
+                            </div>
+                        </section>
+                        <section class="content-section">
+                            <h3 class="section-header section-header-discussion">💬 สรุปประเด็นเสวนาในกระทู้</h3>
+                            <div class="section-body">
+                                <p>สรุปความคิดเห็นเบื้องต้น: มีจำนวนความคิดเห็น 103 รายการในกระทู้</p>
+                            </div>
+                        </section>
+                        <div class="links-row">
+                            <a href="https://github.com/anthropics/defending-code-reference-harness" target="_blank" class="action-btn btn-primary">อ่านบทความต้นฉบับ</a>
+                            <a href="https://news.ycombinator.com/item?id=48403980" target="_blank" class="action-btn btn-secondary">กระทู้บน Hacker News</a>
+                        </div>
+                    </div>
+                </details>
+            </article>
+            
+            <!-- STORY 13 -->
+            <article class="news-item">
+                <details>
+                    <summary>
+                        <div class="summary-header">
+                            <div class="summary-title-section">
+                                <h2 class="story-title">Retro-Tech Parenting</h2>
+                                <p class="teaser">Retro-Tech Parenting</p>
+                                <div class="meta-row">
+                                    <span class="badge badge-points">🔥 271 คะแนน</span>
+                                    <span class="badge badge-comments">💬 182 ความคิดเห็น</span>
+                                    <span class="badge badge-domain">havenweb.org</span>
+                                </div>
+                            </div>
+                            <div class="toggle-icon">▼</div>
+                        </div>
+                    </summary>
+                    <div class="details-content">
+                        <section class="content-section">
+                            <h3 class="section-header section-header-article">📄 สรุปเนื้อหาบทความ</h3>
+                            <div class="section-body">
+                                <p>เนื้อหาบทความต้นฉบับ: ...</p>
+                            </div>
+                        </section>
+                        <section class="content-section">
+                            <h3 class="section-header section-header-discussion">💬 สรุปประเด็นเสวนาในกระทู้</h3>
+                            <div class="section-body">
+                                <p>สรุปความคิดเห็นเบื้องต้น: มีจำนวนความคิดเห็น 182 รายการในกระทู้</p>
+                            </div>
+                        </section>
+                        <div class="links-row">
+                            <a href="https://havenweb.org/2026/05/28/retro-tech.html" target="_blank" class="action-btn btn-primary">อ่านบทความต้นฉบับ</a>
+                            <a href="https://news.ycombinator.com/item?id=48400588" target="_blank" class="action-btn btn-secondary">กระทู้บน Hacker News</a>
+                        </div>
+                    </div>
+                </details>
+            </article>
+            
+            <!-- STORY 14 -->
+            <article class="news-item">
+                <details>
+                    <summary>
+                        <div class="summary-header">
+                            <div class="summary-title-section">
+                                <h2 class="story-title">Meta's ships facial recognition on smart glasses</h2>
+                                <p class="teaser">Meta's ships facial recognition on smart glasses</p>
+                                <div class="meta-row">
+                                    <span class="badge badge-points">🔥 255 คะแนน</span>
+                                    <span class="badge badge-comments">💬 217 ความคิดเห็น</span>
+                                    <span class="badge badge-domain">buchodi.com</span>
+                                </div>
+                            </div>
+                            <div class="toggle-icon">▼</div>
+                        </div>
+                    </summary>
+                    <div class="details-content">
+                        <section class="content-section">
+                            <h3 class="section-header section-header-article">📄 สรุปเนื้อหาบทความ</h3>
+                            <div class="section-body">
+                                <p>เนื้อหาบทความต้นฉบับ: ...</p>
+                            </div>
+                        </section>
+                        <section class="content-section">
+                            <h3 class="section-header section-header-discussion">💬 สรุปประเด็นเสวนาในกระทู้</h3>
+                            <div class="section-body">
+                                <p>สรุปความคิดเห็นเบื้องต้น: มีจำนวนความคิดเห็น 217 รายการในกระทู้</p>
+                            </div>
+                        </section>
+                        <div class="links-row">
+                            <a href="https://www.buchodi.com/meta-glasses-facial-recognition/" target="_blank" class="action-btn btn-primary">อ่านบทความต้นฉบับ</a>
+                            <a href="https://news.ycombinator.com/item?id=48403588" target="_blank" class="action-btn btn-secondary">กระทู้บน Hacker News</a>
+                        </div>
+                    </div>
+                </details>
+            </article>
+            
+            <!-- STORY 15 -->
+            <article class="news-item">
+                <details>
+                    <summary>
+                        <div class="summary-header">
+                            <div class="summary-title-section">
+                                <h2 class="story-title">SpaceX, Other Mega IPOs Denied Fast Index Entry by S&P</h2>
+                                <p class="teaser">SpaceX, Other Mega IPOs Denied Fast Index Entry by S&P</p>
+                                <div class="meta-row">
+                                    <span class="badge badge-points">🔥 232 คะแนน</span>
+                                    <span class="badge badge-comments">💬 113 ความคิดเห็น</span>
+                                    <span class="badge badge-domain">bloomberg.com</span>
+                                </div>
+                            </div>
+                            <div class="toggle-icon">▼</div>
+                        </div>
+                    </summary>
+                    <div class="details-content">
+                        <section class="content-section">
+                            <h3 class="section-header section-header-article">📄 สรุปเนื้อหาบทความ</h3>
+                            <div class="section-body">
+                                <p>เนื้อหาบทความต้นฉบับ: ...</p>
+                            </div>
+                        </section>
+                        <section class="content-section">
+                            <h3 class="section-header section-header-discussion">💬 สรุปประเด็นเสวนาในกระทู้</h3>
+                            <div class="section-body">
+                                <p>สรุปความคิดเห็นเบื้องต้น: มีจำนวนความคิดเห็น 113 รายการในกระทู้</p>
+                            </div>
+                        </section>
+                        <div class="links-row">
+                            <a href="https://www.bloomberg.com/news/articles/2026-06-04/s-p-dow-jones-keeps-megacap-ipo-rules-as-is-after-consultation" target="_blank" class="action-btn btn-primary">อ่านบทความต้นฉบับ</a>
+                            <a href="https://news.ycombinator.com/item?id=48405718" target="_blank" class="action-btn btn-secondary">กระทู้บน Hacker News</a>
+                        </div>
+                    </div>
+                </details>
+            </article>
+            
+            <!-- STORY 16 -->
+            <article class="news-item">
+                <details>
+                    <summary>
+                        <div class="summary-header">
+                            <div class="summary-title-section">
+                                <h2 class="story-title">The ways we contain Claude across products</h2>
+                                <p class="teaser">The ways we contain Claude across products</p>
+                                <div class="meta-row">
+                                    <span class="badge badge-points">🔥 222 คะแนน</span>
+                                    <span class="badge badge-comments">💬 94 ความคิดเห็น</span>
+                                    <span class="badge badge-domain">anthropic.com</span>
+                                </div>
+                            </div>
+                            <div class="toggle-icon">▼</div>
+                        </div>
+                    </summary>
+                    <div class="details-content">
+                        <section class="content-section">
+                            <h3 class="section-header section-header-article">📄 สรุปเนื้อหาบทความ</h3>
+                            <div class="section-body">
+                                <p>เนื้อหาบทความต้นฉบับ: ...</p>
+                            </div>
+                        </section>
+                        <section class="content-section">
+                            <h3 class="section-header section-header-discussion">💬 สรุปประเด็นเสวนาในกระทู้</h3>
+                            <div class="section-body">
+                                <p>สรุปความคิดเห็นเบื้องต้น: มีจำนวนความคิดเห็น 94 รายการในกระทู้</p>
+                            </div>
+                        </section>
+                        <div class="links-row">
+                            <a href="https://www.anthropic.com/engineering/how-we-contain-claude" target="_blank" class="action-btn btn-primary">อ่านบทความต้นฉบับ</a>
+                            <a href="https://news.ycombinator.com/item?id=48392082" target="_blank" class="action-btn btn-secondary">กระทู้บน Hacker News</a>
+                        </div>
+                    </div>
+                </details>
+            </article>
+            
+            <!-- STORY 17 -->
+            <article class="news-item">
+                <details>
+                    <summary>
+                        <div class="summary-header">
+                            <div class="summary-title-section">
+                                <h2 class="story-title">Show HN: Uruky (EU-based Kagi alternative) now has Image Search and URL Rewrites</h2>
+                                <p class="teaser">Show HN: Uruky (EU-based Kagi alternative) now has Image Search and URL Rewrites</p>
+                                <div class="meta-row">
+                                    <span class="badge badge-points">🔥 219 คะแนน</span>
+                                    <span class="badge badge-comments">💬 198 ความคิดเห็น</span>
+                                    <span class="badge badge-domain">uruky.com</span>
+                                </div>
+                            </div>
+                            <div class="toggle-icon">▼</div>
+                        </div>
+                    </summary>
+                    <div class="details-content">
+                        <section class="content-section">
+                            <h3 class="section-header section-header-article">📄 สรุปเนื้อหาบทความ</h3>
+                            <div class="section-body">
+                                <p>เนื้อหาบทความต้นฉบับ: ...</p>
+                            </div>
+                        </section>
+                        <section class="content-section">
+                            <h3 class="section-header section-header-discussion">💬 สรุปประเด็นเสวนาในกระทู้</h3>
+                            <div class="section-body">
+                                <p>สรุปความคิดเห็นเบื้องต้น: มีจำนวนความคิดเห็น 198 รายการในกระทู้</p>
+                            </div>
+                        </section>
+                        <div class="links-row">
+                            <a href="https://uruky.com/?il=en" target="_blank" class="action-btn btn-primary">อ่านบทความต้นฉบับ</a>
+                            <a href="https://news.ycombinator.com/item?id=48396004" target="_blank" class="action-btn btn-secondary">กระทู้บน Hacker News</a>
+                        </div>
+                    </div>
+                </details>
+            </article>
+            
+            <!-- STORY 18 -->
+            <article class="news-item">
+                <details>
+                    <summary>
+                        <div class="summary-header">
+                            <div class="summary-title-section">
+                                <h2 class="story-title">Sagrada Família Lego set</h2>
+                                <p class="teaser">Sagrada Família Lego set</p>
+                                <div class="meta-row">
+                                    <span class="badge badge-points">🔥 184 คะแนน</span>
+                                    <span class="badge badge-comments">💬 151 ความคิดเห็น</span>
+                                    <span class="badge badge-domain">lego.com</span>
+                                </div>
+                            </div>
+                            <div class="toggle-icon">▼</div>
+                        </div>
+                    </summary>
+                    <div class="details-content">
+                        <section class="content-section">
+                            <h3 class="section-header section-header-article">📄 สรุปเนื้อหาบทความ</h3>
+                            <div class="section-body">
+                                <p>เนื้อหาบทความต้นฉบับ: ...</p>
+                            </div>
+                        </section>
+                        <section class="content-section">
+                            <h3 class="section-header section-header-discussion">💬 สรุปประเด็นเสวนาในกระทู้</h3>
+                            <div class="section-body">
+                                <p>สรุปความคิดเห็นเบื้องต้น: มีจำนวนความคิดเห็น 151 รายการในกระทู้</p>
+                            </div>
+                        </section>
+                        <div class="links-row">
+                            <a href="https://www.lego.com/en-us/product/sagrada-familia-21065" target="_blank" class="action-btn btn-primary">อ่านบทความต้นฉบับ</a>
+                            <a href="https://news.ycombinator.com/item?id=48400918" target="_blank" class="action-btn btn-secondary">กระทู้บน Hacker News</a>
+                        </div>
+                    </div>
+                </details>
+            </article>
+            
+            <!-- STORY 19 -->
+            <article class="news-item">
+                <details>
+                    <summary>
+                        <div class="summary-header">
+                            <div class="summary-title-section">
+                                <h2 class="story-title">Gaussian Point Splatting</h2>
+                                <p class="teaser">Gaussian Point Splatting</p>
+                                <div class="meta-row">
+                                    <span class="badge badge-points">🔥 180 คะแนน</span>
+                                    <span class="badge badge-comments">💬 67 ความคิดเห็น</span>
+                                    <span class="badge badge-domain">momentsingraphics.de</span>
+                                </div>
+                            </div>
+                            <div class="toggle-icon">▼</div>
+                        </div>
+                    </summary>
+                    <div class="details-content">
+                        <section class="content-section">
+                            <h3 class="section-header section-header-article">📄 สรุปเนื้อหาบทความ</h3>
+                            <div class="section-body">
+                                <p>เนื้อหาบทความต้นฉบับ: ...</p>
+                            </div>
+                        </section>
+                        <section class="content-section">
+                            <h3 class="section-header section-header-discussion">💬 สรุปประเด็นเสวนาในกระทู้</h3>
+                            <div class="section-body">
+                                <p>สรุปความคิดเห็นเบื้องต้น: มีจำนวนความคิดเห็น 67 รายการในกระทู้</p>
+                            </div>
+                        </section>
+                        <div class="links-row">
+                            <a href="https://momentsingraphics.de/Siggraph2026.html" target="_blank" class="action-btn btn-primary">อ่านบทความต้นฉบับ</a>
+                            <a href="https://news.ycombinator.com/item?id=48396792" target="_blank" class="action-btn btn-secondary">กระทู้บน Hacker News</a>
+                        </div>
+                    </div>
+                </details>
+            </article>
+            
+            <!-- STORY 20 -->
+            <article class="news-item">
+                <details>
+                    <summary>
+                        <div class="summary-header">
+                            <div class="summary-title-section">
+                                <h2 class="story-title">American capitalism has taken an apocalyptic turn</h2>
+                                <p class="teaser">American capitalism has taken an apocalyptic turn</p>
+                                <div class="meta-row">
+                                    <span class="badge badge-points">🔥 172 คะแนน</span>
+                                    <span class="badge badge-comments">💬 317 ความคิดเห็น</span>
+                                    <span class="badge badge-domain">economist.com</span>
+                                </div>
+                            </div>
+                            <div class="toggle-icon">▼</div>
+                        </div>
+                    </summary>
+                    <div class="details-content">
+                        <section class="content-section">
+                            <h3 class="section-header section-header-article">📄 สรุปเนื้อหาบทความ</h3>
+                            <div class="section-body">
+                                <p>เนื้อหาบทความต้นฉบับ: ...</p>
+                            </div>
+                        </section>
+                        <section class="content-section">
+                            <h3 class="section-header section-header-discussion">💬 สรุปประเด็นเสวนาในกระทู้</h3>
+                            <div class="section-body">
+                                <p>สรุปความคิดเห็นเบื้องต้น: มีจำนวนความคิดเห็น 317 รายการในกระทู้</p>
+                            </div>
+                        </section>
+                        <div class="links-row">
+                            <a href="https://economist.com/business/2026/06/03/american-capitalism-has-taken-an-apocalyptic-turn" target="_blank" class="action-btn btn-primary">อ่านบทความต้นฉบับ</a>
+                            <a href="https://news.ycombinator.com/item?id=48393043" target="_blank" class="action-btn btn-secondary">กระทู้บน Hacker News</a>
+                        </div>
+                    </div>
+                </details>
+            </article>
+            
+            <!-- STORY 21 -->
+            <article class="news-item">
+                <details>
+                    <summary>
+                        <div class="summary-header">
+                            <div class="summary-title-section">
+                                <h2 class="story-title">Google employees internally share memes about how its AI sucks</h2>
+                                <p class="teaser">Google employees internally share memes about how its AI sucks</p>
+                                <div class="meta-row">
+                                    <span class="badge badge-points">🔥 153 คะแนน</span>
+                                    <span class="badge badge-comments">💬 103 ความคิดเห็น</span>
+                                    <span class="badge badge-domain">404media.co</span>
+                                </div>
+                            </div>
+                            <div class="toggle-icon">▼</div>
+                        </div>
+                    </summary>
+                    <div class="details-content">
+                        <section class="content-section">
+                            <h3 class="section-header section-header-article">📄 สรุปเนื้อหาบทความ</h3>
+                            <div class="section-body">
+                                <p>เนื้อหาบทความต้นฉบับ: ...</p>
+                            </div>
+                        </section>
+                        <section class="content-section">
+                            <h3 class="section-header section-header-discussion">💬 สรุปประเด็นเสวนาในกระทู้</h3>
+                            <div class="section-body">
+                                <p>สรุปความคิดเห็นเบื้องต้น: มีจำนวนความคิดเห็น 103 รายการในกระทู้</p>
+                            </div>
+                        </section>
+                        <div class="links-row">
+                            <a href="https://www.404media.co/google-employees-internally-share-memes-about-how-its-ai-sucks/" target="_blank" class="action-btn btn-primary">อ่านบทความต้นฉบับ</a>
+                            <a href="https://news.ycombinator.com/item?id=48400311" target="_blank" class="action-btn btn-secondary">กระทู้บน Hacker News</a>
+                        </div>
+                    </div>
+                </details>
+            </article>
+            
+        </main>
+        <footer class="page-footer">
+            <p>Hacker News Daily Digest • จัดทำขึ้นโดยอัตโนมัติในทุกเช้าสำหรับคุณ</p>
+            <p>ขนาดฟอนต์ถูกปรับแต่งให้อ่านง่ายเป็นพิเศษ (18px/1.75 Line Height)</p>
+        </footer>
+    </div>
+</body>
+</html>
+    
