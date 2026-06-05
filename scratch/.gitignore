@@ -11,7 +11,6 @@ ENV/
 
 # Project specific
 hn_knowledge_base.db
-HN_*.html
 
 # OS files
 .DS_Store

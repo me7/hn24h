@@ -27,6 +27,251 @@ def format_thai_date(date_str=None):
     year_th = dt.year + 543
     return f"{dt.day} {months_th[dt.month - 1]} {year_th}"
 
+def build_index_page(conn):
+    """
+    สร้างหน้าแรก index.html เป็นแดชบอร์ดปฏิทินข่าวสำหรับเปิดเลือกอ่านย้อนหลัง
+    """
+    cursor = conn.cursor()
+    
+    # ดึงรายการวันที่ทั้งหมดที่มีข้อมูล
+    cursor.execute("""
+    SELECT DISTINCT fetched_date 
+    FROM stories 
+    WHERE teaser IS NOT NULL AND teaser != ''
+    ORDER BY fetched_date DESC;
+    """)
+    dates = [row[0] for row in cursor.fetchall()]
+    
+    if not dates:
+        print("Warning: ไม่มีข้อมูลสรุปในคลังเพื่อสร้างสารบัญ index.html")
+        return
+        
+    html_content = """<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hacker News Daily Archive - คลังสรุปข่าวสารประจำวัน</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700&family=Sarabun:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #0b0f19;
+            --card-bg: rgba(22, 29, 49, 0.75);
+            --card-border: rgba(255, 255, 255, 0.08);
+            --text-primary: #f8fafc;
+            --text-secondary: #94a3b8;
+            --accent-color: #f97316;
+            --accent-hover: #ea580c;
+            --shadow: 0 4px 30px rgba(0, 0, 0, 0.4);
+            --font-display: 'Outfit', 'Sarabun', sans-serif;
+            --font-sans: 'Inter', 'Sarabun', sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            background-image: 
+                radial-gradient(at 0% 0%, rgba(249, 115, 22, 0.07) 0px, transparent 50%),
+                radial-gradient(at 100% 100%, rgba(99, 102, 241, 0.07) 0px, transparent 50%);
+            background-attachment: fixed;
+            color: var(--text-primary);
+            font-family: var(--font-sans);
+            margin: 0;
+            padding: 0;
+            font-size: 18px;
+            line-height: 1.75;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        h1 {
+            font-family: var(--font-display);
+            font-size: 2.8rem;
+            font-weight: 700;
+            margin: 0 0 12px 0;
+            background: linear-gradient(to right, #f97316, #fb923c, #818cf8);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .subtitle {
+            color: var(--text-secondary);
+            font-size: 1.25rem;
+            margin: 0;
+        }
+
+        .archive-list {
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+        }
+
+        .archive-card {
+            background: var(--card-bg);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid var(--card-border);
+            border-radius: 16px;
+            padding: 24px;
+            box-shadow: var(--shadow);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+        }
+
+        .archive-card:hover {
+            border-color: rgba(249, 115, 22, 0.35);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(249, 115, 22, 0.07);
+        }
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            padding-bottom: 10px;
+        }
+
+        .archive-date {
+            font-family: var(--font-display);
+            font-size: 1.4rem;
+            font-weight: 600;
+            color: var(--accent-color);
+            margin: 0;
+        }
+
+        .top-news-title {
+            font-size: 0.95rem;
+            color: var(--text-secondary);
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin: 8px 0 4px 0;
+        }
+
+        .news-bullets {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .news-bullets li {
+            font-size: 1.05rem;
+            color: #cbd5e1;
+            display: flex;
+            align-items: flex-start;
+            gap: 8px;
+        }
+
+        .news-bullets li::before {
+            content: "•";
+            color: var(--accent-color);
+            font-weight: bold;
+        }
+
+        .action-btn {
+            font-size: 0.95rem;
+            text-decoration: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            transition: all 0.2s ease;
+            background: rgba(249, 115, 22, 0.1);
+            border: 1px solid rgba(249, 115, 22, 0.25);
+            color: var(--accent-color);
+            align-self: flex-start;
+            margin-top: 10px;
+        }
+
+        .action-btn:hover {
+            background: var(--accent-color);
+            color: white;
+        }
+
+        footer.page-footer {
+            text-align: center;
+            margin-top: 70px;
+            padding-top: 30px;
+            border-top: 1px solid var(--card-border);
+            font-size: 0.95rem;
+            color: var(--text-secondary);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Hacker News Digest</h1>
+            <p class="subtitle">คลังสะสมบทสรุปข่าวและประเด็นสนทนา Hacker News ภาษาไทยประจำวัน</p>
+        </header>
+        <main class="archive-list">
+"""
+
+    for date_str in dates:
+        date_formatted = format_thai_date(date_str)
+        filename = f"HN_{date_str.replace('-', '')}.html"
+        
+        # ดึงข่าวยอดนิยม 3 ข่าวเพื่อแสดงโปรยหัวในสารบัญ
+        cursor.execute("""
+        SELECT title, points 
+        FROM stories 
+        WHERE fetched_date = ? 
+        ORDER BY points DESC 
+        LIMIT 3;
+        """, (date_str,))
+        top_news = cursor.fetchall()
+        
+        bullets_html = ""
+        if top_news:
+            bullets_html += '<div class="top-news-title">ข่าวเด่นวันนี้:</div>'
+            bullets_html += '<ul class="news-bullets">'
+            for title, pts in top_news:
+                bullets_html += f'<li>{title} ({pts} pts)</li>'
+            bullets_html += '</ul>'
+            
+        html_content += f"""
+            <!-- ARCHIVE FOR {date_str} -->
+            <div class="archive-card">
+                <div class="card-header">
+                    <h2 class="archive-date">📅 {date_formatted}</h2>
+                </div>
+                {bullets_html}
+                <a href="./{filename}" class="action-btn">เปิดอ่านสรุปข่าวประจำวัน</a>
+            </div>
+        """
+        
+    html_content += """
+        </main>
+        <footer class="page-footer">
+            <p>Hacker News Daily Digest • ออกแบบและโฮสต์บน GitHub Pages สำหรับอ่านบนโทรศัพท์มือถือ</p>
+        </footer>
+    </div>
+</body>
+</html>
+"""
+    with open("index.html", "w", encoding="utf-8") as f:
+        f.write(html_content)
+    print("สร้างหน้าสารบัญความรู้ 'index.html' ตัวใหม่เรียบร้อยแล้ว!")
+
 def main():
     try:
         # 1. โหลดและอัปเกรดบทสรุปภาษาไทยจากไฟล์ JSON (หากมีอยู่) ลงฐานข้อมูล SQLite
@@ -549,8 +794,12 @@ def main():
         # เขียนไฟล์ HTML ลงระบบ
         with open(html_filename, "w", encoding="utf-8") as f:
             f.write(html_content)
-            
         print(f"สร้างไฟล์รายงาน '{html_filename}' สำเร็จเรียบร้อยแล้ว!")
+        
+        # เขียนทับ index.html โดยคิวรี่ดึงประวัติมาประกอบเป็นสารบัญเลือกวันที่
+        conn = sqlite3.connect(db_name)
+        build_index_page(conn)
+        conn.close()
         
         # 6. ทำความสะอาดไฟล์ชั่วคราวที่ไม่จำเป็นหลังจากสร้าง HTML สำเร็จ
         print("กำลังทำความสะอาดไฟล์ชั่วคราว...")
@@ -569,6 +818,27 @@ def main():
                     print(f"Warning: ไม่สามารถลบ {file_path} ได้: {e}")
                     
         print("เสร็จสิ้นการจัดเก็บและทำความสะอาดระบบ")
+        
+        # 7. ดำเนินการ Git Auto-Commit & Push ขึ้น GitHub Pages
+        print("กำลังดำเนินระบบ Git Auto-Update ไปยัง GitHub...")
+        import subprocess
+        try:
+            # 7.1. Git Add ไฟล์ HTML
+            subprocess.run(["git", "add", html_filename, "index.html"], check=True)
+            
+            # 7.2. Git Commit
+            commit_msg = f"Auto-update: Hacker News Digest for {latest_date}"
+            # ตรวจสอบก่อนว่ามีการเปลี่ยนแปลงที่ต้อง commit หรือไม่
+            status_res = subprocess.run(["git", "status", "--porcelain"], capture_output=True, text=True)
+            if status_res.stdout.strip():
+                subprocess.run(["git", "commit", "-m", commit_msg], check=True)
+                # 7.3. Git Push
+                subprocess.run(["git", "push"], check=True)
+                print("พุชข้อมูลขึ้น GitHub Pages สำเร็จเรียบร้อยแล้ว!")
+            else:
+                print("ไม่มีข้อมูลเปลี่ยนแปลงเพิ่มเติมในระบบ Git")
+        except Exception as e:
+            print(f"Warning: การอัปเดตระบบ Git/GitHub อัตโนมัติล้มเหลว: {e}")
     except Exception as e:
         print(f"Error: {e}", file=sys.stderr)
 
