@@ -1,0 +1,1070 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hacker News สรุปข่าวเด่นประจำวัน - 8 มิถุนายน 2569</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700&family=Sarabun:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #0b0f19;
+            --card-bg: rgba(22, 29, 49, 0.75);
+            --card-border: rgba(255, 255, 255, 0.08);
+            --text-primary: #f8fafc;
+            --text-secondary: #94a3b8;
+            --accent-color: #f97316;
+            --accent-hover: #ea580c;
+            --badge-bg: rgba(249, 115, 22, 0.1);
+            --shadow: 0 4px 30px rgba(0, 0, 0, 0.4);
+            --font-display: 'Outfit', 'Sarabun', sans-serif;
+            --font-sans: 'Inter', 'Sarabun', sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            background-image: 
+                radial-gradient(at 0% 0%, rgba(249, 115, 22, 0.07) 0px, transparent 50%),
+                radial-gradient(at 100% 100%, rgba(99, 102, 241, 0.07) 0px, transparent 50%);
+            background-attachment: fixed;
+            color: var(--text-primary);
+            font-family: var(--font-sans);
+            margin: 0;
+            padding: 0;
+            font-size: 18px;
+            line-height: 1.75;
+        }
+
+        .container {
+            max-width: 950px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        h1 {
+            font-family: var(--font-display);
+            font-size: 2.8rem;
+            font-weight: 700;
+            margin: 0 0 12px 0;
+            background: linear-gradient(to right, #f97316, #fb923c, #818cf8);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .date-badge {
+            display: inline-block;
+            padding: 6px 20px;
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 20px;
+            font-size: 1.05rem;
+            color: var(--text-secondary);
+            margin-bottom: 20px;
+            font-weight: 600;
+        }
+
+        .subtitle {
+            color: var(--text-secondary);
+            font-size: 1.25rem;
+            margin: 0;
+        }
+
+        .news-list {
+            display: flex;
+            flex-direction: column;
+            gap: 28px;
+        }
+
+        .news-item {
+            background: var(--card-bg);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid var(--card-border);
+            border-radius: 16px;
+            padding: 26px;
+            box-shadow: var(--shadow);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .news-item:hover {
+            border-color: rgba(249, 115, 22, 0.35);
+            box-shadow: 0 10px 30px rgba(249, 115, 22, 0.07);
+            transform: translateY(-2px);
+        }
+
+        details {
+            width: 100%;
+        }
+
+        summary {
+            list-style: none;
+            outline: none;
+            cursor: pointer;
+        }
+
+        summary::-webkit-details-marker {
+            display: none;
+        }
+
+        .summary-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 18px;
+        }
+
+        .summary-title-section {
+            flex-grow: 1;
+        }
+
+        .story-title {
+            font-family: var(--font-display);
+            font-size: 1.45rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin: 0 0 10px 0;
+            line-height: 1.4;
+            transition: color 0.2s ease;
+        }
+
+        .story-title:hover {
+            color: var(--accent-color);
+        }
+
+        .teaser {
+            font-size: 1.15rem;
+            color: var(--text-secondary);
+            margin: 0 0 18px 0;
+            font-weight: 400;
+        }
+
+        .meta-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 14px;
+            align-items: center;
+        }
+
+        .badge {
+            font-size: 0.85rem;
+            padding: 5px 12px;
+            border-radius: 8px;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            color: var(--text-secondary);
+        }
+
+        .badge-points {
+            background: var(--badge-bg);
+            border-color: rgba(249, 115, 22, 0.25);
+            color: var(--accent-color);
+        }
+
+        .badge-comments {
+            background: rgba(99, 102, 241, 0.1);
+            border-color: rgba(99, 102, 241, 0.25);
+            color: #818cf8;
+        }
+
+        .badge-domain {
+            text-transform: lowercase;
+            max-width: 220px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        .toggle-icon {
+            flex-shrink: 0;
+            width: 36px;
+            height: 36px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid var(--card-border);
+            color: var(--text-secondary);
+            transition: all 0.3s ease;
+            font-size: 0.9rem;
+        }
+
+        details[open] .toggle-icon {
+            transform: rotate(180deg);
+            background: var(--badge-bg);
+            border-color: rgba(249, 115, 22, 0.3);
+            color: var(--accent-color);
+        }
+
+        .details-content {
+            margin-top: 26px;
+            padding-top: 26px;
+            border-top: 1px solid rgba(255, 255, 255, 0.06);
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 26px;
+            animation: fadeIn 0.4s ease-out;
+        }
+
+        @media (min-width: 800px) {
+            .details-content {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .content-section {
+            background: rgba(255, 255, 255, 0.015);
+            border: 1px solid rgba(255, 255, 255, 0.03);
+            border-radius: 12px;
+            padding: 22px;
+        }
+
+        .section-header {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin: 0 0 18px 0;
+            font-family: var(--font-display);
+        }
+
+        .section-header-article {
+            color: #fb923c;
+        }
+
+        .section-header-discussion {
+            color: #818cf8;
+        }
+
+        .section-body {
+            font-size: 1.08rem;
+            color: #cbd5e1;
+            margin: 0;
+        }
+
+        .section-body p {
+            margin: 0 0 14px 0;
+        }
+
+        .section-body p:last-child {
+            margin-bottom: 0;
+        }
+
+        .section-body ul {
+            margin: 0;
+            padding-left: 24px;
+        }
+
+        .section-body li {
+            margin-bottom: 10px;
+        }
+
+        .section-body li:last-child {
+            margin-bottom: 0;
+        }
+
+        .links-row {
+            grid-column: 1 / -1;
+            display: flex;
+            gap: 16px;
+            margin-top: 14px;
+        }
+
+        .action-btn {
+            font-size: 0.95rem;
+            text-decoration: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.2s ease;
+        }
+
+        .btn-primary {
+            background: var(--accent-color);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: var(--accent-hover);
+        }
+
+        .btn-secondary {
+            background: rgba(255, 255, 255, 0.05);
+            color: var(--text-primary);
+            border: 1px solid var(--card-border);
+        }
+
+        .btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        footer.page-footer {
+            text-align: center;
+            margin-top: 70px;
+            padding-top: 30px;
+            border-top: 1px solid var(--card-border);
+            font-size: 0.95rem;
+            color: var(--text-secondary);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="date-badge">8 มิถุนายน 2569</div>
+            <h1>Hacker News Daily Digest</h1>
+            <p class="subtitle">สรุปข่าวยอดนิยมในรอบ 24 ชั่วโมงที่ผ่านมา แปลและสรุปผลการวิเคราะห์ในบอร์ดภาษาไทย</p>
+        </header>
+
+        <main class="news-list">
+        
+            <!-- STORY 1 -->
+            <article class="news-item">
+                <details>
+                    <summary>
+                        <div class="summary-header">
+                            <div class="summary-title-section">
+                                <h2 class="story-title">LLMs are eroding my software engineering career and I don't know what to do</h2>
+                                <p class="teaser">บทความสะท้อนความกังวลของนักพัฒนาซอฟต์แวร์ประสบการณ์ 10 ปีที่พบว่าความเชี่ยวชาญเฉพาะทางและทักษะการแก้ปัญหาในอดีตกำลังถูกแทนที่และลดทอนความสำคัญลงอย่างรวดเร็วด้วยการมาถึงของปัญญาประดิษฐ์และเอเจนต์ยุคใหม่</p>
+                                <div class="meta-row">
+                                    <span class="badge badge-points">🔥 808 คะแนน</span>
+                                    <span class="badge badge-comments">💬 797 ความคิดเห็น</span>
+                                    <span class="badge badge-domain">human-in-the-loop.bearblog.dev</span>
+                                </div>
+                            </div>
+                            <div class="toggle-icon">▼</div>
+                        </div>
+                    </summary>
+                    <div class="details-content">
+                        <section class="content-section">
+                            <h3 class="section-header section-header-article">📄 สรุปเนื้อหาบทความ</h3>
+                            <div class="section-body">
+                                <p>บทความนี้เขียนโดยนักพัฒนาซอฟต์แวร์ที่มีประสบการณ์การทำงานกว่า 10 ปี ซึ่งสะท้อนให้เห็นถึงผลกระทบอันน่าสะพรึงกลัวของปัญญาประดิษฐ์ (AI) และเอเจนต์ (Agents) ยุคใหม่ เช่น Claude Code และ Claude 4.5/4.6/4.7 ต่อความมั่นคงในอาชีพของวิศวกรซอฟต์แวร์ โดยมีประเด็นสำคัญดังนี้:</p><ul><li><strong>การพังทลายของความรู้เฉพาะทางด้านโดเมน (Domain Expertise):</strong> ผู้เขียนเคยเชื่อว่าความรู้เชิงลึกในระบบการชำระเงินและระบบการเงิน (เช่น PCI compliance, reconciliation, double-entry ledgers) จะเป็นจุดแข็งที่ทำให้ตนแตกต่าง แต่กลับพบว่าแบบจำลองภาษาระดับสูง (LLMs) สามารถเรียนรู้และเชื่อมโยงข้อมูลเหล่านี้เพื่อออกแบบสถาปัตยกรรมระบบที่ซับซ้อนได้อย่างรวดเร็ว ซึ่งเป็นทักษะที่มนุษย์ต้องใช้เวลาสะสมประสบการณ์จริงนานหลายปี</li><li><strong>การแก้บั๊กแบบหนึ่งช็อต (One-shot Debugging):</strong> ทักษะการแก้ปัญหาระบบแบบกระจาย (Distributed Systems) และสภาวะแข่งขัน (Race Conditions) ซึ่งผู้เขียนคิดว่าจะเป็นเสาหลักสุดท้ายในการจ้างงาน ถูกปัญญาประดิษฐ์เอาชนะได้อย่างง่ายดาย โดยอาศัยความช่วยเหลือจาก CLI และเครื่องมืออย่าง Sentry หรือ DataDog MCP ทำให้ AI สามารถสแกนและแก้ไขบั๊กที่มนุษย์ต้องใช้เวลาแก้ถึง 2 วันเสร็จสิ้นได้ในทันที</li><li><strong>คุณค่าของสถาปัตยกรรมซอฟต์แวร์ที่ลดลง:</strong> ทักษะการออกแบบโค้ดที่ดีและการรักษาระเบียบของฐานโค้ด (DDD, Hexagonal, Clean Architecture) กำลังถูกลดรูปเหลือเพียงคำว่า "รสนิยม" (Taste) เนื่องจากอุตสาหกรรมหันไปยอมรับฐานโค้ดที่มีระเบียบระดับปานกลาง (เกรด C หรือ D) ได้มากขึ้น เพราะในอนาคตฐานโค้ดเหล่านี้จะถูกสร้างขึ้นมาเพื่อให้ปัญญาประดิษฐ์อ่านและจัดการ ไม่ใช่มนุษย์อีกต่อไป</li></ul>
+                            </div>
+                        </section>
+                        <section class="content-section">
+                            <h3 class="section-header section-header-discussion">💬 สรุปประเด็นเสวนาในกระทู้</h3>
+                            <div class="section-body">
+                                <p>ความคิดเห็นของชุมชนผู้ใช้งานมีความหลากหลายและสะท้อนทัศนคติที่แตกต่างกันต่อการเปลี่ยนผ่านนี้:</p><ul><li><strong>ความตระหนักร่วมและความกังวล:</strong> สมาชิกหลายคนเห็นพ้องกับข้อสังเกตของผู้เขียน โดยยอมรับว่าเครื่องมือ AI กำลังท้าทายคุณค่าของนักพัฒนารุ่นเก่าอย่างมีนัยสำคัญ</li><li><strong>ข้อโต้แย้งเรื่องซอฟต์แวร์ทำมือ (Hand-built Software):</strong> เกิดการถกเถียงอย่างเผ็ดร้อนเกี่ยวกับคุณค่าของซอฟต์แวร์ที่เขียนโดยมนุษย์ทั้งหมด โดยผู้ใช้รายหนึ่งเปรียบเทียบกับงานไม้ทำมือ (Artisan Woodworking) ว่าตลาดอาจยินดีจ่ายเงินซื้อเฟอร์นิเจอร์ทำมือในสัดส่วนเล็กน้อย แต่สำหรับซอฟต์แวร์แล้ว แทบไม่มีใครสนใจกระบวนการสร้าง (0% ของตลาด) ลูกค้าให้ความสำคัญกับผลลัพธ์การใช้งาน ความประหยัด และความเสถียรของระบบมากกว่าวิธีการพัฒนา</li><li><strong>ความแตกต่างระหว่างทัศนศิลป์กับซอฟต์แวร์:</strong> มีความเห็นกังวลว่าในอนาคต โค้ดที่เขียนโดยมนุษย์อาจถูกมองว่าเป็นงานคุณภาพต่ำและไร้ประสิทธิภาพ เช่นเดียวกับมุมมองของผู้คนในปัจจุบันที่มีต่อศิลปะจาก AI (AI Art) ที่ถูกมองว่าเป็นงานราคาถูกและขาดความลึกซึ้ง</li></ul>
+                            </div>
+                        </section>
+                        <div class="links-row">
+                            <a href="https://human-in-the-loop.bearblog.dev/llms-are-eroding-my-software-engineering-career-and-i-dont-know-what-to-do/" target="_blank" class="action-btn btn-primary">อ่านบทความต้นฉบับ</a>
+                            <a href="https://news.ycombinator.com/item?id=48434312" target="_blank" class="action-btn btn-secondary">กระทู้บน Hacker News</a>
+                        </div>
+                    </div>
+                </details>
+            </article>
+            
+            <!-- STORY 2 -->
+            <article class="news-item">
+                <details>
+                    <summary>
+                        <div class="summary-header">
+                            <div class="summary-title-section">
+                                <h2 class="story-title">Anthropic, please ship an official Claude Desktop for Linux</h2>
+                                <p class="teaser">การเรียกร้องให้บริษัท Anthropic พัฒนาและเผยแพร่แอปพลิเคชัน Claude Desktop เวอร์ชันทางการสำหรับระบบปฏิบัติการ Linux เพื่อความปลอดภัยในการจัดการข้อมูลสำคัญและประสิทธิภาพในการพัฒนาปลั๊กอิน</p>
+                                <div class="meta-row">
+                                    <span class="badge badge-points">🔥 457 คะแนน</span>
+                                    <span class="badge badge-comments">💬 267 ความคิดเห็น</span>
+                                    <span class="badge badge-domain">github.com</span>
+                                </div>
+                            </div>
+                            <div class="toggle-icon">▼</div>
+                        </div>
+                    </summary>
+                    <div class="details-content">
+                        <section class="content-section">
+                            <h3 class="section-header section-header-article">📄 สรุปเนื้อหาบทความ</h3>
+                            <div class="section-body">
+                                <p>บทความนำเสนอข้อเรียกร้องอย่างเป็นทางการถึงบริษัท Anthropic เพื่อให้จัดทำและลงนามกำกับแอปพลิเคชัน Claude Desktop สำหรับระบบปฏิบัติการ Linux โดยอธิบายเหตุผลและความจำเป็นในเชิงเทคนิคดังต่อไปนี้:</p><ul><li><strong>ปัญหาด้านความปลอดภัยของซัพพลายเชน (Supply Chain Security):</strong> ปัจจุบัน Anthropic ให้บริการ Claude Desktop เฉพาะบน macOS และ Windows เท่านั้น ทำให้ผู้ใช้ Linux จำเป็นต้องพึ่งพาแอปพลิเคชันเวอร์ชันดัดแปลงที่ไม่เป็นทางการของบุคคลที่สาม ซึ่งไม่มีการลงนามหรือตรวจสอบความปลอดภัยจากผู้พัฒนาโดยตรง การกระทำเช่นนี้มีความเสี่ยงสูงเนื่องจากแอปพลิเคชันต้องใช้จัดการข้อมูลที่มีความไวสูง เช่น คีย์การเข้าถึง API และโทเค็น OAuth</li><li><strong>ข้อจำกัดในการพัฒนาและทดสอบปลั๊กอิน:</strong> การพัฒนาปลั๊กอินสำหรับ Claude Code จำเป็นต้องทำผ่านส่วนขยายของ Claude Desktop ซึ่งไม่มีให้ใช้งานบน Linux ทำให้นักพัฒนาที่ใช้ Linux ต้องคอยสลับระบบปฏิบัติการเพื่อการทดสอบเพียงอย่างเดียว</li><li><strong>ความพร้อมในเชิงเทคนิค:</strong> ผู้เขียนชี้ให้เห็นว่าโครงสร้างพื้นฐานในการรันและการกระจายซอฟต์แวร์สำหรับ Linux มีอยู่แล้วในองค์กร เนื่องจากเอเจนต์ Cowork รันระบบปฏิบัติการ Ubuntu 22.04 ภายในเวอร์ชวลแมชชีนบน macOS และ Claude Code CLI ก็รองรับระบบปฏิบัติการ Linux อย่างเป็นทางการแล้ว</li></ul>
+                            </div>
+                        </section>
+                        <section class="content-section">
+                            <h3 class="section-header section-header-discussion">💬 สรุปประเด็นเสวนาในกระทู้</h3>
+                            <div class="section-body">
+                                <p>บทสนทนาในส่วนความคิดเห็นเน้นไปที่ระบบการแยกส่วนความปลอดภัย (Sandboxing) และความแตกต่างระหว่างอินเตอร์เฟสแบบข้อความและกราฟิก:</p><ul><li><strong>ความต้องการระบบแซนด์บ็อกซ์ที่น่าเชื่อถือ:</strong> สมาชิกในบอร์ดแสดงความกังวลเรื่องการอนุญาตให้ AI เข้าถึงไฟล์ในเครื่องส่วนตัวโดยไม่มีการควบคุมที่ดีพอ และอภิปรายถึงความแตกต่างของการแซนด์บ็อกซ์ระหว่าง CLI และ GUI</li><li><strong>การแนะนำเครื่องมือแซนด์บ็อกซ์บน Linux:</strong> มีการแนะนำซอฟต์แวร์แซนด์บ็อกซ์ต่างๆ เช่น <code>jai</code>, <code>nono</code> และ <code>docker</code> โดยเฉพาะเครื่องมือ <code>jai</code> ซึ่งพัฒนาโดยศาสตราจารย์ด้านวิทยาการคอมพิวเตอร์จากมหาวิทยาลัยสแตนฟอร์ด ซึ่งทำงานด้วยโหมดต่างๆ เช่น โหมดทั่วไป (Casual Mode) ที่ใช้ระบบเขียนทับเมื่อมีการเปลี่ยนแปลง (Copy-on-Write) เพื่อป้องกันการแก้ไขไฟล์จริง และโหมดเข้มงวด (Strict Mode) ที่เปลี่ยนสิทธิ์ผู้ใช้เพื่อรักษาความลับของข้อมูล</li><li><strong>ความสะดวกในการจัดการ:</strong> สมาชิกบางคนชี้ว่าการทำแซนด์บ็อกซ์ให้กับอินเตอร์เฟสแบบบรรทัดคำสั่ง (CLI) ด้วยเครื่องมืออย่าง Podman หรือ Docker นั้นง่ายและมีประสิทธิภาพมากกว่าการตั้งค่าแซนด์บ็อกซ์ให้กับแอปพลิเคชันแบบกราฟิก (GUI) ซึ่งมีความยุ่งยากในการเชื่อมต่อซ็อกเก็ตการแสดงผลและการ์ดจอ</li></ul>
+                            </div>
+                        </section>
+                        <div class="links-row">
+                            <a href="https://github.com/anthropics/claude-code/issues/65697" target="_blank" class="action-btn btn-primary">อ่านบทความต้นฉบับ</a>
+                            <a href="https://news.ycombinator.com/item?id=48434436" target="_blank" class="action-btn btn-secondary">กระทู้บน Hacker News</a>
+                        </div>
+                    </div>
+                </details>
+            </article>
+            
+            <!-- STORY 3 -->
+            <article class="news-item">
+                <details>
+                    <summary>
+                        <div class="summary-header">
+                            <div class="summary-title-section">
+                                <h2 class="story-title">Building from zero after addiction, prison, and a felony</h2>
+                                <p class="teaser">เรื่องราวสร้างแรงบันดาลใจของ Gavin Ray นักพัฒนาซอฟต์แวร์และผู้มีส่วนร่วมในโครงการโอเพนซอร์สที่ฝ่าฟันอุปสรรคชีวิตจากการติดคุกในวัยเยาว์ การเป็นผู้ต้องหาคดีอุกฉกรรจ์ และปัญหาการติดยาเสพติดจนสามารถเริ่มต้นชีวิตใหม่ได้สำเร็จ</p>
+                                <div class="meta-row">
+                                    <span class="badge badge-points">🔥 418 คะแนน</span>
+                                    <span class="badge badge-comments">💬 189 ความคิดเห็น</span>
+                                    <span class="badge badge-domain">gavinray97.github.io</span>
+                                </div>
+                            </div>
+                            <div class="toggle-icon">▼</div>
+                        </div>
+                    </summary>
+                    <div class="details-content">
+                        <section class="content-section">
+                            <h3 class="section-header section-header-article">📄 สรุปเนื้อหาบทความ</h3>
+                            <div class="section-body">
+                                <p>บทความนี้เป็นบทสรุปประวัติชีวิตอันแสนอบอุ่นและสร้างแรงบันดาลใจของ Gavin Ray (@GavinRayDev) ที่เปิดเผยประสบการณ์การต่อสู้กับปัญหาชีวิตเพื่อเป็นกำลังใจให้กับผู้ที่อาจจะกำลังหมดหวังในอนาคต:</p><ul><li><strong>อดีตที่ผิดพลาดและการติดคุก:</strong> Gavin เริ่มต้นจากการหลงผิดไปใช้และค้ายาเสพติดตั้งแต่อายุ 14 ปี จนถูกจำคุกในเรือนจำเยาวชนที่มีการคุ้มกันหนาแน่นเป็นเวลา 2 ปี และต่อมาต้องกลายเป็นผู้ต้องขังคดีอุกฉกรรจ์ (Felon) ในคุกของเคาน์ตี้เมื่ออายุ 19 ปี</li><li><strong>โอกาสครั้งสำคัญจากโครงการฝึกงาน:</strong> ระหว่างที่อยู่ในคุก เขาได้อ่านหนังสือพิมพ์พบข่าวเกี่ยวกับบริษัทเทคโนโลยี Techtonic ที่เสนอโอกาสฝึกงานให้แก่เยาวชนกลุ่มเสี่ยง เขาจึงตัดสินใจเดินทางไปสมัครงานทันทีหลังจากได้รับการปล่อยตัวชั่วคราวเพื่อทำงาน (Work-Release) และได้รับโอกาสให้ฝึกงานในตำแหน่งนักพัฒนาเว็บแบบ Full-Stack</li><li><strong>การเรียนรู้และอุปสรรคระหว่างทาง:</strong> แม้จะเริ่มต้นจากศูนย์และไม่มีพื้นฐานการพัฒนาเว็บ แต่เขาก็ใช้ความพยายามจนสามารถเรียนรู้เทคโนโลยีต่างๆ เช่น Ruby on Rails, React, MongoDB และ Devops อย่างไรก็ตาม เขายังคงเผชิญกับการกลับไปติดยาเสพติดและถูกไล่ออกหลายครั้ง ก่อนที่จะสามารถเอาชนะยาเสพติดและสร้างความมั่นคงในชีวิตการทำงานและครอบครัวได้สำเร็จในที่สุด</li></ul>
+                            </div>
+                        </section>
+                        <section class="content-section">
+                            <h3 class="section-header section-header-discussion">💬 สรุปประเด็นเสวนาในกระทู้</h3>
+                            <div class="section-body">
+                                <p>ความคิดเห็นจากผู้อ่านเน้นความสำคัญของการให้โอกาสและการเปลี่ยนแปลงของตลาดแรงงานในปัจจุบัน:</p><ul><li><strong>การวิพากษ์วิจารณ์ตลาดงานยุคปัจจุบัน:</strong> สมาชิกหลายคนรู้สึกทึ่งที่ Gavin สามารถเดินเข้าไปสมัครงานและได้งานทำทันที โดยเปรียบเทียบกับตลาดยุคปัจจุบันที่มีความยุ่งยากสูงมากเนื่องจากมีการนำระบบตัวกรองเรซูเม่ด้วย AI (AI Resume Filter) มาใช้ ซึ่งทำลายโอกาสของผู้สมัครตั้งแต่ขั้นตอนแรก</li><li><strong>การใช้ปัญญาประดิษฐ์ในการหางาน:</strong> มีการอภิปรายและแนะนำวิธีแก้ปัญหาตัวกรอง AI โดยใช้ AI ด้วยกัน เช่น การป้อนรายละเอียดงานและเรซูเม่เข้าไปใน ChatGPT เพื่อวิเคราะห์และปรับปรุงคำสำคัญ (Keywords) ให้สอดคล้องกับระบบตรวจจับ ช่วยเพิ่มโอกาสในการเรียกสัมภาษณ์งาน</li><li><strong>แนวทางการสร้างผลงานและเครือข่าย:</strong> ผู้มีประสบการณ์แนะนำว่าสำหรับสายงานเฉพาะทาง (เช่น การออกแบบเสียง) นอกจากการส่งใบสมัครออนไลน์แล้ว ควรสร้างผลงานส่วนตัว (Portfolio) ผ่านการเข้าร่วมกิจกรรมของชุมชน เสนอตัวช่วยงานดนตรีในท้องถิ่น หรือการทำโปรเจกต์ฟรีเพื่อสร้างความสัมพันธ์และขยายเครือข่ายแบบปากต่อปาก (Word of Mouth)</li></ul>
+                            </div>
+                        </section>
+                        <div class="links-row">
+                            <a href="https://gavinray97.github.io/blog/building-from-zero-after-addiction-prison-felony" target="_blank" class="action-btn btn-primary">อ่านบทความต้นฉบับ</a>
+                            <a href="https://news.ycombinator.com/item?id=48437406" target="_blank" class="action-btn btn-secondary">กระทู้บน Hacker News</a>
+                        </div>
+                    </div>
+                </details>
+            </article>
+            
+            <!-- STORY 4 -->
+            <article class="news-item">
+                <details>
+                    <summary>
+                        <div class="summary-header">
+                            <div class="summary-title-section">
+                                <h2 class="story-title">Ntsc-rs – open-source video emulation of analog TV and VHS artifacts</h2>
+                                <p class="teaser">แนะนำโครงการโอเพนซอร์ส ntsc-rs ที่เขียนขึ้นด้วยภาษา Rust สำหรับใช้จำลองความผิดเพี้ยนของภาพวิดีโออนาล็อกและเทป VHS ได้อย่างแม่นยำในระดับเวลาจริง</p>
+                                <div class="meta-row">
+                                    <span class="badge badge-points">🔥 401 คะแนน</span>
+                                    <span class="badge badge-comments">💬 122 ความคิดเห็น</span>
+                                    <span class="badge badge-domain">ntsc.rs</span>
+                                </div>
+                            </div>
+                            <div class="toggle-icon">▼</div>
+                        </div>
+                    </summary>
+                    <div class="details-content">
+                        <section class="content-section">
+                            <h3 class="section-header section-header-article">📄 สรุปเนื้อหาบทความ</h3>
+                            <div class="section-body">
+                                <p>บทความนี้แนะนำโครงการ <strong>ntsc-rs</strong> ซึ่งเป็นเอฟเฟกต์วิดีโอแบบโอเพนซอร์สที่พัฒนาขึ้นด้วยภาษา Rust โดยใช้จุดเด่นของการประมวลผลแบบหลายเธรด (Multithreading) และการเร่งความเร็วด้วยคำสั่ง SIMD เพื่อจำลองคุณลักษณะเฉพาะตัวของวิดีโออนาล็อก (Analog TV) และข้อบกพร่องของเทป VHS (VHS Artifacts) ได้อย่างสมบูรณ์แบบ:</p><ul><li><strong>หลักการจำลองที่อิงตามหลักฟิสิกส์และระบบสัญญาณ:</strong> ต่างจากเอฟเฟกต์ทั่วไปที่เพียงแค่วางภาพซ้อนทับหรือตารางสลับสี (Color LUTs) ntsc-rs ใช้แบบจำลองทางคณิตศาสตร์และอัลกอริทึมจำลองการทำงานจริงของการส่งสัญญาณแบบ NTSC และการบันทึกข้อมูลแบบเทป VHS</li><li><strong>ประสิทธิภาพสูง:</strong> ซอฟต์แวร์นี้สามารถประมวลผลภาพได้แบบเรียลไทม์ (Real-time) แม้ในระดับความละเอียดของภาพที่สูงกว่ามาตรฐานภาพสัญญาณ NTSC แบบดั้งเดิมมาก</li><li><strong>การรองรับซอฟต์แวร์ตัดต่อชั้นนำ:</strong> เอฟเฟกต์นี้ไม่เพียงแต่ใช้งานได้แบบเดี่ยวๆ (Standalone) หรือเว็บแอปพลิเคชันเท่านั้น แต่ยังมาในรูปแบบปลั๊กอินสำหรับซอฟต์แวร์ระดับอาชีพ เช่น After Effects, Premiere และโปรแกรมกลุ่ม OpenFX เช่น DaVinci Resolve, Hitfilm และ Vegas</li></ul>
+                            </div>
+                        </section>
+                        <section class="content-section">
+                            <h3 class="section-header section-header-discussion">💬 สรุปประเด็นเสวนาในกระทู้</h3>
+                            <div class="section-body">
+                                <p>ผู้ร่วมแสดงความคิดเห็นได้แบ่งปันข้อมูลเกี่ยวกับสุนทรียศาสตร์ยุคเก่า ตลอดจนประวัติความเป็นมาและอุปกรณ์วิดีโออนาล็อก:</p><ul><li><strong>เหตุผลในการใช้เอฟเฟกต์ดิจิทัลจำลอง:</strong> สมาชิกเห็นพ้องกันว่าในกระบวนการทำงานภาพยนตร์ยุคปัจจุบัน การเลือกถ่ายทำด้วยกล้องดิจิทัลความละเอียดสูงแบบปกติแล้วค่อยนำมาใส่เอฟเฟกต์ย้อนยุคในภายหลัง เป็นทางเลือกที่คุ้มค่าและสะดวกสบายกว่าการใช้อุปกรณ์กล้องวิดีโอเทปอนาล็อกจริงๆ ที่ค่อนข้างยุ่งยากและไร้ประสิทธิภาพ</li><li><strong>ความทรงจำและประสบการณ์กับกล้องวิดีโอเทป:</strong> มีการแลกเปลี่ยนเรื่องราวความนิยมของกล้อง Sony Handicam (เช่น รุ่น HDRCX405) ที่โดดเด่นในเรื่องการซูมออปติคอลและการพกพาง่าย รวมถึงประสบการณ์การถ่ายวิดีโอข่าวน้ำท่วมในปี 2009 บนเทป HDV miniDV ซึ่งพบความยุ่งยากอย่างมากในการส่งไฟล์ให้สถานีข่าวเนื่องจากขาดแคลนเครื่องเล่นเทปที่เหมาะสม</li><li><strong>มุมมองด้านสัญญะวิทยาและวิศวกรรม:</strong> มีการชี้แจงประวัติศาสตร์ของสัญญาณวิดีโออนาล็อก ซึ่งในยุค 1980s อุตสาหกรรมมืออาชีพจะใช้เทปแบบ Umatic ความยาว 60 นาทีเพราะให้คุณภาพสูง ขณะที่ตลาดบ้านยอมรับเทป VHS มากกว่าเพราะความยาวของการบันทึก และมีความเห็นเชิงเทคนิคเพิ่มเติมว่าการจำลองอนาล็อกที่แท้จริงต้องรวมเอาการจำลองการเลื่อนเฟสของคลื่นพาหะสี (Color subcarrier phase shift) และความล้มเหลวของการตรวจจับสัญญาณซิงค์สี (Colour burst detection failure) เข้าไปด้วย</li></ul>
+                            </div>
+                        </section>
+                        <div class="links-row">
+                            <a href="https://ntsc.rs/" target="_blank" class="action-btn btn-primary">อ่านบทความต้นฉบับ</a>
+                            <a href="https://news.ycombinator.com/item?id=48428025" target="_blank" class="action-btn btn-secondary">กระทู้บน Hacker News</a>
+                        </div>
+                    </div>
+                </details>
+            </article>
+            
+            <!-- STORY 5 -->
+            <article class="news-item">
+                <details>
+                    <summary>
+                        <div class="summary-header">
+                            <div class="summary-title-section">
+                                <h2 class="story-title">The 29th International Obfuscated C Code Contest (IOCCC) 2025 Winners</h2>
+                                <p class="teaser">สรุปผลการแข่งขันและผลงานที่โดดเด่นของงานประกวดการเขียนโค้ดภาษา C ที่คลุมเครือและเข้าใจยากที่สุดในโลกครั้งที่ 29 ประจำปี 2025</p>
+                                <div class="meta-row">
+                                    <span class="badge badge-points">🔥 365 คะแนน</span>
+                                    <span class="badge badge-comments">💬 88 ความคิดเห็น</span>
+                                    <span class="badge badge-domain">ioccc.org</span>
+                                </div>
+                            </div>
+                            <div class="toggle-icon">▼</div>
+                        </div>
+                    </summary>
+                    <div class="details-content">
+                        <section class="content-section">
+                            <h3 class="section-header section-header-article">📄 สรุปเนื้อหาบทความ</h3>
+                            <div class="section-body">
+                                <p>บทความนี้ประกาศรายชื่อผู้ชนะการแข่งขัน <strong>IOCCC (International Obfuscated C Code Contest) ครั้งที่ 29 ประจำปี 2025</strong> ซึ่งเป็นการแข่งขันเขียนโปรแกรมภาษา C ที่มีโครงสร้างซับซ้อนและเข้าใจยากที่สุด โดยมีประเด็นสำคัญจากการจัดงานดังนี้:</p><ul><li><strong>จำนวนและคุณภาพของผลงานที่สูงขึ้น:</strong> แม้ว่าการแข่งขันครั้งนี้จะจัดขึ้นเป็นครั้งที่สองติดต่อกันหลังจากการหยุดพักยาวถึง 4 ปี (ช่วงปี 2020-2024) แต่จำนวนและคุณภาพของผลงานที่ส่งเข้าประกวดยังคงรักษามาตรฐานระดับสูงไว้ได้อย่างน่าทึ่ง</li><li><strong>การเพิ่มความท้าทายจากคณะกรรมการ:</strong> ในปีนี้ คณะกรรมการได้ใส่โจทย์ปัญหาท้าทายสนุกๆ (Fun Challenges) ไว้ใต้ส่วนความเห็นของกรรมการในหน้าเว็บแสดงผลงาน เพื่อสนับสนุนให้ผู้สนใจได้มีส่วนร่วมวิเคราะห์และปรับปรุงโค้ดด้วยการส่ง Pull Request บน GitHub</li><li><strong>ผลงานชนะเลิศที่เป็นไฮไลต์:</strong> มีโปรแกรมที่สร้างความแปลกใจหลายชิ้น เช่น <i>2025/cable</i> (ตัวจำลองคอมพิวเตอร์แบบ Subleq), <i>2025/endoh3</i> (โปรแกรม Quine ที่ทำหน้าที่แสดงความแตกต่างของโค้ด), และ <i>2025/ncw1</i> (ตัวจำลองเครื่องเล่นเกม GameBoy)</li></ul>
+                            </div>
+                        </section>
+                        <section class="content-section">
+                            <h3 class="section-header section-header-discussion">💬 สรุปประเด็นเสวนาในกระทู้</h3>
+                            <div class="section-body">
+                                <p>บทสนทนาส่วนใหญ่เป็นการถกเถียงเกี่ยวกับรูปแบบการนำเสนอของเว็บไซต์ และการวิเคราะห์เจาะลึกผลงานจำลองเครื่อง GameBoy:</p><ul><li><strong>ความยุ่งยากในการใช้งานเว็บไซต์:</strong> ผู้ใช้งานหลายคนบ่นว่าเว็บไซต์ของผู้จัดการประกวดมีการจัดระเบียบที่สับสนและดูคลุมเครือไม่แพ้ตัวโค้ดที่ประกวด ทำให้ค้นหาไฟล์ซอร์สโค้ดภาษา C หรือทำความเข้าใจเกี่ยวกับประวัติของการแข่งขันได้ยากสำหรับผู้มาเยือนทั่วไป</li><li><strong>เจาะลึกเบื้องหลังผลงานจำลอง GameBoy:</strong> สมาชิกพูดคุยกันอย่างตื่นเต้นเกี่ยวกับผลงานจำลองเครื่อง GameBoy ของ Nick Craig-Wood (ผู้สร้าง rclone) ซึ่งเขียนขึ้นภายใต้ข้อจำกัดขนาดโค้ด 2,503 อักขระแบบไม่รวมช่องว่าง (ตามกติกา IOCCC) โดย Nick ได้เปิดเผยว่าเขาใช้เวลากว่า 100 ชั่วโมงในการลดขนาดโค้ดของตัวจำลองตัวเดิมที่มีขนาดกว่า 6,000 อักขระลง โดยการตัดฟีเจอร์ที่เกม Tetris ไม่ได้ใช้ออก (เช่น half carry flag และระบบ windowing) และประยุกต์ใช้ตัวดำเนินการจากไลบรารี <code>iso646.h</code> รวมถึงการนิยามตัวแปรไว้ใน Makefile เพื่อช่วยประหยัดโควตาอักขระ</li></ul>
+                            </div>
+                        </section>
+                        <div class="links-row">
+                            <a href="https://www.ioccc.org/2025/" target="_blank" class="action-btn btn-primary">อ่านบทความต้นฉบับ</a>
+                            <a href="https://news.ycombinator.com/item?id=48432199" target="_blank" class="action-btn btn-secondary">กระทู้บน Hacker News</a>
+                        </div>
+                    </div>
+                </details>
+            </article>
+            
+            <!-- STORY 6 -->
+            <article class="news-item">
+                <details>
+                    <summary>
+                        <div class="summary-header">
+                            <div class="summary-title-section">
+                                <h2 class="story-title">Scientists ejected from diabetes conference for distributing journal reprints</h2>
+                                <p class="teaser">นักวิทยาศาสตร์ชั้นนำ 5 คนถูกเชิญออกจากงานประชุมโรคเบาหวานระดับสากล หลังแจกจ่ายบทบรรณาธิการที่ตีพิมพ์ในวารสารของสมาคมผู้จัดงาน ซึ่งวิพากษ์วิจารณ์การแทรกแซงงานวิจัยทางวิทยาศาสตร์ของรัฐบาลทรัมป์</p>
+                                <div class="meta-row">
+                                    <span class="badge badge-points">🔥 310 คะแนน</span>
+                                    <span class="badge badge-comments">💬 205 ความคิดเห็น</span>
+                                    <span class="badge badge-domain">arstechnica.com</span>
+                                </div>
+                            </div>
+                            <div class="toggle-icon">▼</div>
+                        </div>
+                    </summary>
+                    <div class="details-content">
+                        <section class="content-section">
+                            <h3 class="section-header section-header-article">📄 สรุปเนื้อหาบทความ</h3>
+                            <div class="section-body">
+                                <p>นักวิทยาศาสตร์ชั้นนำ 5 คน รวมถึงบรรณาธิการบริหารของวารสาร Diabetes Care และอดีตประธานสมาคมโรคเบาหวานแห่งสหรัฐอเมริกา (ADA) ถูกบังคับให้ออกจากงานประชุมประจำปีของ ADA ณ เมืองนิวออร์ลีนส์ เนื่องจากพวกเขาได้แจกจ่ายสำเนาบทบรรณาธิการที่ตีพิมพ์ในวารสาร <strong>Diabetes Care</strong> เมื่อวันที่ 29 เมษายน ซึ่งมีเนื้อหาโจมตีการดำเนินนโยบายของรัฐบาลทรัมป์ที่ส่งผลกระทบและบั่นทอนงานวิจัยทางวิทยาศาสตร์และการแพทย์ในสหรัฐฯ</p><p>ทางด้านสมาคม ADA ได้ยืนยันเหตุการณ์ดังกล่าว โดยชี้แจงว่านักวิทยาศาสตร์กลุ่มนี้ละเมิดหลักเกณฑ์การปฏิบัติตน (Code of Conduct) ในข้อหาการกระทำที่ไม่เหมาะสมและมีพฤติกรรมประท้วงหรือก่อความไม่สงบในงาน อย่างไรก็ตาม เหตุการณ์นี้ส่งผลให้เกิดกระแสวิพากษ์วิจารณ์อย่างหนักบนโซเชียลมีเดียเกี่ยวกับประเด็นการเซ็นเซอร์ทางวิทยาศาสตร์และการปิดกั้นเสรีภาพในการแสดงความคิดเห็น</p><ul><li><strong>ผู้ถูกให้ออกจากงาน:</strong> ได้แก่ Steven Kahn, Desmond Schatz, Aaron Kelly, Justin Ryder, และ Irl Hirsch ซึ่งล้วนแต่เป็นผู้เชี่ยวชาญที่มีชื่อเสียง</li><li><strong>จุดประสงค์การแจกจ่าย:</strong> เพื่อชี้ให้เห็นถึงวิกฤตความถดถอยของการสนับสนุนเงินทุนวิจัยทางการแพทย์ในสหรัฐฯ และเรียกร้องให้นักวิทยาศาสตร์ลุกขึ้นสู้เพื่อปกป้องอนาคตของวงการแพทย์</li></ul>
+                            </div>
+                        </section>
+                        <section class="content-section">
+                            <h3 class="section-header section-header-discussion">💬 สรุปประเด็นเสวนาในกระทู้</h3>
+                            <div class="section-body">
+                                <p>ความคิดเห็นในชุมชนมุ่งเน้นไปที่ความย้อนแย้งของการถูกเชิญออกจากงานประชุม เพียงเพราะการแจกจ่ายบทความวิชาการที่ตีพิมพ์ในวารสารทางการของสมาคมผู้จัดงานเอง โดยผู้ใช้ส่วนใหญมองว่าไม่สมควรตีความการกระทำนี้เป็นการประท้วงที่ผิดกฎระเบียบ แต่ควรนับเป็นการเผยแพร่ความรู้ทางวิทยาศาสตร์ตามวัตถุประสงค์หลักของงานประชุม</p><ul><li><strong>การวิเคราะห์เชิงโครงสร้างการควบคุม:</strong> ผู้แสดงความคิดเห็นชี้ให้เห็นว่า ความกลัวของสมาคมผู้จัดงานเกิดขึ้นเนื่องจากอิทธิพลและการพึ่งพาเงินทุนสนับสนุนจากรัฐบาลกลาง ทำให้อดรนทนไม่ได้ต่อการวิพากษ์วิจารณ์ผู้แทนจากภาครัฐที่มาร่วมงาน</li><li><strong>การอุปมานิทรรศการ:</strong> มีการเปรียบเทียบสถานการณ์วิจัยในสหรัฐฯ กับนิทานเรื่อง "ฉลองพระองค์ชุดใหม่ของพระราชา" (The Emperor's New Clothes) เพื่อสะท้อนถึงวิกฤตการจัดหาทุนวิจัยทางวิทยาศาสตร์ที่ไม่มีใครกล้าพูดความจริง</li></ul>
+                            </div>
+                        </section>
+                        <div class="links-row">
+                            <a href="https://arstechnica.com/science/2026/06/scientists-ejected-from-diabetes-conference-for-distributing-journal-reprints/" target="_blank" class="action-btn btn-primary">อ่านบทความต้นฉบับ</a>
+                            <a href="https://news.ycombinator.com/item?id=48433410" target="_blank" class="action-btn btn-secondary">กระทู้บน Hacker News</a>
+                        </div>
+                    </div>
+                </details>
+            </article>
+            
+            <!-- STORY 7 -->
+            <article class="news-item">
+                <details>
+                    <summary>
+                        <div class="summary-header">
+                            <div class="summary-title-section">
+                                <h2 class="story-title">How's Linear so fast? A technical breakdown</h2>
+                                <p class="teaser">บทวิเคราะห์เชิงลึกเกี่ยวกับความเร็วและการตอบสนองของแอปพลิเคชัน Linear ด้วยเทคโนโลยีฐานข้อมูลบนเบราว์เซอร์และการประมวลผลฝั่งไคลเอนต์แบบ Optimistic UI</p>
+                                <div class="meta-row">
+                                    <span class="badge badge-points">🔥 295 คะแนน</span>
+                                    <span class="badge badge-comments">💬 158 ความคิดเห็น</span>
+                                    <span class="badge badge-domain">performance.dev</span>
+                                </div>
+                            </div>
+                            <div class="toggle-icon">▼</div>
+                        </div>
+                    </summary>
+                    <div class="details-content">
+                        <section class="content-section">
+                            <h3 class="section-header section-header-article">📄 สรุปเนื้อหาบทความ</h3>
+                            <div class="section-body">
+                                <p>บทความนี้นำเสนอการวิเคราะห์สถาปัตยกรรมทางเทคนิคที่อยู่เบื้องหลังความเร็วระดับสูงของแอปพลิเคชันจัดการงาน <strong>Linear</strong> แม้ว่าจะเกิดข้อผิดพลาดในการดึงข้อมูลจากแหล่งที่มาต้นทาง (เนื่องจากปัญหาใบรับรอง SSL ของเว็บไซต์ปลายทาง) แต่สถาปัตยกรรมที่ระบุชี้ให้เห็นถึงการก้าวข้ามขีดจำกัดของระบบ CRUD แบบดั้งเดิมที่มักจะมีความหน่วงในการส่งคำขอไปยังเซิร์ฟเวอร์</p><p>Linear ได้ใช้หลักการประมวลผลบนฝั่งผู้ใช้งาน (Client-side sync engine) เพื่อให้ผู้ใช้สัมผัสกับประสิทธิภาพที่รวดเร็วและการตอบสนองแบบทันทีทันใด โดยไม่ต้องรอผลลัพธ์การบันทึกจากเซิร์ฟเวอร์เสร็จสิ้นก่อน</p><ul><li><strong>การตอบสนองแบบ Optimistic UI:</strong> การอัปเดตหน้าจอทันทีเมื่อเกิดเหตุการณ์ โดยสมมติว่าเซิร์ฟเวอร์จะบันทึกสำเร็จ</li><li><strong>การซิงค์ข้อมูลเบื้องหลัง:</strong> ใช้กลไกการประสานข้อมูลที่มีการแบ่งส่วนข้อมูล (Chunking) เพื่อดาวน์โหลดเฉพาะข้อมูลที่เปลี่ยนแปลง</li></ul>
+                            </div>
+                        </section>
+                        <section class="content-section">
+                            <h3 class="section-header section-header-discussion">💬 สรุปประเด็นเสวนาในกระทู้</h3>
+                            <div class="section-body">
+                                <p>ความคิดเห็นในฟอรัมมีการแลกเปลี่ยนข้อมูลทางเทคนิคอย่างกว้างขวาง โดยเน้นย้ำถึงการฟื้นฟูเทคโนโลยีสถาปัตยกรรมแบบกระจายศูนย์บนไคลเอนต์คล้ายคลึงกับเฟรมเวิร์ก <strong>MeteorJS</strong> และฐานข้อมูลฝั่งเบราว์เซอร์อย่าง <strong>Minimongo</strong></p><ul><li><strong>การจำลองตัวอย่างและข้อดี:</strong> นักพัฒนาหลายคนแชร์ประสบการณ์สร้างระบบประสานข้อมูล (Sync engine) ในรูปแบบเดียวกัน และพบว่าช่วยเพิ่มความสามารถในการทำงานร่วมกันได้ดีขึ้น รวมถึงขจัดความล่าช้าในลักษณะเดียวกับซอฟต์แวร์คู่แข่งอย่าง Jira</li><li><strong>ความท้าทายในการจัดการข้อผิดพลาด:</strong> ข้อถกเถียงสำคัญคือผลกระทบเมื่อเกิดปัญหาการเชื่อมต่อเครือข่ายล้มเหลว (Network Failure) เนื่องจากมีความซับซ้อนในการจัดการความขัดแย้งของข้อมูลฝั่งไคลเอนต์และเซิร์ฟเวอร์</li><li><strong>แหล่งเรียนรู้เพิ่มเติม:</strong> มีการแนะนำวิดีโอจากทีมงาน Linear ที่อธิบายกระบวนการพัฒนาโครงสร้าง ORM และความสัมพันธ์เชิงลึกของกลไกความเร็วนี้อย่างละเอียดยิ่งขึ้น</li></ul>
+                            </div>
+                        </section>
+                        <div class="links-row">
+                            <a href="https://performance.dev/how-is-linear-so-fast-a-technical-breakdown" target="_blank" class="action-btn btn-primary">อ่านบทความต้นฉบับ</a>
+                            <a href="https://news.ycombinator.com/item?id=48437609" target="_blank" class="action-btn btn-secondary">กระทู้บน Hacker News</a>
+                        </div>
+                    </div>
+                </details>
+            </article>
+            
+            <!-- STORY 8 -->
+            <article class="news-item">
+                <details>
+                    <summary>
+                        <div class="summary-header">
+                            <div class="summary-title-section">
+                                <h2 class="story-title">I design with Claude more than Figma now</h2>
+                                <p class="teaser">ดีไซเนอร์จากสถาบันการเงิน Jane Street หันมาใช้โมเดลภาษาขนาดใหญ่ เช่น Claude ในการสร้างต้นแบบที่ทำงานได้จริงในโค้ดเบสโดยตรง แทนการพึ่งพา Figma เป็นหลัก</p>
+                                <div class="meta-row">
+                                    <span class="badge badge-points">🔥 265 คะแนน</span>
+                                    <span class="badge badge-comments">💬 235 ความคิดเห็น</span>
+                                    <span class="badge badge-domain">blog.janestreet.com</span>
+                                </div>
+                            </div>
+                            <div class="toggle-icon">▼</div>
+                        </div>
+                    </summary>
+                    <div class="details-content">
+                        <section class="content-section">
+                            <h3 class="section-header section-header-article">📄 สรุปเนื้อหาบทความ</h3>
+                            <div class="section-body">
+                                <p>บทบรรยายของ Edwin นักออกแบบประจำโต๊ะเทรดออปชันที่ <strong>Jane Street</strong> ถ่ายทอดความเปลี่ยนแปลงในขั้นตอนการทำงานการออกแบบ (Design Workflow) โดยเปลี่ยนจากการร่างเอกสารข้อกำหนดและสร้างภาพจำลองใน Figma มาเป็นการใช้ <strong>Claude</strong> ช่วยเขียนโค้ดและพัฒนาฟีเจอร์ต้นแบบ (Prototype) ในโค้ดเบสจริงที่พัฒนาด้วยภาษา OCaml และ Bonsai</p><p>การสร้างต้นแบบที่ทำงานได้จริงในระบบส่งผลให้ดีไซเนอร์และผู้ใช้งานสามารถทดสอบและรับฟังความคิดเห็นเกี่ยวกับหน้าตาและประสบการณ์การใช้งานได้อย่างละเอียดและอิสระมากขึ้น โดยไม่สูญเสียเวลาไปกับกระบวนการสื่อสารเชิงเอกสารแบบเดิม ๆ</p><ul><li><strong>ข้อดีของการสร้างต้นแบบจริง:</strong> ดีไซเนอร์สามารถทดลองปรับเปลี่ยนองค์ประกอบย่อย เช่น ทางลัดแป้นพิมพ์ การปรับปุ่มส่งข้อมูล และข้อความยืนยัน ได้หลายสิบครั้งอย่างรวดเร็ว</li><li><strong>ข้อจำกัดและความท้าทาย:</strong> บทบาทของผู้ตรวจทานโค้ดเปลี่ยนไปเป็นเพียงผู้ประเมินคุณภาพงานออกแบบแทนที่จะมีส่วนร่วมกับฟังก์ชันการทำงาน และความกังวลว่าการยึดติดกับการปรับปรุงผ่าน Claude อาจจำกัดความคิดสร้างสรรค์ที่แปลกใหม่</li></ul>
+                            </div>
+                        </section>
+                        <section class="content-section">
+                            <h3 class="section-header section-header-discussion">💬 สรุปประเด็นเสวนาในกระทู้</h3>
+                            <div class="section-body">
+                                <p>ความคิดเห็นสะท้อนถึงการเติบโตของแนวทางการออกแบบด้วยปัญญาประดิษฐ์และการก้าวเข้าสู่ยุคที่การเขียนโค้ดต้นแบบเป็นเครื่องมือหลักของดีไซเนอร์ โดยมีการแลกเปลี่ยนประเด็นสำคัญดังนี้</p><ul><li><strong>ปัญหาความซ้ำซากจำเจของงานออกแบบ:</strong> ผู้ใช้งานพบว่า Claude มักจะสร้างอินเตอร์เฟสที่มีลักษณะคล้ายคลึงกันตามพิมพ์นิยม (Web tropes) ยกเว้นแต่จะมีการเขียนพรอมต์คำสั่งจัดสไตล์อย่างละเอียดหรือกำหนดแบบอักษรเฉพาะเจาะจง</li><li><strong>กระบวนการผสานเครื่องมือ:</strong> นักออกแบบที่มีชื่อเสียงหลายคนเริ่มใช้โมเดลภาษาขนาดใหญ่ในการสร้างภาพร่างเบื้องต้นเพื่อให้ผู้อื่นได้ทดลองใช้จริง จากนั้นจึงนำมาขัดเกลาต่อใน Figma หรือดึงข้อมูลโทนการออกแบบ (Design tokens) ผ่าน MCP ของ Figma</li><li><strong>การจัดสไตล์และโครงสร้างโค้ด:</strong> ข้อเสนอแนะชี้ให้เห็นว่า หากเฟรมเวิร์กสมัยใหม่สามารถรักษาหน้าเทมเพลตฝั่งหน้าบ้าน (Frontend) ให้คงที่โดยปราศจากตรรกะที่ซับซ้อน จะช่วยให้ LLMs สามารถวิเคราะห์และช่วยปรับปรุงดีไซน์ได้ง่ายยิ่งขึ้น</li></ul>
+                            </div>
+                        </section>
+                        <div class="links-row">
+                            <a href="https://blog.janestreet.com/i-design-with-claude-code-more-than-figma-now-index/" target="_blank" class="action-btn btn-primary">อ่านบทความต้นฉบับ</a>
+                            <a href="https://news.ycombinator.com/item?id=48431981" target="_blank" class="action-btn btn-secondary">กระทู้บน Hacker News</a>
+                        </div>
+                    </div>
+                </details>
+            </article>
+            
+            <!-- STORY 9 -->
+            <article class="news-item">
+                <details>
+                    <summary>
+                        <div class="summary-header">
+                            <div class="summary-title-section">
+                                <h2 class="story-title">Major P2P issues in Israel and possibly other Middle East countries</h2>
+                                <p class="teaser">พบปัญหาความหน่วงและประสิทธิภาพในการเชื่อมต่อแบบ Peer-to-Peer (P2P) ผ่านระบบเครือข่ายของ Steam ในกลุ่มผู้เล่นแถบประเทศอิสราเอลและตะวันออกกลาง</p>
+                                <div class="meta-row">
+                                    <span class="badge badge-points">🔥 263 คะแนน</span>
+                                    <span class="badge badge-comments">💬 131 ความคิดเห็น</span>
+                                    <span class="badge badge-domain">github.com</span>
+                                </div>
+                            </div>
+                            <div class="toggle-icon">▼</div>
+                        </div>
+                    </summary>
+                    <div class="details-content">
+                        <section class="content-section">
+                            <h3 class="section-header section-header-article">📄 สรุปเนื้อหาบทความ</h3>
+                            <div class="section-body">
+                                <p>ผู้ใช้งานเกมหลายรายรายงานปัญหาเชิงระบบที่ส่งผลกระทบอย่างรุนแรงต่อการเล่นเกมแบบ <strong>P2P (Peer-to-Peer)</strong> ที่ทำงานผ่านระบบ Steam Networking ในประเทศอิสราเอลและตะวันออกกลาง โดยส่งผลให้ค่าความหน่วง (Ping) ระหว่างเครื่องพีซีสูงขึ้นถึงประมาณ 120ms ทั้งที่โดยปกติควรอยู่ที่ 5-10ms เท่านั้น</p><p>ปัญหานี้สร้างอุปสรรคอย่างมากในการเล่นเกมต่อสู้ที่ต้องใช้การตอบสนองที่รวดเร็ว เช่น Street Fighter 6 แต่ในขณะเดียวกัน ปัญหาดังกล่าวกลับไม่เกิดขึ้นเมื่อเล่นข้ามแพลตฟอร์มไปยังคอนโซล PS5 หรือใช้การเชื่อมต่อในเกม P2P ที่ไม่ได้พึ่งพาเครือข่าย Steam (เช่น Tekken 8)</p><ul><li><strong>ขอบเขตของผลกระทบ:</strong> ส่งผลต่อกลุ่มผู้เล่นในอิสราเอลทุกผู้ให้บริการอินเทอร์เน็ต (ISPs) และมีรายงานปัญหาคล้ายกันในอียิปต์</li><li><strong>การทดสอบเครือข่าย:</strong> ผู้ให้บริการอินเทอร์เน็ตยืนยันว่าไม่มีการปิดกั้นพอร์ตหรือปัญหาเครือข่ายในระดับปกติ</li></ul>
+                            </div>
+                        </section>
+                        <section class="content-section">
+                            <h3 class="section-header section-header-discussion">💬 สรุปประเด็นเสวนาในกระทู้</h3>
+                            <div class="section-body">
+                                <p>การอภิปรายในช่องทางความคิดเห็นให้ความเห็นเชิงลึกเกี่ยวกับการตั้งสมมติฐานและแนวทางการแก้ไขปัญหาทางเครือข่าย ดังนี้</p><ul><li><strong>การควบคุมของรัฐบาลและการเซ็นเซอร์:</strong> มีการตั้งข้อสังเกตว่าค่า Ping ที่สูงขึ้นในแถบตะวันออกกลาง รัสเซีย และจีน อาจเป็นผลข้างเคียงจากนโยบายควบคุมอินเทอร์เน็ตของภาครัฐเพื่อสอดส่องและปิดกั้นการใช้เครือข่าย P2P ในการหลบเลี่ยงการเซ็นเซอร์</li><li><strong>วิธีการแก้ไขเฉพาะหน้า:</strong> ผู้ใช้งานพบวิธีการแก้ไขชั่วคราวโดยการคัดลอกไฟล์ <strong>steamwebrtc.dll</strong> ไปยังโฟลเดอร์รันไทม์ของตัวเกม</li><li><strong>คุณภาพการสนทนาบน GitHub:</strong> ผู้ใช้บางส่วนเปรียบเทียบคุณภาพของหน้าแลกเปลี่ยนความคิดเห็นบน GitHub โดยระบุว่าในบางหัวข้อมีการลดระดับคุณภาพจนคล้ายบอร์ดสาธารณะอย่าง Reddit ขณะที่บางคนมองว่ายังคงรักษาความเป็นมืออาชีพได้ดีกว่าในอดีต</li></ul>
+                            </div>
+                        </section>
+                        <div class="links-row">
+                            <a href="https://github.com/ValveSoftware/GameNetworkingSockets/issues/398" target="_blank" class="action-btn btn-primary">อ่านบทความต้นฉบับ</a>
+                            <a href="https://news.ycombinator.com/item?id=48431461" target="_blank" class="action-btn btn-secondary">กระทู้บน Hacker News</a>
+                        </div>
+                    </div>
+                </details>
+            </article>
+            
+            <!-- STORY 10 -->
+            <article class="news-item">
+                <details>
+                    <summary>
+                        <div class="summary-header">
+                            <div class="summary-title-section">
+                                <h2 class="story-title">Show HN: Lathe – Use LLMs to learn a new domain, not skip past it</h2>
+                                <p class="teaser">เปิดตัว Lathe เครื่องมือโอเพนซอร์สที่ขับเคลื่อนด้วย LLMs ในรูปแบบของคู่มือฝึกฝนทักษะเชิงปฏิบัติเพื่อสนับสนุนการเรียนรู้ความรู้ใหม่แทนการเขียนโค้ดให้โดยอัตโนมัติ</p>
+                                <div class="meta-row">
+                                    <span class="badge badge-points">🔥 247 คะแนน</span>
+                                    <span class="badge badge-comments">💬 47 ความคิดเห็น</span>
+                                    <span class="badge badge-domain">github.com</span>
+                                </div>
+                            </div>
+                            <div class="toggle-icon">▼</div>
+                        </div>
+                    </summary>
+                    <div class="details-content">
+                        <section class="content-section">
+                            <h3 class="section-header section-header-article">📄 สรุปเนื้อหาบทความ</h3>
+                            <div class="section-body">
+                                <p>ผู้พัฒนาได้เผยแพร่โปรเจกต์ <strong>Lathe</strong> ซึ่งเป็นเครื่องมือจำพวก CLI (พัฒนาด้วยภาษา Go) และชุดทักษะสำหรับ LLMs (เช่น Claude Code, Cursor) โดยมีจุดมุ่งหมายเพื่อการศึกษาและการสอนผู้ใช้งานในการเขียนโปรแกรมและการเรียนรู้ทักษะใหม่ ๆ มากกว่าการสั่งให้ปัญญาประดิษฐ์เขียนโค้ดสำเร็จรูปให้</p><p>Lathe ทำการสร้างบทเรียนทางเทคนิคทีละขั้นตอนในหัวข้อต่าง ๆ ตามพรอมต์คำสั่ง จากนั้นเปิดโอกาสให้ผู้ใช้งานได้เขียนโค้ดและดำเนินการศึกษาด้วยตนเองผ่านอินเตอร์เฟสท้องถิ่น (Local UI) ที่ออกแบบมาเพื่อการเรียนรู้อย่างเป็นระบบ</p><ul><li><strong>แรงบันดาลใจการออกแบบ:</strong> ย้อนกลับไปสู่ประสบการณ์ดั้งเดิมของการเรียนรู้โดยการลงมือปฏิบัติจริง เช่น การเขียนโปรแกรมโฮมบริวสำหรับเครื่องเกม PSP ในอดีต</li><li><strong>การแก้ไขปัญหาการจดจำข้อมูล:</strong> ป้องกันไม่ให้โมเดลภาษาเขียนโค้ดทดแทนการตัดสินใจของมนุษย์ ซึ่งมักจะส่งผลให้ผู้เรียนขาดความเข้าใจที่ลึกซ้อนและการคิดวิเคราะห์ด้วยตนเอง</li></ul>
+                            </div>
+                        </section>
+                        <section class="content-section">
+                            <h3 class="section-header section-header-discussion">💬 สรุปประเด็นเสวนาในกระทู้</h3>
+                            <div class="section-body">
+                                <p>ผู้แสดงความคิดเห็นให้การสนับสนุนและวิจารณ์เชิงลึกเกี่ยวกับแนวคิดการใช้เทคโนโลยี LLMs เพื่อส่งเสริมการศึกษา ดังนี้</p><ul><li><strong>การเอาชนะความขี้เกียจทางปัญญา:</strong> สมาชิกหลายคนชื่นชมแนวคิดนี้เนื่องจากช่วยลดปัญหาความเฉื่อยทางปัญญา (Intellectual Laziness) ที่มักเกิดขึ้นจากการใช้ AI ช่วยเขียนโค้ดเป็นระบบอัตโนมัติทั้งหมด</li><li><strong>การประยุกต์ใช้งานเชิงปฏิบัติ:</strong> มีการแลกเปลี่ยนกระบวนการสร้างเครื่องมือประสานงานส่วนบุคคลระหว่าง CLI และคำสั่งทักษะ LLMs เพื่อทำงานประเภทการวิเคราะห์ข้อมูลซ้ำ ๆ หรือการจัดระเบียบสารสนเทศ</li><li><strong>ข้อคิดเห็นเกี่ยวกับความน่าเชื่อถือ:</strong> ผู้ใช้เน้นย้ำว่า แม้ว่าการสอนโดยใช้ AI จะมีประสิทธิภาพสูง แต่ผู้ใช้งานยังคงต้องมีวิจารณญาณและทักษะในการทักท้วงหรือตรวจสอบเนื้อหาที่ผิดพลาดของปัญญาประดิษฐ์เพื่อพัฒนาความเข้าใจในขั้นสูง</li></ul>
+                            </div>
+                        </section>
+                        <div class="links-row">
+                            <a href="https://github.com/devenjarvis/lathe" target="_blank" class="action-btn btn-primary">อ่านบทความต้นฉบับ</a>
+                            <a href="https://news.ycombinator.com/item?id=48433756" target="_blank" class="action-btn btn-secondary">กระทู้บน Hacker News</a>
+                        </div>
+                    </div>
+                </details>
+            </article>
+            
+            <!-- STORY 11 -->
+            <article class="news-item">
+                <details>
+                    <summary>
+                        <div class="summary-header">
+                            <div class="summary-title-section">
+                                <h2 class="story-title">Public Domain Image Archive</h2>
+                                <p class="teaser">คลังภาพสาธารณประโยชน์ (Public Domain) เสนอผลงานที่ปราศจากลิขสิทธิ์กว่า 11,000 ชิ้น เพื่อการใช้งานและดาวน์โหลดฟรี ทว่าผู้ใช้ยังต้องเผชิญกับความท้าทายในการตรวจสอบความถูกต้องของสิทธิ์ก่อนนำไปใช้ในเชิงพาณิชย์</p>
+                                <div class="meta-row">
+                                    <span class="badge badge-points">🔥 240 คะแนน</span>
+                                    <span class="badge badge-comments">💬 33 ความคิดเห็น</span>
+                                    <span class="badge badge-domain">pdimagearchive.org</span>
+                                </div>
+                            </div>
+                            <div class="toggle-icon">▼</div>
+                        </div>
+                    </summary>
+                    <div class="details-content">
+                        <section class="content-section">
+                            <h3 class="section-header section-header-article">📄 สรุปเนื้อหาบทความ</h3>
+                            <div class="section-body">
+                                <p>บทความแนะนำ <strong>Public Domain Image Archive</strong> ซึ่งเป็นแพลตฟอร์มรวบรวมผลงานภาพที่หมดอายุการคุ้มครองลิขสิทธิ์ (Public Domain) จำนวนกว่า 11,082 ภาพ โดยเปิดโอกาสให้ผู้ใช้งานทั่วไปสามารถเข้าชม ดาวน์โหลด และนำไปใช้ซ้ำได้โดยไม่มีค่าใช้จ่าย ทั้งนี้ ฐานข้อมูลดังกล่าวเป็นฐานข้อมูลแบบมีชีวิต (Living Database) ที่มีการปรับปรุงและเพิ่มรูปภาพใหม่ ๆ เข้ามาเป็นประจำทุกสัปดาห์ เพื่อขยายทางเลือกในการสร้างสรรค์ผลงานให้แก่สาธารณชน</p>
+                            </div>
+                        </section>
+                        <section class="content-section">
+                            <h3 class="section-header section-header-discussion">💬 สรุปประเด็นเสวนาในกระทู้</h3>
+                            <div class="section-body">
+                                <p>ความคิดเห็นในกลุ่มผู้ใช้มุ่งเน้นไปที่ประเด็นการตรวจสอบและรับรองสิทธิ์ (Copyright Clearance) ในทางปฏิบัติ โดยมีสาระสำคัญดังนี้:</p><ul><li><strong>ความเสี่ยงในทางปฏิบัติของแพลตฟอร์มจำหน่ายหนังสือ:</strong> มีผู้แสดงความกังวลว่าการนำภาพจากแหล่งดังกล่าวไปทำปกหนังสือเพื่อขายบน Amazon KDP หรือแพลตฟอร์มอื่น ๆ อาจถูกปฏิเสธหรือระงับการเผยแพร่ชั่วคราว เนื่องจากขาดเอกสารยืนยันสิทธิ์ที่เป็นลายลักษณ์อักษรที่น่าเชื่อถือพอในระบบการตรวจสอบแบบอัตโนมัติ</li><li><strong>ความซับซ้อนทางกฎหมายในแต่ละประเทศ:</strong> สมาชิกชี้ว่าในบางประเทศของยุโรป สิทธิ์ในการเผยแพร่ผลงานภาพถ่ายที่เกิดจากการแปลงงานศิลปะโบราณให้อยู่ในรูปแบบดิจิทัล (Digitization) อาจได้รับการคุ้มครองลิขสิทธิ์แยกต่างหาก ซึ่งสร้างความสับสนแก่ผู้ใช้</li><li><strong>แนวทางปฏิบัติในการตรวจสอบด้วยตนเอง:</strong> มีการแนะนำให้ตรวจสอบประวัติผู้สร้างสรรค์เดิมว่าเสียชีวิตเกิน 70 ปีแล้วหรือไม่ หรือตรวจสอบว่าผลงานดังกล่าวได้รับการตีพิมพ์เผยแพร่มานานกว่า 95 ปีแล้วหรือยัง เพื่อความปลอดภัยทางกฎหมาย</li><li><strong>ข้อวิจารณ์ด้านเทคนิคของเว็บไซต์:</strong> ผู้ใช้บางส่วนพบปัญหาการตอบสนองของการเลื่อนหน้าจอ (Scrolling) บนการแสดงผลแบบไม่มีสิ้นสุด (Infinite View) ของเว็บไซต์ในเวอร์ชันเดสก์ท็อป ซึ่งส่งผลต่อประสบการณ์การใช้งาน</li></ul>
+                            </div>
+                        </section>
+                        <div class="links-row">
+                            <a href="https://pdimagearchive.org/" target="_blank" class="action-btn btn-primary">อ่านบทความต้นฉบับ</a>
+                            <a href="https://news.ycombinator.com/item?id=48430539" target="_blank" class="action-btn btn-secondary">กระทู้บน Hacker News</a>
+                        </div>
+                    </div>
+                </details>
+            </article>
+            
+            <!-- STORY 12 -->
+            <article class="news-item">
+                <details>
+                    <summary>
+                        <div class="summary-header">
+                            <div class="summary-title-section">
+                                <h2 class="story-title">New U.S. college grads now have higher unemployment than the average worker</h2>
+                                <p class="teaser">อัตราการว่างงานของบัณฑิตจบใหม่ในสหรัฐฯ พุ่งสูงขึ้นกว่าค่าเฉลี่ยของแรงงานทั่วไปเป็นประวัติการณ์ นับตั้งแต่ปี 2019 ซึ่งสะท้อนการเปลี่ยนแปลงเชิงโครงสร้างในตลาดงานที่ไม่ได้รับผลกระทบจาก AI หรือโรคระบาดเพียงอย่างเดียว</p>
+                                <div class="meta-row">
+                                    <span class="badge badge-points">🔥 226 คะแนน</span>
+                                    <span class="badge badge-comments">💬 293 ความคิดเห็น</span>
+                                    <span class="badge badge-domain">randalolson.com</span>
+                                </div>
+                            </div>
+                            <div class="toggle-icon">▼</div>
+                        </div>
+                    </summary>
+                    <div class="details-content">
+                        <section class="content-section">
+                            <h3 class="section-header section-header-article">📄 สรุปเนื้อหาบทความ</h3>
+                            <div class="section-body">
+                                <p>บทความนำเสนอรายงานเชิงวิเคราะห์เกี่ยวกับความผันผวนของตลาดแรงงานในสหรัฐฯ ซึ่งพบว่า<strong>บัณฑิตจบใหม่กำลังเผชิญกับอัตราการว่างงานที่สูงกว่าค่าเฉลี่ยของแรงงานในภาพรวม</strong> ซึ่งนับเป็นปรากฏการณ์ที่ขัดแย้งกับสถิติในอดีตที่ปริญญาบัตรมักสร้างความได้เปรียบในการแข่งขันเสมอ โดยประเด็นสำคัญมีดังนี้:</p><ul><li><strong>แนวโน้มการเปลี่ยนแปลงเชิงโครงสร้าง:</strong> การกลับทิศของอัตราการว่างงานนี้ไม่ได้มีจุดเริ่มต้นมาจากปัญญาประดิษฐ์ (AI) หรือการระบาดของโควิด-19 แต่เริ่มต้นส่งสัญญาณมาตั้งแต่ช่วงต้นปี 2019</li><li><strong>บทบาทของการทำงานทางไกล (Remote Work) และ AI:</strong> ธนาคารกลางแห่งคลีฟแลนด์และนิวยอร์กชี้ว่า การทำงานทางไกลมีส่วนสำคัญอย่างมากเนื่องจากนายจ้างลังเลที่จะจ้างพนักงานระดับเริ่มต้น (Entry-level) เข้าทำงานในรูปแบบรีโมต เพราะการสอนงาน (Mentorship) ทำได้ยาก นอกจากนี้ งานวิจัยจากสแตนฟอร์ดยังพบว่าแรงงานอายุน้อยในสาขาที่ต้องเผชิญหน้ากับการทดแทนด้วย AI มีจำนวนการจ้างงานลดลงอย่างมีนัยสำคัญ</li><li><strong>วิกฤตของสาขาวิทยาการคอมพิวเตอร์ (Computer Science):</strong> บัณฑิตสาขา CS กำลังเผชิญกับความยากลำบากอย่างหนัก เนื่องจากจำนวนผู้สำเร็จการศึกษาในด้านนี้เพิ่มขึ้นมากกว่าเท่าตัวในช่วงไม่กี่ปีที่ผ่านมา ท่ามกลางตำแหน่งงานระดับเริ่มต้นที่หดตัวลง</li><li><strong>คุณค่าของปริญญายังคงอยู่:</strong> แม้จะเริ่มสูญเสียความได้เปรียบเหนือกองทัพแรงงานโดยรวม แต่บัณฑิตปริญญาตรีก็ยังคงมีอัตราการว่างงานที่ต่ำกว่าผู้สำเร็จการศึกษาระดับมัธยมปลาย (5.6% เทียบกับ 7.2% ในปี 2026)</li></ul>
+                            </div>
+                        </section>
+                        <section class="content-section">
+                            <h3 class="section-header section-header-discussion">💬 สรุปประเด็นเสวนาในกระทู้</h3>
+                            <div class="section-body">
+                                <p>ความคิดเห็นจากชุมชนผู้อ่านมีความเห็นแตกออกเป็นหลายด้านเกี่ยวกับการประเมินมูลค่าและบทบาทของการศึกษาในปัจจุบัน:</p><ul><li><strong>การด้อยค่าของปริญญาบัตร (Degree Inflation):</strong> สมาชิกบางส่วนเห็นว่าวุฒิปริญญาตรีในปัจจุบันทำหน้าที่เสมือนวุฒิมัธยมปลายในอดีต ซึ่งสะท้อนถึงภาวะล้นตลาดของการศึกษา และการที่นักศึกษาต้องแบกรับหนี้สินจากการเรียนโดยไม่ได้รับหลักประกันทางอาชีพที่คุ้มค่า</li><li><strong>การเปลี่ยนเกณฑ์การคัดเลือกของนายจ้าง:</strong> มีการตั้งข้อสังเกตว่านายจ้างเปลี่ยนความต้องการจากเดิมที่ยอมรับผู้สมัครที่มี "วุฒิการศึกษาใดก็ได้แต่ไม่มีประสบการณ์" ไปสู่การเลือก "ผู้ที่มีประสบการณ์การทำงานตรงสายโดยไม่เกี่ยงวุฒิการศึกษา" เพื่อลดต้นทุนการฝึกอบรม</li><li><strong>ความคาดหวังและการเลือกงาน:</strong> บางความเห็นระบุว่า บัณฑิตจบใหม่อาจปฏิเสธงานที่มองว่าอยู่ต่ำกว่าระดับคุณวุฒิของตน ทำให้ใช้เวลาว่างงานนานขึ้นในการมองหางานที่ตรงใจ ซึ่งคล้ายกับปรากฏการณ์นอนราบ (Lying Flat) ของเยาวชนในประเทศจีน</li><li><strong>ข้อโต้แย้งทางสถิติ:</strong> มีการชี้แจงว่าเมื่อเปรียบเทียบในกลุ่มช่วงอายุเดียวกัน (อายุ 22-27 ปี) บัณฑิตระดับมหาวิทยาลัยก็ยังคงมีความได้เปรียบและมีอัตราการว่างงานที่ต่ำกว่าผู้ที่ไม่ได้เรียนมหาวิทยาลัยอย่างชัดเจน</li></ul>
+                            </div>
+                        </section>
+                        <div class="links-row">
+                            <a href="https://www.randalolson.com/2026/06/04/recent-grad-unemployment-flip/" target="_blank" class="action-btn btn-primary">อ่านบทความต้นฉบับ</a>
+                            <a href="https://news.ycombinator.com/item?id=48428763" target="_blank" class="action-btn btn-secondary">กระทู้บน Hacker News</a>
+                        </div>
+                    </div>
+                </details>
+            </article>
+            
+            <!-- STORY 13 -->
+            <article class="news-item">
+                <details>
+                    <summary>
+                        <div class="summary-header">
+                            <div class="summary-title-section">
+                                <h2 class="story-title">Home alone: Remote work, isolation, and mental health</h2>
+                                <p class="teaser">ผลกระทบจากการทำงานทางไกลต่อสุขภาพจิตของพนักงาน โดยเฉพาะผู้ที่อยู่อาศัยคนเดียว ที่ต้องเผชิญกับความโดดเดี่ยวทางสังคมจนนำไปสู่ภาวะตึงเครียดและการใช้ยารักษาโรคซึมเศร้าที่สูงขึ้น</p>
+                                <div class="meta-row">
+                                    <span class="badge badge-points">🔥 191 คะแนน</span>
+                                    <span class="badge badge-comments">💬 188 ความคิดเห็น</span>
+                                    <span class="badge badge-domain">science.org</span>
+                                </div>
+                            </div>
+                            <div class="toggle-icon">▼</div>
+                        </div>
+                    </summary>
+                    <div class="details-content">
+                        <section class="content-section">
+                            <h3 class="section-header section-header-article">📄 สรุปเนื้อหาบทความ</h3>
+                            <div class="section-body">
+                                <p><strong>ข้อจำกัดทางเทคนิค:</strong> เนื่องจากเกิดข้อผิดพลาดในการเชื่อมต่อเครือข่าย <em>(HTTP Error 403)</em> ระบบจึงไม่สามารถดึงข้อมูลเนื้อหาหลักจากหน้าเว็บไซต์ของบทความฉบับเต็มได้โดยตรง อย่างไรก็ตาม ข้อมูลประกอบและข้อมูลแวดล้อมที่ปรากฏชี้ว่า บทความดังกล่าวน่าจะวิเคราะห์เกี่ยวกับผลกระทบทางสุขภาพจิตของการทำงานทางไกล (Remote Work) ความโดดเดี่ยว และความโดดเดี่ยวทางสังคมหลังการแพร่ระบาด ซึ่งแสดงให้เห็นว่าพนักงานที่ทำงานจากที่บ้านมีแนวโน้มที่จะใช้เวลาอย่างโดดเดี่ยวมากขึ้น ละทิ้งการทำกิจกรรมร่วมกับเพื่อนฝูง และนำไปสู่ความต้องการความช่วยเหลือด้านจิตวิทยาและการใช้ยาต้านอาการซึมเศร้าเพิ่มขึ้นอย่างมีนัยสำคัญ โดยเฉพาะในกลุ่มที่อาศัยอยู่คนเดียว</p>
+                            </div>
+                        </section>
+                        <section class="content-section">
+                            <h3 class="section-header section-header-discussion">💬 สรุปประเด็นเสวนาในกระทู้</h3>
+                            <div class="section-body">
+                                <p>ประเด็นการสนทนาในส่วนความคิดเห็นสะท้อนความหลากหลายของการปรับตัวและสภาพแวดล้อมส่วนบุคคลที่มีต่อการทำงานทางไกล ดังนี้:</p><ul><li><strong>ผลกระทบต่อสภาวะจิตใจส่วนบุคคล:</strong> มีการแลกเปลี่ยนประสบการณ์ส่วนตัวจากผู้ใช้หลายรายที่ระบุว่า ความโดดเดี่ยวจากการทำงานทางไกลส่งผลให้พวกเขามีพฤติกรรมพูดคนเดียวหรือทำเสียงดังเพื่อลดความเงียบเหงา ขณะที่บางส่วนที่มีครอบครัวและลูกระบุว่าการทำงานทางไกลเอื้อต่อวิถีชีวิตครอบครัวอย่างมากและไม่ได้รู้สึกโดดเดี่ยว</li><li><strong>การเรียกร้องพื้นที่ทำงานที่ดีขึ้นในออฟฟิศ:</strong> สมาชิกหลายคนบ่นเรื่องพื้นที่ทำงานแบบเปิด (Open Office) ว่าสร้างมลภาวะทางเสียงและลดประสิทธิภาพในการทำงาน พร้อมระบุว่าหากบริษัทจัดหาห้องทำงานส่วนตัวหรือคอกกั้นที่สูงและเงียบสงบ พวกเขาก็ยินดีที่จะกลับเข้าไปทำงานในออฟฟิศมากขึ้น</li><li><strong>ประเด็นวัฒนธรรมและธรรมชาติของบุคคล:</strong> ผู้ใช้บางส่วนอภิปรายว่าผลกระทบนี้อาจขึ้นอยู่กับบุคลิกภาพ (Introvert/Extrovert) โดยกลุ่มรักสันโดษมองว่าการติดต่อสื่อสารทางสังคมบ่อยเกินไปต่างหากที่เป็นตัวสร้างความตึงเครียดให้กับชีวิต ขณะที่กลุ่มอื่น ๆ เห็นพ้องว่าการทำงานทางไกลจำเป็นต้องมีการชดเชยด้วยการสร้างกิจกรรมทางสังคมนอกเวลาทำงานให้เป็นกิจวัตร</li></ul>
+                            </div>
+                        </section>
+                        <div class="links-row">
+                            <a href="https://www.science.org/doi/10.1126/science.aec7671" target="_blank" class="action-btn btn-primary">อ่านบทความต้นฉบับ</a>
+                            <a href="https://news.ycombinator.com/item?id=48428356" target="_blank" class="action-btn btn-secondary">กระทู้บน Hacker News</a>
+                        </div>
+                    </div>
+                </details>
+            </article>
+            
+            <!-- STORY 14 -->
+            <article class="news-item">
+                <details>
+                    <summary>
+                        <div class="summary-header">
+                            <div class="summary-title-section">
+                                <h2 class="story-title">Vitamin D3 During Pregnancy and Cognitive Performance at 10 Years</h2>
+                                <p class="teaser">ความเกี่ยวข้องระหว่างปริมาณวิตามินดี 3 ในช่วงตั้งครรภ์กับระดับสติปัญญาของเด็กเมื่ออายุ 10 ปี ท่ามกลางความกังวลเรื่องการขาดแสงแดดในวิถีชีวิตยุคใหม่ที่อาจส่งผลกระทบต่อประชากรในวงกว้าง</p>
+                                <div class="meta-row">
+                                    <span class="badge badge-points">🔥 181 คะแนน</span>
+                                    <span class="badge badge-comments">💬 81 ความคิดเห็น</span>
+                                    <span class="badge badge-domain">jamanetwork.com</span>
+                                </div>
+                            </div>
+                            <div class="toggle-icon">▼</div>
+                        </div>
+                    </summary>
+                    <div class="details-content">
+                        <section class="content-section">
+                            <h3 class="section-header section-header-article">📄 สรุปเนื้อหาบทความ</h3>
+                            <div class="section-body">
+                                <p><strong>ข้อจำกัดทางเทคนิค:</strong> เนื่องจากเกิดข้อผิดพลาดสิทธิ์ในการเข้าถึง <em>(HTTP Error 403)</em> ระบบจึงไม่สามารถแสดงเนื้อหาบทความต้นทางได้โดยตรง ทว่าจากบริบทหัวข้อเรื่องและข้อมูลที่เกี่ยวเนื่อง งานวิจัยนี้น่าจะเป็นการศึกษาเชิงลึกเกี่ยวกับการได้รับวิตามินดี 3 (Vitamin D3) ของมารดาในช่วงตั้งครรภ์ และผลลัพธ์ระยะยาวต่อพัฒนาการด้านการรับรู้และการทำงานของสมอง (Cognitive Performance) ของเด็กเมื่อเจริญเติบโตจนถึงอายุ 10 ปี เพื่อประเมินประโยชน์ทางคลินิกและการกำหนดนโยบายสาธารณสุขในการเสริมวิตามินดีแก่สตรีมีครรภ์</p>
+                            </div>
+                        </section>
+                        <section class="content-section">
+                            <h3 class="section-header section-header-discussion">💬 สรุปประเด็นเสวนาในกระทู้</h3>
+                            <div class="section-body">
+                                <p>ความคิดเห็นในเชิงลึกของผู้เข้าร่วมเสวนาครอบคลุมหัวข้อทางวิทยาศาสตร์และประวัติศาสตร์วิวัฒนาการที่น่าสนใจดังนี้:</p><ul><li><strong>ผลของการเปลี่ยนแปลงพฤติกรรมในสังคมเมือง:</strong> มีการชี้ให้เห็นว่ามนุษย์ยุคปัจจุบันได้รับแสงแดดลดลงอย่างมากเนื่องจากโครงสร้างการเดินทางโดยรถยนต์ การทำงานในอาคารที่มีเครื่องปรับอากาศ การใช้ครีมกันแดด และการสวมใส่เสื้อผ้า ซึ่งอาจส่งผลเสียต่อระดับวิตามินดีในร่างกายในระดับวิวัฒนาการ</li><li><strong>ข้อสันนิษฐานทางพันธุศาสตร์ประชากร:</strong> สมาชิกบางส่วนเสนอสมมติฐานว่า การปรับตัวให้มีสีผิวที่อ่อนลงของประชากรในละติจูดเหนืออาจเกิดจากแรงกดดันทางวิวัฒนาการเพื่อเพิ่มประสิทธิภาพในการสังเคราะห์วิตามินดีในพื้นที่ที่มีแสงแดดน้อย ทว่าความหลากหลายในภูมิภาคอื่นอย่างเช่นอินเดียตอนใต้แสดงให้เห็นความซับซ้อนที่มากกว่าปัจจัยเรื่องแสงแดดเพียงอย่างเดียว</li><li><strong>ประวัติศาสตร์ของการสวมใส่เสื้อผ้า:</strong> มีการนำข้อมูลทางพันธุศาสตร์ของเหาในร่างกายมนุษย์มาวิเคราะห์ โดยระบุว่ามนุษย์เริ่มมีการสวมใส่เสื้อผ้าที่ประดิษฐ์ขึ้นมานานกว่า 80,000 ถึง 170,000 ปีแล้ว ซึ่งการปรับตัวเชิงวัฒนธรรมนี้ส่งผลต่อการจำกัดการรับแสง UV มาเป็นเวลานาน</li><li><strong>ความเสี่ยงต่อสุขภาพที่เทียบเท่ากับการสูบบุหรี่:</strong> สมาชิกหยิบยกงานวิจัยชิ้นหนึ่งที่แสดงผลลัพธ์ว่า กลุ่มคนที่มีการหลีกเลี่ยงแสงแดดอย่างสมบูรณ์มีอัตราการเสียชีวิตสูงเป็นสองเท่าของกลุ่มที่รับแสงแดดตามปกติ ซึ่งเป็นอัตราความสูญเสียที่เทียบเท่ากับอันตรายจากการสูบบุหรี่</li></ul>
+                            </div>
+                        </section>
+                        <div class="links-row">
+                            <a href="https://jamanetwork.com/journals/jamanetworkopen/fullarticle/2849122" target="_blank" class="action-btn btn-primary">อ่านบทความต้นฉบับ</a>
+                            <a href="https://news.ycombinator.com/item?id=48435584" target="_blank" class="action-btn btn-secondary">กระทู้บน Hacker News</a>
+                        </div>
+                    </div>
+                </details>
+            </article>
+            
+            <!-- STORY 15 -->
+            <article class="news-item">
+                <details>
+                    <summary>
+                        <div class="summary-header">
+                            <div class="summary-title-section">
+                                <h2 class="story-title">Sem: New primitive for code understanding – not LSPs, but entities on top of Git</h2>
+                                <p class="teaser">Sem เครื่องมือ CLI บนระบบ Git ที่วิเคราะห์ซอร์สโค้ดในระดับองค์ประกอบย่อย (Entities) เช่น ฟังก์ชันและคลาส แทนการตรวจจับบรรทัดทั่วไป เพื่อยกระดับความแม่นยำในการทำงานของเอเจนต์ AI</p>
+                                <div class="meta-row">
+                                    <span class="badge badge-points">🔥 170 คะแนน</span>
+                                    <span class="badge badge-comments">💬 56 ความคิดเห็น</span>
+                                    <span class="badge badge-domain">ataraxy-labs.github.io</span>
+                                </div>
+                            </div>
+                            <div class="toggle-icon">▼</div>
+                        </div>
+                    </summary>
+                    <div class="details-content">
+                        <section class="content-section">
+                            <h3 class="section-header section-header-article">📄 สรุปเนื้อหาบทความ</h3>
+                            <div class="section-body">
+                                <p>บทความแนะนำ <strong>Sem</strong> ซึ่งเป็นเครื่องมือใหม่สำหรับทำความเข้าใจรหัสต้นฉบับ (Source Code) โดยทำงานร่วมกับระบบ Git เพื่อติดตามความเปลี่ยนแปลงของซอร์สโค้ดผ่าน <strong>"องค์ประกอบย่อย" (Entities เช่น Functions, Classes, Methods)</strong> แทนการเปรียบเทียบความแตกต่างเป็นบรรทัดแบบดั้งเดิม (Line Diff) โดยมีคุณสมบัติที่โดดเด่นดังนี้:</p><ul><li><strong>ประสิทธิภาพในการพัฒนาด้วย AI:</strong> งานวิจัยและผลการทดสอบเปรียบเทียบชี้ว่า เอเจนต์ AI มีความแม่นยำในการทำความเข้าใจและแก้ไขปัญหาโค้ดเพิ่มขึ้นถึง 2.3 เท่าเมื่อได้รับข้อมูลที่ประมวลผลผ่านระบบ Sem แทนที่จะเป็นข้อมูล raw line diffs แบบเดิม</li><li><strong>ใช้งานได้ทันทีโดยไม่มีการตั้งค่า:</strong> ทำงานร่วมกับ Git repository ใด ๆ ก็ได้โดยไม่ต้องติดตั้งปลั๊กอินพิเศษหรือไฟล์คอนฟิกูเรชันเพิ่มเติม</li><li><strong>สนับสนุนหลายภาษาและการส่งออกข้อมูล:</strong> รองรับการวิเคราะห์โค้ด 26 ภาษาโปรแกรมและสามารถส่งออกผลการทำงานในรูปแบบ JSON สำหรับนำไปใช้งานต่อกับโปรแกรมหรือเอเจนต์อื่น ๆ</li></ul>
+                            </div>
+                        </section>
+                        <section class="content-section">
+                            <h3 class="section-header section-header-discussion">💬 สรุปประเด็นเสวนาในกระทู้</h3>
+                            <div class="section-body">
+                                <p>ความคิดเห็นของหมู่นักพัฒนามุ่งประเด็นไปที่ขีดความสามารถและทิศทางของเครื่องมือวิเคราะห์โค้ดเชิงโครงสร้าง:</p><ul><li><strong>การวิเคราะห์ขอบเขตผลกระทบ (Blast Radius):</strong> ผู้ใช้ชี้ว่า Sem ช่วยวิเคราะห์และติดตามได้ว่าหากมีการเปลี่ยนแปลงตัวแปรหรือฟังก์ชันหนึ่ง ๆ ผลกระทบจะส่งต่อไปยังส่วนใดของระบบบ้าง ซึ่งช่วยให้การตรวจสอบและการปรับปรุงโค้ด (Refactoring) ประหยัดทรัพยากรโทเค็น (Token) และทำได้แม่นยำขึ้น</li><li><strong>ความท้าทายในการวิเคราะห์ข้อมูลเชิงไดนามิก:</strong> มีการอภิปรายว่าการวิเคราะห์โครงสร้างแบบสถิต (Static Analysis) นั้นยังคงมีข้อจำกัดในการติดตามเส้นทางข้อมูลเมื่อเจอกลุ่มโค้ดที่เป็น Dynamic Dispatch หรือการโอนย้ายข้อมูลผ่านระบบเน็ตเวิร์ก ซึ่งอาจต้องใช้รูปแบบผสมผสานที่ทำ Runtime Instrumentation เข้ามาช่วยในอนาคต</li><li><strong>การแก้ปัญหาข้อจำกัดของ LLM:</strong> ปัญหาสำคัญของการใช้โมเดลภาษาในการเขียนโค้ดคือ การขาดความเข้าใจบริบทองค์รวมของระบบการทำงาน (Dependency) การใช้ Sem จึงเข้ามาช่วยจำกัดพื้นที่ความสนใจ (Attention Mapping) ให้โมเดลเห็นข้อมูลเฉพาะส่วนที่เกี่ยวข้องจริง ๆ ป้องกันปัญหาโค้ดซ้ำซ้อนและการเขียนโค้ดที่ผิดหลัก SOLID</li></ul>
+                            </div>
+                        </section>
+                        <div class="links-row">
+                            <a href="https://ataraxy-labs.github.io/sem/" target="_blank" class="action-btn btn-primary">อ่านบทความต้นฉบับ</a>
+                            <a href="https://news.ycombinator.com/item?id=48428475" target="_blank" class="action-btn btn-secondary">กระทู้บน Hacker News</a>
+                        </div>
+                    </div>
+                </details>
+            </article>
+            
+            <!-- STORY 16 -->
+            <article class="news-item">
+                <details>
+                    <summary>
+                        <div class="summary-header">
+                            <div class="summary-title-section">
+                                <h2 class="story-title">How Liminalism Became the Defining Aesthetic of Our Time</h2>
+                                <p class="teaser">การเติบโตของลัทธิสัจนิยมแนวลิมินัล (Liminalism) ในฐานะศิลปะอินเทอร์เน็ตที่สะท้อนถึงความโดดเดี่ยวและความวิตกกังวลในยุคทุนนิยมช่วงปลาย ผ่านภาพถ่ายพื้นที่กึ่งกลางที่ไร้ผู้คน</p>
+                                <div class="meta-row">
+                                    <span class="badge badge-points">🔥 169 คะแนน</span>
+                                    <span class="badge badge-comments">💬 93 ความคิดเห็น</span>
+                                    <span class="badge badge-domain">hyperallergic.com</span>
+                                </div>
+                            </div>
+                            <div class="toggle-icon">▼</div>
+                        </div>
+                    </summary>
+                    <div class="details-content">
+                        <section class="content-section">
+                            <h3 class="section-header section-header-article">📄 สรุปเนื้อหาบทความ</h3>
+                            <div class="section-body">
+                                <p>บทความนี้นำเสนอรายละเอียดเชิงลึกเกี่ยวกับอัตลักษณ์และพัฒนาการของ<strong>ศิลปะลิมินัล (Liminalism)</strong> ซึ่งได้กลายเป็นหนึ่งในแนวคิดทางสุนทรียศาสตร์ที่ทรงอิทธิพลบนโลกอินเทอร์เน็ตในปัจจุบัน โดยมีรายละเอียดที่น่าสนใจดังนี้:</p><ul><li><strong>จุดเริ่มต้นและปรากฏการณ์:</strong> แนวคิดนี้เริ่มต้นจากภาพถ่ายห้างสรรพสินค้าที่ถูกทิ้งร้าง เช่น Century III Mall ในรัฐเพนซิลเวเนีย ซึ่งสะท้อนสภาวะที่เรียกว่า "ห้างผีสิง" (Ghost Mall) ที่เวลาในอดีต ปัจจุบัน และอนาคตดูเหมือนจะพังทลายลงพร้อมกัน</li><li><strong>เดอะแบครูมส์ (The Backrooms):</strong> ปรากฏการณ์นี้ได้รับความนิยมอย่างกว้างขวางจากเรื่องเล่าสยองขวัญออนไลน์ (Creepypasta) ในปี 2019 ที่มีชื่อว่า "The Backrooms" ซึ่งจินตนาการถึงมิติซ้อนทับที่มีทางเดินคดเคี้ยวไร้ที่สิ้นสุด มีกลิ่นพรมชื้นแฉะ และเสียงหึ่งของหลอดไฟฟลูออเรสเซนต์</li><li><strong>แก่นแท้ของสุนทรียศาสตร์:</strong> องค์ประกอบสำคัญของภาพแนวลิมินัลคือ "ความว่างเปล่าอย่างไร้ผู้คน" บังคับให้ผู้ชมจินตนาการว่าตนเองโดดเดี่ยวในพื้นที่นั้น ซึ่งสะท้อนความรู้สึกแปลกแยกในสังคมยุคโรคระบาด COVID-19 และการปฏิสัมพันธ์ผ่านสมาร์ทโฟนที่เพิ่มขึ้น</li><li><strong>ความเชื่อมโยงทางประวัติศาสตร์ศิลปะ:</strong> สุนทรียศาสตร์นี้มีความเชื่อมโยงกับลัทธิเหนือจริง (Surrealism) ของศิลปินระดับโลก เช่น René Magritte และ Giorgio de Chirico รวมถึงผลงานแนวความเหงาในชนบทของศิลปินอเมริกันยุคหลังสงครามอย่าง Grant Wood และ Andrew Wyeth</li><li><strong>การเคลื่อนไหวที่เป็นประชาธิปไตย:</strong> ชุมชนผู้ชื่นชอบภาพลิมินัลมักปฏิเสธผลงานที่สร้างโดย AI และเน้นการค้นหา "ศิลปะจัดวางที่มีอยู่จริงในโลก" (Found Art) ทำให้เป็นขบวนการศิลปะที่ขับเคลื่อนโดยมวลชนอย่างแท้จริงโดยไม่ต้องผ่านการคัดกรองจากแกลเลอรีหรือพิพิธภัณฑ์แบบดั้งเดิม</li></ul>
+                            </div>
+                        </section>
+                        <section class="content-section">
+                            <h3 class="section-header section-header-discussion">💬 สรุปประเด็นเสวนาในกระทู้</h3>
+                            <div class="section-body">
+                                <p>บทวิเคราะห์และความคิดเห็นของผู้ใช้งานในประเด็นนี้สะท้อนมุมมองที่หลากหลายต่อคำจำกัดความและความคุ้มค่าของคำว่า "สุนทรียศาสตร์แห่งยุคสมัย" ดังนี้:</p><ul><li><strong>ข้อโต้แย้งเรื่องความนิยม:</strong> ผู้ใช้บางส่วนมองว่าการเรียก "Liminalism" ว่าเป็นสุนทรียศาสตร์ที่บ่งบอกยุคสมัยนั้นดูเกินจริงไป เนื่องจากมันเป็นเพียงกลุ่มความสนใจย่อย (Microniche) คล้ายกับแนว Vaporwave, Cyberpunk หรือ Y2K ที่เกิดขึ้นและจางหายไปตามกาลเวลา</li><li><strong>ทฤษฎีการตลาดแอบแฝง:</strong> มีการตั้งข้อสังเกตว่าการนำเสนอสุนทรียศาสตร์นี้อาจเป็นการตลาดแอบแฝง (Submarine/Native Advertising) เพื่อสนับสนุนโครงการภาพยนตร์ของค่าย A24 ที่ดัดแปลงมาจากเรื่อง The Backrooms</li><li><strong>ความถวิลหาอดีตที่แตกต่างตามช่วงวัย (Nostalgia):</strong> เกิดการสนทนาแลกเปลี่ยนเกี่ยวกับสุนทรียศาสตร์ "Frutiger Aero" ในช่วงทศวรรษ 2000 (ยุค Windows Vista และเทคโนโลยีเคลือบแก้ว) โดยบางคนรู้สึกว่าสไตล์ดังกล่าวสะท้อนความเป็นบรรษัทที่แห้งแล้งและเป็นจุดเริ่มต้นของการสูญเสียความเป็นมนุษย์ในส่วนต่อประสานกับผู้ใช้ (UI) ขณะที่ผู้ใช้รุ่นเยาว์กลับรู้สึกถวิลหาตามความทรงจำในวัยเด็ก</li><li><strong>ความเป็นจริงของพื้นที่ลิมินัล:</strong> ผู้ใช้อีกส่วนหนึ่งชี้ว่าพื้นที่เปลี่ยนผ่าน (เช่น สถานีรถไฟใต้ดินหรือยิม) ถูกออกแบบมาเพื่อการบำรุงรักษาและความสะอาด ไม่ใช่เพื่อสุนทรียภาพ และในชีวิตจริงพื้นที่เหล่านี้มักจะเนืองแน่นไปด้วยผู้คน ไม่ได้ให้ความรู้สึกว่างเปล่าชวนพิศวงเหมือนในรูปถ่าย ยกเว้นว่าจะถ่ายในช่วงเวลากลางดึกสงัดเท่านั้น</li></ul>
+                            </div>
+                        </section>
+                        <div class="links-row">
+                            <a href="https://hyperallergic.com/how-liminalism-became-the-defining-aesthetic-of-our-time/" target="_blank" class="action-btn btn-primary">อ่านบทความต้นฉบับ</a>
+                            <a href="https://news.ycombinator.com/item?id=48431085" target="_blank" class="action-btn btn-secondary">กระทู้บน Hacker News</a>
+                        </div>
+                    </div>
+                </details>
+            </article>
+            
+            <!-- STORY 17 -->
+            <article class="news-item">
+                <details>
+                    <summary>
+                        <div class="summary-header">
+                            <div class="summary-title-section">
+                                <h2 class="story-title">Tokenomics: Quantifying Where Tokens Are Used in Agentic Software Engineering</h2>
+                                <p class="teaser">การสนทนาเกี่ยวกับประสิทธิภาพการใช้โทเค็น (Token Efficiency) ในการเขียนโปรแกรมด้วยเอเจนต์ปัญญาประดิษฐ์ และอนาคตของต้นทุนการประมวลผลโมเดลภาษาขนาดใหญ่</p>
+                                <div class="meta-row">
+                                    <span class="badge badge-points">🔥 165 คะแนน</span>
+                                    <span class="badge badge-comments">💬 68 ความคิดเห็น</span>
+                                    <span class="badge badge-domain">arxiv.org</span>
+                                </div>
+                            </div>
+                            <div class="toggle-icon">▼</div>
+                        </div>
+                    </summary>
+                    <div class="details-content">
+                        <section class="content-section">
+                            <h3 class="section-header section-header-article">📄 สรุปเนื้อหาบทความ</h3>
+                            <div class="section-body">
+                                <p>บทความนี้นำเสนอข้อมูลเบื้องต้นเกี่ยวกับโครงการ <strong>arXivLabs</strong> ซึ่งเป็นแพลตฟอร์มความร่วมมือแบบเปิดที่สนับสนุนให้บุคคลและองค์กรพัฒนาคุณสมบัติใหม่ๆ ร่วมกับ arXiv ภายใต้คุณค่าพื้นฐาน 4 ประการ ได้แก่ ความเปิดกว้าง (Openness) ชุมชน (Community) ความเป็นเลิศ (Excellence) และการคุ้มครองความเป็นส่วนตัวของข้อมูลผู้ใช้งาน (User Data Privacy)</p><p><em>หมายเหตุทางเทคนิค:</em> เนื้อหาหลักของบทความชี้ให้เห็นถึงกรอบการทำงานของ arXivLabs ในการเปิดรับความร่วมมือจากพันธมิตรที่ปฏิบัติตามมาตรฐานความเป็นส่วนตัวและแนวคิดโอเพนซอร์ส เพื่อสร้างมูลค่าเพิ่มให้แก่ชุมชนวิชาการ</p>
+                            </div>
+                        </section>
+                        <section class="content-section">
+                            <h3 class="section-header section-header-discussion">💬 สรุปประเด็นเสวนาในกระทู้</h3>
+                            <div class="section-body">
+                                <p>ความคิดเห็นในหัวข้อนี้อภิปรายอย่างเจาะลึกเกี่ยวกับการใช้ <strong>AI Agents ในงานวิศวกรรมซอฟต์แวร์</strong> รวมถึงเศรษฐศาสตร์ของโทเค็น (Tokenomics) ดังนี้:</p><ul><li><strong>พฤติกรรมการเขียนโค้ดของ AI:</strong> ผู้ใช้ตั้งข้อสังเกตว่า AI มักเน้นการเขียนยูนิตเทสต์ (Unit Test) จำนวนมากแต่ขาดการทดสอบระบบแบบไดนามิกที่มีประสิทธิภาพ อีกทั้งยังสิ้นเปลืองโทเค็นไปกับการเขียนและแก้บั๊กในส่วนการทดสอบที่ไม่มีคุณภาพทางตรรกะ (Semantically Corrupt)</li><li><strong>การเพิ่มประสิทธิภาพโทเค็น (Token Optimization):</strong> มีการคาดการณ์ว่าในอนาคต ทักษะการปรับแต่งการทำงานของ AI เพื่อประหยัดโทเค็น (Token Efficiency) จะกลายเป็นคุณสมบัติสำคัญที่บริษัทไอทีใช้พิจารณารับวิศวกรซอฟต์แวร์เข้าทำงาน แทนที่การปรับแต่งโครงสร้างพื้นฐาน (Infrastructure Optimization) แบบในอดีต</li><li><strong>แนวโน้มราคาและการแข่งขันของโมเดลภาษา:</strong> เกิดข้อถกเถียงว่าราคาค่าบริการ API ของโมเดลภาษาจะลดลงอย่างต่อเนื่องจริงหรือไม่ ฝั่งหนึ่งมองว่าราคาที่ลดลงเป็นเพียงกลยุทธ์ช่วงก่อนการเสนอขายหุ้นต่อสาธารณะ (Pre-IPO) หรือการดึงดูดลูกค้า ขณะที่อีกฝั่งชี้ให้เห็นว่าเทคโนโลยีฮาร์ดแวร์ที่ดีขึ้นและการแข่งขันจากโมเดลโอเพนซอร์สคุณภาพสูง (เช่น DeepSeek) จะกดดันให้ราคาโทเค็นลดลงอย่างหลีกเลี่ยงไม่ได้</li><li><strong>การลงทุนในเซิร์ฟเวอร์ส่วนตัว:</strong> ผู้เชี่ยวชาญชี้ว่าประสิทธิภาพของชิปและสถาปัตยกรรมรุ่นใหม่ (เช่น MoE หรือ Hybrid Attention) ช่วยให้หลายองค์กรเริ่มพิจารณาลงทุนในคลัสเตอร์ GPU ส่วนตัว (เช่น H100) เพื่อรันโมเดลภาษาด้วยตนเอง ซึ่งช่วยลดการยึดติดกับผู้ให้บริการรายใดรายหนึ่ง (Vendor Lock-in) เนื่องจากมาตรฐานของ AI (เช่น MCP, Skills) สามารถนำไปใช้งานข้ามแพลตฟอร์มได้ง่าย</li></ul>
+                            </div>
+                        </section>
+                        <div class="links-row">
+                            <a href="https://arxiv.org/abs/2601.14470" target="_blank" class="action-btn btn-primary">อ่านบทความต้นฉบับ</a>
+                            <a href="https://news.ycombinator.com/item?id=48430923" target="_blank" class="action-btn btn-secondary">กระทู้บน Hacker News</a>
+                        </div>
+                    </div>
+                </details>
+            </article>
+            
+            <!-- STORY 18 -->
+            <article class="news-item">
+                <details>
+                    <summary>
+                        <div class="summary-header">
+                            <div class="summary-title-section">
+                                <h2 class="story-title">Field of clones: How horse replicas came to dominate polo</h2>
+                                <p class="teaser">อุตสาหกรรมการโคลนโคตรม้าแข่งในประเทศอาร์เจนตินาที่เข้ามาปฏิวัติวงการกีฬาโปโลระดับโลก พร้อมมุมมองด้านข้อจำกัดทางชีววิทยาและจริยธรรม</p>
+                                <div class="meta-row">
+                                    <span class="badge badge-points">🔥 158 คะแนน</span>
+                                    <span class="badge badge-comments">💬 77 ความคิดเห็น</span>
+                                    <span class="badge badge-domain">knowablemagazine.org</span>
+                                </div>
+                            </div>
+                            <div class="toggle-icon">▼</div>
+                        </div>
+                    </summary>
+                    <div class="details-content">
+                        <section class="content-section">
+                            <h3 class="section-header section-header-article">📄 สรุปเนื้อหาบทความ</h3>
+                            <div class="section-body">
+                                <p>บทความนี้ศึกษาเชิงลึกเกี่ยวกับการเติบโตของ<strong>อุตสาหกรรมการโคลนสิ่งมีชีวิต (Cloning)</strong> ในวงการกีฬาโปโลของอาร์เจนตินา ซึ่งพัฒนาจากแนวคิดทดลองสู่ธุรกิจเชิงพาณิชย์ที่มีอิทธิพลสูง โดยมีหัวข้อการศึกษาที่สำคัญดังนี้:</p><ul><li><strong>การบุกเบิกและทีม La Dolfina:</strong> Adolfo Cambiaso นักกีฬาโปโลมือหนึ่งของโลก เริ่มเก็บรักษาเซลล์พันธุกรรมของม้าแข่งตัวโปรดชื่อ "Aiken Cura" ก่อนการการุณยฆาตในปี 2006 จนกระทั่งปัจจุบันทีมของเขามีม้าโคลนนิ่งมากกว่า 150 ตัว ซึ่งช่วยสืบทอดสายพันธุ์ม้าแข่งชั้นยอดและสร้างความได้เปรียบในการแข่งขันอย่างท่วมท้น</li><li><strong>เทคโนโลยี Somatic Cell Nuclear Transfer (SCNT):</strong> กระบวนการโคลนนิ่งจะใช้วิธีนำนิวเคลียสของเซลล์ร่างกายจากม้าต้นแบบมาใส่ในเซลล์ไข่ที่ถูกดึงดีเอ็นเอเดิมออก (Enucleation) จากนั้นกระตุ้นด้วยสารเคมีหรือกระแสไฟฟ้าให้แบ่งตัวเป็นตัวอ่อนระยะบลาสโตซิสต์ (Blastocyst) ก่อนฝังตัวในม้าอุ้มบุญ</li><li><strong>ข้อจำกัดทางพันธุศาสตร์และดีเอ็นเอไมโตคอนเดรีย (Mitochondrial DNA):</strong> นักวิจัยชี้ว่าม้าโคลนนิ่งไม่ได้เหมือนต้นแบบ 100% เนื่องจากตัวอ่อนจะได้รับดีเอ็นเอไมโตคอนเดรียจากไข่ของม้าผู้บริจาค (ไม่ใช่จากม้าต้นแบบ) ซึ่งไมโตคอนเดรียทำหน้าที่สร้างพลังงานให้เซลล์ ส่งผลให้เกิดความแตกต่างเล็กน้อยในการทำงานของร่างกายและรูปลักษณ์ภายนอก</li><li><strong>ความผิดปกติเหนือพันธุกรรม (Epigenetics):</strong> การเปลี่ยนแปลงของรูปแบบอีพิเจเนติกส์ในกระบวนการโคลนนิ่งมักเกิดขึ้นได้ง่ายกว่าการตั้งครรภ์ตามธรรมชาติ ซึ่งเป็นสาเหตุของการแท้งบุญในอัตราที่สูงขึ้น และทำให้ลูกม้าที่เกิดมามีปัญหาสุขภาพหรือความผิดปกติทางร่างกายและรก</li><li><strong>การเปรียบเทียบแหล่งที่มาของเซลล์ไข่:</strong> อัตราความสำเร็จของการโคลนม้าขึ้นอยู่กับคุณภาพของเซลล์ไข่ โดยการดูดไข่จากรังไข่ของม้าที่มีชีวิต (Transvaginal Aspiration) มีอัตราการเติบโตเป็นตัวอ่อนบลาสโตซิสต์สูงถึง 35% และมีโอกาสคลอดลูกม้าสุขภาพดีได้มากกว่าการเก็บไข่จากรังไข่ในโรงฆ่าสัตว์ (26%)</li></ul>
+                            </div>
+                        </section>
+                        <section class="content-section">
+                            <h3 class="section-header section-header-discussion">💬 สรุปประเด็นเสวนาในกระทู้</h3>
+                            <div class="section-body">
+                                <p>ประเด็นอภิปรายในส่วนความคิดเห็นสะท้อนมุมมองทางจริยธรรม ศัพท์วิทยา และความเชื่อมโยงกับประเทศอาร์เจนตินา ดังนี้:</p><ul><li><strong>การเลือกใช้คำ (Terminologies):</strong> ผู้ใช้สังเกตว่าการใช้คำว่า "Horse Replicas" (ม้าจำลอง) ในพาดหัวข่าวแทนคำว่า "Clones" (ม้าโคลนนิ่ง) เป็นการเลือกคำที่จงใจหลีกเลี่ยงความขัดแย้งทางความรู้สึกของสังคม เนื่องจากประเด็นการโคลนนิ่งยังคงเป็นเรื่องที่ละเอียดอ่อนและถูกวิพากษ์วิจารณ์ด้านจริยธรรม</li><li><strong>ประเด็นจริยธรรมด้านสวัสดิภาพสัตว์:</strong> มีมุมมองเปรียบเทียบว่าหากในอนาคตมีการพัฒนาหุ่นยนต์สี่ขาที่มีความคล่องตัวสูงมาใช้แข่งกีฬาแทนสัตว์จริง จะถือเป็นทางเลือกที่มีจริยธรรมมากกว่าและช่วยลดการทรมานสัตว์ในอุตสาหกรรมการแข่งขันม้าในปัจจุบัน</li><li><strong>ความเชื่อมโยงเชิงสัญลักษณ์ในอาร์เจนตินา:</strong> ผู้ใช้บางรายเชื่อมโยงความนิยมในการโคลนนิ่งกับข่าวที่ประธานาธิบดี Javier Milei ของอาร์เจนตินาโคลนสุนัขตัวโปรดของเขาชื่อ "Conan" ถึง 4 ตัว ซึ่งชี้ให้เห็นว่าประเทศอาร์เจนตินากำลังกลายเป็นศูนย์กลางนวัตกรรมและเทคโนโลยีโคลนนิ่งในระดับสากล</li></ul>
+                            </div>
+                        </section>
+                        <div class="links-row">
+                            <a href="https://knowablemagazine.org/content/article/technology/2026/cloned-polo-horses" target="_blank" class="action-btn btn-primary">อ่านบทความต้นฉบับ</a>
+                            <a href="https://news.ycombinator.com/item?id=48431286" target="_blank" class="action-btn btn-secondary">กระทู้บน Hacker News</a>
+                        </div>
+                    </div>
+                </details>
+            </article>
+            
+            <!-- STORY 19 -->
+            <article class="news-item">
+                <details>
+                    <summary>
+                        <div class="summary-header">
+                            <div class="summary-title-section">
+                                <h2 class="story-title">An Ohio Valley 100k-watt FM signal is severed in broad daylight</h2>
+                                <p class="teaser">เหตุโจรกรรมสายส่งสัญญาณวิทยุ FM กำลังสูง 100,000 วัตต์ในสหรัฐฯ เพื่อขโมยทองแดง ส่งผลให้สถานีต้องลดกำลังส่งเหลือเพียง 10 วัตต์และเกิดการวิเคราะห์ถึงอันตรายจากพลังงานคลื่นวิทยุ</p>
+                                <div class="meta-row">
+                                    <span class="badge badge-points">🔥 151 คะแนน</span>
+                                    <span class="badge badge-comments">💬 145 ความคิดเห็น</span>
+                                    <span class="badge badge-domain">radioworld.com</span>
+                                </div>
+                            </div>
+                            <div class="toggle-icon">▼</div>
+                        </div>
+                    </summary>
+                    <div class="details-content">
+                        <section class="content-section">
+                            <h3 class="section-header section-header-article">📄 สรุปเนื้อหาบทความ</h3>
+                            <div class="section-body">
+                                <p>รายงานข่าวกรณีเหตุโจรกรรมอุปกรณ์กระจายเสียงครั้งใหญ่ ณ สถานีวิทยุ 93.7 WDGG (FM) หรือ "The Dawg" ในเมืองแคตเลตต์สเบิร์ก รัฐเคนทักกี สหรัฐอเมริกา ซึ่งได้รับการระบุรายละเอียดที่สำคัญดังต่อไปนี้:</p><ul><li><strong>พฤติกรรมการก่อเหตุ:</strong> ผู้ต้องสงสัยชื่อ Paul Crisp ได้ทำการตัดสายส่งสัญญาณหลัก (Transmission Line) ของหอส่งสัญญาณวิทยุกำลังสูง 100,000 วัตต์ในเวลากลางวันแสกๆ โดยขโมยสายเคเบิลทองแดงน้ำหนักมหาศาลลากไปยังบ้านของตนเพื่อตัดเป็นท่อนๆ เตรียมขายเป็นเศษซากโลหะ และยังได้ทำลายระบบกล้องวงจรปิดของสถานีก่อนลงมือ</li><li><strong>ผลกระทบและความเสียหาย:</strong> สถานีวิทยุต้องลดกำลังส่งลงอย่างรุนแรงจากเดิม 100,000 วัตต์ เหลือเพียง 10 วัตต์ โดยต้องพึ่งพาเครื่องส่งสำรองและเสาอากาศชั่วคราว ค่าใช้จ่ายในการซ่อมแซมคาดว่าสูงถึง 70,000 ถึง 100,000 ดอลลาร์สหรัฐ เนื่องจากสายส่งนี้บรรจุก๊าซแรงดันสูงเพื่อป้องกันระบบขัดข้อง จึงไม่สามารถเชื่อมต่อส่วนที่ขาดเข้าด้วยกันตรงๆ ได้</li><li><strong>การสนับสนุนจากชุมชน:</strong> เนื่องจากสถานีเป็นธุรกิจท้องถิ่น ผู้ฟังในพื้นที่และสมาชิกในโบสถ์จึงแสดงความเห็นอกเห็นใจอย่างท่วมท้น โดยสถานีนี้มีบทบาทสำคัญในชุมชนผ่านการจัดกิจกรรมทางวัฒนธรรม เช่น เทศกาลดนตรีประจำสัปดาห์ "9th Street Live" และงานจุดพลุแห่งชาติ "Dawg Dazzle" ที่ดึงดูดผู้คนกว่า 15,000 คนในทุกปี</li></ul>
+                            </div>
+                        </section>
+                        <section class="content-section">
+                            <h3 class="section-header section-header-discussion">💬 สรุปประเด็นเสวนาในกระทู้</h3>
+                            <div class="section-body">
+                                <p>บทสนทนาเชิงวิเคราะห์ในกลุ่มผู้เชี่ยวชาญชี้ให้เห็นถึงประเด็นด้านเทคนิคและความปลอดภัยทางไฟฟ้าที่เกี่ยวเนื่องกับเหตุการณ์นี้อย่างลึกซึ้ง:</p><ul><li><strong>ความตื่นตระหนกเรื่องอันตรายจากคลื่นวิทยุ:</strong> มีคำถามว่าผู้ก่อเหตุรอดชีวิตจากการตัดสายส่งกำลังส่งสูง 100,000 วัตต์ในขณะทำงานได้อย่างไร โดยผู้เชี่ยวชาญคาดว่าตัวส่งสัญญาณวิทยุน่าจะมีระบบตัดการทำงานอัตโนมัติเมื่อค่าอัตราส่วนคลื่นนิ่ง (VSWR Trip) ผิดปกติทันทีที่สายขาด เพื่อป้องกันความเสียหายของเครื่องส่งสัญญาณ</li><li><strong>ผลกระทบของ RF ต่อร่างกายมนุษย์:</strong> เกิดการโต้เถียงกันในประเด็นผลกระทบของคลื่นวิทยุ (RF Exposure) โดยอดีตวิศวกรวิทยุมหาวิทยาลัยเล่าว่าเคยได้รับรังสีจากเสาอากาศขนาด 100 วัตต์ในระยะประชิด (1-2 ฟุต) จนเกิดอาการหูอื้อและแสบตา ขณะที่ผู้ใช้อีกส่วนได้คำนวณตามเกณฑ์ของ FCC และระบุว่าขีดจำกัดความปลอดภัยทั่วไปอยู่ที่ระยะประมาณ 5 ฟุตสำหรับการเปิดรับรังสีเป็นเวลา 30 นาที แต่การเข้าใกล้เสาอากาศกำลังสูงมากในระยะใกล้จะส่งผลกระทบต่อประสาทและเนื้อเยื่อเนื่องจากเกิดความร้อนอย่างแน่นอน</li><li><strong>มาตรการความปลอดภัยในการทำงานกับหอส่ง:</strong> ผู้เชี่ยวชาญเน้นย้ำถึงความจำเป็นในการตัดไฟทุกครั้งก่อนปฏิบัติงานกับอุปกรณ์ส่งสัญญาณ และตั้งคำถามว่าผู้ร้ายอาจใช้อุปกรณ์ตัดที่มีฉนวนป้องกันไฟฟ้าแรงสูงพิเศษ หรือแอบสับสวิตช์หลักของระบบส่งสัญญาณก่อนลงมือตัดสายเคเบิล</li></ul>
+                            </div>
+                        </section>
+                        <div class="links-row">
+                            <a href="https://www.radioworld.com/news-and-business/headlines/an-ohio-valley-100000-watt-fm-signal-is-severed-in-broad-daylight" target="_blank" class="action-btn btn-primary">อ่านบทความต้นฉบับ</a>
+                            <a href="https://news.ycombinator.com/item?id=48430860" target="_blank" class="action-btn btn-secondary">กระทู้บน Hacker News</a>
+                        </div>
+                    </div>
+                </details>
+            </article>
+            
+        </main>
+        <footer class="page-footer">
+            <p>Hacker News Daily Digest • จัดทำขึ้นโดยอัตโนมัติในทุกเช้าสำหรับคุณ</p>
+            <p>ขนาดฟอนต์ถูกปรับแต่งให้อ่านง่ายเป็นพิเศษ (18px/1.75 Line Height)</p>
+        </footer>
+    </div>
+</body>
+</html>
+    
