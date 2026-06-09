@@ -1,0 +1,1564 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hacker News สรุปข่าวเด่นประจำวัน - 9 มิถุนายน 2569</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700&family=Sarabun:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #0b0f19;
+            --card-bg: rgba(22, 29, 49, 0.75);
+            --card-border: rgba(255, 255, 255, 0.08);
+            --text-primary: #f8fafc;
+            --text-secondary: #94a3b8;
+            --accent-color: #f97316;
+            --accent-hover: #ea580c;
+            --badge-bg: rgba(249, 115, 22, 0.1);
+            --shadow: 0 4px 30px rgba(0, 0, 0, 0.4);
+            --font-display: 'Outfit', 'Sarabun', sans-serif;
+            --font-sans: 'Inter', 'Sarabun', sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            background-image: 
+                radial-gradient(at 0% 0%, rgba(249, 115, 22, 0.07) 0px, transparent 50%),
+                radial-gradient(at 100% 100%, rgba(99, 102, 241, 0.07) 0px, transparent 50%);
+            background-attachment: fixed;
+            color: var(--text-primary);
+            font-family: var(--font-sans);
+            margin: 0;
+            padding: 0;
+            font-size: 18px;
+            line-height: 1.75;
+        }
+
+        .container {
+            max-width: 950px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        h1 {
+            font-family: var(--font-display);
+            font-size: 2.8rem;
+            font-weight: 700;
+            margin: 0 0 12px 0;
+            background: linear-gradient(to right, #f97316, #fb923c, #818cf8);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .date-badge {
+            display: inline-block;
+            padding: 6px 20px;
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 20px;
+            font-size: 1.05rem;
+            color: var(--text-secondary);
+            margin-bottom: 20px;
+            font-weight: 600;
+        }
+
+        .subtitle {
+            color: var(--text-secondary);
+            font-size: 1.25rem;
+            margin: 0;
+        }
+
+        .news-list {
+            display: flex;
+            flex-direction: column;
+            gap: 28px;
+        }
+
+        .news-item {
+            background: var(--card-bg);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid var(--card-border);
+            border-radius: 16px;
+            padding: 26px;
+            box-shadow: var(--shadow);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .news-item:hover {
+            border-color: rgba(249, 115, 22, 0.35);
+            box-shadow: 0 10px 30px rgba(249, 115, 22, 0.07);
+            transform: translateY(-2px);
+        }
+
+        details {
+            width: 100%;
+        }
+
+        summary {
+            list-style: none;
+            outline: none;
+            cursor: pointer;
+        }
+
+        summary::-webkit-details-marker {
+            display: none;
+        }
+
+        .summary-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 18px;
+        }
+
+        .summary-title-section {
+            flex-grow: 1;
+        }
+
+        .story-title {
+            font-family: var(--font-display);
+            font-size: 1.45rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin: 0 0 10px 0;
+            line-height: 1.4;
+            transition: color 0.2s ease;
+        }
+
+        .story-title:hover {
+            color: var(--accent-color);
+        }
+
+        .teaser {
+            font-size: 1.15rem;
+            color: var(--text-secondary);
+            margin: 0 0 18px 0;
+            font-weight: 400;
+        }
+
+        .meta-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 14px;
+            align-items: center;
+        }
+
+        .badge {
+            font-size: 0.85rem;
+            padding: 5px 12px;
+            border-radius: 8px;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            color: var(--text-secondary);
+        }
+
+        .badge-points {
+            background: var(--badge-bg);
+            border-color: rgba(249, 115, 22, 0.25);
+            color: var(--accent-color);
+        }
+
+        .badge-comments {
+            background: rgba(99, 102, 241, 0.1);
+            border-color: rgba(99, 102, 241, 0.25);
+            color: #818cf8;
+        }
+
+        .badge-domain {
+            text-transform: lowercase;
+            max-width: 220px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        .toggle-icon {
+            flex-shrink: 0;
+            width: 36px;
+            height: 36px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid var(--card-border);
+            color: var(--text-secondary);
+            transition: all 0.3s ease;
+            font-size: 0.9rem;
+        }
+
+        details[open] .toggle-icon {
+            transform: rotate(180deg);
+            background: var(--badge-bg);
+            border-color: rgba(249, 115, 22, 0.3);
+            color: var(--accent-color);
+        }
+
+        .details-content {
+            margin-top: 26px;
+            padding-top: 26px;
+            border-top: 1px solid rgba(255, 255, 255, 0.06);
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 26px;
+            animation: fadeIn 0.4s ease-out;
+        }
+
+        @media (min-width: 800px) {
+            .details-content {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .content-section {
+            background: rgba(255, 255, 255, 0.015);
+            border: 1px solid rgba(255, 255, 255, 0.03);
+            border-radius: 12px;
+            padding: 22px;
+        }
+
+        .section-header {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin: 0 0 18px 0;
+            font-family: var(--font-display);
+        }
+
+        .section-header-article {
+            color: #fb923c;
+        }
+
+        .section-header-discussion {
+            color: #818cf8;
+        }
+
+        .section-body {
+            font-size: 1.08rem;
+            color: #cbd5e1;
+            margin: 0;
+        }
+
+        .section-body p {
+            margin: 0 0 14px 0;
+        }
+
+        .section-body p:last-child {
+            margin-bottom: 0;
+        }
+
+        .section-body ul {
+            margin: 0;
+            padding-left: 24px;
+        }
+
+        .section-body li {
+            margin-bottom: 10px;
+        }
+
+        .section-body li:last-child {
+            margin-bottom: 0;
+        }
+
+        .links-row {
+            grid-column: 1 / -1;
+            display: flex;
+            gap: 16px;
+            margin-top: 14px;
+        }
+
+        .action-btn {
+            font-size: 0.95rem;
+            text-decoration: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.2s ease;
+        }
+
+        .btn-primary {
+            background: var(--accent-color);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: var(--accent-hover);
+        }
+
+        .btn-secondary {
+            background: rgba(255, 255, 255, 0.05);
+            color: var(--text-primary);
+            border: 1px solid var(--card-border);
+        }
+
+        .btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        footer.page-footer {
+            text-align: center;
+            margin-top: 70px;
+            padding-top: 30px;
+            border-top: 1px solid var(--card-border);
+            font-size: 0.95rem;
+            color: var(--text-secondary);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="date-badge">9 มิถุนายน 2569</div>
+            <h1>Hacker News Daily Digest</h1>
+            <p class="subtitle">สรุปข่าวยอดนิยมในรอบ 24 ชั่วโมงที่ผ่านมา แปลและสรุปผลการวิเคราะห์ในบอร์ดภาษาไทย</p>
+        </header>
+
+        <main class="news-list">
+        
+            <!-- STORY 1 -->
+            <article class="news-item">
+                <details>
+                    <summary>
+                        <div class="summary-header">
+                            <div class="summary-title-section">
+                                <h2 class="story-title">Show HN: Performative-UI – A react component library of design tropes</h2>
+                                <p class="teaser">ไลบรารีส่วนประกอบ React ที่ล้อเลียนและสะท้อนถึงรูปแบบการออกแบบยอดนิยมที่ซ้ำซากของเว็บไซต์สตาร์ทอัปในปัจจุบัน</p>
+                                <div class="meta-row">
+                                    <span class="badge badge-points">🔥 785 คะแนน</span>
+                                    <span class="badge badge-comments">💬 154 ความคิดเห็น</span>
+                                    <span class="badge badge-domain">vorpus.github.io</span>
+                                </div>
+                            </div>
+                            <div class="toggle-icon">▼</div>
+                        </div>
+                    </summary>
+                    <div class="details-content">
+                        <section class="content-section">
+                            <h3 class="section-header section-header-article">📄 สรุปเนื้อหาบทความ</h3>
+                            <div class="section-body">
+                                <p>เนื่องจากบทความนี้ไม่ได้ระบุรายละเอียดเนื้อหาข้อความยาวในหน้าเว็บเพจทางผู้เผยแพร่จึงไม่สามารถวิเคราะห์เนื้อหาบทความโดยตรงได้ อย่างไรก็ตาม หัวข้อเรื่องแสดงให้เห็นว่านี่คือ <strong>Performative-UI</strong> ซึ่งเป็นไลบรารีส่วนประกอบสำหรับ React (React component library) ที่สร้างขึ้นมาเพื่อล้อเลียนความซ้ำซากจำเจของรูปแบบการออกแบบเว็บไซต์แบบเดิม ๆ (design tropes) ที่พบบ่อยในบรรดาบริษัทสตาร์ทอัปยุคปัจจุบัน</p>
+                            </div>
+                        </section>
+                        <section class="content-section">
+                            <h3 class="section-header section-header-discussion">💬 สรุปประเด็นเสวนาในกระทู้</h3>
+                            <div class="section-body">
+                                <p>ความคิดเห็นของนักพัฒนาบน Hacker News มีความหลากหลายและน่าสนใจดังนี้:</p><ul><li><strong>ความชื่นชอบในลูกเล่นเสมือนจริง:</strong> ผู้ใช้งานหลายคนรู้สึกประทับใจกับเอฟเฟกต์โคมไฟลาวาแบบ ASCII (ASCII lava lamp) ว่ามีความคิดสร้างสรรค์และน่าดึงดูดอย่างมาก</li><li><strong>ปัญหาด้านประสิทธิภาพการทำงาน:</strong> สมาชิกบางรายตั้งข้อสังเกตว่าลูกเล่นเหล่านี้ส่งผลให้เบราว์เซอร์บางตัว เช่น Safari เกิดอาการหน่วงหรือล่าช้า (lag) อย่างเห็นได้ชัด ในขณะที่ผู้ใช้บางรายรายงานว่ายังสามารถรันได้อย่างลื่นไหลบนเบราว์เซอร์อื่น เช่น Firefox บนระบบปฏิบัติการ Android</li><li><strong>การสะท้อนความซ้ำซากของธุรกิจสตาร์ทอัป:</strong> ผู้ใช้บางส่วนชี้ให้เห็นว่า การที่ไลบรารีล้อเลียนนี้ดูมีความเป็นมืออาชีพสูง แสดงให้เห็นว่าการออกแบบหน้าเว็บของสตาร์ทอัปยุคนี้มีความคล้ายคลึงและคาดเดาได้ง่ายมาก และมีโอกาสสูงมากที่บางบริษัทจะนำองค์ประกอบเหล่านี้ไปใช้งานจริงในผลิตภัณฑ์เชิงพาณิชย์</li></ul>
+                            </div>
+                        </section>
+                        <div class="links-row">
+                            <a href="https://vorpus.github.io/performativeUI/" target="_blank" class="action-btn btn-primary">อ่านบทความต้นฉบับ</a>
+                            <a href="https://news.ycombinator.com/item?id=48445554" target="_blank" class="action-btn btn-secondary">กระทู้บน Hacker News</a>
+                        </div>
+                    </div>
+                </details>
+            </article>
+            
+            <!-- STORY 2 -->
+            <article class="news-item">
+                <details>
+                    <summary>
+                        <div class="summary-header">
+                            <div class="summary-title-section">
+                                <h2 class="story-title">Dopamine Fracking</h2>
+                                <p class="teaser">การวิพากษ์วิจารณ์ปรากฏการณ์การรีดเค้นสารโดปามีนจากกิจกรรมต่าง ๆ บนอินเทอร์เน็ตที่ทำลายคุณค่าและมิติอันหลากหลายของประสบการณ์มนุษย์</p>
+                                <div class="meta-row">
+                                    <span class="badge badge-points">🔥 753 คะแนน</span>
+                                    <span class="badge badge-comments">💬 383 ความคิดเห็น</span>
+                                    <span class="badge badge-domain">igerman.cc</span>
+                                </div>
+                            </div>
+                            <div class="toggle-icon">▼</div>
+                        </div>
+                    </summary>
+                    <div class="details-content">
+                        <section class="content-section">
+                            <h3 class="section-header section-header-article">📄 สรุปเนื้อหาบทความ</h3>
+                            <div class="section-body">
+                                <p>บทความอธิบายแนวคิดเรื่อง <strong>"Dopamine Fracking"</strong> ซึ่งเป็นคำอุปมาเปรียบเทียบกับการขุดเจาะน้ำมันแบบหักโหม (fracking) โดยหมายถึงกระบวนการทุ่มเททรัพยากรมหาศาล เช่น เงินทุน การคำนวณของอัลกอริทึม และการวิเคราะห์พฤติกรรม เพื่อรีดเค้นและดึงเอาสารโดปามีน (ความรู้สึกพึงพอใจชั่วคราว) ออกมาจากกิจกรรมเดิมที่เคยเรียบง่ายหรือมีความซับซ้อนหลายมิติ จนทำให้คุณค่าของกิจกรรมนั้น ๆ สูญเสียไป</p><p>ผู้เขียนอธิบายผ่านระบบอุตสาหกรรมอาหารด้วยการเปรียบเทียบกับ <strong>"สตรอว์เบอร์รี"</strong> ที่ตามธรรมชาติแล้วมีรสชาติและเนื้อสัมผัสที่ซับซ้อนและไม่สมบูรณ์แบบ แต่เมื่ออุตสาหกรรมสกัดเอาสารเคมีเฉพาะที่ให้กลิ่นรสสตรอว์เบอร์รีสังเคราะห์ไปใส่ในขนมและอาหารทุกประเภท มันทำให้เราได้รับความพึงพอใจทางประสาทสัมผัสที่เข้มข้นอย่างรวดเร็ว แต่ทำลายความหลากหลายทางธรรมชาติของรสชาติ และทำให้ผู้คนลืมรสชาติที่แท้จริงของสตรอว์เบอร์รีไปในที่สุด</p><p>ปรากฏการณ์นี้เกิดขึ้นกับทั้งวัฒนธรรม งานอดิเรก ความบันเทิง (เช่น ภาพยนตร์แนว Marvel หรือวิดีโอแบบ MrBeast) และความสัมพันธ์ของมนุษย์ที่กลายสภาพเป็นเพียงเครื่องผลิตสารโดปามีนสังเคราะห์ โดยผู้เขียนได้แก้ปัญหานี้ในระดับบุคคลด้วยการตระหนักรู้และเริ่มลดการเสพคอนเทนต์ที่กระตุ้นอารมณ์รุนแรง</p>
+                            </div>
+                        </section>
+                        <section class="content-section">
+                            <h3 class="section-header section-header-discussion">💬 สรุปประเด็นเสวนาในกระทู้</h3>
+                            <div class="section-body">
+                                <p>ประเด็นที่ชุมชนร่วมอภิปรายเกี่ยวกับบทความนี้ประกอบไปด้วยหัวข้อสำคัญดังนี้:</p><ul><li><strong>การยอมรับและข้อจำกัดของแนวคิด:</strong> ผู้ใช้อภิปรายว่าคำนี้สามารถอธิบายปรากฏการณ์อินเทอร์เน็ตในปัจจุบันได้เป็นอย่างดี อย่างไรก็ตาม มีข้อติติงว่าโครงสร้างการเขียนของบทความบางส่วนยังมีแรงกดดันที่ขัดแย้งกันเองระหว่างการเพิ่มความเข้มข้นของสารโดปามีน กับการลดต้นทุนการผลิตในเชิงพาณิชย์</li><li><strong>การโต้แย้งเกี่ยวกับการรับรู้คุณค่าของสื่อบันเทิง:</strong> ความคิดเห็นบางส่วนมองว่าการเปรียบเทียบวงการภาพยนตร์สมัยใหม่ที่เดินตามรอย Marvel ว่าขาดมิตินั้นเป็นมุมมองที่อ่อนไหวเกินไป เนื่องจากภาพยนตร์ตลกแอ็กชันในยุค 80 ก็มีลักษณะการหยอดมุกตลกที่คล้ายคลึงกัน</li><li><strong>ความแตกต่างระหว่างอดีตและปัจจุบัน:</strong> สมาชิกบางส่วนแย้งว่ามนุษย์ขุดเจาะสารโดปามีนจากศิลปะมาตั้งแต่ยุคโบราณจนถึงวิดีโอเกมในปัจจุบัน แต่มีผู้ชี้แจงว่าวิธีการในอดีตไม่ได้ใช้การทุ่มทรัพยากรระดับสูงแบบอัลกอริทึมเพื่อบีบเค้นความรู้สึกพึงพอใจอย่างฉาบฉวยเหมือนการสไลด์หน้าจอในยุคปัจจุบัน</li></ul>
+                            </div>
+                        </section>
+                        <div class="links-row">
+                            <a href="https://igerman.cc/blog/dopamine-fracking/" target="_blank" class="action-btn btn-primary">อ่านบทความต้นฉบับ</a>
+                            <a href="https://news.ycombinator.com/item?id=48440792" target="_blank" class="action-btn btn-secondary">กระทู้บน Hacker News</a>
+                        </div>
+                    </div>
+                </details>
+            </article>
+            
+            <!-- STORY 3 -->
+            <article class="news-item">
+                <details>
+                    <summary>
+                        <div class="summary-header">
+                            <div class="summary-title-section">
+                                <h2 class="story-title">Stop the Apple Music app from launching</h2>
+                                <p class="teaser">แนวทางการแก้ปัญหาแอปพลิเคชัน Apple Music เปิดขึ้นมาเองโดยอัตโนมัติบน macOS เมื่อเกิดเหตุการณ์สั่งเล่นเสียงหรือเชื่อมต่อหูฟังบลูทูธ</p>
+                                <div class="meta-row">
+                                    <span class="badge badge-points">🔥 582 คะแนน</span>
+                                    <span class="badge badge-comments">💬 235 ความคิดเห็น</span>
+                                    <span class="badge badge-domain">lowtechguys.com</span>
+                                </div>
+                            </div>
+                            <div class="toggle-icon">▼</div>
+                        </div>
+                    </summary>
+                    <div class="details-content">
+                        <section class="content-section">
+                            <h3 class="section-header section-header-article">📄 สรุปเนื้อหาบทความ</h3>
+                            <div class="section-body">
+                                <p>บทความนี้นำเสนอเครื่องมือและวิธีการแก้ปัญหาแอปพลิเคชัน <strong>Apple Music</strong> เปิดขึ้นมาเองโดยอัตโนมัติเมื่อกดปุ่ม Play บนคีย์บอร์ด เชื่อมต่อหูฟังบลูทูธ หรือเมื่อวางสายโทรศัพท์ ซึ่งเป็นพฤติกรรมที่สร้างความรำคาญใจให้แก่ผู้ใช้งานจำนวนมาก</p><p>สาเหตุหลักเกิดจากโปรเซสเบื้องหลังชื่อ <code>rcd</code> (Remote Control Daemon) ที่ทำหน้าที่จัดการคีย์สื่อมีเดีย ซึ่งหากไม่มีแอปพลิเคชันเล่นเพลงใด ๆ กำลังเปิดอยู่ ระบบจะเลือกเปิดแอป Apple Music ขึ้นมาเป็นค่าเริ่มต้น โดยทางออกมีดังนี้:</p><ul><li>การปิดการทำงานของ <code>rcd</code> ผ่านคำสั่ง <code>launchctl</code> ซึ่งมีข้อเสียคือจะทำให้ไม่สามารถใช้ปุ่มควบคุมมีเดียบนคีย์บอร์ดได้เลย</li><li>การใช้แอปพลิเคชันตัวเลือก เช่น <strong>noTunes</strong> หรือ <strong>Music Decoy</strong> ซึ่งจะคอยดักจับการรันแอป Apple Music แล้วปิดทิ้งทันที หรือเปลี่ยนทิศทางให้ไปเปิดแอปพลิเคชันอื่นแทน เช่น Spotify</li></ul>
+                            </div>
+                        </section>
+                        <section class="content-section">
+                            <h3 class="section-header section-header-discussion">💬 สรุปประเด็นเสวนาในกระทู้</h3>
+                            <div class="section-body">
+                                <p>การแลกเปลี่ยนความคิดเห็นในประเด็นนี้มุ่งเน้นไปที่ข้อจำกัดทางสิทธิ์และนโยบายความเป็นส่วนตัวของ Apple:</p><ul><li><strong>ความไม่พอใจในการควบคุมระบบปฏิบัติการ:</strong> ผู้ใช้จำนวนมากแสดงความอึดอัดที่ระบบไม่ยินยอมให้ถอนการติดตั้งแอป Apple Music แม้ตนเองจะไม่เคยเปิดใช้งานเลยก็ตาม โดยมองว่าแอปถูกปฏิบัติเหมือนเป็นซอฟต์แวร์ระบบที่สำคัญ</li><li><strong>ประเด็นความปลอดภัยกับการปิด SIP:</strong> ชุมชนชี้ว่าหนทางเดียวในการถอนการติดตั้งอย่างถาวรคือต้องปิดระบบ <strong>System Integrity Protection (SIP)</strong> ซึ่งขัดแย้งกับหลักการความปลอดภัยพื้นฐานและสร้างความยุ่งยากโดยไม่จำเป็นให้แก่ผู้ใช้ทั่วไป</li><li><strong>พฤติกรรมของหูฟังบลูทูธ:</strong> มีผู้ใช้งานจำนวนมากรายงานว่าการถอดหรือใส่หูฟังไร้สายมักกระตุ้นให้ Apple Music เด้งขึ้นมากลางจอและเปิดใช้งานตัวเองบน Dock เสมอ ซึ่งส่งผลกระทบต่อประสบการณ์การใช้งานของพวกเขาเป็นอย่างยิ่ง</li></ul>
+                            </div>
+                        </section>
+                        <div class="links-row">
+                            <a href="https://lowtechguys.com/musicdecoy/" target="_blank" class="action-btn btn-primary">อ่านบทความต้นฉบับ</a>
+                            <a href="https://news.ycombinator.com/item?id=48447935" target="_blank" class="action-btn btn-secondary">กระทู้บน Hacker News</a>
+                        </div>
+                    </div>
+                </details>
+            </article>
+            
+            <!-- STORY 4 -->
+            <article class="news-item">
+                <details>
+                    <summary>
+                        <div class="summary-header">
+                            <div class="summary-title-section">
+                                <h2 class="story-title">Anti-social: It's fads, not friends, which now dominate social media feeds</h2>
+                                <p class="teaser">การเปลี่ยนแปลงเชิงโครงสร้างของแพลตฟอร์มโซเชียลมีเดียจากพื้นที่ปฏิสัมพันธ์ระหว่างมิตรภาพไปสู่ศูนย์รวมความบันเทิงและอัลกอริทึมที่เน้นโฆษณา</p>
+                                <div class="meta-row">
+                                    <span class="badge badge-points">🔥 552 คะแนน</span>
+                                    <span class="badge badge-comments">💬 410 ความคิดเห็น</span>
+                                    <span class="badge badge-domain">bbc.com</span>
+                                </div>
+                            </div>
+                            <div class="toggle-icon">▼</div>
+                        </div>
+                    </summary>
+                    <div class="details-content">
+                        <section class="content-section">
+                            <h3 class="section-header section-header-article">📄 สรุปเนื้อหาบทความ</h3>
+                            <div class="section-body">
+                                <p>บทความนำเสนอการเปลี่ยนแปลงเชิงโครงสร้างของ <strong>โซเชียลมีเดีย</strong> ที่ในอดีตเคยถูกออกแบบมาเพื่อการสื่อสารและรักษามิตรภาพระหว่างเพื่อนฝูง แต่ในปัจจุบันได้กลายสภาพเป็นแพลตฟอร์มความบันเทิงที่เน้นการรับชมวิดีโอสั้นจากคนแปลกหน้าเป็นหลัก เพื่อเพิ่มระยะเวลาการใช้งานของผู้ใช้และเพิ่มรายได้จากการโฆษณา</p><p>ข้อมูลสถิติชี้ให้เห็นว่าพฤติกรรมการโพสต์เนื้อหาของตัวบุคคลลดลงอย่างมีนัยสำคัญในหลายประเทศ (เช่น ฝรั่งเศส สหราชอาณาจักร และสหรัฐอเมริกา) โดยผู้คนหันมาเป็นผู้บริโภคเนื้อหาอย่างเงียบ ๆ (passive users) แทน เนื่องจากกังวลเรื่องรอยเท้าดิจิทัล (digital footprint) ความเสี่ยงต่อการโดนวิจารณ์ และการเปรียบเทียบกับคอนเทนต์คุณภาพสูงของครีเอเตอร์มืออาชีพ ส่งผลให้การปฏิสัมพันธ์เชิงสังคมที่แท้จริงย้ายไปอยู่บนพื้นที่ปิดหรือแอปส่งข้อความส่วนตัว เช่น WhatsApp หรือการตั้งกลุ่มส่วนตัว (Private Groups)</p>
+                            </div>
+                        </section>
+                        <section class="content-section">
+                            <h3 class="section-header section-header-discussion">💬 สรุปประเด็นเสวนาในกระทู้</h3>
+                            <div class="section-body">
+                                <p>ผู้ใช้งานร่วมวิเคราะห์ถึงประวัติศาสตร์และผลกระทบของโซเชียลมีเดียยุคอัลกอริทึมไว้ดังนี้:</p><ul><li><strong>การสูญเสียยุคทองของโซเชียลมีเดีย:</strong> สมาชิกได้เปรียบเทียบกับ Facebook ในช่วงปี 2003-2008 ที่ยังไม่ใช้อัลกอริทึมคัดเลือกฟีด ซึ่งเป็นช่วงเวลาที่โซเชียลมีเดียมีประโยชน์อย่างแท้จริงในการจัดระเบียบชีวิตสังคมและการจัดกิจกรรมต่าง ๆ</li><li><strong>เป้าหมายทางธุรกิจที่บิดเบือนการเชื่อมโยง:</strong> ชุมชนมีความเห็นพ้องกันว่า อัลกอริทึมคัดสรรฟีดในปัจจุบันไม่ได้ออกแบบมาเพื่อให้ผู้คนติดต่อกัน แต่จงใจบดบังโพสต์ของเพื่อนเพื่อแทนที่ด้วยคอนเทนต์ไวรัลและโฆษณาเพื่อการทำกำไรสูงสุด</li><li><strong>การปรับตัวสู่แพลตฟอร์มปิด:</strong> ผู้คนยอมรับว่าการรักษาความสัมพันธ์เชิงลึกกับบุคคลใกล้ชิดได้ย้ายไปสู่แพลตฟอร์มอื่น ๆ อย่าง WhatsApp หรือการพูดคุยแบบดั้งเดิมผ่านทางโทรศัพท์ เนื่องจากฟีดในปัจจุบันเต็มไปด้วยสปอนเซอร์และคอนเทนต์ของอินฟลูเอนเซอร์</li></ul>
+                            </div>
+                        </section>
+                        <div class="links-row">
+                            <a href="https://www.bbc.com/worklife/article/20260520-how-social-media-ceased-to-be-social" target="_blank" class="action-btn btn-primary">อ่านบทความต้นฉบับ</a>
+                            <a href="https://news.ycombinator.com/item?id=48444228" target="_blank" class="action-btn btn-secondary">กระทู้บน Hacker News</a>
+                        </div>
+                    </div>
+                </details>
+            </article>
+            
+            <!-- STORY 5 -->
+            <article class="news-item">
+                <details>
+                    <summary>
+                        <div class="summary-header">
+                            <div class="summary-title-section">
+                                <h2 class="story-title">MiMo-v2.5-Pro-UltraSpeed: 1T model with 1000 tokens per second</h2>
+                                <p class="teaser">การพัฒนาโมเดลภาษาขนาด 1 ล้านล้านพารามิเตอร์ของ Xiaomi ที่สามารถสร้างข้อความได้รวดเร็วทะลุ 1,000 โทเค็นต่อวินาทีบนฮาร์ดแวร์ทั่วไป</p>
+                                <div class="meta-row">
+                                    <span class="badge badge-points">🔥 498 คะแนน</span>
+                                    <span class="badge badge-comments">💬 345 ความคิดเห็น</span>
+                                    <span class="badge badge-domain">mimo.xiaomi.com</span>
+                                </div>
+                            </div>
+                            <div class="toggle-icon">▼</div>
+                        </div>
+                    </summary>
+                    <div class="details-content">
+                        <section class="content-section">
+                            <h3 class="section-header section-header-article">📄 สรุปเนื้อหาบทความ</h3>
+                            <div class="section-body">
+                                <p>บทความประกาศการเปิดตัวโมเดล <strong>Xiaomi MiMo-V2.5-Pro-UltraSpeed</strong> ซึ่งเป็นโมเดลปัญญาประดิษฐ์ขนาดใหญ่ระดับ 1 ล้านล้านพารามิเตอร์ (1-trillion parameter model) ที่สามารถทำความเร็วการประมวลผลข้อความ (decode speed) ได้สูงถึงกว่า 1,000 โทเค็นต่อวินาที (tokens/s)</p><p>ความสำเร็จนี้เกิดขึ้นจากความร่วมมือระหว่างทีมโมเดล MiMo และทีมระบบ TileRT ในการออกแบบร่วมกันระหว่างซอฟต์แวร์และฮาร์ดแวร์ (Codesign) โดยไม่ต้องใช้ชิปเฉพาะทางราคาแพง แต่รันบน GPU มาตรฐานทั่วไป (8-GPU commodity node) ผ่านเทคนิคเด่นดังนี้:</p><ul><li><strong>Selective FP4 Quantization:</strong> การบีบอัดข้อมูลเฉพาะ Expert ในสถาปัตยกรรม MoE (Mixture of Experts) ให้เป็นรูปแบบ FP4 โดยไม่ลดทอนประสิทธิภาพความเข้าใจขั้นสูง</li><li><strong>DFlash Speculative Decoding:</strong> การทำนายบล็อกข้อความแบบคู่ขนาน (block-level masked parallel prediction) ซึ่งช่วยลดความล่าช้าในกระบวนการ autoregressive</li></ul><p>ความเร็วนี้ช่วยให้ปัญญาประดิษฐ์สามารถค้นหาเส้นทางเหตุผลคู่ขนานได้ดีขึ้น เพิ่มมิติความลึกในระดับความคิด และรองรับการตัดสินใจแบบเรียลไทม์ เช่น การเทรดดิ้งความถี่สูง และระบบช่วยการผ่าตัดทางการแพทย์</p>
+                            </div>
+                        </section>
+                        <section class="content-section">
+                            <h3 class="section-header section-header-discussion">💬 สรุปประเด็นเสวนาในกระทู้</h3>
+                            <div class="section-body">
+                                <p>ประเด็นที่ชวนพูดคุยหลังการเปิดตัวโมเดลของจีนชุดนี้ประกอบด้วยประเด็นการเมืองและเทคโนโลยี:</p><ul><li><strong>การทดสอบเรื่องการเซ็นเซอร์:</strong> นักพัฒนาได้ทำการทดสอบโมเดล MiMo-2.5-Pro ด้วยคำถามเกี่ยวกับเหตุการณ์ประท้วงที่จัตุรัสเทียนอันเหมินในปี 1989 และพบว่ามันสามารถตอบได้อย่างถูกต้อง ซึ่งแตกต่างจากโมเดลจีนตัวอื่น ๆ เช่น Qwen หรือ DeepSeek ที่มักจะปฏิเสธการตอบหรือทำงานล้มเหลว</li><li><strong>ข้อเปรียบเทียบเรื่องจริยธรรม:</strong> สมาชิกบางส่วนชี้ให้เห็นว่า โมเดลของฝั่งสหรัฐอเมริกาเองก็มีมาตรการจัดการเนื้อหา (alignment) ในลักษณะที่ไม่ยอมเปิดเผยข้อมูลที่เป็นอันตรายเช่นกัน เช่น การปฏิเสธไม่บอกวิธีการผลิตสารพิษ</li><li><strong>ความกังขาเรื่องประสิทธิภาพในสภาพแวดล้อมจริง:</strong> ผู้ใช้ยังคงให้ความสนใจและตั้งข้อสงสัยว่าการประมวลผลที่มีความเร็วสูงดังกล่าวจะรักษาระดับความถูกต้องและสมเหตุสมผลได้ดีเพียงใดเมื่อนำไปปรับใช้ในแอปพลิเคชันเชิงพาณิชย์</li></ul>
+                            </div>
+                        </section>
+                        <div class="links-row">
+                            <a href="https://mimo.xiaomi.com/blog/mimo-tilert-1000tps" target="_blank" class="action-btn btn-primary">อ่านบทความต้นฉบับ</a>
+                            <a href="https://news.ycombinator.com/item?id=48446639" target="_blank" class="action-btn btn-secondary">กระทู้บน Hacker News</a>
+                        </div>
+                    </div>
+                </details>
+            </article>
+            
+            <!-- STORY 6 -->
+            <article class="news-item">
+                <details>
+                    <summary>
+                        <div class="summary-header">
+                            <div class="summary-title-section">
+                                <h2 class="story-title">How's Linear so fast? A technical breakdown</h2>
+                                <p class="teaser">บทวิเคราะห์เชิงลึกเกี่ยวกับความเร็วและการตอบสนองของแอปพลิเคชัน Linear ด้วยเทคโนโลยีฐานข้อมูลบนเบราว์เซอร์และการประมวลผลฝั่งไคลเอนต์แบบ Optimistic UI</p>
+                                <div class="meta-row">
+                                    <span class="badge badge-points">🔥 478 คะแนน</span>
+                                    <span class="badge badge-comments">💬 227 ความคิดเห็น</span>
+                                    <span class="badge badge-domain">performance.dev</span>
+                                </div>
+                            </div>
+                            <div class="toggle-icon">▼</div>
+                        </div>
+                    </summary>
+                    <div class="details-content">
+                        <section class="content-section">
+                            <h3 class="section-header section-header-article">📄 สรุปเนื้อหาบทความ</h3>
+                            <div class="section-body">
+                                <p>บทความนี้นำเสนอการวิเคราะห์สถาปัตยกรรมทางเทคนิคที่อยู่เบื้องหลังความเร็วระดับสูงของแอปพลิเคชันจัดการงาน <strong>Linear</strong> แม้ว่าจะเกิดข้อผิดพลาดในการดึงข้อมูลจากแหล่งที่มาต้นทาง (เนื่องจากปัญหาใบรับรอง SSL ของเว็บไซต์ปลายทาง) แต่สถาปัตยกรรมที่ระบุชี้ให้เห็นถึงการก้าวข้ามขีดจำกัดของระบบ CRUD แบบดั้งเดิมที่มักจะมีความหน่วงในการส่งคำขอไปยังเซิร์ฟเวอร์</p><p>Linear ได้ใช้หลักการประมวลผลบนฝั่งผู้ใช้งาน (Client-side sync engine) เพื่อให้ผู้ใช้สัมผัสกับประสิทธิภาพที่รวดเร็วและการตอบสนองแบบทันทีทันใด โดยไม่ต้องรอผลลัพธ์การบันทึกจากเซิร์ฟเวอร์เสร็จสิ้นก่อน</p><ul><li><strong>การตอบสนองแบบ Optimistic UI:</strong> การอัปเดตหน้าจอทันทีเมื่อเกิดเหตุการณ์ โดยสมมติว่าเซิร์ฟเวอร์จะบันทึกสำเร็จ</li><li><strong>การซิงค์ข้อมูลเบื้องหลัง:</strong> ใช้กลไกการประสานข้อมูลที่มีการแบ่งส่วนข้อมูล (Chunking) เพื่อดาวน์โหลดเฉพาะข้อมูลที่เปลี่ยนแปลง</li></ul>
+                            </div>
+                        </section>
+                        <section class="content-section">
+                            <h3 class="section-header section-header-discussion">💬 สรุปประเด็นเสวนาในกระทู้</h3>
+                            <div class="section-body">
+                                <p>ความคิดเห็นในฟอรัมมีการแลกเปลี่ยนข้อมูลทางเทคนิคอย่างกว้างขวาง โดยเน้นย้ำถึงการฟื้นฟูเทคโนโลยีสถาปัตยกรรมแบบกระจายศูนย์บนไคลเอนต์คล้ายคลึงกับเฟรมเวิร์ก <strong>MeteorJS</strong> และฐานข้อมูลฝั่งเบราว์เซอร์อย่าง <strong>Minimongo</strong></p><ul><li><strong>การจำลองตัวอย่างและข้อดี:</strong> นักพัฒนาหลายคนแชร์ประสบการณ์สร้างระบบประสานข้อมูล (Sync engine) ในรูปแบบเดียวกัน และพบว่าช่วยเพิ่มความสามารถในการทำงานร่วมกันได้ดีขึ้น รวมถึงขจัดความล่าช้าในลักษณะเดียวกับซอฟต์แวร์คู่แข่งอย่าง Jira</li><li><strong>ความท้าทายในการจัดการข้อผิดพลาด:</strong> ข้อถกเถียงสำคัญคือผลกระทบเมื่อเกิดปัญหาการเชื่อมต่อเครือข่ายล้มเหลว (Network Failure) เนื่องจากมีความซับซ้อนในการจัดการความขัดแย้งของข้อมูลฝั่งไคลเอนต์และเซิร์ฟเวอร์</li><li><strong>แหล่งเรียนรู้เพิ่มเติม:</strong> มีการแนะนำวิดีโอจากทีมงาน Linear ที่อธิบายกระบวนการพัฒนาโครงสร้าง ORM และความสัมพันธ์เชิงลึกของกลไกความเร็วนี้อย่างละเอียดยิ่งขึ้น</li></ul>
+                            </div>
+                        </section>
+                        <div class="links-row">
+                            <a href="https://performance.dev/how-is-linear-so-fast-a-technical-breakdown" target="_blank" class="action-btn btn-primary">อ่านบทความต้นฉบับ</a>
+                            <a href="https://news.ycombinator.com/item?id=48437609" target="_blank" class="action-btn btn-secondary">กระทู้บน Hacker News</a>
+                        </div>
+                    </div>
+                </details>
+            </article>
+            
+            <!-- STORY 7 -->
+            <article class="news-item">
+                <details>
+                    <summary>
+                        <div class="summary-header">
+                            <div class="summary-title-section">
+                                <h2 class="story-title">Surveillance is not safety: A statement on the UK's latest threat to privacy [pdf]</h2>
+                                <p class="teaser">การวิพากษ์วิจารณ์นโยบายสอดส่องดูแลของภาครัฐในสหราชอาณาจักรที่มักอ้างประเด็นความปลอดภัยในการริดรอนสิทธิความเป็นส่วนตัว</p>
+                                <div class="meta-row">
+                                    <span class="badge badge-points">🔥 424 คะแนน</span>
+                                    <span class="badge badge-comments">💬 139 ความคิดเห็น</span>
+                                    <span class="badge badge-domain">signal.org</span>
+                                </div>
+                            </div>
+                            <div class="toggle-icon">▼</div>
+                        </div>
+                    </summary>
+                    <div class="details-content">
+                        <section class="content-section">
+                            <h3 class="section-header section-header-article">📄 สรุปเนื้อหาบทความ</h3>
+                            <div class="section-body">
+                                <p>เนื่องจากบทความนี้ไม่ได้ระบุรายละเอียดเนื้อหาข้อความยาวในหน้าเว็บเพจทางผู้เผยแพร่จึงไม่สามารถวิเคราะห์เนื้อหาบทความโดยตรงได้ อย่างไรก็ตาม ชื่อหัวข้อเรื่องบ่งชี้ถึงคำแถลงที่ว่า <strong>"การสอดส่องไม่ใช่ความปลอดภัย" (Surveillance Is Not Safety)</strong> ซึ่งมีวัตถุประสงค์เพื่อคัดค้านกฎหมายหรือข้อเสนอเชิงนโยบายล่าสุดของสหราชอาณาจักรที่คุกคามสิทธิความเป็นส่วนตัวของประชาชน</p>
+                            </div>
+                        </section>
+                        <section class="content-section">
+                            <h3 class="section-header section-header-discussion">💬 สรุปประเด็นเสวนาในกระทู้</h3>
+                            <div class="section-body">
+                                <p>ชุมชน Hacker News ได้ถกเถียงกันอย่างเผ็ดร้อนเกี่ยวกับแนวคิดด้านความเป็นส่วนตัวและการใช้อำนาจรัฐ:</p><ul><li><strong>การสร้างความยินยอมเชิงโครงสร้าง:</strong> ผู้ใช้บางส่วนชี้ว่า กฎหมายควบคุมมักถูกผลักดันโดยอ้างข้ออ้างยอดนิยมเช่น "ทำเพื่อปกป้องเด็ก ๆ" เพื่อผลิตซ้ำความยินยอมจากประชาชน ทั้งที่โดยปกติแล้วไม่มีกลุ่มพลเมืองใดเป็นผู้ร้องขอให้มีการสอดส่องดูแลตนเอง</li><li><strong>การขาดหลักการปกป้องสิทธิส่วนบุคคล:</strong> สมาชิกมองว่าคนส่วนใหญ่มักสนับสนุนการสอดส่องหากคิดว่ามันสามารถช่วยส่งเสริมเป้าหมายที่พวกเขาเห็นชอบ โดยละเลยที่จะมองการณ์ไกลว่าระบบและโครงสร้างการสอดส่องดังกล่าวจะถูกนำไปใช้ในทางที่ผิดอย่างไรเมื่อผู้มีอำนาจหรือขั้วการเมืองเกิดการเปลี่ยนแปลง</li><li><strong>เจตนาของผู้สอดส่อง:</strong> ความคิดเห็นเพิ่มเติมชี้ให้เห็นความแตกต่างของวัตถุประสงค์ เช่น พ่อแม่สอดส่องลูกเพื่อความปลอดภัยของลูก แต่รัฐสอดส่องประชาชนเพื่อความปลอดภัยและเสถียรภาพของผู้มีอำนาจปกครอง ซึ่งเป็นสิ่งที่เป็นอันตรายต่อความมั่นคงของปัจเจกบุคคล</li></ul>
+                            </div>
+                        </section>
+                        <div class="links-row">
+                            <a href="https://signal.org/blog/pdfs/2026-06-08-uk-surveillance-is-not-safety.pdf" target="_blank" class="action-btn btn-primary">อ่านบทความต้นฉบับ</a>
+                            <a href="https://news.ycombinator.com/item?id=48450646" target="_blank" class="action-btn btn-secondary">กระทู้บน Hacker News</a>
+                        </div>
+                    </div>
+                </details>
+            </article>
+            
+            <!-- STORY 8 -->
+            <article class="news-item">
+                <details>
+                    <summary>
+                        <div class="summary-header">
+                            <div class="summary-title-section">
+                                <h2 class="story-title">A Farmer Donated Land to Turn into a Park. The City Is Building a Data Center</h2>
+                                <p class="teaser">ข้อพิพาททางกฎหมายเมื่อเมืองในรัฐเท็กซัสขายที่ดินบริจาคที่ระบุเงื่อนไขให้ทำเป็นสวนสาธารณะไปสร้างศูนย์ข้อมูลไอทีแทน</p>
+                                <div class="meta-row">
+                                    <span class="badge badge-points">🔥 417 คะแนน</span>
+                                    <span class="badge badge-comments">💬 230 ความคิดเห็น</span>
+                                    <span class="badge badge-domain">404media.co</span>
+                                </div>
+                            </div>
+                            <div class="toggle-icon">▼</div>
+                        </div>
+                    </summary>
+                    <div class="details-content">
+                        <section class="content-section">
+                            <h3 class="section-header section-header-article">📄 สรุปเนื้อหาบทความ</h3>
+                            <div class="section-body">
+                                <p>บทความรายงานถึงข้อพิพาททางกฎหมายในเมืองเทย์เลอร์ รัฐเท็กซัส กรณีครอบครัวเกษตรกรรายหนึ่งได้ทำการยกมอบที่ดินเนื้อที่ 87 เอเคอร์ให้แก่เมืองในปี 1999 โดยคิดค่าธรรมเนียมเพียง 10 ดอลลาร์สหรัฐ ภายใต้ <strong>เงื่อนไขผูกพันในโฉนด (deed restriction)</strong> ว่าเมืองต้องใช้ประโยชน์จากที่ดินนี้เพื่อสร้างสวนสาธารณะแก่ชุมชนเท่านั้น</p><p>อย่างไรก็ตาม ในปี 2025 ทางสภาเมืองกลับเลือกที่จะขายที่ดินดังกล่าวต่อให้แก่บริษัทผู้พัฒนาศูนย์ข้อมูล (Data Center) ในมูลค่าสูงถึง 10 ล้านดอลลาร์สหรัฐ เพื่อสร้างอาคารข้อมูลขนาด 135,000 ตารางฟุต ส่งผลกระทบอย่างรุนแรงต่อผู้อยู่อาศัยรอบข้างที่ต้องเผชิญกับสถานีจ่ายไฟฟ้าและเสียงรบกวนขนาบข้างบ้านเรือนของพวกเขา</p>
+                            </div>
+                        </section>
+                        <section class="content-section">
+                            <h3 class="section-header section-header-discussion">💬 สรุปประเด็นเสวนาในกระทู้</h3>
+                            <div class="section-body">
+                                <p>ความคิดเห็นของชุมชนแสดงออกถึงความผิดหวังในกระบวนการยุติธรรมและพฤติกรรมของฝ่ายปกครองส่วนท้องถิ่น:</p><ul><li><strong>คำถามเรื่องสิทธิ์ในการยื่นฟ้อง (Standing):</strong> ผู้ใช้ตั้งข้อสงสัยว่าเหตุใดศาลจึงยกฟ้องคำร้องของครอบครัวผู้บริจาค โดยข้อวิเคราะห์ระบุว่า ศาลมักมองว่าครอบครัวผู้ยื่นฟ้องไม่ใช่คู่สัญญาโดยตรงกับรัฐในธุรกรรมปัจจุบัน หรือไม่มีสิทธิ์ในการยื่นฟ้องหากไม่ใช่ผู้ขายรายล่าสุด ซึ่งแสดงถึงความอ่อนแอของกฎหมายข้อจำกัดในโฉนดที่สามารถถูกทำให้ไร้ผลได้ง่าย ๆ เพียงแค่เปลี่ยนมือผู้ถือครองไปเรื่อย ๆ</li><li><strong>ความรับผิดชอบของรัฐส่วนท้องถิ่น:</strong> สมาชิกแสดงความไม่พอใจและมองว่าเจ้าหน้าที่รัฐสมควรได้รับโทษทางอาญาจากการละเมิดข้อตกลงและทำให้มูลค่าทรัพย์สินรอบข้างของประชาชนลดลง</li><li><strong>นิยามการเป็นส่วนหนึ่งของสาธารณะ:</strong> มีการถกเถียงว่าในเมื่อเป็นสวนสาธารณะ ประชาชนผู้เสียภาษีทุกคนในเมืองควรมีสิทธิ์ฟ้องร้องตามกฎหมายเพื่อปกป้องทรัพย์สินร่วมของพวกเขาจากการถูกเปลี่ยนสภาพโดยมิชอบ</li></ul>
+                            </div>
+                        </section>
+                        <div class="links-row">
+                            <a href="https://www.404media.co/a-farmer-donated-land-to-turn-into-a-park-the-city-is-building-a-massive-data-center-instead/" target="_blank" class="action-btn btn-primary">อ่านบทความต้นฉบับ</a>
+                            <a href="https://news.ycombinator.com/item?id=48446439" target="_blank" class="action-btn btn-secondary">กระทู้บน Hacker News</a>
+                        </div>
+                    </div>
+                </details>
+            </article>
+            
+            <!-- STORY 9 -->
+            <article class="news-item">
+                <details>
+                    <summary>
+                        <div class="summary-header">
+                            <div class="summary-title-section">
+                                <h2 class="story-title">How much of Thermo Fisher's antibody data has been manipulated?</h2>
+                                <p class="teaser">การเปิดเผยการปลอมแปลงและตกแต่งรูปภาพข้อมูลการทดสอบแอนติบอดีในแค็ตตาล็อกออนไลน์ของบริษัทผู้ผลิตรายใหญ่าง Thermo Fisher Scientific</p>
+                                <div class="meta-row">
+                                    <span class="badge badge-points">🔥 413 คะแนน</span>
+                                    <span class="badge badge-comments">💬 89 ความคิดเห็น</span>
+                                    <span class="badge badge-domain">reeserichardson.blog</span>
+                                </div>
+                            </div>
+                            <div class="toggle-icon">▼</div>
+                        </div>
+                    </summary>
+                    <div class="details-content">
+                        <section class="content-section">
+                            <h3 class="section-header section-header-article">📄 สรุปเนื้อหาบทความ</h3>
+                            <div class="section-body">
+                                <p>บทความเปิดเผยรายงานสืบสวนคดีการตกแต่งและปลอมแปลงรูปภาพทางวิทยาศาสตร์ (image manipulation) ในข้อมูลยืนยันประสิทธิภาพของแอนติบอดี (antibody verification data) ในระบบแค็ตตาล็อกออนไลน์ของบริษัท <strong>Thermo Fisher Scientific</strong> ซึ่งเป็นผู้จัดหาอุปกรณ์และสารเคมีในห้องปฏิบัติการรายใหญ่ที่สุดรายหนึ่งของโลก</p><p>นักวิจัย Sholto David และผู้เขียนบทความได้ร่วมกันตรวจสอบและรวบรวมรูปภาพผลทดสอบประเภท Western blot ที่มีร่องรอยต้องสงสัยมากกว่า 450 ภาพ โดยพบการตัดต่อภาพพื้นหลังซ้ำ ๆ การใช้เครื่องมือลบจุดบกพร่องในลักษณะผิดธรรมชาติ และการหมุนหรือสลับภาพเพื่อนำมาใช้เป็นผลทดสอบของแอนติบอดีต่างชนิดกัน</p><p>แอนติบอดีเป็นสารเคมีที่มักประสบปัญหาความไม่เสถียร (มีรายงานว่ากว่า 50% ทำงานไม่ได้ผลในการใช้งานจริง) การโฆษณาข้อมูลเท็จเหล่านี้นอกจากจะทำให้ห้องปฏิบัติการสูญเสียเงินนับแสนดอลลาร์สหรัฐ (โดยทั่วไปแอนติบอดีบรรจุหลอดขนาด 0.1 มิลลิลิตร มีราคาถึง 400-500 ดอลลาร์สหรัฐ) ยังสร้างความไม่น่าเชื่อถือและความล้มเหลวในการทดลองซ้ำของงานวิจัยชีวการแพทย์ทั่วโลกอีกด้วย</p>
+                            </div>
+                        </section>
+                        <section class="content-section">
+                            <h3 class="section-header section-header-discussion">💬 สรุปประเด็นเสวนาในกระทู้</h3>
+                            <div class="section-body">
+                                <p>ปฏิกิริยาของกลุ่มนักวิทยาศาสตร์และผู้ใช้อื่น ๆ ต่อพฤติกรรมของบริษัทยักษ์ใหญ่มีดังนี้:</p><ul><li><strong>ความสำคัญต่อการใช้งานทางวิทยาศาสตร์:</strong> ผู้เชี่ยวชาญระบุว่า รูปภาพเหล่านี้ไม่ได้เป็นเพียงภาพเพื่อการตลาด แต่ทำหน้าที่เป็นข้อมูลอ้างอิงยืนยันความแม่นยำจำเพาะ (specificity) ของสารเคมี ดังนั้น การปรับแต่งทางดิจิทัลใด ๆ บนข้อมูลดิบทางวิทยาศาสตร์ถือเป็นเรื่องที่ยอมรับไม่ได้และเสี่ยงต่อการทำให้ผลการวิจัยในอดีตบิดเบือนตามไปด้วย</li><li><strong>การหลบเลี่ยงคำตอบของบริษัท:</strong> ชุมชนวิจารณ์แถลงการณ์ชี้แจงของ Thermo Fisher ที่ระบุว่าเป็นการ "ปรับแต่งเพื่อความสวยงามและการนำเสนอ" ว่าเป็นการพยายามเลี่ยงความรับผิดชอบอย่างน่าเกลียด ทั้งที่ข้อเท็จจริงชี้ชัดว่าเป็นการคัดลอกรูปภาพมาแปะใหม่</li><li><strong>ความเป็นห่วงเรื่องความผิดพลาดสะสม:</strong> นักวิจัยกังวลว่าความน่าเชื่อถือของผลงานวิจัยที่ถูกถอนในภายหลังหลายชิ้นอาจมีจุดเริ่มต้นมาจากภาพทดสอบแอนติบอดีที่ผิดพลาดและบิดเบือนของตัวผู้จัดจำหน่ายรายนี้เอง</li></ul>
+                            </div>
+                        </section>
+                        <div class="links-row">
+                            <a href="https://reeserichardson.blog/2026/05/28/how-much-of-thermo-fishers-antibody-data-has-been-manipulated/" target="_blank" class="action-btn btn-primary">อ่านบทความต้นฉบับ</a>
+                            <a href="https://news.ycombinator.com/item?id=48442075" target="_blank" class="action-btn btn-secondary">กระทู้บน Hacker News</a>
+                        </div>
+                    </div>
+                </details>
+            </article>
+            
+            <!-- STORY 10 -->
+            <article class="news-item">
+                <details>
+                    <summary>
+                        <div class="summary-header">
+                            <div class="summary-title-section">
+                                <h2 class="story-title">Siri AI</h2>
+                                <p class="teaser">Apple ประกาศเปิดตัว Siri AI เจเนอเรชันใหม่ที่ขับเคลื่อนด้วยระบบ Apple Intelligence ซึ่งผสมผสานความเป็นส่วนตัวเข้ากับความสามารถในการเข้าใจบริบทและทำงานร่วมกับแอปพลิเคชันต่าง ๆ ได้อย่างเป็นธรรมชาติ</p>
+                                <div class="meta-row">
+                                    <span class="badge badge-points">🔥 411 คะแนน</span>
+                                    <span class="badge badge-comments">💬 355 ความคิดเห็น</span>
+                                    <span class="badge badge-domain">apple.com</span>
+                                </div>
+                            </div>
+                            <div class="toggle-icon">▼</div>
+                        </div>
+                    </summary>
+                    <div class="details-content">
+                        <section class="content-section">
+                            <h3 class="section-header section-header-article">📄 สรุปเนื้อหาบทความ</h3>
+                            <div class="section-body">
+                                <p>Apple ได้ประกาศความคืบหน้าครั้งสำคัญของระบบผู้ช่วยอัจฉริยะด้วยการเปิดตัว <strong>Siri AI</strong> และ <strong>Apple Intelligence</strong> เจเนอเรชันถัดไป โดยมีเป้าหมายเพื่อสร้าง AI ที่เป็นประโยชน์และเข้าใจผู้ใช้งานอย่างแท้จริง ภายใต้มาตรฐานการรักษาความปลอดภัยและความเป็นส่วนตัวที่เข้มงวด โดยมีประเด็นสำคัญดังนี้ครับ:</p><ul><li><strong>การประสานงานภายในแอปพลิเคชัน (Apple Intelligence in apps):</strong> ยกระดับการทำงานของแอปพลิเคชันพื้นฐานที่ผู้ใช้เข้าถึงบ่อยที่สุด เช่น Photos, Messages และ Safari ให้สามารถตอบสนองและจัดการงานที่ซับซ้อนขึ้นได้</li><li><strong>ความเข้าใจบริบทส่วนบุคคล (Personal Context):</strong> Siri AI จะมีความสามารถในการเข้าถึงและค้นหาข้อมูลตามบริบทส่วนตัวของผู้ใช้ได้อย่างมีประสิทธิภาพ เช่น การระบุรูปภาพจากอดีต การค้นหาอีเมลในกล่องจดหมาย หรือดึงข้อมูลจากบันทึกที่บันทึกไว้ได้อย่างแม่นยำ</li><li><strong>การสั่งการข้ามแอปพลิเคชัน (Take Action in Apps):</strong> Siri AI สามารถดำเนินการต่าง ๆ ภายในแอปพลิเคชัน เช่น การแก้ไขข้อความที่เพิ่งส่งไปใน Messages หรือการสั่งเพิ่มเพลงที่ได้ยินลงในเพลย์ลิสต์ออกกำลังกายในทันที</li><li><strong>ความลื่นไหลในการสนทนา (Natural Conversations):</strong> รองรับการพิมพ์และการพูดคุยอย่างเป็นธรรมชาติแบบโต้ตอบไปมา (Back-and-forth) รวมถึงช่วยสร้างสรรค์ผลงาน เขียน และแก้ไขข้อความในทุก ๆ ที่ที่มีการป้อนข้อความ</li></ul>
+                            </div>
+                        </section>
+                        <section class="content-section">
+                            <h3 class="section-header section-header-discussion">💬 สรุปประเด็นเสวนาในกระทู้</h3>
+                            <div class="section-body">
+                                <p>ความคิดเห็นในกระทู้ Hacker News เผยให้เห็นทั้งความกังวลและความหวังเกี่ยวกับการเปิดตัว Siri AI ครั้งนี้ โดยประเด็นหลักที่นักพัฒนาหยิบยกขึ้นมาพูดคุยมีดังนี้ครับ:</p><ul><li><strong>ความคาดหวังเทียบกับความเป็นจริง:</strong> ผู้ใช้บางส่วนรู้สึกว่าวิดีโอสาธิตยังไม่น่าประทับใจเท่าที่ควร เนื่องจากฟังก์ชันที่แสดง เช่น การขอเส้นทางหรือการตั้งเวลา เป็นสิ่งที่ Siri สามารถทำได้อยู่แล้ว ทว่าจุดที่ดูโดดเด่นและเป็นของใหม่คือระบบการค้นหาและคัดกรองรูปภาพในแอป Photos</li><li><strong>ความกังขาเรื่องความเร็วในการประมวลผล (Latency):</strong> สมาชิกบางส่วนสังเกตว่าระยะเวลาการตอบสนองในวิดีโอสาธิตที่รวดเร็วมาก (ราว 2-3 วินาทีในการสืบค้นข้อมูลและสรุปผล) อาจจะไม่ได้สะท้อนถึงการใช้งานจริงในทางปฏิบัติ เนื่องจากโมเดลขนาดใหญ่ที่ประมวลผลบนเครื่องมักมีข้อจำกัดด้านเวลาประมวลผล</li><li><strong>กลยุทธ์การขายฮาร์ดแวร์ของ Apple:</strong> นักพัฒนามองว่าการจำกัดให้ใช้งาน Siri AI เฉพาะบนอุปกรณ์รุ่นใหม่ล่าสุด เป็นเทคนิคการตลาดเพื่อกระตุ้นให้ผู้บริโภคยอมซื้อโทรศัพท์รุ่นใหม่เพื่อสัมผัสกับเทคโนโลยีประมวลผล AI บนตัวเครื่อง (On-device AI)</li></ul>
+                            </div>
+                        </section>
+                        <div class="links-row">
+                            <a href="https://www.apple.com/apple-intelligence/" target="_blank" class="action-btn btn-primary">อ่านบทความต้นฉบับ</a>
+                            <a href="https://news.ycombinator.com/item?id=48449084" target="_blank" class="action-btn btn-secondary">กระทู้บน Hacker News</a>
+                        </div>
+                    </div>
+                </details>
+            </article>
+            
+            <!-- STORY 11 -->
+            <article class="news-item">
+                <details>
+                    <summary>
+                        <div class="summary-header">
+                            <div class="summary-title-section">
+                                <h2 class="story-title">xAI is looking more like a datacentre REIT than a frontier lab</h2>
+                                <p class="teaser">การร่วมมือครั้งใหม่ของ xAI กับ Google และ Anthropic เพื่อปล่อยเช่าหน่วยประมวลผล Colossus นำไปสู่การตั้งข้อสังเกตว่าบริษัทกำลังเปลี่ยนบทบาทจากการเป็นห้องวิจัย AI ชั้นนำ ไปเป็นผู้ให้บริการโครงสร้างพื้นฐานศูนย์ข้อมูล (REIT) แทน</p>
+                                <div class="meta-row">
+                                    <span class="badge badge-points">🔥 401 คะแนน</span>
+                                    <span class="badge badge-comments">💬 312 ความคิดเห็น</span>
+                                    <span class="badge badge-domain">martinalderson.com</span>
+                                </div>
+                            </div>
+                            <div class="toggle-icon">▼</div>
+                        </div>
+                    </summary>
+                    <div class="details-content">
+                        <section class="content-section">
+                            <h3 class="section-header section-header-article">📄 สรุปเนื้อหาบทความ</h3>
+                            <div class="section-body">
+                                <p>บทวิเคราะห์ชี้ให้เห็นถึงการเปลี่ยนแปลงทิศทางธุรกิจที่คาดไม่ถึงของ <strong>xAI</strong> (ซึ่งได้ควบรวมกิจการเข้ากับ SpaceX ตั้งแต่กุมภาพันธ์ 2026) โดยการบรรลุข้อตกลงในการเป็นพันธมิตรกับคู่แข่งรายสำคัญอย่าง Anthropic และ Google เพื่อให้บริการเช่าขีดความสามารถในการประมวลผลผ่าน GPU ใน Memphis ซึ่งมีรายละเอียดที่น่าสนใจดังนี้ครับ:</p><ul><li><strong>การปล่อยเช่าทรัพยากรประมวลผลขนาดใหญ่:</strong> xAI ได้ทำข้อตกลงกับ Anthropic สำหรับศูนย์ข้อมูล Colossus 1 ในเมมฟิส ซึ่งมีมูลค่าสูงถึง 1.25 พันล้านดอลลาร์ต่อเดือน แลกกับการใช้งานกำลังไฟ 300MW (คิดเป็นจำนวน GPU ราว 220,000 ตัว) ช่วยแก้ปัญหาวิกฤตความต้องการขีดความสามารถการประมวลผล (Compute Crunch) ในชั่วโมงเร่งด่วนของ Anthropic</li><li><strong>ข้อตกลงร่วมกับ Google:</strong> Google ได้ลงนามร่วมเป็นพันธมิตรในลักษณะเดียวกัน โดยจ่ายมูลค่า 920 ล้านดอลลาร์ต่อเดือนสำหรับกำลังการประมวลผลจาก GPU จำนวน 110,000 ตัว</li><li><strong>ความได้เปรียบเชิงโครงสร้างพื้นฐาน:</strong> แม้จะมีข้อกังขาเรื่องการจัดเตรียมมูลค่าหลักทรัพย์เพื่อการเสนอขายหุ้น IPO ของ SpaceX แต่ปฏิเสธไม่ได้ว่า xAI มีความสามารถที่โดดเด่นในการสร้างศูนย์ข้อมูลอย่างรวดเร็ว (Colossus 1 สร้างเสร็จ in เวลาเพียง 122 วัน) ซึ่งถือเป็นข้อได้เปรียบสูงเมื่อเทียบกับคู่แข่งรายใหญ่อื่น ๆ ที่ใช้เวลาก่อสร้างนานหลายปี</li><li><strong>อนาคตของโมเดล Grok:</strong> ข้อตกลงเหล่านี้นำมาซึ่งคำถามเกี่ยวกับสถานะของโมเดล Grok เนื่องจากกำลังประมวลผลส่วนใหญ่ถูกปันส่วนไปให้คู่แข่งรายอื่นเช่าใช้งาน ซึ่งส่งสัญญาณว่า xAI อาจลดความทะเยอทะยานในการพัฒนาโมเดลระดับแนวหน้า (Frontier AI) ลง และหันมาสร้างรายได้จากโครงสร้างพื้นฐานแทน</li></ul>
+                            </div>
+                        </section>
+                        <section class="content-section">
+                            <h3 class="section-header section-header-discussion">💬 สรุปประเด็นเสวนาในกระทู้</h3>
+                            <div class="section-body">
+                                <p>ประเด็นพูดคุยในบอร์ด Hacker News ให้ความสนใจกับรูปแบบทางธุรกิจของ xAI และการประเมินศักยภาพของโมเดล Grok ดังนี้ครับ:</p><ul><li><strong>บทบาทของโมเดล Grok:</strong> นักพัฒนาประเมินว่า Grok ยังไม่ใช่โมเดลระดับแนวหน้า (Frontier) และมักจะตามหลังคู่แข่งรายใหญู่ประมาณ 1-2 เจเนอเรชัน อย่างไรก็ตาม Grok มีจุดเด่นสำคัญในด้านการเข้าใจเหตุการณ์ปัจจุบันอย่างรวดเร็ว (จากการผสานข้อมูลกับแพลตฟอร์ม X) และการตอบคำถามในหัวข้อที่เปราะบางโดยไม่ปฏิเสธการทำงานแบบโมเดลของค่ายอื่น</li><li><strong>ทฤษฎีการจัดการทรัพยากรเกินขนาด (Overprovisioning):</strong> มีผู้ตั้งข้อสังเกตว่า Elon Musk อาจจะประเมินความต้องการใช้ทรัพยากรประมวลผลสำหรับ Grok และโครงการของตนเอง (เช่น FSD หรือ Optimus) สูงเกินไป และเลือกที่จะปล่อยเช่าส่วนที่เหลือเพื่อสร้างรายได้ทดแทน ดีกว่าการปล่อยทิ้งไว้โดยเปล่าประโยชน์</li><li><strong>การแปลงสภาพเป็นธุรกิจศูนย์ข้อมูล:</strong> ผู้ใช้จำนวนมากเห็นพ้องกันว่า ในสถานการณ์ปัจจุบัน โครงสร้างรายได้ของ xAI กำลังเปลี่ยนผ่านไปสู่การเป็นทรัสต์เพื่อการลงทุนในอสังหาริมทรัพย์ด้านศูนย์ข้อมูล (Data Center REIT) ที่มีห้องปฏิบัติการ AI แนบมาด้วย มากกว่าการเป็นห้องวิจัยทางเทคโนโลยีเต็มรูปแบบ</li></ul>
+                            </div>
+                        </section>
+                        <div class="links-row">
+                            <a href="https://martinalderson.com/posts/xais-new-rental-business/" target="_blank" class="action-btn btn-primary">อ่านบทความต้นฉบับ</a>
+                            <a href="https://news.ycombinator.com/item?id=48446428" target="_blank" class="action-btn btn-secondary">กระทู้บน Hacker News</a>
+                        </div>
+                    </div>
+                </details>
+            </article>
+            
+            <!-- STORY 12 -->
+            <article class="news-item">
+                <details>
+                    <summary>
+                        <div class="summary-header">
+                            <div class="summary-title-section">
+                                <h2 class="story-title">AI is slowing down</h2>
+                                <p class="teaser">บทวิเคราะห์ของ Ed Zitron อ้างอิงถึงสัญญาณเตือนภัยการล่มสลายของฟองสบู่ปัญญาประดิษฐ์ (AI Bubble) จากการที่ผู้ให้บริการเทคโนโลยีรายใหญ่ต้องเผชิญกับภาระหนี้สินมหาศาลเพื่อลงทุนศูนย์ข้อมูล ในขณะที่ตลาดมีความต้องการซื้อจริงที่ยังจำกัด</p>
+                                <div class="meta-row">
+                                    <span class="badge badge-points">🔥 397 คะแนน</span>
+                                    <span class="badge badge-comments">💬 415 ความคิดเห็น</span>
+                                    <span class="badge badge-domain">wheresyoured.at</span>
+                                </div>
+                            </div>
+                            <div class="toggle-icon">▼</div>
+                        </div>
+                    </summary>
+                    <div class="details-content">
+                        <section class="content-section">
+                            <h3 class="section-header section-header-article">📄 สรุปเนื้อหาบทความ</h3>
+                            <div class="section-body">
+                                <p>บทวิเคราะห์ที่รุนแรงและเจาะลึกโดย <strong>Ed Zitron</strong> ได้นำเสนอข้อมูลวิเคราะห์เชิงลึกเกี่ยวกับความเสี่ยงที่โครงสร้างพื้นฐานและการลงทุนด้านปัญญาประดิษฐ์จะกลายเป็นฟองสบู่ขนาดใหญ่ที่พร้อมจะแตกสลาย โดยสรุปประเด็นเชิงตัวเลขและการเงินที่สำคัญได้ดังนี้ครับ:</p><ul><li><strong>ตัวเลขการลงทุนศูนย์ข้อมูลที่สูงเกินจริง:</strong> จากข้อมูลระบุว่าแผนการสร้างศูนย์ข้อมูลประมวลผล AI ขนาด 190GW ทั่วโลก จะต้องใช้เงินลงทุนสูงถึง 9.5 ถึง 15 ล้านล้านดอลลาร์ ซึ่งยากที่จะหาแหล่งเงินทุนมารองรับ โดยปัจจุบันธนาคารเริ่มแสดงความกังวลที่จะปล่อยกู้เพิ่มขึ้น ทำให้บริษัทเทคโนโลยีเริ่มหันไปใช้วิธีระดมทุนด้วยการขายหุ้นแทน</li><li><strong>การพึ่งพิงลูกค้ารายใหญ่อย่างจำกัด:</strong> รายได้กว่า 54% ของ NVIDIA พึ่งพิงลูกค้าเพียง 3 รายเท่านั้น ซึ่งบ่งชี้ว่ายอดขาย GPU ทั้งหมดขึ้นอยู่กับกลุ่มบริษัทเพียงไม่กี่รายที่เร่งกู้เงินอย่างต่อเนื่องเพื่อซื้อฮาร์ดแวร์เหล่านั้น</li><li><strong>ภาระผูกพันทางการเงินของแล็บวิจัย:</strong> Anthropic มีภาระผูกพันค่าบริการประมวลผลสูงถึง 3.3 แสนล้านดอลลาร์ และจำต้องสร้างรายได้ให้ถึง 1.74 แสนล้านดอลลาร์ต่อปีภายในปี 2029 จึงจะสามารถจ่ายหนี้เหล่านั้นได้ ในขณะที่ OpenAI ก็มีภาระผูกพันที่ต้องระดมทุนเพิ่มอีกหลายแสนล้านดอลลาร์เพื่อชดเชยการเผาผลาญเงินทุน (Cash Burn Rate)</li><li><strong>ปัญหาความต้องการจริงในตลาด (Real Demand):</strong> อุปสงค์ของขีดความสามารถการประมวลผล AI กว่า 70% ถึง 90% ในตลาดปัจจุบัน เกิดจากการจองใช้งานของเพียงสองบริษัทที่ยังคงขาดทุนอย่างหนัก (OpenAI และ Anthropic) โดยแทบไม่มีอุปสงค์จากธุรกิจภายนอกที่มีกำลังซื้อจริงเพียงพอจะมาชดเชยมูลค่าการลงทุนเหล่านี้</li></ul>
+                            </div>
+                        </section>
+                        <section class="content-section">
+                            <h3 class="section-header section-header-discussion">💬 สรุปประเด็นเสวนาในกระทู้</h3>
+                            <div class="section-body">
+                                <p>ปฏิกิริยาของชุมชน Hacker News ต่อการวิเคราะห์นี้มีความหลากหลายทั้งในแง่ของสไตล์การเขียนและตัวเนื้อหาทางการเงินครับ:</p><ul><li><strong>ข้อถกเถียงเรื่องสำนวนการนำเสนอ:</strong> ผู้ใช้งานหลายรายรู้สึกอึดอัดกับภาษาที่ค่อนข้างก้าวร้าวและรุนแรงของ Ed Zitron แต่ก็ยอมรับว่าข้อมูลเชิงตัวเลขและข้อเท็จจริงเกี่ยวกับการเงินที่เขายกมานั้นมีน้ำหนักและน่าเชื่อถือสูง</li><li><strong>การมองความจริงแบบเป็นกลาง:</strong> นักพัฒนาหลายคนพยายามเปรียบเทียบว่าข้อมูลของ Zitron เป็นขั้วตรงข้ามของการโฆษณาชวนเชื่อที่เกินจริงจากกลุ่มสนับสนุน AI (AI Boosters) โดยมองว่าความจริงที่แท้จริงน่าจะอยู่กึ่งกลางระหว่างการเติบโตของเทคโนโลยีกับการเติบโตเชิงเศรษฐกิจที่ต้องมีความสมเหตุสมผลมากขึ้น</li><li><strong>ประเด็นพฤติกรรมการสัมภาษณ์และการเผยแพร่ต่อสาธารณะ:</strong> มีผู้สังเกตว่าเมื่อ Zitron ไปปรากฏตัวในสื่อทางการเงินอย่าง Bloomberg เขาสามารถอธิบายประเด็นอย่างใจเย็นและเป็นระบบ สะท้อนว่าความเผ็ดร้อนในจดหมายข่าวของเขาเป็นเพียงเทคนิคทางการตลาดเพื่อเรียกความสนใจจากผู้อ่านเท่านั้น</li></ul>
+                            </div>
+                        </section>
+                        <div class="links-row">
+                            <a href="https://www.wheresyoured.at/ai-is-slowing-down/" target="_blank" class="action-btn btn-primary">อ่านบทความต้นฉบับ</a>
+                            <a href="https://news.ycombinator.com/item?id=48446893" target="_blank" class="action-btn btn-secondary">กระทู้บน Hacker News</a>
+                        </div>
+                    </div>
+                </details>
+            </article>
+            
+            <!-- STORY 13 -->
+            <article class="news-item">
+                <details>
+                    <summary>
+                        <div class="summary-header">
+                            <div class="summary-title-section">
+                                <h2 class="story-title">DeepSeek V4 Pro beats GPT-5.5 Pro on precision</h2>
+                                <p class="teaser">การเปรียบเทียบความแม่นยำล่าสุดระหว่าง DeepSeek V4 Pro และ GPT-5.5 Pro จุดชนวนให้เกิดการถกเถียงอย่างกว้างขวางเกี่ยวกับต้นทุนโทเค็นและทิศทางการใช้โมเดลขนาดเล็กที่มีราคาประหยัดกว่า</p>
+                                <div class="meta-row">
+                                    <span class="badge badge-points">🔥 389 คะแนน</span>
+                                    <span class="badge badge-comments">💬 215 ความคิดเห็น</span>
+                                    <span class="badge badge-domain">runtimewire.com</span>
+                                </div>
+                            </div>
+                            <div class="toggle-icon">▼</div>
+                        </div>
+                    </summary>
+                    <div class="details-content">
+                        <section class="content-section">
+                            <h3 class="section-header section-header-article">📄 สรุปเนื้อหาบทความ</h3>
+                            <div class="section-body">
+                                <p>รายงานนี้อ้างอิงข้อมูลการทดสอบประสิทธิภาพที่ชี้ว่าโมเดล <strong>DeepSeek V4 Pro</strong> สามารถเอาชนะ <strong>GPT-5.5 Pro</strong> ในด้านความแม่นยำ (Precision) จากการทดสอบแบบวัดผลทันที (On-the-fly) ทว่ามีข้อกังขาและประเด็นทางเทคนิคตามมาดังนี้ครับ:</p><ul><li><strong>ผลลัพธ์การทดสอบ:</strong> จากการรันงานทดสอบรูปแบบข้อความ 4 งานที่ตั้งโจทย์ขึ้นมาใหม่ ผลคะแนนที่ประเมินโดย Grok-4.3 (ด้วยการกำหนดค่าแบบ non-reasoning) ระบุว่า DeepSeek V4 Pro ได้ 38.0 คะแนน ในขณะที่ GPT-5.5 Pro ได้ 33.0 คะแนน</li><li><strong>ความกังขาในระเบียบวิธีวิจัย:</strong> ผู้ทดสอบได้ตั้งข้อสังเกตว่าขนาดของกลุ่มตัวอย่างที่ใช้ทดสอบมีจำนวนน้อยมากเพียงแค่ 4 งานการประมวลผล ทำให้ไม่สามารถนำมาใช้ตัดสินประสิทธิภาพโดยรวมในระดับกว้างได้อย่างเป็นทางการ</li></ul>
+                            </div>
+                        </section>
+                        <section class="content-section">
+                            <h3 class="section-header section-header-discussion">💬 สรุปประเด็นเสวนาในกระทู้</h3>
+                            <div class="section-body">
+                                <p>บอร์ด Hacker News ได้อภิปรายอย่างเจาะลึกเกี่ยวกับข้อดีข้อเสียระหว่างโมเดลราคาแพงของค่ายอเมริกากับโมเดลราคาประหยัดอย่าง DeepSeek ดังนี้ครับ:</p><ul><li><strong>ข้อจำกัดด้านงบประมาณในการใช้งาน API:</strong> มีความเห็นสำคัญจากผู้ที่นำโมเดลไปทดสอบสแกนหาช่องโหว่ความปลอดภัย โดยระบุว่า GPT-5.5 Pro มีค่าใช้จ่ายสูงถึงกรณีละ $22 ทำให้การทดสอบต้องหยุดชะงักลงเมื่อใช้งบประมาณครบ $100 ในขณะที่ DeepSeek V4 Pro ใช้จ่ายไปเพียงราว $1 สำหรับการทดสอบทั้งหมด (เฉลี่ยเพียงกรณีละ 10 เซนต์) ซึ่งมีประสิทธิภาพในการค้นหาช่องโหว่ที่ใกล้เคียงกัน</li><li><strong>ทัศนคติของกลุ่มผู้ให้บริการระดับแนวหน้า:</strong> นักวิเคราะห์คาดเดาว่าผู้พัฒนาโมเดลระดับแนวหน้า (Frontier Labs) อาจยอมเสียลูกค้ากลุ่มนักพัฒนาทั่วไปหรือกลุ่มทดลองใช้ แทนที่จะยอมปรับลดราคา API ลง เนื่องจากพวกเขามุ่งหวังรายได้หลักจากกลุ่มลูกค้าระดับองค์กรขนาดใหญ่ (Enterprise) และบริการแบบสมัครสมาชิกรายเดือนมากกว่า</li><li><strong>ปัญหาด้านโครงสร้างข้อมูลเอาต์พุต:</strong> สมาชิกบางรายบ่นถึงการทำงานของ GPT-5.5 Pro ที่มักมีการเพิ่มฟิลด์หรือเปลี่ยนแปลงประเภทตัวแปรโดยพลการ แม้จะระบุรูปแบบข้อมูลเอาต์พุต (Structured Output) ไว้อย่างชัดเจนแล้วก็ตาม ต่างจากโมเดลอื่น ๆ ที่ทำตามข้อกำหนดอย่างเคร่งครัด</li></ul>
+                            </div>
+                        </section>
+                        <div class="links-row">
+                            <a href="https://runtimewire.com/article/deepseek-v4-pro-beats-gpt-5-5-pro-on-precision" target="_blank" class="action-btn btn-primary">อ่านบทความต้นฉบับ</a>
+                            <a href="https://news.ycombinator.com/item?id=48440448" target="_blank" class="action-btn btn-secondary">กระทู้บน Hacker News</a>
+                        </div>
+                    </div>
+                </details>
+            </article>
+            
+            <!-- STORY 14 -->
+            <article class="news-item">
+                <details>
+                    <summary>
+                        <div class="summary-header">
+                            <div class="summary-title-section">
+                                <h2 class="story-title">The Cypherpunk Library</h2>
+                                <p class="teaser">แพลตฟอร์มรวบรวมหนังสือสาธารณสมบัติ (Public Domain) สำหรับกลุ่มวัฒนธรรม Cypherpunk เผชิญกับกระแสวิจารณ์ด้านประสิทธิภาพในการแสดงผล และข้อถกเถียงเรื่องลิขสิทธิ์ในยุคปัญญาประดิษฐ์</p>
+                                <div class="meta-row">
+                                    <span class="badge badge-points">🔥 356 คะแนน</span>
+                                    <span class="badge badge-comments">💬 95 ความคิดเห็น</span>
+                                    <span class="badge badge-domain">cypherpunkbooks.com</span>
+                                </div>
+                            </div>
+                            <div class="toggle-icon">▼</div>
+                        </div>
+                    </summary>
+                    <div class="details-content">
+                        <section class="content-section">
+                            <h3 class="section-header section-header-article">📄 สรุปเนื้อหาบทความ</h3>
+                            <div class="section-body">
+                                <p><strong>The Cypherpunk Library</strong> (cypherpunkbooks.com) เป็นพื้นที่รวบรวมผลงานการเขียนที่เป็นสาธารณสมบัติ (Public Domain) ทั้งหมด โดยไม่มีจุดประสงค์เชิงพาณิชย์หรือขายสินค้าใด ๆ และเปิดกว้างให้บุคคลทั่วไปสามารถเข้าถึงหนังสือที่มีคุณค่าต่อประวัติศาสตร์และแนวคิดแนวไซเฟอร์พังก์ได้โดยตรง</p>
+                            </div>
+                        </section>
+                        <section class="content-section">
+                            <h3 class="section-header section-header-discussion">💬 สรุปประเด็นเสวนาในกระทู้</h3>
+                            <div class="section-body">
+                                <p>การอภิปรายในกระทู้ครอบคลุมประเด็นทั้งด้านการออกแบบเว็บไซต์เชิงเทคนิคและความคิดเห็นทางจริยธรรมของกฎหมายลิขสิทธิ์ดังนี้ครับ:</p><ul><li><strong>ปัญหาด้านประสิทธิภาพการแสดงผล (UI performance):</strong> ผู้ใช้เบราว์เซอร์ Firefox หลายคนระบุว่าเว็บไซต์มีปัญหาการตอบสนองที่ช้ามาก (บางรายได้ยินเพียง 10 fps) เนื่องจากการใช้งานเอฟเฟกต์การแสดงผลและการจัดวางหนังสือแบบ 3 มิติในหน้าแรกที่มากเกินความจำเป็น ทำให้เกิดข้อเสนอแนะว่าควรแสดงรายการหนังสือทั้งหมดในหน้าแรกแทนที่จะสร้างหน้า Landing Page ที่ซับซ้อน</li><li><strong>การถกเถียงเชิงปรัชญาเกี่ยวกับลิขสิทธิ์ในยุค AI:</strong> เกิดประเด็นถกเถียงอย่างเผ็ดร้อนเมื่อผู้ใช้งานรายหนึ่งแสดงทัศนะว่า ในยุคที่บริษัทฝึกสอนโมเดล AI นำข้อมูลทุกอย่างบนอินเทอร์เน็ตไปใช้ฝึกฝนได้อย่างเสรีและถูกกฎหมาย ลิขสิทธิ์บนโลกอินเทอร์เน็ตจึงหมดความศักดิ์สิทธิ์ลงโดยสิ้นเชิง</li><li><strong>จิตวิญญาณความเป็นแฮกเกอร์และอนาธิปไตย:</strong> ทัศนะข้างต้นนำไปสู่การตอบโต้เกี่ยวกับความหมายของวัฒนธรรม "แฮกเกอร์" (Hacker) โดยมีกลุ่มที่เห็นใจและมองว่าการละเมิดลิขสิทธิ์และการครอบครองข้อมูลเป็นวิถีทางจิตวิญญาณแบบอนาธิปไตย (Anarchist) ขณะที่อีกฝ่ายเตือนสติว่าวัฒนธรรมแฮกเกอร์ที่แท้จริงเน้นย้ำถึงการสร้างสรรค์และการเคารพทรัพย์สินทางปัญญาของบุคคลอื่น</li></ul>
+                            </div>
+                        </section>
+                        <div class="links-row">
+                            <a href="https://www.cypherpunkbooks.com" target="_blank" class="action-btn btn-primary">อ่านบทความต้นฉบับ</a>
+                            <a href="https://news.ycombinator.com/item?id=48442725" target="_blank" class="action-btn btn-secondary">กระทู้บน Hacker News</a>
+                        </div>
+                    </div>
+                </details>
+            </article>
+            
+            <!-- STORY 15 -->
+            <article class="news-item">
+                <details>
+                    <summary>
+                        <div class="summary-header">
+                            <div class="summary-title-section">
+                                <h2 class="story-title">Apple reveals new AI architecture built around Google Gemini models</h2>
+                                <p class="teaser">Apple ยกระดับการพัฒนา Apple Intelligence ครั้งสำคัญผ่านการร่วมมือเชิงลึกกับ Google โดยเปิดเผยสถาปัตยกรรมโมเดล AI ใหม่ 5 รุ่นที่ใช้ประโยชน์จากเทคโนโลยีเบื้องหลังตระกูล Gemini</p>
+                                <div class="meta-row">
+                                    <span class="badge badge-points">🔥 331 คะแนน</span>
+                                    <span class="badge badge-comments">💬 315 ความคิดเห็น</span>
+                                    <span class="badge badge-domain">macrumors.com</span>
+                                </div>
+                            </div>
+                            <div class="toggle-icon">▼</div>
+                        </div>
+                    </summary>
+                    <div class="details-content">
+                        <section class="content-section">
+                            <h3 class="section-header section-header-article">📄 สรุปเนื้อหาบทความ</h3>
+                            <div class="section-body">
+                                <p>Apple ได้ประกาศปรับปรุงสถาปัตยกรรมของ <strong>Apple Intelligence</strong> ครั้งใหญ่ โดยเปลี่ยนมาทำงานร่วมกับโมเดลพื้นฐานที่พัฒนาร่วมกับ Google ภายใต้ตระกูล Gemini เพื่อเพิ่มขีดความสามารถการทำความเข้าใจบริบท การใช้เหตุผล และการรองรับงานประมวลผลหลากหลายรูปแบบ (Multimodal) ซึ่งมีรายละเอียดของสถาปัตยกรรมดังนี้ครับ:</p><ul><li><strong>โมเดลประมวลผลบนเครื่อง (On-Device Models):</strong> ประกอบด้วย <strong>AFM Core</strong> ซึ่งเป็นสถาปัตยกรรมแบบ Dense สำหรับการใช้งานทั่วไป และ <strong>AFM Core Advanced</strong> สถาปัตยกรรมแบบ Sparse ที่รองรับภาพและเสียงอย่างเป็นธรรมชาติ</li><li><strong>โมเดลประมวลผลบนคลาวด์ส่วนตัว (Private Cloud Compute - PCC):</strong> ประกอบด้วย <strong>AFM Cloud</strong> ที่ปรับแต่งเพื่อเน้นความเร็วและความประหยัด, <strong>AFM Cloud Image</strong> สำหรับงานกราฟิกและแต่งภาพ และ <strong>AFM Cloud Pro</strong> ซึ่งเป็นโมเดลที่ทรงพลังที่สุดและทำงานร่วมกับคลาวด์ของ Google บนสถาปัตยกรรม GPU ของ NVIDIA</li><li><strong>การรักษาความปลอดภัยและความเป็นส่วนตัว:</strong> ข้อมูลของระบบจะถูกเก็บรักษาภายใต้ข้อตกลงความเป็นส่วนตัวของ Private Cloud Compute ของ Apple ซึ่งจะใช้ข้อมูลเฉพาะการรันคำสั่งในชิ้นงานนั้น ๆ และมีกลไกให้ผู้ตรวจสอบภายนอกสามารถเข้ามาตรวจสอบความปลอดภัยได้ตลอดเวลา</li></ul>
+                            </div>
+                        </section>
+                        <section class="content-section">
+                            <h3 class="section-header section-header-discussion">💬 สรุปประเด็นเสวนาในกระทู้</h3>
+                            <div class="section-body">
+                                <p>ความคิดเห็นในบอร์ด Hacker News ให้ความสนใจเป็นพิเศษกับการเจาะลึกโครงสร้างการทำงานและปัญหารายล้อมความสามารถของ Gemini ดังนี้ครับ:</p><ul><li><strong>การวิเคราะห์โครงสร้างโมเดลเบื้องหลัง:</strong> นักพัฒนาได้ระบุข้อมูลเพิ่มเติมจากการสัมภาษณ์ผู้บริหารของ Apple ว่าโมเดลในระดับ Pro (AFM Cloud Pro) แท้จริงแล้วอาจเป็นเพียงการนำโมเดล Gemini ของ Google มาทำงานภายใต้การดูแลความปลอดภัยแบบ PCC ของ Apple ขณะที่โมเดลรุ่นอื่น ๆ เป็นโมเดลที่ Apple ปรับแต่ง (Fine-tune) ขึ้นมาเองโดยใช้เทคโนโลยีของ Google เป็นต้นแบบ</li><li><strong>ความกังวลเรื่องการให้ข้อมูลที่บิดเบือน (Hallucination):</strong> ผู้ใช้ตั้งข้อกังขาถึงความเชื่อถือได้ของโมเดลตระกูล Gemini เนื่องจากรุ่นสาธารณะยังพบปัญหาการให้ข้อมูลผิดพลาดอยู่บ่อยครั้ง โดยเฉพาะระบบค้นหาข้อมูลด้วย AI (AI Overview) ของกูเกิลที่สร้างการรับรู้ในแง่ลบต่อสาธารณชน</li><li><strong>ข้อกำหนดขั้นต่ำของฮาร์ดแวร์:</strong> สมาชิกคาดคะเนว่าโมเดลออนดีไวซ์ที่ทรงพลังยิ่งขึ้นของ Apple อาจต้องทำงานบนอุปกรณ์ที่มีหน่วยความจำชั่วคราว (RAM) อย่างน้อย 12GB ขึ้นไปเพื่อประสิทธิภาพที่ดีในการประมวลผลขั้นสูง</li></ul>
+                            </div>
+                        </section>
+                        <div class="links-row">
+                            <a href="https://www.macrumors.com/2026/06/08/apple-reveals-new-ai-architecture/" target="_blank" class="action-btn btn-primary">อ่านบทความต้นฉบับ</a>
+                            <a href="https://news.ycombinator.com/item?id=48450142" target="_blank" class="action-btn btn-secondary">กระทู้บน Hacker News</a>
+                        </div>
+                    </div>
+                </details>
+            </article>
+            
+            <!-- STORY 16 -->
+            <article class="news-item">
+                <details>
+                    <summary>
+                        <div class="summary-header">
+                            <div class="summary-title-section">
+                                <h2 class="story-title">The Smallest Brain You Can Build: A Perceptron in Python</h2>
+                                <p class="teaser">บทความเชิงการศึกษาระดับรางวัลอธิบายแนวคิดและการเขียนโปรแกรมควบคุมเซลล์ประสาทเทียมเดี่ยว (Perceptron) ด้วยภาษา Python แบบโต้ตอบได้ทันทีผ่านหน้าเว็บบราวเซอร์</p>
+                                <div class="meta-row">
+                                    <span class="badge badge-points">🔥 298 คะแนน</span>
+                                    <span class="badge badge-comments">💬 71 ความคิดเห็น</span>
+                                    <span class="badge badge-domain">ranpara.net</span>
+                                </div>
+                            </div>
+                            <div class="toggle-icon">▼</div>
+                        </div>
+                    </summary>
+                    <div class="details-content">
+                        <section class="content-section">
+                            <h3 class="section-header section-header-article">📄 สรุปเนื้อหาบทความ</h3>
+                            <div class="section-body">
+                                <p>บทความนี้นำเสนอแนวทางการเรียนรู้ระบบเครือข่ายประสาทเทียมผ่านการสร้าง <strong>Perceptron</strong> หรือเซลล์ประสาทเทียมขนาดเล็กที่สุดจากศูนย์ด้วยภาษา Python โดยเน้นการอธิบายที่เข้าใจง่าย ปราศจากคณิตศาสตร์ซับซ้อน หรือการเรียกใช้งานไลบรารีขนาดใหญ่ โดยมีประเด็นสรุปดังนี้ครับ:</p><ul><li><strong>แนวคิดการทำงานของ Perceptron:</strong> ได้รับแรงบันดาลใจจากเซลล์ประสาทของมนุษย์ โดยรับค่าตัวแปรขาเข้า (Input) มาคำนวณร่วมกับน้ำหนักความสำคัญ (Weight) และค่าปรับแต่งระบบ (Bias) ก่อนทำการตัดสินใจออกมาในลักษณะค่าความจริงใช่หรือไม่ใช่ (True/False)</li><li><strong>กระบวนการเรียนรู้ (Training Process):</strong> อธิบายการทำงานแบบทีละขั้นเมื่อเซลล์ประสาทตัดสินใจผิดพลาด ระบบจะทำการปรับค่า Weight และ Bias ในทิศทางที่ถูกต้องผ่านค่าอัตราการเรียนรู้ (Learning Rate) โดยการรันข้อมูลซ้ำแต่ละรอบจะเรียกว่า Epoch</li><li><strong>ความสำคัญของค่า Bias:</strong> ผู้เขียนแสดงให้เห็นความแตกต่างของบทบาท Bias ผ่านโจทย์ตัวเลขเชิงบวก/ลบ (ซึ่งไม่จำเป็นต้องใช้ Bias) เปรียบเทียบกับโจทย์คะแนนสอบผ่าน/ตก (ซึ่งจำเป็นต้องมีจุดตัดสินใจหรือ Decision Boundary ที่ขยับออกจากจุดศูนย์ ทำให้ต้องใช้ Bias เป็นตัวกำหนดตำแหน่ง)</li></ul>
+                            </div>
+                        </section>
+                        <section class="content-section">
+                            <h3 class="section-header section-header-discussion">💬 สรุปประเด็นเสวนาในกระทู้</h3>
+                            <div class="section-body">
+                                <p>การอภิปรายจากเหล่านักพัฒนาในบอร์ด Hacker News มุ่งเน้นไปที่การแนะนำแหล่งเรียนรู้คุณภาพและการทำงานเชิงลึกของปัญญาประดิษฐ์ดังนี้ครับ:</p><ul><li><strong>คำแนะนำตำราและหลักสูตรพื้นฐาน:</strong> สมาชิกส่วนใหญ่ร่วมกันแนะนำหนังสือเรียนวิทยาการคอมพิวเตอร์ระดับคลาสสิกของ Chris Bishop เรื่อง "Deep Learning: Foundations and Concepts" และหลักสูตรออนไลน์ของ fast.ai สำหรับผู้ที่ต้องการศึกษาทฤษฎีเชิงลึกแบบเป็นขั้นเป็นตอน แทนการศึกษาผ่านเครื่องมือจำลองแบบเฉพาะหน้า</li><li><strong>ข้อคิดเชิงปรัชญาการเรียนรู้:</strong> มีการหยิบยกประเด็นที่น่าสนใจว่า มนุษย์เราบ่อยครั้งสามารถจดจำทฤษฎีต่าง ๆ ได้เป็นเวลานานโดยที่ไม่ได้ทำความเข้าใจความหมายและนัยยะสำคัญอย่างถ่องแท้ จนกว่าจะสามารถเชื่อมโยงแนวคิดเหล่านั้นเข้ากับประสบการณ์หรือมุมมองอื่น ๆ ได้สำเร็จ</li><li><strong>การเล่นตลกเชิงวิชาการ (Academic Jokes):</strong> เกิดมุกตลกถามว่าเซลล์ประสาทตัวนี้สามารถรันเกม Doom ได้หรือไม่ ซึ่งมีสมาชิกเข้ามาให้คำตอบเชิงวิชาการที่น่าสนใจว่า เนื่องจาก Perceptron สามารถนำมาต่อเชื่อมเพื่อประกอบขึ้นเป็นเกตพื้นฐานแบบ NAND ได้ ดังนั้นในทางทฤษฎี หากนำพวกมันมาเชื่อมต่อกันเป็นระบบขนาดใหญ่ ก็จะสามารถสร้างคอมพิวเตอร์เพื่อประมวลผลเกม Doom ได้อย่างแน่นอน</li></ul>
+                            </div>
+                        </section>
+                        <div class="links-row">
+                            <a href="https://ranpara.net/posts/perceptron-explained-from-scratch/" target="_blank" class="action-btn btn-primary">อ่านบทความต้นฉบับ</a>
+                            <a href="https://news.ycombinator.com/item?id=48440064" target="_blank" class="action-btn btn-secondary">กระทู้บน Hacker News</a>
+                        </div>
+                    </div>
+                </details>
+            </article>
+            
+            <!-- STORY 17 -->
+            <article class="news-item">
+                <details>
+                    <summary>
+                        <div class="summary-header">
+                            <div class="summary-title-section">
+                                <h2 class="story-title">Confidential submission of draft S-1 to the SEC</h2>
+                                <p class="teaser">OpenAI และ Anthropic ประกาศยื่นคำขอเสนอขายหุ้นใหม่แก่ประชาชนทั่วไปเป็นครั้งแรกแบบปิดลับ (Confidential S-1) ต่อ SEC นำไปสู่การประเมินทิศทางธุรกิจและความพร้อมสู่การเป็นบริษัทมหาชน</p>
+                                <div class="meta-row">
+                                    <span class="badge badge-points">🔥 297 คะแนน</span>
+                                    <span class="badge badge-comments">💬 204 ความคิดเห็น</span>
+                                    <span class="badge badge-domain">openai.com</span>
+                                </div>
+                            </div>
+                            <div class="toggle-icon">▼</div>
+                        </div>
+                    </summary>
+                    <div class="details-content">
+                        <section class="content-section">
+                            <h3 class="section-header section-header-article">📄 สรุปเนื้อหาบทความ</h3>
+                            <div class="section-body">
+                                <p><strong>OpenAI</strong> ได้ประกาศต่อสาธารณชนว่าบริษัทได้ดำเนินการยื่นร่างแบบแสดงรายการข้อมูลการเสนอขายหลักทรัพย์ (Form S-1) แก่สำนักงานคณะกรรมการกำกับหลักทรัพย์และตลาดหลักทรัพย์ของสหรัฐอเมริกา (SEC) เป็นที่เรียบร้อยแล้ว โดยเป็นการยื่นแบบปกปิดข้อมูลชั่วคราว (Confidential Draft) เนื่องจากคาดว่าข่าวสารดังกล่าวมีโอกาสรั่วไหลสูง ซึ่งการยื่นแบบปกปิดนี้ช่วยให้บริษัทมีทางเลือกในการก้าวไปสู่การเป็นบริษัทมหาชนได้เร็วขึ้นหากถึงเวลาที่เหมาะสม แม้ว่าการดำเนินงานบางอย่างอาจทำได้สะดวกกว่าในฐานะบริษัทเอกชนก็ตาม</p>
+                            </div>
+                        </section>
+                        <section class="content-section">
+                            <h3 class="section-header section-header-discussion">💬 สรุปประเด็นเสวนาในกระทู้</h3>
+                            <div class="section-body">
+                                <p>กระทู้ Hacker News ได้วิเคราะห์ถึงเหตุผลเบื้องหลังกฎเกณฑ์การยื่นคำขอแบบปิดลับ รวมถึงข้อวิจารณ์ด้านการเงินดังนี้ครับ:</p><ul><li><strong>วัตถุประสงค์ของการยื่นแบบ Confidential S-1:</strong> นักกฎหมายและผู้มีประสบการณ์อธิบายว่า กฎหมายของสหรัฐฯ อนุญาตให้บริษัททั่วไปสามารถยื่นร่าง S-1 แบบปกปิดข้อมูลเพื่อทำการแก้ไขและตอบข้อซักถามกับ SEC เป็นการภายในก่อน โดยไม่ต้องกังวลถึงผลกระทบต่อชื่อเสียงและการบิดเบือนของข้อมูล หากต้องมีการยกเลิกหรือเลื่อนกระบวนการออกไปในภายหลัง โดยข้อมูลจะถูกเปิดเผยต่อสาธารณะอย่างน้อย 21 วันก่อนการจัดโรดโชว์เสนอขายหุ้นจริง</li><li><strong>การแข่งขันกับคู่แข่งหลัก:</strong> ผู้ใช้งานระบุว่าคู่แข่งคนสำคัญอย่าง Anthropic ก็เพิ่งดำเนินการยื่นเอกสารในลักษณะเดียวกันไปเมื่อต้นเดือนมิถุนายน 2026 สะท้อนถึงการแข่งขันของสองค่ายยักษ์ใหญ่ที่กำลังก้าวเข้าสู่สนามตลาดหุ้นเพื่อแสวงหาเงินทุนมารองรับค่าใช้จ่ายด้านทรัพยากรประมวลผล</li><li><strong>ประเด็นเรื่องแรงจูงใจพนักงาน:</strong> มีการให้ข้อมูลเพิ่มเติมว่าการยื่นเอกสารครั้งนี้จะช่วยสร้างความโปร่งใสและสร้างความมั่นใจให้แก่พนักงานที่ประสงค์จะขายหุ้นของตนเองภายใต้ข้อตกลงการซื้อขายหุ้นของบริษัท</li></ul>
+                            </div>
+                        </section>
+                        <div class="links-row">
+                            <a href="https://openai.com/index/openai-submits-confidential-s-1/" target="_blank" class="action-btn btn-primary">อ่านบทความต้นฉบับ</a>
+                            <a href="https://news.ycombinator.com/item?id=48452317" target="_blank" class="action-btn btn-secondary">กระทู้บน Hacker News</a>
+                        </div>
+                    </div>
+                </details>
+            </article>
+            
+            <!-- STORY 18 -->
+            <article class="news-item">
+                <details>
+                    <summary>
+                        <div class="summary-header">
+                            <div class="summary-title-section">
+                                <h2 class="story-title">1k Data Breaches Later, the Disclosure Lag Is Worse</h2>
+                                <p class="teaser">การศึกษาวิจัยพบว่าระยะเวลาในการเปิดเผยข้อมูลการรั่วไหลต่อสาธารณะมีความล่าช้ามากขึ้น แม้ว่าจะเกิดเหตุการณ์ข้อมูลรั่วไหลมาแล้วกว่าพันครั้งก็ตาม</p>
+                                <div class="meta-row">
+                                    <span class="badge badge-points">🔥 296 คะแนน</span>
+                                    <span class="badge badge-comments">💬 120 ความคิดเห็น</span>
+                                    <span class="badge badge-domain">troyhunt.com</span>
+                                </div>
+                            </div>
+                            <div class="toggle-icon">▼</div>
+                        </div>
+                    </summary>
+                    <div class="details-content">
+                        <section class="content-section">
+                            <h3 class="section-header section-header-article">📄 สรุปเนื้อหาบทความ</h3>
+                            <div class="section-body">
+                                <p>บทความฉบับนี้ชี้ให้เห็นถึงปัญหาด้านความมั่นคงปลอดภัยไซเบอร์ โดยมีประเด็นสำคัญดังนี้:</p><ul><li><strong>การเปิดเผยข้อมูลที่ล่าช้า (Disclosure Lag):</strong> ระยะเวลาระหว่างการเกิดเหตุการณ์ข้อมูลรั่วไหลจนถึงการเปิดเผยข้อมูลต่อสาธารณะหรือผู้ที่ได้รับผลกระทบมีแนวโน้มล่าช้าและแย่ลงกว่าเดิมอย่างเห็นได้ชัด</li><li><strong>ข้อจำกัดของการเข้าถึงเนื้อหา:</strong> เนื่องจากระบบไม่สามารถดึงข้อมูลเนื้อหาฉบับเต็มของบทความนี้จากแหล่งที่มาได้โดยตรง ทำให้รายละเอียดเชิงลึกของสถิติและระเบียบวิธีวิจัยถูกจำกัด</li></ul>
+                            </div>
+                        </section>
+                        <section class="content-section">
+                            <h3 class="section-header section-header-discussion">💬 สรุปประเด็นเสวนาในกระทู้</h3>
+                            <div class="section-body">
+                                <p>บทสนทนาในเว็บบอร์ดแสดงให้เห็นถึงมุมมองและความเห็นเชิงลึกในกลุ่มนักพัฒนาและผู้เชี่ยวชาญเกี่ยวกับแนวทางการจัดการข้อมูลรั่วไหล ดังนี้:</p><ul><li><strong>ประเด็นความแตกต่างของข้อมูลที่รั่วไหล:</strong> ผู้ใช้แสดงความคิดเห็นว่าการแจ้งเตือนทั่วไปไม่เพียงพอ แต่ผู้บริโภคจำเป็นต้องทราบข้อมูลเฉพาะเจาะจงที่รั่วไหล เช่น เป็นที่อยู่ปัจจุบันหรือที่อยู่อาศัยเก่า และรหัสผ่านที่รั่วไหลนั้นเป็นรหัสที่ใช้ซ้ำในระบบอื่นหรือไม่ เพื่อให้สามารถดำเนินการป้องกันตนเองได้อย่างตรงจุด</li><li><strong>การถกเถียงเรื่องบริการแจ้งเตือน:</strong> มีการอภิปรายเปรียบเทียบระหว่าง Have I Been Pwned (HIBP) และทางเลือกอื่นๆ เช่น Snusbase โดยบางส่วนชี้ให้เห็นว่าการเปิดเผยแฮชของรหัสผ่านอาจนำไปสู่การถูกถอดรหัส (Crack) และส่งผลเสียมากกว่าผลดี</li><li><strong>แรงจูงใจทางธุรกิจและการบังคับใช้กฎหมาย:</strong> กฎหมายคุ้มครองข้อมูลส่วนบุคคล เช่น GDPR กำหนดให้ต้องแจ้งเหตุภายใน 72 ชั่วโมง แต่ในภาคปฏิบัติ การบังคับใช้กฎหมายในบางประเทศ เช่น เยอรมนี ยังประสบปัญหาความล่าช้า ขาดแคลนทรัพยากรของหน่วยงานรัฐ และการดำเนินคดีขององค์กรอิสระอย่าง noyb.eu มักใช้เวลานาน</li></ul>
+                            </div>
+                        </section>
+                        <div class="links-row">
+                            <a href="https://www.troyhunt.com/1000-data-breaches-later-the-disclosure-lag-is-worse-than-ever/" target="_blank" class="action-btn btn-primary">อ่านบทความต้นฉบับ</a>
+                            <a href="https://news.ycombinator.com/item?id=48440952" target="_blank" class="action-btn btn-secondary">กระทู้บน Hacker News</a>
+                        </div>
+                    </div>
+                </details>
+            </article>
+            
+            <!-- STORY 19 -->
+            <article class="news-item">
+                <details>
+                    <summary>
+                        <div class="summary-header">
+                            <div class="summary-title-section">
+                                <h2 class="story-title">Massachusetts bans sale of precise location data in new privacy rights bill</h2>
+                                <p class="teaser">รัฐแมสซาชูเซตส์ผ่านร่างกฎหมายคุ้มครองความเป็นส่วนตัวฉบับใหม่ที่ห้ามไม่ให้บริษัทต่างๆ นำข้อมูลตำแหน่งพิกัดที่แม่นยำของผู้ใช้งานไปขายโดยไม่ได้รับอนุญาต</p>
+                                <div class="meta-row">
+                                    <span class="badge badge-points">🔥 279 คะแนน</span>
+                                    <span class="badge badge-comments">💬 47 ความคิดเห็น</span>
+                                    <span class="badge badge-domain">techcrunch.com</span>
+                                </div>
+                            </div>
+                            <div class="toggle-icon">▼</div>
+                        </div>
+                    </summary>
+                    <div class="details-content">
+                        <section class="content-section">
+                            <h3 class="section-header section-header-article">📄 สรุปเนื้อหาบทความ</h3>
+                            <div class="section-body">
+                                <p>รายละเอียดความเคลื่อนไหวทางกฎหมายในรัฐแมสซาชูเซตส์เกี่ยวกับการคุ้มครองข้อมูลส่วนบุคคลมีประเด็นหลักดังนี้:</p><ul><li><strong>การผ่านร่างกฎหมายอย่างเป็นเอกฉันท์:</strong> สภาผู้แทนราษฎรแห่งรัฐแมสซาชูเซตส์มีมติ 146-0 ผ่านร่างกฎหมายความเป็นส่วนตัวของผู้บริโภค (Consumer Data Privacy Act) ซึ่งจะถูกรวมเข้ากับร่างของวุฒิสภาเพื่อส่งให้ผู้ว่าการรัฐลงนามประกาศใช้ต่อไป</li><li><strong>ขอบเขตการคุ้มครองและข้อห้าม:</strong> กฎหมายนี้มีผลบังคับใช้กับบริษัทที่ดูแลข้อมูลของผู้บริโภคมากกว่า 100,000 ราย โดยห้ามการขายหรือแบ่งปันข้อมูลที่มีความอ่อนไหวสูง เช่น ข้อมูลไบโอเมตริกซ์ ข้อมูลสุขภาพ ศาสนา สถานะการเข้าเมือง รสนิยมทางเพศ และที่สำคัญคือ <em>ข้อมูลระบุตำแหน่งทางภูมิศาสตร์ที่แม่นยำ (Precise Geolocation)</em> หากไม่ได้รับความยินยอมโดยชัดแจ้ง</li><li><strong>เหตุผลเบื้องหลังการควบคุม:</strong> ข้อมูลระบุตำแหน่งมักถูกโบรกเกอร์ค้าข้อมูลนำไปแพ็กเกจขายให้แก่บุคคลภายนอก รวมถึงรัฐบาลและหน่วยงานความมั่นคง ซึ่งสามารถซื้อข้อมูลเหล่านั้นได้โดยตรงจากตลาดเพื่อหลีกเลี่ยงกระบวนการขอหมายค้นทางศาล</li></ul>
+                            </div>
+                        </section>
+                        <section class="content-section">
+                            <h3 class="section-header section-header-discussion">💬 สรุปประเด็นเสวนาในกระทู้</h3>
+                            <div class="section-body">
+                                <p>ประเด็นการสนทนาและการประเมินประสิทธิภาพของกฎหมายนี้ในชุมชนนักพัฒนาประกอบด้วยแง่มุมดังนี้:</p><ul><li><strong>การขาดสิทธิ์ในการฟ้องร้องโดยตรงของพลเมือง (Private Right of Action):</strong> มีความกังวลว่ากฎหมายนี้อาจขาดประสิทธิภาพในการบังคับใช้จริง เนื่องจากสิทธิ์ในการฟ้องร้องจำกัดอยู่เพียงแค่อัยการสูงสุดของรัฐ (Attorney General) เท่านั้น ซึ่งอาจเปิดช่องให้เกิดการวิ่งเต้นหรือการบริจาคทางการเมืองเพื่อโน้มน้าวอัยการสูงสุด แทนที่จะยอมให้ประชาชนฟ้องร้องทางแพ่งได้เอง</li><li><strong>การถกเถียงเรื่องกฎหมายระดับรัฐกับระดับประเทศ (Federal Preemption):</strong> สมาชิกบางส่วนเห็นว่าการมีกฎหมายที่แตกต่างกันในแต่ละรัฐ (Patchwork) เป็นผลดีต่อความเป็นส่วนตัวมากกว่ากฎหมายระดับประเทศฉับเดียว เพราะจะทำให้บริษัทเทคโนโลยีต้องปฏิบัติตามมาตรฐานที่เข้มงวดที่สุดของรัฐใดรัฐหนึ่งเพื่อความปลอดภัยในการทำธุรกิจ ขณะที่การมีกฎหมายระดับประเทศเพียงฉบับเดียวอาจเปิดโอกาสให้บริษัทขนาดใหญ่ใช้อิทธิพลวิ่งเต้นรัฐสภากลางเพื่อลดหย่อนมาตรฐานความคุ้มครองลงได้</li></ul>
+                            </div>
+                        </section>
+                        <div class="links-row">
+                            <a href="https://techcrunch.com/2026/06/08/massachusetts-votes-to-pass-new-privacy-rights-bill-that-bans-sale-of-precise-location-data/" target="_blank" class="action-btn btn-primary">อ่านบทความต้นฉบับ</a>
+                            <a href="https://news.ycombinator.com/item?id=48448012" target="_blank" class="action-btn btn-secondary">กระทู้บน Hacker News</a>
+                        </div>
+                    </div>
+                </details>
+            </article>
+            
+            <!-- STORY 20 -->
+            <article class="news-item">
+                <details>
+                    <summary>
+                        <div class="summary-header">
+                            <div class="summary-title-section">
+                                <h2 class="story-title">New drug 'functionally cures' many hepatitis B virus infections</h2>
+                                <p class="teaser">การพัฒนาตัวยาใหม่ที่สามารถรักษาผู้ป่วยไวรัสตับอักเสบบีให้หายขาดในเชิงการทำงาน (Functionally Cure) กำลังเป็นที่ถกเถียงในประเด็นการแพร่เชื้อและความปลอดภัย</p>
+                                <div class="meta-row">
+                                    <span class="badge badge-points">🔥 273 คะแนน</span>
+                                    <span class="badge badge-comments">💬 47 ความคิดเห็น</span>
+                                    <span class="badge badge-domain">science.org</span>
+                                </div>
+                            </div>
+                            <div class="toggle-icon">▼</div>
+                        </div>
+                    </summary>
+                    <div class="details-content">
+                        <section class="content-section">
+                            <h3 class="section-header section-header-article">📄 สรุปเนื้อหาบทความ</h3>
+                            <div class="section-body">
+                                <p>ข้อมูลเบื้องต้นเกี่ยวกับความก้าวหน้าทางการแพทย์ในการรักษาไวรัสตับอักเสบบีมีข้อจำกัดด้านการเข้าถึงดังนี้:</p><ul><li><strong>ข้อจำกัดของการเข้าถึงข้อมูลบทความ:</strong> เนื่องจากเกิดข้อผิดพลาดในการเชื่อมต่อเครือข่าย (HTTP Error 403) ทำให้ไม่สามารถตรวจสอบเนื้อหารายละเอียดของผลการวิจัยเชิงลึกของตัวยาตัวใหม่นี้ได้โดยตรงจากเว็บไซต์ต้นทาง</li><li><strong>ประเด็นหลักจากชื่อเรื่อง:</strong> บทความนำเสนอเกี่ยวกับการพัฒนาตัวยาตัวใหม่ที่สามารถนำไปสู่ภาวะ "หายขาดในเชิงการทำงาน" (Functional Cure) ในผู้ป่วยโรคไวรัสตับอักเสบบี (HBV) จำนวนมาก</li></ul>
+                            </div>
+                        </section>
+                        <section class="content-section">
+                            <h3 class="section-header section-header-discussion">💬 สรุปประเด็นเสวนาในกระทู้</h3>
+                            <div class="section-body">
+                                <p>ความคิดเห็นเชิงวิชาการในกลุ่มผู้เชี่ยวชาญร่วมวิเคราะห์ถึงประเด็นทางการแพทย์และการบังคับใช้ในการรักษามีรายละเอียดดังนี้:</p><ul><li><strong>การประเมินการแพร่กระจายเชื้อ (Contagiousness):</strong> มีการอภิปรายว่าผู้ป่วยที่ได้รับการรักษาจนไม่พบปริมาณไวรัสและดีเอ็นเอในกระแสเลือดจะยังสามารถแพร่เชื้อได้หรือไม่ โดยมีการเปรียบเทียบกับหลักการ U=U (Undetectable = Untransmittable) ในผู้ติดเชื้อเอชไอวี ซึ่งระบุว่าหากตรวจไม่พบเชื้อก็จะไม่แพร่เชื้อ</li><li><strong>ข้อจำกัดของการทดสอบและความเสี่ยงแฝง:</strong> นักวิชาการบางท่านเตือนว่าการตรวจไม่พบเชื้อไม่ได้แปลว่ามีความเสี่ยงเป็นศูนย์อย่างสมบูรณ์ เนื่องจากขึ้นอยู่กับความไวของชุดตรวจ (Sensitivity) อีกทั้งเชื้อไวรัสที่แฝงตัวอยู่ (Dormant) ยังคงถูกเข้ารหัสทางพันธุกรรมอยู่ในเซลล์ตับ ซึ่งอาจเกิดการกำเริบขึ้นมาใหม่ได้ (Replication Flare)</li><li><strong>ผลลัพธ์ระยะยาวในการป้องกันภาวะแทรกซ้อน:</strong> มีคำถามสำคัญว่าตัวยาใหม่นี้จะสามารถป้องกันภาวะแทรกซ้อนระยะยาวของไวรัสตับอักเสบบี เช่น โรคตับแข็ง (Cirrhosis) ได้อย่างสมบูรณ์หรือไม่ แม้ว่าผลเบื้องต้นจะชี้ว่าช่วยลดความเสี่ยงลงได้มากก็ตาม</li></ul>
+                            </div>
+                        </section>
+                        <div class="links-row">
+                            <a href="https://www.science.org/content/article/new-drug-functionally-cures-many-hepatitis-b-virus-infections?user_id=66c4bf745d78644b3aa57b08" target="_blank" class="action-btn btn-primary">อ่านบทความต้นฉบับ</a>
+                            <a href="https://news.ycombinator.com/item?id=48440463" target="_blank" class="action-btn btn-secondary">กระทู้บน Hacker News</a>
+                        </div>
+                    </div>
+                </details>
+            </article>
+            
+            <!-- STORY 21 -->
+            <article class="news-item">
+                <details>
+                    <summary>
+                        <div class="summary-header">
+                            <div class="summary-title-section">
+                                <h2 class="story-title">APC–2 – A professional record cutter for producing original playback discs</h2>
+                                <p class="teaser">เครื่องตัดแผ่นเสียงระดับมืออาชีพ APC–2 จากแบรนด์ที่เน้นดีไซน์อย่าง Teenage Engineering เผชิญเสียงวิจารณ์เรื่องกลุ่มเป้าหมายและความคุ้มค่า</p>
+                                <div class="meta-row">
+                                    <span class="badge badge-points">🔥 264 คะแนน</span>
+                                    <span class="badge badge-comments">💬 172 ความคิดเห็น</span>
+                                    <span class="badge badge-domain">teenage.engineering</span>
+                                </div>
+                            </div>
+                            <div class="toggle-icon">▼</div>
+                        </div>
+                    </summary>
+                    <div class="details-content">
+                        <section class="content-section">
+                            <h3 class="section-header section-header-article">📄 สรุปเนื้อหาบทความ</h3>
+                            <div class="section-body">
+                                <p>ข้อมูลเกี่ยวกับผลิตภัณฑ์เครื่องตัดแผ่นเสียงระดับมืออาชีพมีข้อจำกัดและลักษณะเด่นดังนี้:</p><ul><li><strong>การเข้าถึงเนื้อหาจำกัด:</strong> เว็บไซต์ต้นทางไม่มีรายละเอียดบทความขนาดยาวเกี่ยวกับข้อกำหนดเชิงเทคนิคของเครื่องตัดแผ่นเสียงรุ่น APC–2 นี้</li><li><strong>การเปิดตัวผลิตภัณฑ์:</strong> ผลิตภัณฑ์ดังกล่าวเป็นเครื่องตัดแผ่นเสียงระดับมืออาชีพ (Professional Record Cutter) ที่ออกแบบมาเพื่อการผลิตแผ่นบันทึกเสียงสำหรับการเล่นกลับได้โดยตรง</li></ul>
+                            </div>
+                        </section>
+                        <section class="content-section">
+                            <h3 class="section-header section-header-discussion">💬 สรุปประเด็นเสวนาในกระทู้</h3>
+                            <div class="section-body">
+                                <p>การอภิปรายของสมาชิกมุ่งเน้นไปที่การวิเคราะห์โมเดลธุรกิจ การออกแบบ และพฤติกรรมของผู้บริโภคดังนี้:</p><ul><li><strong>กลุ่มเป้าหมายเฉพาะกลุ่มและเรื่องของรสนิยม:</strong> ผู้เข้าร่วมสนทนาชี้ว่าผลิตภัณฑ์นี้ไม่ได้เน้นความคุ้มค่าทางเศรษฐกิจ แต่เจาะกลุ่มผู้บริโภคที่มีกำลังซื้อสูงและหลงใหลในงานดีไซน์ที่เป็นเอกลักษณ์ ซึ่งเป็นการดำเนินกลยุทธ์คล้ายกับแบรนด์แฟชั่นระดับพรีเมียมอย่าง Supreme</li><li><strong>การประเมินแบรนด์ Teenage Engineering (TE):</strong> มีการถกเถียงอย่างเผ็ดร้อนเกี่ยวกับคุณภาพและปรัชญาของแบรนด์ โดยฝั่งหนึ่งมองว่าบริษัทขาดการควบคุมคุณภาพ (QC) ที่ดีและขายสินค้าตกแต่งภาพลักษณ์แบรนด์ที่ขาดฟังก์ชันพื้นฐาน ขณะที่อีกฝั่งชื่นชมในความกล้าคิดค้นสิ่งใหม่ๆ และนวัตกรรมดีไซน์ที่ไม่มีใครเหมือน</li><li><strong>แนวคิดการใช้งานจริง:</strong> มีการเสนอแนวคิดสร้างสรรค์ เช่น ศิลปินสามารถใช้เครื่องนี้ในการอัดการแสดงสดบนเวทีแบบสดๆ แล้วตัดเป็นแผ่นเสียงจำนวนจำกัดเพียงแผ่นเดียวขายให้แฟนคลับทันทีหลังจบคอนเสิร์ต ซึ่งเปรียบเสมือนภาพถ่ายโพลารอยด์ของแผ่นเสียง</li></ul>
+                            </div>
+                        </section>
+                        <div class="links-row">
+                            <a href="https://teenage.engineering/products/apc-2" target="_blank" class="action-btn btn-primary">อ่านบทความต้นฉบับ</a>
+                            <a href="https://news.ycombinator.com/item?id=48440383" target="_blank" class="action-btn btn-secondary">กระทู้บน Hacker News</a>
+                        </div>
+                    </div>
+                </details>
+            </article>
+            
+            <!-- STORY 22 -->
+            <article class="news-item">
+                <details>
+                    <summary>
+                        <div class="summary-header">
+                            <div class="summary-title-section">
+                                <h2 class="story-title">Switzerland wil have a referendum to cap population at 10M</h2>
+                                <p class="teaser">สวิตเซอร์แลนด์เตรียมจัดทำประชามติเพื่อจำกัดจำนวนประชากรไว้ที่ไม่เกิน 10 ล้านคน เพื่อรับมือกับขีดความสามารถในการรองรับของประเทศ</p>
+                                <div class="meta-row">
+                                    <span class="badge badge-points">🔥 247 คะแนน</span>
+                                    <span class="badge badge-comments">💬 495 ความคิดเห็น</span>
+                                    <span class="badge badge-domain">admin.ch</span>
+                                </div>
+                            </div>
+                            <div class="toggle-icon">▼</div>
+                        </div>
+                    </summary>
+                    <div class="details-content">
+                        <section class="content-section">
+                            <h3 class="section-header section-header-article">📄 สรุปเนื้อหาบทความ</h3>
+                            <div class="section-body">
+                                <p>ความก้าวหน้าเกี่ยวกับแผนการลงประชามติเพื่อกำหนดจำกัดจำนวนประชากรในสวิตเซอร์แลนด์มีข้อจำกัดทางเทคนิคดังนี้:</p><ul><li><strong>ปัญหาการเข้าถึงแหล่งข้อมูล:</strong> เนื่องจากข้อผิดพลาด HTTP 403 ทำให้ไม่สามารถอ่านรายละเอียดอย่างเป็นทางการเกี่ยวกับการรณรงค์ทำประชามติครั้งนี้ได้</li><li><strong>หัวข้อการลงประชามติ:</strong> ประเด็นสำคัญคือการเตรียมจัดทำประชามติระดับชาติของสวิตเซอร์แลนด์เพื่อกำหนดเพดานประชากรไว้สูงสุดที่ 10 ล้านคน</li></ul>
+                            </div>
+                        </section>
+                        <section class="content-section">
+                            <h3 class="section-header section-header-discussion">💬 สรุปประเด็นเสวนาในกระทู้</h3>
+                            <div class="section-body">
+                                <p>ชุมชนนักวิเคราะห์และประชาชนร่วมแสดงความคิดเห็นในเชิงรัฐศาสตร์และเศรษฐศาสตร์ต่อเรื่องนี้อย่างกว้างขวาง:</p><ul><li><strong>ขีดความสามารถในการรองรับของประเทศ (Carrying Capacity):</strong> ฝั่งสนับสนุนมองว่าการกำหนดตัวเลขเพดานประชากรเป็นวิธีการเชิงวิทยาศาสตร์และมีเหตุผลในการปกป้องทรัพยากรธรรมชาติ พื้นที่ทำการเกษตร และระบบสวัสดิการสังคม รวมถึงระบบสาธารณสุข ดีกว่าการใช้แคมเปญต่อต้านผู้ลี้ภัยทางการเมืองเพียงอย่างเดียว</li><li><strong>การวิจารณ์ด้านประชานิยมและการเมือง:</strong> ฝั่งคัดค้านมองว่าตัวเลข 10 ล้านคนเป็นตัวเลขที่กำหนดขึ้นมาลอยๆ ไม่มีหลักเกณฑ์การคำนวณที่ชัดเจน และเป็นเพียงการโฆษณาชวนเชื่อของพรรคการเมืองฝ่ายขวา (UDC/SVP) เพื่อดึงคะแนนเสียงจากผู้ที่กังวลเรื่องการอพยพ</li><li><strong>ผลกระทบต่อตลาดแรงงานและภาคสาธารณสุข:</strong> มีการตั้งข้อสังเกตว่าการจำกัดผู้ย้ายถิ่นฐานอาจก่อให้เกิดวิกฤตขาดแคลนแรงงาน โดยเฉพาะในระบบบริการสุขภาพที่ปัจจุบันพึ่งพาแพทย์และพยาบาลชาวต่างชาติ (ส่วนใหญ่มาจากสหภาพยุโรป เช่น อิตาลี เยอรมนี ฝรั่งเศส) ในสัดส่วนที่สูงมาก หากต้องฝึกอบรมบุคลากรในประเทศเองจะใช้เวลานานและมีค่าใช้จ่ายสูงมหาศาล</li></ul>
+                            </div>
+                        </section>
+                        <div class="links-row">
+                            <a href="https://www.admin.ch/en/sustainability-initiative" target="_blank" class="action-btn btn-primary">อ่านบทความต้นฉบับ</a>
+                            <a href="https://news.ycombinator.com/item?id=48450059" target="_blank" class="action-btn btn-secondary">กระทู้บน Hacker News</a>
+                        </div>
+                    </div>
+                </details>
+            </article>
+            
+            <!-- STORY 23 -->
+            <article class="news-item">
+                <details>
+                    <summary>
+                        <div class="summary-header">
+                            <div class="summary-title-section">
+                                <h2 class="story-title">EU-banned pesticides found in rice, tea and spices</h2>
+                                <p class="teaser">รายงานตรวจพบสารเคมีกำจัดศัตรูพืชที่สหภาพยุโรปสั่งห้ามใช้ ปนเปื้อนอยู่ในข้าว ชา และเครื่องเทศที่นำเข้ากลับสู่ตลาดยุโรป</p>
+                                <div class="meta-row">
+                                    <span class="badge badge-points">🔥 239 คะแนน</span>
+                                    <span class="badge badge-comments">💬 89 ความคิดเห็น</span>
+                                    <span class="badge badge-domain">foodwatch.org</span>
+                                </div>
+                            </div>
+                            <div class="toggle-icon">▼</div>
+                        </div>
+                    </summary>
+                    <div class="details-content">
+                        <section class="content-section">
+                            <h3 class="section-header section-header-article">📄 สรุปเนื้อหาบทความ</h3>
+                            <div class="section-body">
+                                <p>รายงานการสุ่มตรวจตัวอย่างอาหารในสหภาพยุโรปเผยให้เห็นวิกฤตความปลอดภัยทางอาหารดังนี้:</p><ul><li><strong>ผลการทดสอบทางห้องปฏิบัติการ:</strong> จากการตรวจผลิตภัณฑ์อาหาร 64 ชนิดในเนเธอร์แลนด์ ฝรั่งเศส ออสเตรีย และเยอรมนี พบยาฆ่าแมลงที่ถูกสั่งห้ามใช้ในสหภาพยุโรปในผลิตภัณฑ์ทั่วไป เช่น ข้าว เมล็ดผักชียี่หร่า ชา และผงพริกป่น</li><li><strong>ปรากฏการณ์สารพิษสะท้อนกลับ (Toxic Pesticides Boomerang):</strong> สารเคมีอันตรายเหล่านี้ห้ามขายในยุโรป แต่ยังคงได้รับอนุญาตให้ส่งออกไปยังประเทศที่สามได้ ทำให้พวกมันปนเปื้อนกลับมาในรูปแบบของสินค้าเกษตรนำเข้าในท้ายที่สุด</li><li><strong>ความเสี่ยงต่อการผ่อนปรนมาตรฐาน:</strong> มีความกังวลว่าคณะกรรมาธิการยุโรปกำลังเตรียมเร่งรัดกระบวนการลดหย่อนกฎระเบียบความปลอดภัยด้านอาหาร (Omnibus) ซึ่งอาจส่งผลให้การประเมินความปลอดภัยของสารเคมีและมาตรการตรวจสอบสินค้านำเข้าอ่อนแอลง</li></ul>
+                            </div>
+                        </section>
+                        <section class="content-section">
+                            <h3 class="section-header section-header-discussion">💬 สรุปประเด็นเสวนาในกระทู้</h3>
+                            <div class="section-body">
+                                <p>หัวข้อนี้จุดชนวนการถกเถียงอย่างรุนแรงเรื่องมาตรฐานการค้าระหว่างประเทศและความปลอดภัยทางเคมี:</p><ul><li><strong>สองมาตรฐานในการนำเข้า:</strong> สมาชิกชี้ว่าสหภาพยุโรปมักบังคับใช้กฎระเบียบที่เข้มงวดกับผู้ผลิตในท้องถิ่น แต่ปล่อยปละละเลยในการตรวจสอบสินค้านำเข้าจากภายนอก เช่น กรณีการนำเข้าน้ำผึ้งปลอมที่ผสมไซรัปจากจีนมาเป็นเวลาหลายทศวรรษโดยไม่มีมาตรการลงโทษที่เป็นรูปธรรม</li><li><strong>ประเด็นเรื่องปริมาณความเข้มข้นทางวิทยาศาสตร์ (PPM):</strong> มีการถกเถียงเรื่องอันตรายที่แท้จริง โดยฝ่ายหนึ่งชี้ว่าปริมาณที่พบต่ำกว่าเกณฑ์อันตรายมาก (ต่ำกว่าระดับ PPM ที่จะส่งผลต่อมนุษย์) ขณะที่ฝ่ายคัดค้านยกตัวอย่างในอดีตเช่น ดีดีที (DDT) ที่เคยเชื่อว่าปลอดภัยในระดับต่ำ แต่สุดท้ายพบว่าสะสมในร่างกายระยะยาวและห่วงโซ่อาหาร ก่อให้เกิดโรคมะเร็งและปัญหาการเจริญพันธุ์ในเวลาต่อมา</li></ul>
+                            </div>
+                        </section>
+                        <div class="links-row">
+                            <a href="https://www.foodwatch.org/en/eu-banned-pesticides-found-in-rice-tea-and-spices" target="_blank" class="action-btn btn-primary">อ่านบทความต้นฉบับ</a>
+                            <a href="https://news.ycombinator.com/item?id=48447062" target="_blank" class="action-btn btn-secondary">กระทู้บน Hacker News</a>
+                        </div>
+                    </div>
+                </details>
+            </article>
+            
+            <!-- STORY 24 -->
+            <article class="news-item">
+                <details>
+                    <summary>
+                        <div class="summary-header">
+                            <div class="summary-title-section">
+                                <h2 class="story-title">Apple WWDC 2026</h2>
+                                <p class="teaser">งานประชุมนักพัฒนา Apple WWDC 2026 มุ่งเน้นไปที่ระบบปัญญาประดิษฐ์ Siri ใหม่ภายใต้ Apple Intelligence และฟีเจอร์ความปลอดภัยของเด็ก</p>
+                                <div class="meta-row">
+                                    <span class="badge badge-points">🔥 235 คะแนน</span>
+                                    <span class="badge badge-comments">💬 464 ความคิดเห็น</span>
+                                    <span class="badge badge-domain">apple.com</span>
+                                </div>
+                            </div>
+                            <div class="toggle-icon">▼</div>
+                        </div>
+                    </summary>
+                    <div class="details-content">
+                        <section class="content-section">
+                            <h3 class="section-header section-header-article">📄 สรุปเนื้อหาบทความ</h3>
+                            <div class="section-body">
+                                <p>เนื้อหาข่าวสรุปหัวใจสำคัญของงานแถลงข่าวและเทคโนโลยีใหม่ของ Apple ประจำปี 2026 ดังนี้:</p><ul><li><strong>การยกระดับระบบปัญญาประดิษฐ์:</strong> การเปิดตัว Siri เวอร์ชันใหม่ที่ขับเคลื่อนด้วย Apple Intelligence ช่วยให้ตอบคำถามได้ลึกซึ้งขึ้น เข้าใจบทสนทนาที่เป็นธรรมชาติมากขึ้น และมีอินเทอร์เฟซโปรแกรมประยุกต์เฉพาะตัว</li><li><strong>การแก้ไขภาพอัจฉริยะ:</strong> เครื่องมือแต่งภาพประสิทธิภาพสูงและ Image Playground รุ่นอัปเดตสำหรับแอปพลิเคชัน Photos, Messages และ Safari</li><li><strong>ฟีเจอร์อื่นๆ:</strong> ขยายขอบเขตการรักษาความปลอดภัยของเยาวชนบนโลกออนไลน์ (Child Safety) และการปรับปรุงประสิทธิภาพเครื่องเพื่อความลื่นไหลในการทำงาน</li></ul>
+                            </div>
+                        </section>
+                        <section class="content-section">
+                            <h3 class="section-header section-header-discussion">💬 สรุปประเด็นเสวนาในกระทู้</h3>
+                            <div class="section-body">
+                                <p>ความเห็นของผู้เข้าชมและผู้ใช้งานผลิตภัณฑ์ Apple มีประเด็นวิจารณ์เชิงบวกและลบผสมผสานกันดังนี้:</p><ul><li><strong>การตอบรับเชิงบวกต่อซอฟต์แวร์:</strong> ผู้ใช้แสดงความยินดีกับการปรับปรุงระบบค้นหาในแอป Mail (Mail.app) ซึ่งแต่เดิมขึ้นชื่อว่าทำงานได้แย่มาก รวมถึงการนำแถบเครื่องมือและแถบด้านข้าง (Sidebar/Toolbar) แบบดั้งเดิมกลับมาใช้งานบน macOS</li><li><strong>ความขัดข้องด้านการรับชมถ่ายทอดสด:</strong> มีกระแสบ่นอย่างหนาหูเกี่ยวกับระบบไลฟ์สตรีมของ Apple ที่จงใจปิดการทำงานของแถบเลื่อนเวลา (Seek/Rewind) ทำให้ไม่สามารถกดย้อนกลับไปดูส่วนแรกได้หากเข้าชมช้ากว่ากำหนด ซึ่งผู้ใช้มองว่าเป็นพฤติกรรมการควบคุมการเข้าถึงที่เกินพอดีและต้องหาทางเลี่ยงโดยการใช้สคริปต์เสริมของบราวเซอร์ภายนอก</li></ul>
+                            </div>
+                        </section>
+                        <div class="links-row">
+                            <a href="https://www.apple.com/apple-events/event-stream/" target="_blank" class="action-btn btn-primary">อ่านบทความต้นฉบับ</a>
+                            <a href="https://news.ycombinator.com/item?id=48448106" target="_blank" class="action-btn btn-secondary">กระทู้บน Hacker News</a>
+                        </div>
+                    </div>
+                </details>
+            </article>
+            
+            <!-- STORY 25 -->
+            <article class="news-item">
+                <details>
+                    <summary>
+                        <div class="summary-header">
+                            <div class="summary-title-section">
+                                <h2 class="story-title">Zig by Example</h2>
+                                <p class="teaser">เว็บไซต์การเรียนรู้ภาษา Zig ผ่านตัวอย่างโค้ด (Zig by Example) ได้รับความสนใจ แต่ยังมีประเด็นเรื่องความเก่าของเนื้อหาและเวอร์ชันคอมไพเลอร์</p>
+                                <div class="meta-row">
+                                    <span class="badge badge-points">🔥 212 คะแนน</span>
+                                    <span class="badge badge-comments">💬 99 ความคิดเห็น</span>
+                                    <span class="badge badge-domain">github.com</span>
+                                </div>
+                            </div>
+                            <div class="toggle-icon">▼</div>
+                        </div>
+                    </summary>
+                    <div class="details-content">
+                        <section class="content-section">
+                            <h3 class="section-header section-header-article">📄 สรุปเนื้อหาบทความ</h3>
+                            <div class="section-body">
+                                <p>ข้อมูลแนะนำแหล่งเรียนรู้ภาษาโปรแกรมมิ่งแบบปฏิบัติจริงมีประเด็นสำคัญดังนี้:</p><ul><li><strong>แนวคิดและการจัดทำ:</strong> "Zig by Example" เขียนขึ้นโดย Dariush Abbasi เพื่อแนะนำภาษา Zig ในรูปแบบสั้นกระชับพร้อมคำอธิบายแบบตัวอย่างโค้ดอ้างอิงจากแบบอย่างของ Go by Example</li><li><strong>คุณลักษณะของภาษา Zig:</strong> เน้นการเป็นภาษาคอมไพล์สำหรับพัฒนาระบบที่มีความทนทาน มีประสิทธิภาพสูงสุด ปราศจากการควบคุมการทำงานที่ซ่อนอยู่ (No Hidden Control Flow) และไม่มีการจัดการหน่วยความจำที่ซ่อนเร้น (No Hidden Allocations)</li><li><strong>หัวข้อความรู้:</strong> ครอบคลุมตั้งแต่การประกาศตัวแปรไปจนถึงเรื่องใหม่อย่างระบบอินพุตเอาต์พุต (Io Interface) ในเวอร์ชัน 0.16, เรื่องเธรด (Threading) และเน็ตเวิร์ก (HTTP)</li></ul>
+                            </div>
+                        </section>
+                        <section class="content-section">
+                            <h3 class="section-header section-header-discussion">💬 สรุปประเด็นเสวนาในกระทู้</h3>
+                            <div class="section-body">
+                                <p>การประเมินจากผู้ใช้งานและชุมชนโปรแกรมเมอร์ต่อแหล่งข้อมูลนี้สะท้อนมุมมองดังนี้:</p><ul><li><strong>ปัญหาความเข้ากันได้ของเวอร์ชันคอมไพเลอร์:</strong> นักพัฒนาวิจารณ์ว่าตัวอย่างในเว็บหลายจุดยังเป็นเวอร์ชันเก่า (เช่น 0.14) ซึ่งการเปลี่ยนแปลงโครงสร้างภาษาของ Zig ในเวอร์ชันใหม่ เช่น ระบบการพิมพ์และเขียนไฟล์ (Writergate) ทำให้โค้ดตัวอย่างคอมไพล์ไม่ผ่าน ซึ่งเป็นจุดเด่นและจุดด้อยของภาษา Zig ที่มักขาดความเข้ากันได้ย้อนหลัง (Backward Compatibility) จนกว่าจะถึงเวอร์ชัน 1.0</li><li><strong>การแนะนำแหล่งข้อมูลทดแทน:</strong> ผู้ใช้ได้ร่วมแนะนำเว็บไซต์ทางเลือกที่ทันสมัยกว่า เช่น <em>Learning Zig</em> โดย Karl Seguin, <em>zig.guide</em> และ <em>Ziglings</em> ซึ่งเป็นแพลตฟอร์มฝึกเขียนโค้ดที่ต้องแก้ไขข้อผิดพลาดแบบอินเทอร์แอคทีฟ</li></ul>
+                            </div>
+                        </section>
+                        <div class="links-row">
+                            <a href="https://github.com/boringcollege/zig-by-example" target="_blank" class="action-btn btn-primary">อ่านบทความต้นฉบับ</a>
+                            <a href="https://news.ycombinator.com/item?id=48444871" target="_blank" class="action-btn btn-secondary">กระทู้บน Hacker News</a>
+                        </div>
+                    </div>
+                </details>
+            </article>
+            
+            <!-- STORY 26 -->
+            <article class="news-item">
+                <details>
+                    <summary>
+                        <div class="summary-header">
+                            <div class="summary-title-section">
+                                <h2 class="story-title">Age verification tech could put children at greater risk, says think tank</h2>
+                                <p class="teaser">รายงานจากสถาบันวิจัยนโยบายด้านเทคโนโลยีเตือนว่า กฎหมายบังคับตรวจสอบอายุทางออนไลน์อาจเพิ่มความเสี่ยงให้แก่เด็กและปิดกั้นการเข้าถึงบริการของกลุ่มเปราะบาง</p>
+                                <div class="meta-row">
+                                    <span class="badge badge-points">🔥 197 คะแนน</span>
+                                    <span class="badge badge-comments">💬 184 ความคิดเห็น</span>
+                                    <span class="badge badge-domain">computerweekly.com</span>
+                                </div>
+                            </div>
+                            <div class="toggle-icon">▼</div>
+                        </div>
+                    </summary>
+                    <div class="details-content">
+                        <section class="content-section">
+                            <h3 class="section-header section-header-article">📄 สรุปเนื้อหาบทความ</h3>
+                            <div class="section-body">
+                                <p>สถาบันวิจัยนโยบายข้อมูลสารสนเทศ (FIPR) ของสหราชอาณาจักร ได้แสดงความกังวลอย่างลึกซึ้งต่อนโยบายของรัฐบาลที่จะบังคับใช้มาตรการตรวจสอบอายุอย่างเข้มงวดในการเข้าถึงสื่อสังคมออนไลน์ โดยชี้แจงประเด็นสำคัญเพื่อการศึกษาดังนี้:</p><ul><li><strong>ความเสี่ยงด้านความปลอดภัยและความเป็นส่วนตัว:</strong> การส่งข้อมูลชีวมิติ (Biometrics) บัตรเครดิต หรือเอกสารยืนยันตัวตนของรัฐมีความเสี่ยงสูงต่อการถูกแฮ็กหรือนำข้อมูลไปใช้ในทางที่ผิดโดยผู้ให้บริการตรวจสอบ</li><li><strong>ผลกระทบต่อกลุ่มเปราะบาง:</strong> เทคโนโลยีสแกนใบหน้ามักทำงานผิดพลาดกับกลุ่มชาติพันธุ์ ผู้พิการ และกลุ่มผู้มีความหลากหลายทางเพศ (LGBT) ซึ่งอาจทำให้กลุ่มคนเหล่านี้ถูกจำกัดสิทธิ์จากการใช้งานอินเทอร์เน็ตโดยไม่ตั้งใจ</li><li><strong>การเลี่ยงผ่านเทคโนโลยีของเยาวชน:</strong> เด็กที่มีแรงจูงใจสามารถหลีกเลี่ยงระบบได้โดยง่าย เช่น การใช้งาน VPN/Tor การซื้อบัญชีสื่อสังคมออนไลน์ที่ผ่านการยืนยันแล้วในราคาถูกเพียง 0.80 ดอลลาร์สหรัฐ หรือการใช้รูปภาพเคลื่อนไหวที่สร้างจาก AI เพื่อหลอกระบบตรวจจับใบหน้า</li><li><strong>ข้อเสนอแนะทางเลือก:</strong> FIPR เสนอให้ใช้ระบบ <em>"Tagging and Blocking"</em> โดยผู้ให้บริการระบุประเภทเนื้อหาบนหน้าเว็บ และให้ผู้ปกครองหรือผู้ใช้ตั้งค่าอุปกรณ์ในการคัดกรองเนื้อหาตามระดับความเหมาะสม คล้ายกับระบบจัดเรตติ้งภาพยนตร์ ซึ่งเหมาะสมกว่ามาตรการสอดส่องของรัฐที่เปรียบเสมือนการบังคับให้ประชาชนยอมสละสิทธิ์ในข้อมูลส่วนตัวเพียงเพื่อสิทธิในการแสดงออก</li></ul>
+                            </div>
+                        </section>
+                        <section class="content-section">
+                            <h3 class="section-header section-header-discussion">💬 สรุปประเด็นเสวนาในกระทู้</h3>
+                            <div class="section-body">
+                                <p>การสนทนาในชุมชนออนไลน์สะท้อนความคิดเห็นที่หลากหลายในมิติต่างๆ ดังนี้:</p><ul><li><strong>การกระจายอำนาจและการควบคุมโดยผู้ปกครอง:</strong> มีข้อเสนอทางเทคนิคให้เว็บไซต์ส่งออกข้อมูลมาตรฐาน (เช่น การใช้ TXT, SRV หรือ /.well-known) เพื่อระบุเกณฑ์อายุขั้นต่ำ ซึ่งจะช่วยให้ผู้ปกครองสามารถตั้งค่าตัวกรองเนื้อหาบนอุปกรณ์ของตนเองได้โดยตรงโดยไม่ต้องมอบอำนาจให้แก่บริษัทขนาดใหญ่หรือภาครัฐ</li><li><strong>ความกังวลเรื่องการสอดส่องของรัฐ (Mass Surveillance):</strong> สมาชิกบางส่วนกังวลว่ารัฐบาลใช้ประเด็นความปลอดภัยของเด็กเป็นข้ออ้างบังคับยืนยันตัวตนทางออนไลน์ ("Boiling the frog") ซึ่งสุดท้ายจะนำไปสู่การควบคุมและติดตามพฤทีพฤติกรรมประชาชนทั้งหมด</li><li><strong>ความจำเป็นเร่งด่วนในการปกป้องเด็ก:</strong> ในทางกลับกัน ผู้ปกครองบางส่วนระบุว่ายินยอมที่จะผ่านขั้นตอนยืนยันตัวตนหากช่วยปกป้องเด็กจากเนื้อหารุนแรงและสื่อลามกได้ เนื่องจากบริษัทเทคโนโลยีไม่สนใจแก้ปัญหานี้ในช่วงสิบกว่าปีที่ผ่านมา ทำให้ภาครัฐต้องออกกฎหมายควบคุมอย่างหลีกเลี่ยงไม่ได้</li></ul>
+                            </div>
+                        </section>
+                        <div class="links-row">
+                            <a href="https://www.computerweekly.com/news/366643835/Age-verification-tech-could-put-children-at-greater-risk-says-think-tank" target="_blank" class="action-btn btn-primary">อ่านบทความต้นฉบับ</a>
+                            <a href="https://news.ycombinator.com/item?id=48442371" target="_blank" class="action-btn btn-secondary">กระทู้บน Hacker News</a>
+                        </div>
+                    </div>
+                </details>
+            </article>
+            
+            <!-- STORY 27 -->
+            <article class="news-item">
+                <details>
+                    <summary>
+                        <div class="summary-header">
+                            <div class="summary-title-section">
+                                <h2 class="story-title">Apple Core AI Framework</h2>
+                                <p class="teaser">แอปเปิลเปิดตัวเฟรมเวิร์ก Core AI สำหรับแปลงและปรับแต่งโมเดลปัญญาประดิษฐ์ให้ทำงานบนอุปกรณ์ได้อย่างมีประสิทธิภาพสูงในการประชุม WWDC 2026</p>
+                                <div class="meta-row">
+                                    <span class="badge badge-points">🔥 196 คะแนน</span>
+                                    <span class="badge badge-comments">💬 39 ความคิดเห็น</span>
+                                    <span class="badge badge-domain">developer.apple.com</span>
+                                </div>
+                            </div>
+                            <div class="toggle-icon">▼</div>
+                        </div>
+                    </summary>
+                    <div class="details-content">
+                        <section class="content-section">
+                            <h3 class="section-header section-header-article">📄 สรุปเนื้อหาบทความ</h3>
+                            <div class="section-body">
+                                <p>ข้อมูลจากการประชุมนักพัฒนาโลกของแอปเปิล (WWDC 2026) ระบุการเปิดตัวเฟรมเวิร์กใหม่ล่าสุดชื่อ <strong>Core AI</strong> ซึ่งออกแบบมาสำหรับการนำโมเดลปัญญาประดิษฐ์ (AI Models) มาประมวลผลบนตัวอุปกรณ์ (On-device AI) โดยมีสาระสำคัญดังนี้:</p><ul><li><strong>การเพิ่มประสิทธิภาพการประมวลผล:</strong> เฟรมเวิร์กนี้ทำหน้าที่แปลงโมเดลที่พัฒนาด้วย PyTorch ให้สามารถรันข้ามสถาปัตยกรรมทั้งหน่วยประมวลผลกลาง (CPU) หน่วยประมวลผลกราฟิก (GPU) และหน่วยประมวลผลประสาทเทียมของแอปเปิล (Apple's Neural Engine - ANE) ได้อย่างรวดเร็ว</li><li><strong>การรองรับระบบปฏิบัติการ:</strong> Core AI มีข้อกำหนดในการติดตั้งร่วมกับระบบปฏิบัติการเวอร์ชันใหม่ล่าสุดของปี 2026 (เช่น OS 27 ขึ้นไป)</li></ul>
+                            </div>
+                        </section>
+                        <section class="content-section">
+                            <h3 class="section-header section-header-discussion">💬 สรุปประเด็นเสวนาในกระทู้</h3>
+                            <div class="section-body">
+                                <p>สมาชิกในชุมชนนักพัฒนาได้ร่วมแลกเปลี่ยนความเข้าใจเชิงลึกเกี่ยวกับสถาปัตยกรรมซอฟต์แวร์ของแอปเปิลดังนี้:</p><ul><li><strong>เปรียบเทียบกับเฟรมเวิร์กอื่น:</strong> นักพัฒนาวิเคราะห์ความแตกต่างระหว่าง Core AI (มุ่งเน้นโมเดลโครงข่ายประสาทเทียมยุคใหม่ที่ต้องการความเร็วสูงและรันข้ามแพลตฟอร์ม), Core ML (ใช้สำหรับโมเดลรูปแบบอื่นที่ไม่ใช่โครงข่ายประสาทเทียม เช่น Decision Trees หรือข้อมูลแบบตาราง รวมถึงการทำงานร่วมกับระบบปฏิบัติการรุ่นเก่า), และ MLX (เน้นงานวิจัยและพัฒนาโมเดลที่ไม่ได้เน้นความเร็วระดับสูงสุด)</li><li><strong>เครื่องมือจัดการโมเดลภายในเครื่อง (On-device Models):</strong> มีการพูดถึงเครื่องมือบรรทัดคำสั่ง (CLI tool) ใหม่ชื่อ <code>fm</code> สำหรับเข้าถึงโมเดลพื้นฐาน (Foundation Models) ท้องถิ่นบนอุปกรณ์ระบบปฏิบัติการ macOS/iOS รุ่นใหม่</li><li><strong>อนาคตของปัญญาประดิษฐ์บนอุปกรณ์:</strong> ชุมชนมองว่าการย่อขนาดโมเดล (Distillation) ให้มีขนาดเล็กแต่ประสิทธิภาพสูงจะทำให้แอปพลิเคชันส่วนใหญ่เปลี่ยนมารันบนอุปกรณ์ของผู้บริโภคโดยตรง ซึ่งอาจลดความจำเป็นในการพึ่งพาบริการคลาวด์ API ราคาแพงของบริษัท AI ยักษ์ใหญ่</li></ul>
+                            </div>
+                        </section>
+                        <div class="links-row">
+                            <a href="https://developer.apple.com/documentation/coreai/" target="_blank" class="action-btn btn-primary">อ่านบทความต้นฉบับ</a>
+                            <a href="https://news.ycombinator.com/item?id=48449665" target="_blank" class="action-btn btn-secondary">กระทู้บน Hacker News</a>
+                        </div>
+                    </div>
+                </details>
+            </article>
+            
+            <!-- STORY 28 -->
+            <article class="news-item">
+                <details>
+                    <summary>
+                        <div class="summary-header">
+                            <div class="summary-title-section">
+                                <h2 class="story-title">1worldflag: A blue dot on a transparent background</h2>
+                                <p class="teaser">โครงการ One World Flag เสนอการใช้ธงโปร่งใสที่มีวงกลมสีน้ำเงินตรงกลางเพื่อเป็นสัญลักษณ์แห่งความสามัคคีสำหรับมนุษยชาติทุกคนบนโลก</p>
+                                <div class="meta-row">
+                                    <span class="badge badge-points">🔥 171 คะแนน</span>
+                                    <span class="badge badge-comments">💬 145 ความคิดเห็น</span>
+                                    <span class="badge badge-domain">1worldflag.com</span>
+                                </div>
+                            </div>
+                            <div class="toggle-icon">▼</div>
+                        </div>
+                    </summary>
+                    <div class="details-content">
+                        <section class="content-section">
+                            <h3 class="section-header section-header-article">📄 สรุปเนื้อหาบทความ</h3>
+                            <div class="section-body">
+                                <p>โครงการ <strong>One World Flag</strong> ก่อตั้งโดย Thomas Mandl เพื่อสร้างสัญลักษณ์ที่เป็นสากลสำหรับผู้คนทั่วโลก โดยมีแนวคิดการออกแบบและกิจกรรมดังนี้:</p><ul><li><strong>สัญลักษณ์ธงโปร่งใส:</strong> ตัวธงมีรูปทรงกลมสีน้ำเงินอยู่ตรงกลางอันเป็นสัญลักษณ์ของโลกเรา บนพื้นหลังวัสดุโปร่งใส เพื่อให้กลมกลืนและปรับตัวเข้ากับสภาพแวดล้อมที่นำไปติดตั้งได้เสมอ สะท้อนแนวคิดที่ว่า "เรามีสิ่งที่เชื่อมโยงกันมากกว่าสิ่งที่แบ่งแยกเรา"</li><li><strong>การเผยแพร่ผ่านกิจกรรมและศิลปะ:</strong> มีโครงการส่งต่อธงเย็บมือจากแคว้นบาวาเรียผ่านผู้อ่านนิตยสาร nomad ไปยังผู้อ่านคนอื่นทั่วโลก การจัดเวิร์กช็อป <em>"Flag Your ID"</em> ร่วมกับองค์กรพัฒนาเอกชนเยอรมัน ARTHELPS เพื่อให้เยาวชนในยูเครนได้ค้นหาอัตลักษณ์ของตนเอง ตลอดจนการจัดนิทรรศการศิลปะในหลากหลายประเทศเพื่อสื่อสารเรื่องเอกภาพของโลก</li></ul>
+                            </div>
+                        </section>
+                        <section class="content-section">
+                            <h3 class="section-header section-header-discussion">💬 สรุปประเด็นเสวนาในกระทู้</h3>
+                            <div class="section-body">
+                                <p>ผู้ใช้บริการและนักออกแบบได้ร่วมวิเคราะห์ความน่าสนใจและความท้าทายในทางปฏิบัติของธงดังกล่าว:</p><ul><li><strong>ความท้าทายด้านวัสดุและความทนทาน:</strong> การสร้างธงโปร่งใสให้ทนทานต่อสภาพอากาศและการเดินเรือเป็นเรื่องยาก เนื่องจากผ้าไหมแก้ว (Silk Organza) ชนิดบางอาจฉีกขาดง่าย ในขณะที่พลาสติกสังเคราะห์ก็ก่อให้เกิดปัญหาสิ่งแวดล้อมและไมโครพลาสติก</li><li><strong>ข้อถกเถียงด้านจริยธรรม (Veganism):</strong> มีข้อสังเกตว่าการใช้ผ้าไหมแก้วซึ่งได้มาจากรังไหมขัดกับแนวคิดการไม่เบียดเบียนสัตว์ (Vegan) ส่งผลให้สมาชิกบางรายมองว่าธงที่ประกาศตัวเป็นตัวแทนของโลกไม่ควรสร้างขึ้นจากกรรมวิธีที่ทำร้ายสิ่งมีชีวิตอื่น</li><li><strong>การแสดงผลในรูปแบบดิจิทัล:</strong> เกิดบทสนทนาว่าธงโปร่งใสควรแสดงผลในหน้าจออย่างไร เช่น การใช้พื้นหลังตารางหมากรุก (Checkerboard pattern) หรือการใช้เทคนิคอินเทอร์เฟซแบบกระจกฝ้า (Frosted glass effect) เพื่อจำลองความกึ่งโปร่งใสเมื่อธงเคลื่อนไหว</li></ul>
+                            </div>
+                        </section>
+                        <div class="links-row">
+                            <a href="https://1worldflag.com/" target="_blank" class="action-btn btn-primary">อ่านบทความต้นฉบับ</a>
+                            <a href="https://news.ycombinator.com/item?id=48440435" target="_blank" class="action-btn btn-secondary">กระทู้บน Hacker News</a>
+                        </div>
+                    </div>
+                </details>
+            </article>
+            
+            <!-- STORY 29 -->
+            <article class="news-item">
+                <details>
+                    <summary>
+                        <div class="summary-header">
+                            <div class="summary-title-section">
+                                <h2 class="story-title">Why are so many young people getting cancer?</h2>
+                                <p class="teaser">นักวิจัยทั่วโลกกำลังเร่งหาสาเหตุของการเพิ่มขึ้นอย่างมีนัยสำคัญของโรคมะเร็งในกลุ่มคนอายุน้อยกว่า 50 ปี ซึ่งแต่เดิมมักพบในผู้สูงอายุ</p>
+                                <div class="meta-row">
+                                    <span class="badge badge-points">🔥 163 คะแนน</span>
+                                    <span class="badge badge-comments">💬 172 ความคิดเห็น</span>
+                                    <span class="badge badge-domain">nature.com</span>
+                                </div>
+                            </div>
+                            <div class="toggle-icon">▼</div>
+                        </div>
+                    </summary>
+                    <div class="details-content">
+                        <section class="content-section">
+                            <h3 class="section-header section-header-article">📄 สรุปเนื้อหาบทความ</h3>
+                            <div class="section-body">
+                                <p>การประชุมมะเร็งระดับโลกหลายครั้งในปีนี้ได้หยิบยกประเด็นการเพิ่มขึ้นของโรคมะเร็งในผู้ป่วยอายุต่ำกว่า 50 ปี (Early-onset cancer) มาหารือเชิงลึกเพื่อการศึกษา ดังนี้:</p><ul><li><strong>การเพิ่มขึ้นในระดับสากล:</strong> อัตราการวินิจฉัยโรคมะเร็งในผู้ป่วยวัยหนุ่มสาวทั่วโลกพุ่งขึ้นกว่า 9,000 รายต่อวัน โดยเฉพาะมะเร็งลำไส้ใหญ่และทวารหนัก (Colorectal cancer) ในสหรัฐฯ ที่เพิ่มขึ้นร้อยละ 3 ต่อปีตั้งแต่ปี 2010 และกลายมาเป็นสาเหตุหลักการเสียชีวิตจากมะเร็งในกลุ่มอายุ 20-49 ปี รวมถึงมะเร็งมดลูกและมะเร็งตับที่พบมากขึ้นในผู้หญิงอายุน้อย</li><li><strong>ความแตกต่างระหว่างโรคและวิธีการวินิจฉัย:</strong> บางโรคอย่างมะเร็งตับอ่อนมีจำนวนผู้ป่วยเพิ่มขึ้นจากการเปลี่ยนเกณฑ์การจำแนกโรคในอดีต แต่สำหรับมะเร็งลำไส้ใหญ่นั้นเกิดจากการเพิ่มขึ้นของอัตราการเกิดโรคจริงที่เรียกว่า "ปรากฏการณ์กลุ่มปีเกิด" (Birth cohort effect)</li><li><strong>สมมติฐานและการสืบสวนสิ่งแวดล้อม:</strong> แม้ว่าความอ้วนและโรคระบบเผาผลาญจะมีความสัมพันธ์กับมะเร็งบางชนิด แต่ผู้ป่วยอายุน้อยจำนวนมากไม่ได้มีภาวะอ้วน ทำให้นักวิจัยต้องตั้งสมมติฐานและศึกษาปัจจัยแวดล้อมใหม่ๆ เช่น อาหารแปรรูปขั้นสูง (Ultra-processed foods) สารเคมีทางการเกษตร สารพิษจากจุลชีพ และพฤติกรรมในชีวิตประจำวัน</li></ul>
+                            </div>
+                        </section>
+                        <section class="content-section">
+                            <h3 class="section-header section-header-discussion">💬 สรุปประเด็นเสวนาในกระทู้</h3>
+                            <div class="section-body">
+                                <p>ในส่วนของความคิดเห็น สมาชิกได้เสนอทฤษฎีและแบ่งปันมุมมองเกี่ยวกับไลฟ์สไตล์ยุคใหม่ที่มีผลต่อสุขภาพ:</p><ul><li><strong>อาหารและเคมีเกษตร:</strong> ผู้ใช้ส่วนใหญ่ชี้ไปที่การบริโภคอาหารแปรรูปขั้นสูง สารเคมีปราบศัตรูพืช และการขาดแคลนอาหารออร์แกนิกที่ปลูกเอง โดยมีการอ้างอิงการศึกษาเปรียบเทียบในต่างประเทศ เช่น อิตาลี ที่มีการจำกัดการใช้สารเคมีเกษตรและกินอาหารแปรรูปน้อยกว่า ทำให้อัตรามะเร็งลำไส้ไม่เพิ่มขึ้นรวดเร็ว</li><li><strong>การอดนอนและพฤติกรรมติดจอ:</strong> การนอนไม่พอจากการทำงานล่วงเวลาและการใช้งานโทรศัพท์มือถือเพื่อเสพข่าวสารในช่วงกลางคืน (Doom-scrolling) ถูกมองว่าเป็นปัจจัยบั่นทอนระบบภูมิคุ้มกันอย่างรุนแรง</li><li><strong>มลพิษสะสมและสิ่งแวดล้อม:</strong> ข้อกังวลเรื่องไมโครพลาสติก การสะสมแก๊สเรดอน (Radon) ในอาคารที่ฉนวนกันความร้อนหนาแน่นขึ้น และการใช้ยาสามัญประจำบ้านบางประเภท เช่น ยาแก้แพ้ทุกวัน ซึ่งอาจลดการทำงานของระบบภูมิคุ้มกันในการดักจับเซลล์มะเร็ง</li></ul>
+                            </div>
+                        </section>
+                        <div class="links-row">
+                            <a href="https://www.nature.com/articles/d41586-026-01780-6" target="_blank" class="action-btn btn-primary">อ่านบทความต้นฉบับ</a>
+                            <a href="https://news.ycombinator.com/item?id=48446909" target="_blank" class="action-btn btn-secondary">กระทู้บน Hacker News</a>
+                        </div>
+                    </div>
+                </details>
+            </article>
+            
+            <!-- STORY 30 -->
+            <article class="news-item">
+                <details>
+                    <summary>
+                        <div class="summary-header">
+                            <div class="summary-title-section">
+                                <h2 class="story-title">A Matter Wi-Fi Light Bulb in Rust on the Raspberry Pi Pico 2 W</h2>
+                                <p class="teaser">นักพัฒนาเผยแพร่ตัวอย่างโค้ดภาษา Rust บนเฟรมเวิร์ก Embassy เพื่อสร้างหลอดไฟอัจฉริยะที่รองรับโปรโตคอล Matter บนบอร์ด Raspberry Pi Pico 2 W</p>
+                                <div class="meta-row">
+                                    <span class="badge badge-points">🔥 162 คะแนน</span>
+                                    <span class="badge badge-comments">💬 38 ความคิดเห็น</span>
+                                    <span class="badge badge-domain">github.com</span>
+                                </div>
+                            </div>
+                            <div class="toggle-icon">▼</div>
+                        </div>
+                    </summary>
+                    <div class="details-content">
+                        <section class="content-section">
+                            <h3 class="section-header section-header-article">📄 สรุปเนื้อหาบทความ</h3>
+                            <div class="section-body">
+                                <p>คลังข้อมูลซอฟต์แวร์นี้ได้เผยแพร่ตัวอย่างการเขียนโปรแกรมควบคุมไมโครคอนโทรลเลอร์รุ่นใหม่ <strong>RP2350 (Raspberry Pi Pico 2)</strong> ด้วยภาษา Rust ภายใต้เฟรมเวิร์กการทำงานแบบไม่ประสานเวลา (Embassy Async Framework) โดยประกอบด้วยความรู้เชิงปฏิบัติการดังนี้:</p><ul><li><strong>ตัวอย่างการใช้งานเซนเซอร์และฮาร์ดแวร์:</strong> การอ่านค่าอุณหภูมิและความชื้นจากเซนเซอร์ HS3003 และ DHT11 การอ่านค่าความเร่ง 3 แกนจาก ADXL345 การแสดงผลรูปภาพและหิมะตกบนจอ TFT LCD ด้วยระบบ DMA (Direct Memory Access) เพื่อไม่ให้รบกวนการทำงานของ CPU</li><li><strong>การควบคุมจังหวะเวลาอย่างเที่ยงตรง:</strong> การอ่านค่าเซนเซอร์ DS18B20 ผ่านระบบ 1-Wire ที่ต้องใช้ตัวหน่วงเวลาที่มีระดับความแม่นยำสูง (PreciseDelay) ในระดับซับไมโครวินาที</li><li><strong>การพัฒนาอุปกรณ์อัจฉริยะด้วยโปรโตคอล Matter:</strong> การพัฒนาหลอดไฟที่ใช้คลังรหัส <code>rs-matter</code> เพื่อเชื่อมต่อ Apple Home, Google Home หรือ Home Assistant ได้โดยตรงผ่านเครือข่าย Wi-Fi ท้องถิ่น โดยใช้บลูทูธ (BLE) ในขั้นตอนติดตั้งเบื้องต้น</li></ul>
+                            </div>
+                        </section>
+                        <section class="content-section">
+                            <h3 class="section-header section-header-discussion">💬 สรุปประเด็นเสวนาในกระทู้</h3>
+                            <div class="section-body">
+                                <p>บทสนทนาในชุมชนให้ความสำคัญกับรายละเอียดทางเทคนิคของฝั่งฮาร์ดแวร์และการใช้ภาษา Rust ในระบบฝังตัว (Embedded Systems):</p><ul><li><strong>ความท้าทายด้านวิศวกรรมเครือข่ายไร้สาย (Coexistence):</strong> ผู้พัฒนาพบปัญหาสัญญาณรบกวนและการสูญเสียข้อมูลบนบัส SPI เมื่อสั่งเปิดสัญญาณ Wi-Fi และ BLE พร้อมกัน เนื่องจากชิป CYW43439 และความเร็วสัญญาณนาฬิกาของ RP2350 ที่สูงขึ้นเป็น 150MHz วิธีแก้ปัญหาคือการลดความเร็วบัส SPI ลง หรือการออกแบบตรรกะให้สลับการทำงานระหว่างสัญญาณบลูทูธและ Wi-Fi อย่างเป็นลำดับ</li><li><strong>การใช้งานภาษา Rust บนฮาร์ดแวร์:</strong> นักพัฒนาชื่นชมความก้าวหน้าของไลบรารี Embassy และภาษา Rust ที่ช่วยให้การเขียนระบบ State Machine ในอุปกรณ์ฝังตัวง่ายและปลอดภัยกว่าภาษา C/C++ ดั้งเดิมมาก</li><li><strong>ข้อถกเถียงเรื่องการตรวจนับบรรทัดคำสั่ง:</strong> มีการพูดคุยเชิงขำขันและแก้ไขความเข้าใจผิดของระบบจัดอันดับภาษาบน GitHub ที่นับไฟล์ Linker Script (.x) ที่ยาวเกินจริง จนทำให้เข้าใจผิดว่าโครงการนี้พึ่งพาโค้ดอื่นที่ไม่ใช่ภาษา Rust</li></ul>
+                            </div>
+                        </section>
+                        <div class="links-row">
+                            <a href="https://github.com/melastmohican/rust-rpico2-embassy-examples" target="_blank" class="action-btn btn-primary">อ่านบทความต้นฉบับ</a>
+                            <a href="https://news.ycombinator.com/item?id=48440008" target="_blank" class="action-btn btn-secondary">กระทู้บน Hacker News</a>
+                        </div>
+                    </div>
+                </details>
+            </article>
+            
+            <!-- STORY 31 -->
+            <article class="news-item">
+                <details>
+                    <summary>
+                        <div class="summary-header">
+                            <div class="summary-title-section">
+                                <h2 class="story-title">OneDrive data now has an expiry date</h2>
+                                <p class="teaser">ไมโครซอฟท์เตรียมบังคับใช้นโยบายกำหนดวันหมดอายุของข้อมูลบน OneDrive ซึ่งสร้างความกังวลให้แก่องค์กรเกี่ยวกับการสูญหายของเอกสารที่แชร์โดยอดีตพนักงาน</p>
+                                <div class="meta-row">
+                                    <span class="badge badge-points">🔥 155 คะแนน</span>
+                                    <span class="badge badge-comments">💬 143 ความคิดเห็น</span>
+                                    <span class="badge badge-domain">ms365news.com</span>
+                                </div>
+                            </div>
+                            <div class="toggle-icon">▼</div>
+                        </div>
+                    </summary>
+                    <div class="details-content">
+                        <section class="content-section">
+                            <h3 class="section-header section-header-article">📄 สรุปเนื้อหาบทความ</h3>
+                            <div class="section-body">
+                                <p>นโยบายใหม่ของไมโครซอฟท์ในการกำหนดวันหมดอายุของลิงก์แชร์และข้อมูลบน <strong>OneDrive</strong> ก่อให้เกิดประเด็นทบทวนการบริหารจัดการข้อมูลในองค์กรดังนี้:</p><ul><li><strong>ผลกระทบต่อข้อมูลอดีตพนักงาน:</strong> ข้อมูลของพนักงานที่ลาออกซึ่งถูกเก็บไว้ใน OneDrive ส่วนบุคคลของพนักงานรายนั้นจะถูกลบออกโดยอัตโนมัติภายในระยะเวลาที่กำหนด (เช่น 12 เดือน) หลังจากยกเลิกสิทธิ์ใช้งาน (License) ซึ่งอาจสร้างความเสียหายหากลิงก์ดังกล่าวถูกนำไปใช้แชร์เอกสารสำคัญภายในองค์กร</li></ul>
+                            </div>
+                        </section>
+                        <section class="content-section">
+                            <h3 class="section-header section-header-discussion">💬 สรุปประเด็นเสวนาในกระทู้</h3>
+                            <div class="section-body">
+                                <p>ผู้แสดงความคิดเห็นส่วนใหญ่ได้ร่วมอธิบายและชี้แนะแนวทางที่ถูกต้องในการใช้งานระบบคลาวด์องค์กร:</p><ul><li><strong>การจัดสถาปัตยกรรมพื้นที่จัดเก็บ (OneDrive vs. SharePoint):</strong> มีการอธิบายความแตกต่างเชิงระบบว่า OneDrive เปรียบเสมือนโฟลเดอร์ส่วนตัวของพนักงาน (Home Directory) ซึ่งผูกติดกับบัญชีผู้ใช้และจะหายไปเมื่อลบบัญชี ในขณะที่ SharePoint ออกแบบมาสำหรับโครงการและทีมงาน (Communal Site) ที่ไม่มีการหมดอายุตามบัญชีรายบุคคล องค์กรที่ดีจึงต้องนำเอกสารการทำงานจริงไปจัดเก็บไว้บน SharePoint</li><li><strong>ปัญหาด้านการบูรณาการและการสื่อสารของไมโครซอฟท์:</strong> ผู้ใช้ระบุว่าส่วนติดต่อผู้ใช้และวิธีการทำงานระหว่าง OneDrive และ SharePoint ของไมโครซอฟท์นั้นสร้างความสับสนอย่างมาก ทำให้พนักงานทั่วไปมักแชร์ไฟล์จาก OneDrive ส่วนตัวเพราะใช้งานง่ายกว่า</li><li><strong>ประสบการณ์แย่ๆ จากการบริการ:</strong> บางส่วนสะท้อนเรื่องราวที่ถูกแบนหรือล็อกบัญชีส่วนบุคคลอย่างไร้เหตุผลจนต้องสูญเสียข้อมูลรูปภาพสำคัญ พร้อมแนะนำให้ผู้ที่อยู่ในเขตอำนาจศาลที่มีกฎหมายคุ้มครอง เช่น สหภาพยุโรป (GDPR) ฟ้องร้องหรือยื่นคำร้องขอข้อมูลคืนตามสิทธิ์ทางกฎหมาย</li></ul>
+                            </div>
+                        </section>
+                        <div class="links-row">
+                            <a href="https://ms365news.com/blogs/f/your-onedrive-data-now-has-an-expiry-data" target="_blank" class="action-btn btn-primary">อ่านบทความต้นฉบับ</a>
+                            <a href="https://news.ycombinator.com/item?id=48442569" target="_blank" class="action-btn btn-secondary">กระทู้บน Hacker News</a>
+                        </div>
+                    </div>
+                </details>
+            </article>
+            
+            <!-- STORY 32 -->
+            <article class="news-item">
+                <details>
+                    <summary>
+                        <div class="summary-header">
+                            <div class="summary-title-section">
+                                <h2 class="story-title">Show HN: Gitdot – a better GitHub. Open-source, written in Rust</h2>
+                                <p class="teaser">เปิดตัว Gitdot บริการจัดเก็บและบริหารรหัสผ่านระบบ Git แบบโอเพนซอร์สที่พัฒนาด้วยภาษา Rust เพื่อเป็นทางเลือกที่รวดเร็วและสวยงามทดแทน GitHub</p>
+                                <div class="meta-row">
+                                    <span class="badge badge-points">🔥 151 คะแนน</span>
+                                    <span class="badge badge-comments">💬 123 ความคิดเห็น</span>
+                                    <span class="badge badge-domain">gitdot.io</span>
+                                </div>
+                            </div>
+                            <div class="toggle-icon">▼</div>
+                        </div>
+                    </summary>
+                    <div class="details-content">
+                        <section class="content-section">
+                            <h3 class="section-header section-header-article">📄 สรุปเนื้อหาบทความ</h3>
+                            <div class="section-body">
+                                <p>ตัวแทนโครงการได้นำเสนอ <strong>Gitdot</strong> ซอฟต์แวร์บริการพื้นที่จัดเก็บ Git (Git Forge) ที่เป็นมิตรและเป็นโอเพนซอร์สผ่านทางหน้าเว็บ โดยมีรายละเอียดดังนี้:</p><ul><li><strong>ข้อผิดพลาดในการดึงข้อมูล:</strong> ระบบบอตดึงข้อมูลหลักประสบปัญหาใบรับรองความปลอดภัย SSL (Self-signed certificate) ของโดเมน gitdot.io ทำให้ไม่สามารถอ่านหน้าข้อมูลต้นฉบับได้โดยตรง</li><li><strong>เป้าหมายของโครงการ:</strong> โครงการมุ่งเน้นการเป็นแพลตฟอร์มที่เป็นมิตรต่อผู้ใช้งาน รวดเร็ว และเน้นการออกแบบที่สวยงาม (เช่น การใช้โครงสร้างกราฟิกแบบรังผึ้ง/หกเหลี่ยมในส่วนหลังบ้าน) พัฒนาด้วยภาษา Rust เพื่อรองรับการทำงานของนักพัฒนาคอมมูนิตี้ในอนาคต</li></ul>
+                            </div>
+                        </section>
+                        <section class="content-section">
+                            <h3 class="section-header section-header-discussion">💬 สรุปประเด็นเสวนาในกระทู้</h3>
+                            <div class="section-body">
+                                <p>ผู้ร่วมแสดงความคิดเห็นในเว็บไซต์ได้ให้ข้อเสนอแนะเกี่ยวกับทิศทางและประสบการณ์การใช้งานของ Gitdot ดังนี้:</p><ul><li><strong>กระแสความต้องการแพลตฟอร์มทางเลือก:</strong> นักพัฒนาให้ความสนใจเนื่องจากกำลังมองหาเครื่องมือโฮสต์ Git ทางเลือกที่อยู่นอกเหนือจาก GitHub และ GitLab ที่มีปัญหาความน่าเชื่อถือและการปะปนของโค้ดขยะที่สร้างจากปัญญาประดิษฐ์ (AI slop)</li><li><strong>ผลตอบรับด้านประสบการณ์ผู้ใช้ (UX):</strong> สมาชิกติงฟีเจอร์การพรีวิวไฟล์อัตโนมัติเมื่อเลื่อนเมาส์ชี้ผ่านชื่อไฟล์ (Hover to preview) ว่าสร้างความรำคาญและกินทรัพยากรเครื่องโดยไม่จำเป็น ซึ่งผู้พัฒนาได้รับฟังและดำเนินการแก้ไขลบตรรกะนี้ออกทันที</li><li><strong>ข้อดีของเว็บแอปพลิเคชันและการเปรียบเทียบ:</strong> มีการอภิปรายว่าทำไมจึงออกแบบเป็นเว็บแอปพลิเคชันแทนการเป็นเครื่องมือบรรทัดคำสั่ง (CLI/TUI) โดยระบุว่าเพื่อความสะดวกในการเปิดดูโค้ดผ่านบราวเซอร์ทันทีโดยไม่ต้องโคลนลงเครื่อง และบราวเซอร์ยังมีระบบแซนด์บอกซ์ที่ปลอดภัยรวมถึงรองรับสคริปต์ปรับแต่งอย่าง Greasemonkey ทั้งนี้ ทางผู้พัฒนายืนยันว่าจุดเด่นของ Gitdot ที่เหนือกว่า Forgejo คือความใส่ใจด้านการออกแบบส่วนติดต่อผู้ใช้</li></ul>
+                            </div>
+                        </section>
+                        <div class="links-row">
+                            <a href="https://gitdot.io/" target="_blank" class="action-btn btn-primary">อ่านบทความต้นฉบับ</a>
+                            <a href="https://news.ycombinator.com/item?id=48447806" target="_blank" class="action-btn btn-secondary">กระทู้บน Hacker News</a>
+                        </div>
+                    </div>
+                </details>
+            </article>
+            
+        </main>
+        <footer class="page-footer">
+            <p>Hacker News Daily Digest • จัดทำขึ้นโดยอัตโนมัติในทุกเช้าสำหรับคุณ</p>
+            <p>ขนาดฟอนต์ถูกปรับแต่งให้อ่านง่ายเป็นพิเศษ (18px/1.75 Line Height)</p>
+        </footer>
+    </div>
+</body>
+</html>
+    
