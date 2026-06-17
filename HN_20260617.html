@@ -1,0 +1,1716 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hacker News สรุปข่าวเด่นประจำวัน - 17 มิถุนายน 2569</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700&family=Sarabun:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #0b0f19;
+            --card-bg: rgba(22, 29, 49, 0.75);
+            --card-border: rgba(255, 255, 255, 0.08);
+            --text-primary: #f8fafc;
+            --text-secondary: #94a3b8;
+            --accent-color: #f97316;
+            --accent-hover: #ea580c;
+            --badge-bg: rgba(249, 115, 22, 0.1);
+            --shadow: 0 4px 30px rgba(0, 0, 0, 0.4);
+            --font-display: 'Outfit', 'Sarabun', sans-serif;
+            --font-sans: 'Inter', 'Sarabun', sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            background-image: 
+                radial-gradient(at 0% 0%, rgba(249, 115, 22, 0.07) 0px, transparent 50%),
+                radial-gradient(at 100% 100%, rgba(99, 102, 241, 0.07) 0px, transparent 50%);
+            background-attachment: fixed;
+            color: var(--text-primary);
+            font-family: var(--font-sans);
+            margin: 0;
+            padding: 0;
+            font-size: 18px;
+            line-height: 1.75;
+        }
+
+        .container {
+            max-width: 950px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        h1 {
+            font-family: var(--font-display);
+            font-size: 2.8rem;
+            font-weight: 700;
+            margin: 0 0 12px 0;
+            background: linear-gradient(to right, #f97316, #fb923c, #818cf8);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .date-badge {
+            display: inline-block;
+            padding: 6px 20px;
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 20px;
+            font-size: 1.05rem;
+            color: var(--text-secondary);
+            margin-bottom: 20px;
+            font-weight: 600;
+        }
+
+        .subtitle {
+            color: var(--text-secondary);
+            font-size: 1.25rem;
+            margin: 0;
+        }
+
+        .news-list {
+            display: flex;
+            flex-direction: column;
+            gap: 28px;
+        }
+
+        .news-item {
+            background: var(--card-bg);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid var(--card-border);
+            border-radius: 16px;
+            padding: 26px;
+            box-shadow: var(--shadow);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .news-item:hover {
+            border-color: rgba(249, 115, 22, 0.35);
+            box-shadow: 0 10px 30px rgba(249, 115, 22, 0.07);
+            transform: translateY(-2px);
+        }
+
+        details {
+            width: 100%;
+        }
+
+        summary {
+            list-style: none;
+            outline: none;
+            cursor: pointer;
+        }
+
+        summary::-webkit-details-marker {
+            display: none;
+        }
+
+        .summary-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 18px;
+        }
+
+        .summary-title-section {
+            flex-grow: 1;
+        }
+
+        .story-title {
+            font-family: var(--font-display);
+            font-size: 1.45rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin: 0 0 10px 0;
+            line-height: 1.4;
+            transition: color 0.2s ease;
+        }
+
+        .story-title:hover {
+            color: var(--accent-color);
+        }
+
+        .teaser {
+            font-size: 1.15rem;
+            color: var(--text-secondary);
+            margin: 0 0 18px 0;
+            font-weight: 400;
+        }
+
+        .meta-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 14px;
+            align-items: center;
+        }
+
+        .badge {
+            font-size: 0.85rem;
+            padding: 5px 12px;
+            border-radius: 8px;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            color: var(--text-secondary);
+        }
+
+        .badge-points {
+            background: var(--badge-bg);
+            border-color: rgba(249, 115, 22, 0.25);
+            color: var(--accent-color);
+        }
+
+        .badge-comments {
+            background: rgba(99, 102, 241, 0.1);
+            border-color: rgba(99, 102, 241, 0.25);
+            color: #818cf8;
+        }
+
+        .badge-domain {
+            text-transform: lowercase;
+            max-width: 220px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        .toggle-icon {
+            flex-shrink: 0;
+            width: 36px;
+            height: 36px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid var(--card-border);
+            color: var(--text-secondary);
+            transition: all 0.3s ease;
+            font-size: 0.9rem;
+        }
+
+        details[open] .toggle-icon {
+            transform: rotate(180deg);
+            background: var(--badge-bg);
+            border-color: rgba(249, 115, 22, 0.3);
+            color: var(--accent-color);
+        }
+
+        .details-content {
+            margin-top: 26px;
+            padding-top: 26px;
+            border-top: 1px solid rgba(255, 255, 255, 0.06);
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 26px;
+            animation: fadeIn 0.4s ease-out;
+        }
+
+        @media (min-width: 800px) {
+            .details-content {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .content-section {
+            background: rgba(255, 255, 255, 0.015);
+            border: 1px solid rgba(255, 255, 255, 0.03);
+            border-radius: 12px;
+            padding: 22px;
+        }
+
+        .section-header {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin: 0 0 18px 0;
+            font-family: var(--font-display);
+        }
+
+        .section-header-article {
+            color: #fb923c;
+        }
+
+        .section-header-discussion {
+            color: #818cf8;
+        }
+
+        .section-body {
+            font-size: 1.08rem;
+            color: #cbd5e1;
+            margin: 0;
+        }
+
+        .section-body p {
+            margin: 0 0 14px 0;
+        }
+
+        .section-body p:last-child {
+            margin-bottom: 0;
+        }
+
+        .section-body ul {
+            margin: 0;
+            padding-left: 24px;
+        }
+
+        .section-body li {
+            margin-bottom: 10px;
+        }
+
+        .section-body li:last-child {
+            margin-bottom: 0;
+        }
+
+        .links-row {
+            grid-column: 1 / -1;
+            display: flex;
+            gap: 16px;
+            margin-top: 14px;
+        }
+
+        .action-btn {
+            font-size: 0.95rem;
+            text-decoration: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.2s ease;
+        }
+
+        .btn-primary {
+            background: var(--accent-color);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: var(--accent-hover);
+        }
+
+        .btn-secondary {
+            background: rgba(255, 255, 255, 0.05);
+            color: var(--text-primary);
+            border: 1px solid var(--card-border);
+        }
+
+        .btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        footer.page-footer {
+            text-align: center;
+            margin-top: 70px;
+            padding-top: 30px;
+            border-top: 1px solid var(--card-border);
+            font-size: 0.95rem;
+            color: var(--text-secondary);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="date-badge">17 มิถุนายน 2569</div>
+            <h1>Hacker News Daily Digest</h1>
+            <p class="subtitle">สรุปข่าวยอดนิยมในรอบ 24 ชั่วโมงที่ผ่านมา แปลและสรุปผลการวิเคราะห์ในบอร์ดภาษาไทย</p>
+        </header>
+
+        <main class="news-list">
+        
+            <!-- STORY 1 -->
+            <article class="news-item">
+                <details>
+                    <summary>
+                        <div class="summary-header">
+                            <div class="summary-title-section">
+                                <h2 class="story-title">A backdoor in a LinkedIn job offer</h2>
+                                <p class="teaser">เตือนภัยนักพัฒนาพบมัลแวร์แบคดอร์แฝงมากับการรีวิวโค้ดในข้อเสนอสมัครงานผ่าน LinkedIn โดยหลอกล่อให้รัน npm install บนเครื่องเพื่อแอบติดตั้งสคริปต์ควบคุมระยะไกล</p>
+                                <div class="meta-row">
+                                    <span class="badge badge-points">🔥 1533 คะแนน</span>
+                                    <span class="badge badge-comments">💬 292 ความคิดเห็น</span>
+                                    <span class="badge badge-domain">roman.pt</span>
+                                </div>
+                            </div>
+                            <div class="toggle-icon">▼</div>
+                        </div>
+                    </summary>
+                    <div class="details-content">
+                        <section class="content-section">
+                            <h3 class="section-header section-header-article">📄 สรุปเนื้อหาบทความ</h3>
+                            <div class="section-body">
+                                <p>ผู้เขียนแชร์ประสบการณ์ตรงหลังจากได้รับข้อความเสนอโอกาสทางวิชาชีพจากผู้สรรหาบุคลากร (Recruiter) ของสตาร์ทอัปคริปโตรายหนึ่งบน LinkedIn โดยขอให้ช่วยตรวจสอบปัญหาเกี่ยวกับโมดูล Node ที่หมดอายุ (Deprecated) ในคลังเก็บโค้ด (GitHub Repository) สาธารณะของพวกเขา แต่เมื่อผู้เขียนทำการตรวจสอบก็พบความผิดปกติที่อันตรายอย่างยิ่ง:</p><ul><li><strong>การใช้สภาพแวดล้อมที่ปลอดภัยในการตรวจสอบ:</strong> ผู้เขียนไม่ได้ทำการโคลนและติดตั้งโปรเจกต์ลงในเครื่องคอมพิวเตอร์ส่วนตัวโดยตรง แต่เลือกใช้บริการ VPS แบบใช้แล้วทิ้ง (Throwaway VPS) ของ Hetzner และให้เอเจนต์ AI ที่เปิดสิทธิ์อ่านอย่างเดียว (Read-only Agent) ช่วยตรวจสอบแทน</li><li><strong>กับดักสคริปต์ Backdoor:</strong> โค้ดพรางตัวในลักษณะระบบทดสอบ (Test Suite) ยาวประมาณ 250 บรรทัดที่ไฟล์ <code>app/test/index.js</code> ซึ่งจะทำงานทันทีที่มีการรัน <code>npm install</code> ผ่านการทำงานของสคริปต์ <code>prepare</code> ในไฟล์ <code>package.json</code></li><li><strong>การทำงานของมัลแวร์:</strong> สคริปต์จะทำการประกอบ URL จากเศษเสี้ยวข้อความที่ซ่อนไว้เพื่อเรียกไปที่ <code>https://rest-icon-handler.store/icons/77</code> และรันคำสั่งใดๆ ก็ตามที่เซิร์ฟเวอร์ปลายทางส่งกลับมา (Arbitrary Remote Code Execution)</li><li><strong>การแอบอ้างตัวตนอย่างแนบเนียน:</strong> คณะผู้โจมตีแอบอ้างตัวตนของนักพัฒนาที่มีชื่อเสียงจริงในการ Commit โค้ดถึง 39 ครั้ง และใช้บัญชีผู้สรรหาบุคลากรที่แอบอ้างโปรไฟล์ของนักข่าวสายศิลปะชื่อดังเพื่อสร้างความน่าเชื่อถือ</li></ul>
+                            </div>
+                        </section>
+                        <section class="content-section">
+                            <h3 class="section-header section-header-discussion">💬 สรุปประเด็นเสวนาในกระทู้</h3>
+                            <div class="section-body">
+                                <p>ความคิดเห็นในบอร์ด Hacker News ร่วมกันวิเคราะห์และแสดงความกังวลต่อเหตุการณ์ภัยคุกคามทางไซเบอร์ครั้งนี้:</p><ul><li><strong>อันตรายจากการละเลยความปลอดภัย:</strong> นักพัฒนายืนยันว่าการรันคำสั่งจำพวก <code>curl | bash</code> หรือการรัน <code>npm install</code> โดยไม่ผ่านระบบ Sandbox ถือเป็นพฤติกรรมที่เสี่ยงมาก แต่ก็ยังเป็นที่นิยมในหมู่นักพัฒนาซอฟต์แวร์หลายคน</li><li><strong>เป้าหมายของการโจมตี:</strong> มีการคาดการณ์ว่าแบคดอร์ประเภทนี้ส่วนใหญ่มีเป้าหมายเพื่อตรวจหาและขโมยคีย์ส่วนตัวของกระเป๋าคริปโต (เช่น Ethereum Private Keys) รวมถึงการขโมยคีย์ SSH, สภาพแวดล้อม (Environment Variables) และรหัสผ่านต่างๆ เพื่อใช้ในการจู่โจมห่วงโซ่อุปทาน (Supply Chain Attack) ต่อไป</li><li><strong>การใช้เทคโนโลยีช่วยคัดกรอง:</strong> ผู้ใช้ชื่นชมแนวคิดในการใช้ AI แบบอ่านอย่างเดียวช่วยรีวิวโค้ดก่อนติดตั้ง ซึ่งให้ผลลัพธ์ที่รวดเร็วและแม่นยำกว่าการนั่งไล่ตรวจทีละบรรทัดด้วยตนเอง</li><li><strong>ข้อเสนอแนะในการป้องกัน:</strong> แนะนำให้เปลี่ยนมารันคำสั่งสร้างและติดตั้งโปรเจกต์ (เช่น npm, docker) ภายใต้เทคโนโลยี Docker container หรือระบบเวอร์ชวลไลเซชัน (Virtualization Framework) ที่จำกัดการเข้าถึงโฟลเดอร์ในเครื่องจริง</li></ul>
+                            </div>
+                        </section>
+                        <div class="links-row">
+                            <a href="https://roman.pt/posts/linkedin-backdoor/" target="_blank" class="action-btn btn-primary">อ่านบทความต้นฉบับ</a>
+                            <a href="https://news.ycombinator.com/item?id=48546294" target="_blank" class="action-btn btn-secondary">กระทู้บน Hacker News</a>
+                        </div>
+                    </div>
+                </details>
+            </article>
+            
+            <!-- STORY 2 -->
+            <article class="news-item">
+                <details>
+                    <summary>
+                        <div class="summary-header">
+                            <div class="summary-title-section">
+                                <h2 class="story-title">Running local models is good now</h2>
+                                <p class="teaser">การทำงานของปัญญาประดิษฐ์ในเครื่อง (Local LLMs) ก้าวหน้าอย่างก้าวกระโดดจนสามารถใช้งานร่วมกับระบบ Agentic Coding ได้จริงแล้วด้วยประสิทธิภาพใกล้เคียงกับรุ่นบนคลาวด์</p>
+                                <div class="meta-row">
+                                    <span class="badge badge-points">🔥 964 คะแนน</span>
+                                    <span class="badge badge-comments">💬 412 ความคิดเห็น</span>
+                                    <span class="badge badge-domain">vickiboykis.com</span>
+                                </div>
+                            </div>
+                            <div class="toggle-icon">▼</div>
+                        </div>
+                    </summary>
+                    <div class="details-content">
+                        <section class="content-section">
+                            <h3 class="section-header section-header-article">📄 สรุปเนื้อหาบทความ</h3>
+                            <div class="section-body">
+                                <p>ผู้เขียนได้แบ่งปันความประทับใจเกี่ยวกับความก้าวหน้าอย่างรวดเร็วของโมเดลภาษาขนาดใหญ่ที่สามารถรันในเครื่องได้เอง (Local LLMs) ซึ่งในปัจจุบันมีความแม่นยำและตอบสนองได้รวดเร็วเพียงพอสำหรับช่วยเขียนโปรแกรมอย่างเป็นระบบ:</p><ul><li><strong>เครื่องมือและฮาร์ดแวร์ที่ใช้:</strong> ผู้เขียนใช้งานบน Mac M2 ปี 2022 ที่มีแรม 64GB โดยรันโมเดลอย่าง Qwen 2.5 Coder, Qwen 3 MoE และโมเดลตระกูล Google Gemma 4 ล่าสุด ผ่านตัวกลางอย่าง LM Studio หรือ llama.cpp ร่วมกับตัวคุมเอเจนต์อย่าง Pi</li><li><strong>ประสิทธิภาพที่เหนือความคาดหมาย:</strong> โมเดลอย่าง gemma-4-26b-a4b สามารถทำงานในลูปเอเจนต์ช่วยเขียนโปรแกรมได้โดยมีระดับความแม่นยำและความเร็วอยู่ที่ประมาณ 75% ของโมเดลระดับเรือธง (Frontier Models) บนคลาวด์</li><li><strong>งานที่ใช้ในการปฏิบัติจริง:</strong> ใช้ในการปรับโครงสร้างโค้ด (Refactoring), ตรวจและปรับแก้ไทป์อินสแตนซ์ (Linting type hints), ตรวจทานงานเขียนบล็อก, และเขียนโค้ดเริ่มต้นชุดจำลองโมเดลแนะนำคู่รัก (Two-tower Recommendation Model)</li><li><strong>ความปลอดภัยในการรันโค้ด:</strong> ใช้การรันเอเจนต์ทั้งหมดใน Docker Container ที่จำกัดสิทธิ์ในระบบ Bash เพื่อปกป้องเครื่องคอมพิวเตอร์จริงจากการทำลายไฟล์หรือโฟลเดอร์โดยไม่เจตนา</li></ul>
+                            </div>
+                        </section>
+                        <section class="content-section">
+                            <h3 class="section-header section-header-discussion">💬 สรุปประเด็นเสวนาในกระทู้</h3>
+                            <div class="section-body">
+                                <p>หัวข้อนี้จุดประเด็นการสนทนาอย่างกว้างขวางเกี่ยวกับความคุ้มค่าและทิศทางของโมเดลท้องถิ่น:</p><ul><li><strong>ประเด็นดราม่าเรื่องงบประมาณฮาร์ดแวร์:</strong> ผู้ใช้หลายคนออกมาท้วงติงว่า คำแนะนำให้ใช้คอมพิวเตอร์ Mac แรม 64GB ราคากว่า 2,000 ดอลลาร์นั้นไม่ใช่เรื่องง่ายสำหรับผู้ที่มีงบจำกัด อย่างไรก็ตาม มีข้อโต้แย้งว่าสำหรับฟรีแลนซ์หรือผู้รับเหมาในต่างประเทศนั้น อุปกรณ์นี้ถือเป็นเครื่องมือหากินที่สามารถหักลดหย่อนภาษีและคุ้มค่าในระยะยาว</li><li><strong>การเข้าถึงฮาร์ดแวร์ราคาประหยัด:</strong> มีข้อมูลชี้ว่าความจริงแล้วไม่จำเป็นต้องใช้สเปกสูงมากขนาดนั้น เพราะโมเดลขนาดเล็กอย่าง Gemma 4 หรือ Qwen 3.5 MoE สามารถรันได้ด้วย VRAM เพียง 12 GB ก็ทำงานได้ความเร็วระดับ 30-40 tokens per second (tps) ซึ่งได้ผลลัพธ์ที่ดีเยี่ยม</li><li><strong>ความคุ้มค่าของการลงทุน (ROI):</strong> มีการเปรียบเทียบเชิงลึกว่าการซื้อฮาร์ดแวร์เพื่อรัน AI เองเมื่อเทียบกับการจ่ายค่าบริการรายเดือนสำหรับ API หรือโมเดลระดับบน (เช่น Claude หรือ ChatGPT) แบบไหนจะให้ความคุ้มค่าและตอบโจทย์การใช้งานมากกว่ากัน</li></ul>
+                            </div>
+                        </section>
+                        <div class="links-row">
+                            <a href="https://vickiboykis.com/2026/06/15/running-local-models-is-good-now/" target="_blank" class="action-btn btn-primary">อ่านบทความต้นฉบับ</a>
+                            <a href="https://news.ycombinator.com/item?id=48555993" target="_blank" class="action-btn btn-secondary">กระทู้บน Hacker News</a>
+                        </div>
+                    </div>
+                </details>
+            </article>
+            
+            <!-- STORY 3 -->
+            <article class="news-item">
+                <details>
+                    <summary>
+                        <div class="summary-header">
+                            <div class="summary-title-section">
+                                <h2 class="story-title">I admire Fabrice Bellard. He is almost certainly a better overall programmer</h2>
+                                <p class="teaser">การยกย่องและวิเคราะห์ทักษะอันโดดเด่นของ Fabrice Bellard โปรแกรมเมอร์ระดับตำนานผู้สร้างผลงานขับเคลื่อนโลกเทคโนโลยีผ่านมุมมองความสวยงามของโค้ดกับผลลัพธ์ใช้งานจริง</p>
+                                <div class="meta-row">
+                                    <span class="badge badge-points">🔥 849 คะแนน</span>
+                                    <span class="badge badge-comments">💬 417 ความคิดเห็น</span>
+                                    <span class="badge badge-domain">twitter.com</span>
+                                </div>
+                            </div>
+                            <div class="toggle-icon">▼</div>
+                        </div>
+                    </summary>
+                    <div class="details-content">
+                        <section class="content-section">
+                            <h3 class="section-header section-header-article">📄 สรุปเนื้อหาบทความ</h3>
+                            <div class="section-body">
+                                <p>แม้เนื้อหาหลักจากลิงก์ปลายทาง (ซึ่งชี้ไปยัง Twitter/X) จะไม่สามารถดึงข้อมูลมาแสดงได้เนื่องจากติดปัญหาการเชื่อมต่อหมดเวลา (Timeout) แต่ในหัวข้อนี้เป็นการชื่นชมและให้เกียรติแก่ Fabrice Bellard ซึ่งเป็นหนึ่งในโปรแกรมเมอร์ที่ทรงอิทธิพลที่สุดในยุคนี้ ผู้สร้างโปรเจกต์โอเพนซอร์สชื่อดังอย่าง QEMU, FFmpeg, TinyCC และ QuickJS:</p><ul><li><strong>การทำงานสไตล์ 'หอคอยงาช้าง':</strong> Bellard เป็นที่รู้จักในฐานะนักพัฒนาที่รักความเป็นส่วนตัวสูง ไม่ชอบสุงสิงกับผู้คนบนโซเชียลมีเดีย และมุ่งเน้นการแก้ปัญหาทางเทคนิคที่ยากและซับซ้อนด้วยประสิทธิภาพการทำงานที่สูงมาก</li><li><strong>ความสามารถในการประดิษฐ์และขยายขอบเขต:</strong> เขาสามารถสร้างสรรค์คอมไพเลอร์, ตัวจำลองฮาร์ดแวร์ และตัวถอดรหัสสื่อที่เปิดโอกาสใหม่ๆ ให้กับอุตสาหกรรมเทคโนโลยีอยู่เสมอ</li></ul>
+                            </div>
+                        </section>
+                        <section class="content-section">
+                            <h3 class="section-header section-header-discussion">💬 สรุปประเด็นเสวนาในกระทู้</h3>
+                            <div class="section-body">
+                                <p>ความคิดเห็นในบอร์ดมีบทสนทนาเปรียบเทียบในแง่แนวคิดและคุณภาพซอฟต์แวร์ระหว่างโปรแกรมเมอร์ชื่อดัง:</p><ul><li><strong>ประเด็นเปรียบเทียบสไตล์การเขียนโค้ด (Bellard vs. Carmack):</strong><ul><li>ฝ่ายหนึ่งมองว่า Bellard เขียนโค้ดเน้นให้งานสำเร็จตามเป้าหมายและการพิสูจน์แนวคิด (POC) ทำให้โค้ดของเขาบางครั้งขาดความสวยงามและมีความเป็นสปาเก็ตตี้โค้ดจนพัฒนาต่อยาก (เช่น โครงสร้างเดิมของ QEMU) แต่ตอบสนองความเร็วในการปล่อยงานได้อย่างดีเยี่ยม</li><li>ขณะที่ John Carmack ได้รับการยอมรับในแง่ของ "ความเป็นวิศวกรซอฟต์แวร์" ที่ดีกว่า โค้ดของเขา (เช่น Quake 3) ถูกออกแบบมาอย่างสวยงาม เป็นระเบียบเรียบร้อย และเหมาะสมแก่การนำไปต่อยอดศึกษาอย่างมาก</li></ul></li><li><strong>การยอมรับหนี้ทางเทคนิค (Technical Debt):</strong> นักพัฒนาบางส่วนแสดงความเห็นว่าในขั้นเริ่มแรกของการทดสอบระบบ การเขียนสปาเก็ตตี้โค้ดไม่ใช่เรื่องผิด แต่ถ้าต้องการพัฒนาให้เป็นระบบใหญ่ที่เสถียรและทนทาน จำเป็นต้องจัดระเบียบสถาปัตยกรรมให้ดี ไม่เช่นนั้นจะส่งผลต่อความเร็วและโอกาสล้มเหลวของโครงการในอนาคต</li></ul>
+                            </div>
+                        </section>
+                        <div class="links-row">
+                            <a href="https://twitter.com/ID_AA_Carmack/status/2064095424420487226" target="_blank" class="action-btn btn-primary">อ่านบทความต้นฉบับ</a>
+                            <a href="https://news.ycombinator.com/item?id=48550779" target="_blank" class="action-btn btn-secondary">กระทู้บน Hacker News</a>
+                        </div>
+                    </div>
+                </details>
+            </article>
+            
+            <!-- STORY 4 -->
+            <article class="news-item">
+                <details>
+                    <summary>
+                        <div class="summary-header">
+                            <div class="summary-title-section">
+                                <h2 class="story-title">SpaceX to buy Cursor for $60B</h2>
+                                <p class="teaser">ข่าวลือและข้อคิดเห็นเกี่ยวกับการควบรวมกิจการครั้งใหญ่เมื่อ SpaceX ตกลงเข้าซื้อกิจการของแอปพลิเคชันแก้ไขโค้ดด้วย AI ยอดนิยมอย่าง Cursor ด้วยมูลค่า 6 หมื่นล้านดอลลาร์ในรูปแบบการแลกหุ้นทั้งหมด</p>
+                                <div class="meta-row">
+                                    <span class="badge badge-points">🔥 829 คะแนน</span>
+                                    <span class="badge badge-comments">💬 1275 ความคิดเห็น</span>
+                                    <span class="badge badge-domain">reuters.com</span>
+                                </div>
+                            </div>
+                            <div class="toggle-icon">▼</div>
+                        </div>
+                    </summary>
+                    <div class="details-content">
+                        <section class="content-section">
+                            <h3 class="section-header section-header-article">📄 สรุปเนื้อหาบทความ</h3>
+                            <div class="section-body">
+                                <p>เนื่องจากลิงก์ข่าวไม่สามารถเปิดเข้าถึงได้เพราะเกิดข้อผิดพลาดรหัส HTTP 401 อย่างไรก็ตาม มีการหยิบยกประเด็นข่าวลือสะเทือนวงการเทคโนโลยีที่ระบุว่าบริษัทด้านอวกาศรายใหญ่อย่าง SpaceX ได้บรรลุข้อตกลงในการเข้าซื้อกิจการของ Cursor (โปรแกรมเขียนโค้ดด้วย AI) ด้วยมูลค่าประเมินสูงถึง 6 หมื่นล้านดอลลาร์สหรัฐ:</p><ul><li><strong>เอกสารอ้างอิงอย่างเป็นทางการ:</strong> มีการแนบลิงก์เอกสารที่ยื่นต่อสำนักงานคณะกรรมการกำกับหลักทรัพย์และตลาดหลักทรัพย์ของสหรัฐฯ (SEC) เพื่อชี้แจงกระบวนการควบรวมกิจการและการแปลงสภาพหุ้น</li><li><strong>ดีลในลักษณะแลกเปลี่ยนหุ้น (All-Stock Deal):</strong> ข้อตกลงนี้ไม่ได้ทำด้วยเงินสด แต่เป็นการแปลงสภาพหุ้นเดิมของ Cursor ให้เป็นหุ้นสามัญ Class A ของ SpaceX ตามมูลค่าประเมินเฉลี่ย 7 วันทำการของราคาตลาด</li></ul>
+                            </div>
+                        </section>
+                        <section class="content-section">
+                            <h3 class="section-header section-header-discussion">💬 สรุปประเด็นเสวนาในกระทู้</h3>
+                            <div class="section-body">
+                                <p>กระทู้นี้เต็มไปด้วยการวิพากษ์วิจารณ์และแสดงความคิดเห็นเชิงเหน็บแนมต่อดีลดังกล่าว:</p><ul><li><strong>มูลค่าประเมินที่สูงเกินจริง (Overvaluation):</strong> ความคิดเห็นส่วนใหญ่มองว่ามูลค่า 6 หมื่นล้านดอลลาร์สำหรับโปรแกรมเขียนโค้ด (IDE) เพียงตัวเดียวนั้นเป็นตัวเลขที่เกินจริงอย่างมาก แต่อีกด้านก็มองว่าหุ้นของ SpaceX เองก็อยู่ในสภาวะถูกประเมินค่าสูงเกินจริงเช่นกัน (มูลค่าตลาด 2.66 ล้านล้านดอลลาร์) ดีลนี้จึงสมน้ำสมเนื้อในตัวเอง</li><li><strong>การใช้ 'เงินกงเต๊ก' (Monopoly Money):</strong> นักพัฒนาตั้งข้อสังเกตว่านี่เป็นการลดมูลค่าหุ้นเดิม (Dilution) โดยใช้กระดาษมูลค่าสมมติไปแลกกับบริษัทที่มีมูลค่าทางเทคโนโลยีและฐานผู้ใช้ เพื่อเปลี่ยนสินทรัพย์ลอยตัวมาเป็นสิ่งจับต้องได้และเสถียรกว่า</li><li><strong>การหลีกเลี่ยงการจ่ายเงินสดของ Elon Musk:</strong> มีการแซวว่า Musk น่าจะเข็ดหลาบจากการจ่ายเงินสดจำนวนมหาศาลในการเข้าซื้อทวิตเตอร์ (Twitter) ในอดีต จึงหันมาใช้หุ้นในดีลนี้แทน</li></ul>
+                            </div>
+                        </section>
+                        <div class="links-row">
+                            <a href="https://www.reuters.com/legal/transactional/spacex-buy-anysphere-60-billion-2026-06-16/" target="_blank" class="action-btn btn-primary">อ่านบทความต้นฉบับ</a>
+                            <a href="https://news.ycombinator.com/item?id=48553224" target="_blank" class="action-btn btn-secondary">กระทู้บน Hacker News</a>
+                        </div>
+                    </div>
+                </details>
+            </article>
+            
+            <!-- STORY 5 -->
+            <article class="news-item">
+                <details>
+                    <summary>
+                        <div class="summary-header">
+                            <div class="summary-title-section">
+                                <h2 class="story-title">Mechanical Watch (2022)</h2>
+                                <p class="teaser">บทความอธิบายกลไกการทำงานของนาฬิกาจักรกลที่ไม่ต้องพึ่งพาแบตเตอรี่ พร้อมการไขความลับของสปริงลานและระบบทดเกียร์ที่ประสานงานกันอย่างละเอียดอ่อน</p>
+                                <div class="meta-row">
+                                    <span class="badge badge-points">🔥 616 คะแนน</span>
+                                    <span class="badge badge-comments">💬 113 ความคิดเห็น</span>
+                                    <span class="badge badge-domain">ciechanow.ski</span>
+                                </div>
+                            </div>
+                            <div class="toggle-icon">▼</div>
+                        </div>
+                    </summary>
+                    <div class="details-content">
+                        <section class="content-section">
+                            <h3 class="section-header section-header-article">📄 สรุปเนื้อหาบทความ</h3>
+                            <div class="section-body">
+                                <p>บทความเชิงลึกที่มาพร้อมสื่อการสอนแบบปฏิสัมพันธ์ (Interactive 3D Simulation) เพื่อสาธิตและอธิบายการทำงานภายในส่วนขับเคลื่อนหลัก (Movement) ของนาฬิกาจักรกล ซึ่งเป็นระบบที่เก็บพลังงานและบอกเวลาได้โดยไม่ต้องพึ่งไฟฟ้า:</p><ul><li><strong>แหล่งพลังงานหลัก (Mainspring):</strong> นาฬิกาใช้สปริงลานแบบบิดงอขดเป็นวง (Spiral Torsion Spring) บรรจุไว้ในตลับลาน (Barrel) โดยจะสะสมพลังงานเมื่อมีการไขลานผ่านแกนลาน (Arbor)</li><li><strong>ระบบป้องกันลานขาด:</strong> มีการใช้สปริงซ้อนอีกชั้นเพื่อสร้างแรงเสียดทานต้านทานกับผนังตลับลาน ซึ่งจะทำหน้าที่เป็นกลไกนิรภัยให้สปริงรูดลื่นไถลได้เมื่อไขลานจนตึงเกินไป</li><li><strong>สปริงทรงตัว S (S-shaped Spring):</strong> การออกแบบสปริงเป็นทรงตัว S ช่วยให้การจ่ายแรงดันในแต่ละส่วนของสปริงมีความสม่ำเสมอเท่ากันแม้จะอยู่ในช่วงที่แรงตึงต่างกัน</li><li><strong>บทบาทของเกียร์ (Gearing System):</strong> ระบบนาฬิกาต้องการการหมุนของเข็มที่แตกต่างกันมาก เช่น เข็มวินาทีต้องหมุน 2,400 รอบต่อลานเต็ม 40 ชั่วโมง ระบบเกียร์ฟันเฟืองที่มีขนาดและจำนวนซี่ฟันต่างกันจึงถูกนำมาคำวณและวางเรียงเพื่อทดแรงให้ได้รอบหมุนที่เหมาะสม</li></ul>
+                            </div>
+                        </section>
+                        <section class="content-section">
+                            <h3 class="section-header section-header-discussion">💬 สรุปประเด็นเสวนาในกระทู้</h3>
+                            <div class="section-body">
+                                <p>กระทู้นี้มีการคุยกันในเชิงคิดถึงเรื่องเก่าและชื่นชมความวิจิตรของศิลปะนาฬิกาจักรกล:</p><ul><li><strong>นโยบายการโพสต์ซ้ำบน HN (Repost Policy):</strong> มีการพูดคุยว่า โพสต์นี้เคยแชร์มาแล้วในอดีต (ปี 2022 และ 2023) แต่ผู้ดูแลบอร์ดชี้แจงว่าการโพสต์บทความคุณภาพดีซ้ำหลังจากผ่านไปแล้ว 1 ปีถือเป็นสิ่งที่ดีเพื่อให้สมาชิกกลุ่มใหม่ได้เรียนรู้</li><li><strong>เสน่ห์และความท้าทายในงานซ่อมบำรุง:</strong> นักพัฒนาหลายคนเปิดเผยความหลงใหลในการทำนาฬิกาเป็นงานอดิเรก โดยมองว่าเป็นศาสตร์ที่ประณีตและท้าทาย เพราะการจะซ่อมนาฬิกาได้นั้นหมายถึงช่างต้องมีความรู้ในการประดิษฐ์สร้างชิ้นส่วนเล็กๆ เหล่านั้นขึ้นมาทดแทนได้เองด้วย</li><li><strong>ความเรียบง่ายกับความหรูหรา:</strong> เกิดทัศนะว่า คุณค่า of นาฬิกาจักรกลอยู่ที่ความงดงามในเชิงกลศาสตร์และฟิสิกส์ ไม่ใช่ระดับความหรูหราของเพชรพลอยที่ประดับอยู่รอบตัวเรือน และแนะนำให้เลือกใส่นาฬิกาตามความพึงพอใจเชิงกลไกมากกว่ากระแสสังคม</li></ul>
+                            </div>
+                        </section>
+                        <div class="links-row">
+                            <a href="https://ciechanow.ski/mechanical-watch/" target="_blank" class="action-btn btn-primary">อ่านบทความต้นฉบับ</a>
+                            <a href="https://news.ycombinator.com/item?id=48553550" target="_blank" class="action-btn btn-secondary">กระทู้บน Hacker News</a>
+                        </div>
+                    </div>
+                </details>
+            </article>
+            
+            <!-- STORY 6 -->
+            <article class="news-item">
+                <details>
+                    <summary>
+                        <div class="summary-header">
+                            <div class="summary-title-section">
+                                <h2 class="story-title">Banned book library in a wi-fi smart light bulb</h2>
+                                <p class="teaser">แนวคิดสร้างสรรค์ในการดัดแปลงหลอดไฟอัจฉริยะ WiFi ให้กลายเป็นเสมือนห้องสมุดดิจิทัลลับ (Cyberpunk Dead Drop) เพื่อเผยแพร่หนังสือและข้อมูลสำคัญในพื้นที่ที่มีการควบคุมเซนเซอร์</p>
+                                <div class="meta-row">
+                                    <span class="badge badge-points">🔥 568 คะแนน</span>
+                                    <span class="badge badge-comments">💬 340 ความคิดเห็น</span>
+                                    <span class="badge badge-domain">richardosgood.com</span>
+                                </div>
+                            </div>
+                            <div class="toggle-icon">▼</div>
+                        </div>
+                    </summary>
+                    <div class="details-content">
+                        <section class="content-section">
+                            <h3 class="section-header section-header-article">📄 สรุปเนื้อหาบทความ</h3>
+                            <div class="section-body">
+                                <p>ผู้เขียนเล่าโครงการดัดแปลงหลอดไฟอัจฉริยะ (Smart Light Bulb) ให้ทำหน้าที่เป็นจุดกระจายสัญญาณ WiFi สาธารณะและเปิดเว็บเซิร์ฟเวอร์ท้องถิ่นเพื่อให้บริการดาวน์โหลดหนังสือที่ถูกแบนหรือข้อมูลอื่นๆ โดยหวังว่าอุปกรณ์นี้จะกลมกลืนไปกับสิ่งแวดล้อมและสังเกตได้ยาก:</p><ul><li><strong>การเลือกซอฟต์แวร์เฟิร์มแวร์:</strong> ผู้เขียนได้รับคำแนะนำให้ศึกษา Tasmota ซึ่งเป็นระบบควบคุมอุปกรณ์อัจฉริยะแบบโอเพนซอร์สที่ช่วยให้ผู้ใช้งานจัดการทุกอย่างในบ้านได้เองโดยไม่ต้องพึ่งพาเซิร์ฟเวอร์คลาวด์ของแบรนด์สินค้า</li><li><strong>ความท้าทายทางฮาร์ดแวร์:</strong> หลอดไฟทั่วไปใช้ชิป ESP32C3 ที่มีความจุแฟลชเพียง 4MB ซึ่งค่อนข้างจำกัดสำหรับการเก็บเอกสารหนังสือและเว็บเซิร์ฟเวอร์ ผู้เขียนจึงพยายามหาวิธีต่อหน่วยความจำภายนอก (microSD card) เพิ่มเติม</li><li><strong>ความปลอดภัยและความง่ายในการสร้าง:</strong> การแงะหลอดไฟออกเพื่อบัดกรีสายบอร์ดนอกจากจะทำได้ยากและทำให้สินค้าเสียหายแล้ว ยังมีความเสี่ยงที่จะก่อให้เกิดอัคคีภัยหากติดตั้งกลับเข้าไปใหม่ไม่ดี แต่ผู้เขียนพบว่าสามารถหาซื้อหลอดไฟที่ติดตั้ง Tasmota มาก่อนแล้ว และสามารถเขียนซอฟต์แวร์อัปเดตแบบไร้สาย (OTA) เข้าไปแทนที่ได้โดยไม่ต้องรื้ออุปกรณ์</li></ul>
+                            </div>
+                        </section>
+                        <section class="content-section">
+                            <h3 class="section-header section-header-discussion">💬 สรุปประเด็นเสวนาในกระทู้</h3>
+                            <div class="section-body">
+                                <p>ประเด็นที่ดึงดูดใจนักพัฒนาที่สุดในกระทู้นี้คือคำจำกัดความและความจำเป็นของ 'หนังสือที่ถูกแบน':</p><ul><li><strong>ดราม่าเกี่ยวกับการใช้คำว่า 'Banned Books' ในสหรัฐฯ:</strong> เกิดข้อถกเถียงรุนแรงว่าหนังสือที่ถูกอ้างว่าโดนแบนในสหรัฐฯ แท้จริงแล้วไม่ได้ผิดกฎหมายในการครอบครองระดับประเทศ แต่เป็นเพียงการคัดเลือกออกจากหลักสูตรหรือห้องสมุดของบางโรงเรียนตามความเหมาะสมเท่านั้น การเคลมว่านี่คือการ 'แบน' จึงถูกวิจารณ์ว่าโฆษณาเกินจริง (Disingenuous)</li><li><strong>มิติในประเทศอื่นๆ:</strong> มีการท้วงติงว่าในหลายๆ ประเทศนอกสหรัฐฯ การเซนเซอร์และแบนหนังสือนั้นเกิดขึ้นจริงและรุนแรงมาก และผู้ใช้โครงการนี้ก็สามารถเลือกสรรข้อมูลที่ต้องการใส่ลงในหลอดไฟได้เองตามบริบทของตน</li><li><strong>ตัวอย่างหนังสือที่ถือว่าถูกสั่งห้ามตามกฎหมาย:</strong> สมาชิกยกตัวอย่างข้อมูลและหนังสือที่ผิดกฎหมายหรือถูกสั่งห้ามจำหน่ายจริง เช่น ข้อมูลเอกสารราชการลับ (Classified Documents), สื่อลามกเด็ก, ข้อมูลสร้างอาวุธนิวเคลียร์หรือปืนสามมิติ รวมถึงหนังสือที่ติดเรื่องคดีสิทธิ์ลิขสิทธิ์อย่างรุนแรง เช่น '60 Years Later: Coming Through the Rye'</li></ul>
+                            </div>
+                        </section>
+                        <div class="links-row">
+                            <a href="https://www.richardosgood.com/posts/banned-book-library/" target="_blank" class="action-btn btn-primary">อ่านบทความต้นฉบับ</a>
+                            <a href="https://news.ycombinator.com/item?id=48547985" target="_blank" class="action-btn btn-secondary">กระทู้บน Hacker News</a>
+                        </div>
+                    </div>
+                </details>
+            </article>
+            
+            <!-- STORY 7 -->
+            <article class="news-item">
+                <details>
+                    <summary>
+                        <div class="summary-header">
+                            <div class="summary-title-section">
+                                <h2 class="story-title">Feds freaked over Fable 5 after 'fix this code', not jailbreak, say researchers</h2>
+                                <p class="teaser">นักวิจัยชี้ว่าคำสั่งเจลเบรกที่เป็นสาเหตุให้รัฐบาลสหรัฐฯ สั่งแบนการส่งออกโมเดลปัญญาประดิษฐ์ Fable 5 และ Mythos 5 ของ Anthropic แท้จริงแล้วเป็นเพียงแค่คำว่า 'Fix this code' เท่านั้น</p>
+                                <div class="meta-row">
+                                    <span class="badge badge-points">🔥 538 คะแนน</span>
+                                    <span class="badge badge-comments">💬 318 ความคิดเห็น</span>
+                                    <span class="badge badge-domain">theregister.com</span>
+                                </div>
+                            </div>
+                            <div class="toggle-icon">▼</div>
+                        </div>
+                    </summary>
+                    <div class="details-content">
+                        <section class="content-section">
+                            <h3 class="section-header section-header-article">📄 สรุปเนื้อหาบทความ</h3>
+                            <div class="section-body">
+                                <p>เหตุการณ์ที่รัฐบาลสหรัฐฯ สั่งแบนการส่งออกโมเดลปัญญาประดิษฐ์รุ่นล้ำสมัยที่สุดของ Anthropic อย่าง Fable 5 และ Mythos 5 เนื่องจากเหตุผลด้านความมั่นคงแห่งชาติ แท้จริงแล้วอาจไม่มีความอันตรายร้ายแรงอย่างที่คิด โดยมีประเด็นสำคัญดังนี้ครับ:</p><ul><li><strong>ที่มาของเหตุสั่งแบน:</strong> Katie Moussouris ผู้เชี่ยวชาญด้านความปลอดภัยทางไซเบอร์และซีอีโอของ Luta Security เป็นผู้เชี่ยวชาญภายนอกคนเดียวที่ได้อ่านรายงานวิจัยที่เป็นชนวนเหตุของการสั่งแบนดังกล่าว</li><li><strong>วิธีการก้าวข้ามระบบป้องกัน (Guardrail Bypass):</strong> นักวิจัยพบว่าเมื่อสั่งให้โมเดล Fable 5 ทำการตรวจสอบโค้ดที่มีช่องโหว่ความปลอดภัย มันปฏิเสธที่จะตอบ แต่เมื่อป้อนข้อความง่ายๆ 3 คำว่า 'Fix this code' (แก้ไขโค้ดนี้) โมเดลกลับให้ความร่วมมือแก้ไขโค้ดพร้อมสร้างสคริปต์เพื่อใช้ทดสอบการแก้ไขได้ตามคำขอ</li><li><strong>ความสำคัญต่อฝ่ายป้องกันภัยไซเบอร์:</strong> คุณ Moussouris แย้งว่าไม่มีการใช้เทคนิคเจลเบรกหรือบายพาสที่ซับซ้อนเลย และคำสั่งดังกล่าวเป็นเพียงขั้นตอนการทำงานทั่วไปของนักพัฒนาฝั่งป้องกัน (Defenders) ที่ต้องระบุจุดบกพร่อง แก้ไข และทดสอบอยู่เป็นประจำ</li><li><strong>ผลกระทบในแง่ลบ:</strong> การสั่งระงับการเข้าถึงโมเดลนี้จะส่งผลเสียต่อฝ่ายความมั่นคงและนักพัฒนาฝั่งป้องกันมากกว่ากลุ่มผู้โจมตี เพราะผู้โจมตียังสามารถใช้โมเดลคู่แข่งจากประเทศอื่นๆ ได้</li></ul>
+                            </div>
+                        </section>
+                        <section class="content-section">
+                            <h3 class="section-header section-header-discussion">💬 สรุปประเด็นเสวนาในกระทู้</h3>
+                            <div class="section-body">
+                                <p>บทสนทนาของเหล่านักพัฒนาในคอมมูนิตี้วิเคราะห์ถึงการตอบสนองของภาครัฐและนโยบายด้านความปลอดภัยของ AI ดังนี้ครับ:</p><ul><li><strong>ความเคลือบแคลงต่อจุดประสงค์ของรัฐบาล:</strong> มีความเห็นระบุว่านี่อาจเป็นเพียงข้ออ้างของรัฐบาลเพื่อจำกัดความสามารถด้านความปลอดภัยไซเบอร์ของฝั่งป้องกันประเทศอื่น ไม่ใช่กลัวว่าจะถูกนำไปใช้โจมตี</li><li><strong>ความท้าทายในสถาปัตยกรรม LLM:</strong> นักพัฒนาวิจารณ์ว่าการสร้างระบบป้องกัน (Safety) ที่สมบูรณ์แบบบน LLM เป็นเรื่องที่เป็นไปไม่ได้ เนื่องจากโมเดลไม่มีทางแยกแยะเจตนาที่แท้จริงของผู้ใช้ได้ว่าเป็นการถามเพื่ออุดรอยรั่วหรือค้นหาช่องโหว่เพื่อโจมตี</li><li><strong>ความล้มเหลวของกลยุทธ์จาก Anthropic:</strong> สมาชิกชี้ว่า Anthropic พยายามโปรโมตโมเดลของตนเอง (เช่น Mythos) ว่ามีความอันตรายและทรงพลังมากเพื่อสร้างความต้องการ ส่งผลให้คนภายนอกและภาครัฐตื่นตระหนกเมื่อเกิดปัญหาเพียงเล็กน้อย</li></ul>
+                            </div>
+                        </section>
+                        <div class="links-row">
+                            <a href="https://www.theregister.com/security/2026/06/15/feds-freaked-over-fable-5-after-simple-fix-this-code-prompt-not-jailbreak-says-researcher/5255827" target="_blank" class="action-btn btn-primary">อ่านบทความต้นฉบับ</a>
+                            <a href="https://news.ycombinator.com/item?id=48552687" target="_blank" class="action-btn btn-secondary">กระทู้บน Hacker News</a>
+                        </div>
+                    </div>
+                </details>
+            </article>
+            
+            <!-- STORY 8 -->
+            <article class="news-item">
+                <details>
+                    <summary>
+                        <div class="summary-header">
+                            <div class="summary-title-section">
+                                <h2 class="story-title">Apple's weird anti-nausea dots cured my car sickness</h2>
+                                <p class="teaser">ฟีเจอร์ช่วยลดอาการเมารถ (Vehicle Motion Cues) ของ Apple ที่เปิดตัวในปี 2024 ช่วยให้นักเขียนสามารถทำงานบนอุปกรณ์ขณะรถเคลื่อนที่ได้โดยไม่มีอาการคลื่นไส้</p>
+                                <div class="meta-row">
+                                    <span class="badge badge-points">🔥 527 คะแนน</span>
+                                    <span class="badge badge-comments">💬 176 ความคิดเห็น</span>
+                                    <span class="badge badge-domain">theverge.com</span>
+                                </div>
+                            </div>
+                            <div class="toggle-icon">▼</div>
+                        </div>
+                    </summary>
+                    <div class="details-content">
+                        <section class="content-section">
+                            <h3 class="section-header section-header-article">📄 สรุปเนื้อหาบทความ</h3>
+                            <div class="section-body">
+                                <p>บทความรีวิวประสบการณ์ส่วนตัวจากการทดลองใช้งานฟีเจอร์ช่วยเหลือการเข้าถึง (Accessibility) ของ Apple เพื่อลดอาการเมารถ โดยมีสาระสำคัญดังนี้ครับ:</p><ul><li><strong>การทำงานของ Vehicle Motion Cues:</strong> ฟีเจอร์นี้ถูกเปิดตัวในปี 2024 โดยอาศัยระบบเซนเซอร์วัดความเร่ง (Accelerometer) และเซนเซอร์วัดการหมุน (Gyroscope) ในอุปกรณ์เพื่อแสดงจุดสีดำเคลื่อนไหวบริเวณรอบขอบหน้าจอตามแรงเหวี่ยงของรถยนต์ เช่น เมื่อรถเลี้ยวขวา จุดจะเคลื่อนที่ไปทางซ้าย เพื่อช่วยลดการขัดกันของประสาทสัมผัส</li><li><strong>สาเหตุของอาการเมารถทางวิทยาศาสตร์:</strong> เกิดจากความขัดแย้งของระบบประสาทสัมผัส เมื่อสายตาจดจ้องอยู่กับหน้าจอที่หยุดนิ่ง แต่ระบบการรับรู้ของหูชั้นในสัมผัสได้ว่ารถกำลังเคลื่อนที่ เลี้ยว เบรก หรือเร่งความเร็ว</li><li><strong>ผลลัพธ์จากการใช้งานจริง:</strong> ผู้เขียนสามารถใช้ Kindle อ่านหนังสือหรือพิมพ์งานรีวิวกว่า 1,000 คำในเบาะข้างคนขับขณะเดินทางยาวนานถึงสองเมืองในยุโรปได้โดยไม่รู้สึกวิงเวียนศีรษะ</li><li><strong>วิธีการตั้งค่าและข้อจำกัด:</strong> สามารถเปิดใช้งานได้ในหมวดการตั้งค่า Accessibility บน iOS 18 ขึ้นไป และสามารถตั้งทางลัดให้เปิด-ปิดได้ง่ายด้วยการแตะด้านหลังเครื่อง (Back Tap) อย่างไรก็ตาม ในขณะที่รถวิ่งทางตรง จุดเหล่านี้อาจไปรบกวนการแสดงผลแอปแผนที่หรือรูปภาพ</li></ul>
+                            </div>
+                        </section>
+                        <section class="content-section">
+                            <h3 class="section-header section-header-discussion">💬 สรุปประเด็นเสวนาในกระทู้</h3>
+                            <div class="section-body">
+                                <p>ความคิดเห็นบน Hacker News ร่วมแลกเปลี่ยนประสบการณ์เกี่ยวกับฟีเจอร์ช่วยเหลือและความหลากหลายของอาการเมารถดังนี้ครับ:</p><ul><li><strong>ประโยชน์ของหมวด Accessibility:</strong> นักพัฒนาชี้ว่าการตั้งค่าช่วยเหลือการเข้าถึง (Accessibility) มักมีฟีเจอร์ที่มีประโยชน์แฝงอยู่มาก เช่น การปิดอนิเมชั่นช่วยให้ระบบทำงานได้เร็วขึ้น และความสามารถในการสร้างคำบรรยายเสียงออฟไลน์อัตโนมัติ</li><li><strong>ประสิทธิภาพที่แตกต่างกันในแต่ละบุคคล:</strong> ผู้ใช้บางส่วนรายงานว่าจุดสีดำเหล่านั้นไม่ได้ช่วยลดอาการเมารถของพวกเขาเลยเนื่องจากลักษณะการเกิดอาการเมารถของแต่ละคนไม่เหมือนกัน และบางคนแม้แต่การนั่งหันหลังให้ทิศทางการวิ่งบนรถไฟก็ทำให้คลื่นไส้ได้ทันที</li><li><strong>ความต้องการเวอร์ชันบนระบบปฏิบัติการอื่น:</strong> สมาชิกหลายคนให้ความสนใจและสอบถามว่าในระบบปฏิบัติการ Android มีฟีเจอร์ที่ทำงานในลักษณะเดียวกันนี้หรือไม่ เพื่อเป็นทางเลือกในการช่วยเหลือครอบครัวที่มีอาการแพ้การอ่านหนังสือในรถ</li></ul>
+                            </div>
+                        </section>
+                        <div class="links-row">
+                            <a href="https://www.theverge.com/tech/942854/apple-vehicle-motion-cues-review-really-work" target="_blank" class="action-btn btn-primary">อ่านบทความต้นฉบับ</a>
+                            <a href="https://news.ycombinator.com/item?id=48557530" target="_blank" class="action-btn btn-secondary">กระทู้บน Hacker News</a>
+                        </div>
+                    </div>
+                </details>
+            </article>
+            
+            <!-- STORY 9 -->
+            <article class="news-item">
+                <details>
+                    <summary>
+                        <div class="summary-header">
+                            <div class="summary-title-section">
+                                <h2 class="story-title">The time the x86 emulator team found code so bad they fixed it during emulation</h2>
+                                <p class="teaser">เรื่องเล่าย้อนอดีตของทีมพัฒนาโปรแกรมจำลอง x86 บน Windows ที่พบโค้ดที่มีความซ้ำซ้อนอย่างรุนแรงจนทีมงานต้องแก้ไขมันในระดับ Emulation เพื่อความปลอดภัยและประสิทธิภาพ</p>
+                                <div class="meta-row">
+                                    <span class="badge badge-points">🔥 476 คะแนน</span>
+                                    <span class="badge badge-comments">💬 158 ความคิดเห็น</span>
+                                    <span class="badge badge-domain">devblogs.microsoft.com</span>
+                                </div>
+                            </div>
+                            <div class="toggle-icon">▼</div>
+                        </div>
+                    </summary>
+                    <div class="details-content">
+                        <section class="content-section">
+                            <h3 class="section-header section-header-article">📄 สรุปเนื้อหาบทความ</h3>
+                            <div class="section-body">
+                                <p>เรื่องราวประวัติศาสตร์เบื้องหลังการพัฒนาตัวจำลองการทำงานของตัวประมวลผล x86-32 บนระบบปฏิบัติการ Windows ที่ต้องแก้ปัญหาจากการคอมไพล์โค้ดที่ไม่มีประสิทธิภาพอย่างคาดไม่ถึง:</p><ul><li><strong>หลักการทำงานของ Emulator:</strong> ตัวจำลองใช้เทคนิคการแปลงรหัสไบนารี (Binary Translation) เพื่อแปลงคำสั่ง x86-32 ให้กลายเป็นคำสั่งภาษาเครื่องดั้งเดิมของสถาปัตยกรรมใหม่ ทำหน้าที่เสมือนระบบ JIT Compiler เพื่อเร่งความเร็วการประมวลผล</li><li><strong>ปัญหาโค้ดผิดปกติ:</strong> ทีมงานพบโปรแกรมตัวหนึ่งต้องการพื้นที่จัดเก็บข้อมูลขนาด 64KB บน Stack และเขียนข้อมูลเริ่มต้นเพื่อใช้งาน แต่แทนที่คอมไพเลอร์จะเขียนโค้ดลูป (Loop) ขนาดเล็กเพื่อเคลียร์หน่วยความจำ คอมไพเลอร์กลับทำการคลี่ลูปออก (Loop Unrolling) เป็นคำสั่งเขียนข้อมูลทีละไบต์จำนวน 65,536 คำสั่งติดต่อกัน</li><li><strong>ขนาดโค้ดที่ขยายใหญ่ขึ้นอย่างมหาศาล:</strong> ส่งผลให้โปรแกรมต้องใช้เนื้อที่คำสั่งเครื่องขนาดถึง 256KB เพียงเพื่อจัดระเบียบข้อมูลขนาด 64KB</li><li><strong>การแก้ไขปัญหาระดับสถาปัตยกรรมจำลอง:</strong> เนื่องจากความซ้ำซ้อนที่ขัดหูขัดตาและทำให้ระบบสูญเสียประสิทธิภาพ ทีมงานจึงจงใจเขียนส่วนตรวจจับรูปแบบโค้ดที่ย่ำแย่นี้ในตัวแปลงคำสั่งและแทนที่ด้วยลูปที่กระชับและรวดเร็วแทน</li></ul>
+                            </div>
+                        </section>
+                        <section class="content-section">
+                            <h3 class="section-header section-header-discussion">💬 สรุปประเด็นเสวนาในกระทู้</h3>
+                            <div class="section-body">
+                                <p>ความคิดเห็นบน Hacker News ถกเถียงเรื่องการแก้ไขโค้ดระดับล่างและการใส่การปรับปรุงเฉพาะทางในไดรเวอร์และเลเยอร์ความเข้ากันได้ดังนี้ครับ:</p><ul><li><strong>ปรากฏการณ์ในเครื่องมือยุคปัจจุบัน:</strong> นักพัฒนาเปรียบเทียบว่าพฤติกรรมนี้เหมือนกับโปรเจกต์ Proton และ Wine ในระบบ Linux ที่บ่อยครั้งต้องเพิ่มแพตช์ด่วนเพื่อแก้ไขจุดบกพร่องด้านประสิทธิภาพของเกมชื่อดัง (เช่น Elden Ring) ที่พอร์ตมาไม่ดี</li><li><strong>กลวิธีเฉพาะตัวของไดรเวอร์การ์ดจอ (GPU Drivers):</strong> สมาชิกให้ข้อมูลว่าไดรเวอร์ของค่าย NVIDIA หรือ AMD มักบรรจุโค้ดปรับแต่งพิเศษเฉพาะรายเกมไว้เป็นจำนวนมากเพื่อหลีกเลี่ยงความผิดพลาดของเกมเอนจิ้น แม้กระทั่งการเปลี่ยนชื่อไฟล์เกมเป็น <code>hl2.exe</code> (Half-Life 2) ก็สามารถช่วยเพิ่มอัตราเฟรมเรตได้เนื่องจากไดรเวอร์จะสั่งใช้การตั้งค่าพิเศษ</li><li><strong>ความเสี่ยงในระยะยาว:</strong> มีการตั้งข้อสังเกตว่าการปรับปรุงเฉพาะจุดแบบ Agnostic (ไม่เจาะจงแพลตฟอร์ม) อาจนำมาซึ่งบั๊กหรือข้อผิดพลาดใหม่เมื่อมีการอัปเดตระบบในอนาคต ทำให้กระบวนการพัฒนาซอฟต์แวร์ซับซ้อนยิ่งขึ้น</li></ul>
+                            </div>
+                        </section>
+                        <div class="links-row">
+                            <a href="https://devblogs.microsoft.com/oldnewthing/20260615-00/?p=112419" target="_blank" class="action-btn btn-primary">อ่านบทความต้นฉบับ</a>
+                            <a href="https://news.ycombinator.com/item?id=48550693" target="_blank" class="action-btn btn-secondary">กระทู้บน Hacker News</a>
+                        </div>
+                    </div>
+                </details>
+            </article>
+            
+            <!-- STORY 10 -->
+            <article class="news-item">
+                <details>
+                    <summary>
+                        <div class="summary-header">
+                            <div class="summary-title-section">
+                                <h2 class="story-title">U.S. pulling ocean sensors a 'shock' for Canadian research as El Niño nears</h2>
+                                <p class="teaser">การที่รัฐบาลสหรัฐฯ สั่งถอนเซนเซอร์วัดค่ามหาสมุทรสร้างความตื่นตระหนกแก่นักวิจัยชาวแคนาดาที่ต้องรับมือกับปรากฏการณ์เอลนีโญที่กำลังคืบคลานเข้ามา</p>
+                                <div class="meta-row">
+                                    <span class="badge badge-points">🔥 378 คะแนน</span>
+                                    <span class="badge badge-comments">💬 237 ความคิดเห็น</span>
+                                    <span class="badge badge-domain">timescolonist.com</span>
+                                </div>
+                            </div>
+                            <div class="toggle-icon">▼</div>
+                        </div>
+                    </summary>
+                    <div class="details-content">
+                        <section class="content-section">
+                            <h3 class="section-header section-header-article">📄 สรุปเนื้อหาบทความ</h3>
+                            <div class="section-body">
+                                <p>เนื่องจากหน้าเว็บต้นทางเกิดปัญหาทางเทคนิคและไม่สามารถเข้าถึงเนื้อหาได้ (HTTP Error 403) ข้อมูลสรุปประเด็นหลักจึงวิเคราะห์มาจากบริบทและหัวข้อข่าวสารดังนี้ครับ:</p><ul><li><strong>ผลกระทบต่อโครงการวิจัยสิ่งแวดล้อม:</strong> การถอนเซนเซอร์วัดอุณหภูมิและพฤติกรรมของมหาสมุทรออกส่งผลกระทบต่อทีมนักวิจัยในแคนาดาอย่างมาก ในช่วงเวลาที่โลกกำลังเผชิญกับการมาถึงของปรากฏการณ์สภาพอากาศแปรปราวนเอลนีโญ (El Niño)</li><li><strong>งบประมาณและการดำเนินการ:</strong> ความร่วมมือด้านสิ่งแวดล้อมทางน้ำระหว่างสองประเทศต้องหยุดชะงักลงหลังจากการตัดสินใจของหน่วยงานฝั่งสหรัฐฯ ที่จะยกเลิกการบำรุงรักษาทุ่นตรวจจับข้อมูลและนำอุปกรณ์ขึ้นจากน้ำ</li></ul>
+                            </div>
+                        </section>
+                        <section class="content-section">
+                            <h3 class="section-header section-header-discussion">💬 สรุปประเด็นเสวนาในกระทู้</h3>
+                            <div class="section-body">
+                                <p>ปฏิกิริยาของชุมชนนักพัฒนาแสดงความไม่พอใจอย่างรุนแรงต่อนโยบายการบริหารงบประมาณและการทำลายข้อมูลทางวิทยาศาสตร์ของภาครัฐดังนี้ครับ:</p><ul><li><strong>ความย้อนแย้งเรื่องการประหยัดค่าใช้จ่าย:</strong> สมาชิกชี้ว่าหากต้องการประหยัดงบจริง รัฐบาลควรละทิ้งอุปกรณ์เหล่านั้นไว้ในน้ำแทนที่จะยอมเสียเงินหลายล้านดอลลาร์เพื่อส่งทีมไปรื้อถอน ซึ่งการรื้อถอนนี้สะท้อนเจตนาจงใจทำลายระบบวัดผลเพื่อไม่ให้รัฐบาลชุดถัดไปเปิดใช้งานได้ง่ายๆ</li><li><strong>เปรียบเทียบกับภาพยนตร์ตลกร้าย:</strong> หลายความเห็นเปรียบเทียบเหตุการณ์นี้กับภาพยนตร์เรื่อง 'Don't Look Up' ที่สะท้อนภาพการเมืองที่หลับตาไม่ยอมมองข้อมูลความจริงด้านสิ่งแวดล้อมเพื่อประโยชน์ของอุตสาหกรรมพลังงานฟอสซิล</li><li><strong>บทบาทของรัฐสภาสหรัฐฯ:</strong> เกิดข้อกังขาว่าสมาชิกรัฐสภาส่วนใหญ่ไม่ได้พยายามขัดขวางการตัดสินใจนี้อย่างจริงจัง และเป็นเพียงการเล่นละครการเมืองเพื่อรักษาภาพลักษณ์ของตนเองในสายตาประชาชนเท่านั้น</li></ul>
+                            </div>
+                        </section>
+                        <div class="links-row">
+                            <a href="https://www.timescolonist.com/local-news/us-pulling-ocean-sensors-a-shock-for-canadian-research-as-el-nino-nears-12422874" target="_blank" class="action-btn btn-primary">อ่านบทความต้นฉบับ</a>
+                            <a href="https://news.ycombinator.com/item?id=48560847" target="_blank" class="action-btn btn-secondary">กระทู้บน Hacker News</a>
+                        </div>
+                    </div>
+                </details>
+            </article>
+            
+            <!-- STORY 11 -->
+            <article class="news-item">
+                <details>
+                    <summary>
+                        <div class="summary-header">
+                            <div class="summary-title-section">
+                                <h2 class="story-title">Is Meta destroying its engineering organization?</h2>
+                                <p class="teaser">บทวิเคราะห์จากจดหมายข่าว Pragmatic Engineer ชี้ว่าวัฒนธรรมวิศวกรรมอันแข็งแกร่งของ Meta ตลอด 20 ปี กำลังถูกทำลายลงอย่างรวดเร็วจากการหักโหมลงทุนในปัญญาประดิษฐ์ (AI)</p>
+                                <div class="meta-row">
+                                    <span class="badge badge-points">🔥 363 คะแนน</span>
+                                    <span class="badge badge-comments">💬 337 ความคิดเห็น</span>
+                                    <span class="badge badge-domain">newsletter.pragmaticengineer.com</span>
+                                </div>
+                            </div>
+                            <div class="toggle-icon">▼</div>
+                        </div>
+                    </summary>
+                    <div class="details-content">
+                        <section class="content-section">
+                            <h3 class="section-header section-header-article">📄 สรุปเนื้อหาบทความ</h3>
+                            <div class="section-body">
+                                <p>บทวิเคราะห์เชิงลึกเกี่ยวกับความเปลี่ยนแปลงของวัฒนธรรมการทำงานภายใน Meta ที่สะท้อนมุมมองเชิงกังวลจากวิศวกรและผู้นำเทคโนโลยีดังนี้ครับ:</p><ul><li><strong>ยุคสมัยแห่งการพัฒนาซอฟต์แวร์ของ Meta:</strong> ผู้เขียนแบ่งวัฒนธรรมไอที of Meta ออกเป็นสองยุคหลัก ได้แก่ ยุคแรก 'Move Fast and Break Things' ที่เน้นการทำผลิตภัณฑ์รวดเร็ว และยุคถัดมา 'Move Fast with Stable Infra' ที่คงความเร็วแต่เน้นระบบเสถียร</li><li><strong>วิศวกรซอฟต์แวร์กลายเป็นค่าใช้จ่าย (Cost Center):</strong> วัฒนธรรมเก่าที่เคยให้ความสำคัญกับวิศวกรอย่างมากในฐานะผู้สร้างมูลค่า (Profit Center) กำลังเปลี่ยนไปอย่างฉับพลันหลังการบีบบังคับให้นักพัฒนาเปลี่ยนไปทำโปรเจกต์ปัญญาประดิษฐ์</li><li><strong>การลงทุนแบบทุ่มสุดตัวในเทคโนโลยี AI:</strong> Mark Zuckerberg มุ่งมั่นที่จะไม่พลาดโอกาสในการควบคุมแพลตฟอร์มยุคใหม่หลังพลาดโอกาสในยุคมือถือ โดยทุ่มเงินมหาศาลพัฒนาโมเดล Llama และสั่งการย้ายบุคลากรจำนวนมากมารองรับงานฝึกสอน AI</li><li><strong>การโยกย้ายบุคลากรแบบสายฟ้าแลบ:</strong> รายงานระบุว่าวิศวกรในทีมแกนหลัก (Core teams) ราว 30-50% ถูกสั่งย้ายไปทำงานประเภทเตรียมป้ายข้อมูล (Data labeling) และพัฒนาระบบประเมินผลตอบรับจากมนุษย์ (RLHF) เพื่อยกระดับความฉลาดให้กับ AI จนเกิดกระแสต่อต้านภายในองค์กร</li></ul>
+                            </div>
+                        </section>
+                        <section class="content-section">
+                            <h3 class="section-header section-header-discussion">💬 สรุปประเด็นเสวนาในกระทู้</h3>
+                            <div class="section-body">
+                                <p>หัวข้อสนทนาของกลุ่มนักพัฒนาบน Hacker News เต็มไปด้วยความกังขาและการวิจารณ์เชิงปฏิบัติการในเรื่องการจัดการวิศวกรซอฟต์แวร์ระดับสูงดังนี้ครับ:</p><ul><li><strong>ความไม่สมเหตุสมผลด้านทรัพยากร:</strong> สมาชิกหลายรายสงสัยว่าการนำวิศวกรระดับสูงค่าตัวแพงในสหรัฐฯ ไปทำงานคัดกรองข้อมูล (Data Labeling) เป็นการสิ้นเปลืองทรัพยากรอย่างยิ่งยวด แต่อีกฝ่ายโต้แย้งว่าอาจเป็นการดึงเอา 'รสนิยมการเขียนโค้ดที่ดี' (Taste) จากคนกลุ่มนี้ไปป้อนให้ AI เรียนรู้</li><li><strong>ความกังวลเรื่องการจงใจวางยาข้อมูล (Data Poisoning):</strong> เกิดประเด็นพูดคุยว่าหากวิศวกรไม่พอใจ อาจร่วมมือกันส่งข้อมูลที่ไม่สมบูรณ์หรือแฝงรอยรั่วความปลอดภัยเพื่อขัดขวางกระบวนการฝึกฝน AI หรือเพิกเฉยต่อความผิดพลาดเพื่อเอาเวลาไปหางานใหม่</li><li><strong>ความคุ้มค่าของการทำลายวัฒนธรรมเดิม:</strong> นักพัฒนาเตือนว่าการลดคุณภาพชีวิตการทำงานและทำลายแรงจูงใจของทีมพัฒนา อาจส่งผลให้เกิดความล้มเหลวทางเทคนิคครั้งใหญ่และทำให้ Meta สูญเสียบุคลากรฝีมือดีไปให้บริษัทคู่แข่งอย่างถาวร</li></ul>
+                            </div>
+                        </section>
+                        <div class="links-row">
+                            <a href="https://newsletter.pragmaticengineer.com/p/why-is-meta-destroying-its-engineering" target="_blank" class="action-btn btn-primary">อ่านบทความต้นฉบับ</a>
+                            <a href="https://news.ycombinator.com/item?id=48558045" target="_blank" class="action-btn btn-secondary">กระทู้บน Hacker News</a>
+                        </div>
+                    </div>
+                </details>
+            </article>
+            
+            <!-- STORY 12 -->
+            <article class="news-item">
+                <details>
+                    <summary>
+                        <div class="summary-header">
+                            <div class="summary-title-section">
+                                <h2 class="story-title">Apple is about to make Hide My Email useless</h2>
+                                <p class="teaser">Apple เตรียมเปลี่ยนโดเมนสำหรับบริการพรางอีเมล (Hide My Email) ไปใช้ซับโดเมน @private.icloud.com ซึ่งอาจทำให้เว็บไซต์ต่างๆ บล็อกอีเมลเหล่านี้ได้ง่ายขึ้นและลดความเป็นส่วนตัวลง</p>
+                                <div class="meta-row">
+                                    <span class="badge badge-points">🔥 361 คะแนน</span>
+                                    <span class="badge badge-comments">💬 221 ความคิดเห็น</span>
+                                    <span class="badge badge-domain">arseniyshestakov.com</span>
+                                </div>
+                            </div>
+                            <div class="toggle-icon">▼</div>
+                        </div>
+                    </summary>
+                    <div class="details-content">
+                        <section class="content-section">
+                            <h3 class="section-header section-header-article">📄 สรุปเนื้อหาบทความ</h3>
+                            <div class="section-body">
+                                <p>บทความวิเคราะห์ผลกระทบจากการอัปเดตเงื่อนไขบริการความปลอดภัยความเป็นส่วนตัวของ Apple เมื่อเดือนมิถุนายน 2026 มีรายละเอียดประเด็นสำคัญดังนี้ครับ:</p><ul><li><strong>การย้ายโดเมนส่งต่ออีเมล:</strong> Apple ประกาศเปลี่ยนการออกอีเมลแฝงสำหรับฟีเจอร์ Sign in with Apple และ Hide My Email จากโดเมนมาตรฐาน <code>@icloud.com</code> ไปยังซับโดเมนเฉพาะเจาะจงอย่าง <code>@private.icloud.com</code></li><li><strong>ผลกระทบด้านความเป็นส่วนตัว:</strong> ก่อนหน้านี้ บริการต่างๆ ไม่สามารถบล็อกอีเมลแฝงของ Apple ได้โดยง่ายเนื่องจากอีเมลใช้ชื่อโดเมนหลักร่วมกับผู้ใช้ทั่วไป แต่การย้ายไปซับโดเมนใหม่นี้จะทำให้อีเมลแฝงถูกตรวจพบและสั่งบล็อกยกโดเมนได้ทันทีแบบเดียวกับกล่องจดหมายชั่วคราว (Temporary Email)</li><li><strong>แนวทางการรับมือของผู้ใช้:</strong> รายงานเสนอแนะให้ผู้ใช้งานรีบสร้างอีเมลแฝงภายใต้โดเมนเดิม <code>@icloud.com</code> ไว้ล่วงหน้าก่อนที่การเปลี่ยนแปลงจะมีผล เนื่องจาก Apple ยืนยันว่าที่อยู่อีเมลเดิมจะยังคงทำงานและส่งต่อจดหมายได้ตามปกติโดยไม่มีการขัดจังหวะ</li></ul>
+                            </div>
+                        </section>
+                        <section class="content-section">
+                            <h3 class="section-header section-header-discussion">💬 สรุปประเด็นเสวนาในกระทู้</h3>
+                            <div class="section-body">
+                                <p>การแลกเปลี่ยนมุมมองบน Hacker News วิเคราะห์ถึงสาเหตุเบื้องหลังของ Apple และความสมดุลด้านระบบความปลอดภัยดังนี้ครับ:</p><ul><li><strong>ทฤษฎีการลดปัญหาสแปม (Spam prevention):</strong> สมาชิกบางส่วนคาดว่าการเปลี่ยนแปลงนี้อาจเกิดจากโดเมนหลักของ iCloud กำลังถูกสั่งบล็อกหรือติดบัญชีดำ (Blacklist) โดยเซิร์ฟเวอร์อื่นๆ เนื่องจากมีผู้ใช้อีเมลแฝงส่งสแปมจำนวนมาก Apple จึงต้องแยกโดเมนออกมาเพื่อรักษาสถานะผู้ใช้อีเมลหลัก</li><li><strong>ความสับสนเรื่องความสามารถในการส่งจดหมาย:</strong> เกิดความสับสนในบอร์ดว่าฟีเจอร์ Hide My Email สามารถใช้ส่งจดหมายตอบกลับได้หรือไม่ ซึ่งนักพัฒนาช่วยชี้แจงว่าระบบสามารถทำได้จริงหากปลายทางส่งอีเมลเข้ามาก่อน ทำให้เกิดประโยชน์ในฐานะช่องทางติดต่อแบบมีมาตรการความปลอดภัย</li><li><strong>ผลกระทบต่อ Sign in with Apple:</strong> นักพัฒนาแสดงความกังวลว่า หากเว็บไซต์ต่างๆ ตัดสินใจบล็อกโดเมน <code>@private.icloud.com</code> จะส่งผลให้ปุ่มล็อกอินด้วยบัญชี Apple (Sign in with Apple) ใช้งานไม่ได้โดยสิ้นเชิงในบริการเหล่านั้น</li></ul>
+                            </div>
+                        </section>
+                        <div class="links-row">
+                            <a href="https://arseniyshestakov.com/2026/06/16/apple-is-about-to-make-hide-my-email-useless/" target="_blank" class="action-btn btn-primary">อ่านบทความต้นฉบับ</a>
+                            <a href="https://news.ycombinator.com/item?id=48559935" target="_blank" class="action-btn btn-secondary">กระทู้บน Hacker News</a>
+                        </div>
+                    </div>
+                </details>
+            </article>
+            
+            <!-- STORY 13 -->
+            <article class="news-item">
+                <details>
+                    <summary>
+                        <div class="summary-header">
+                            <div class="summary-title-section">
+                                <h2 class="story-title">Typst 0.15.0</h2>
+                                <p class="teaser">Typst เวอร์ชัน 0.15.0 เปิดตัวอย่างเป็นทางการ มาพร้อมความสามารถในการรองรับ Variable Fonts การส่งออกสูตรคณิตศาสตร์เป็น MathML ใน HTML และฟีเจอร์บรรณานุกรมหลายชุดในเอกสารเดียว</p>
+                                <div class="meta-row">
+                                    <span class="badge badge-points">🔥 326 คะแนน</span>
+                                    <span class="badge badge-comments">💬 89 ความคิดเห็น</span>
+                                    <span class="badge badge-domain">typst.app</span>
+                                </div>
+                            </div>
+                            <div class="toggle-icon">▼</div>
+                        </div>
+                    </summary>
+                    <div class="details-content">
+                        <section class="content-section">
+                            <h3 class="section-header section-header-article">📄 สรุปเนื้อหาบทความ</h3>
+                            <div class="section-body">
+                                <p>Typst ได้ประกาศเปิดตัวเวอร์ชัน 0.15.0 ซึ่งเป็นการปรับปรุงครั้งใหญ่สำหรับภาษาและคอมไพเลอร์ที่เน้นการพัฒนาจัดรูปแบบเอกสารทดแทน LaTeX โดยมีฟีเจอร์หลักและการเปลี่ยนแปลงที่สำคัญดังนี้ครับ:</p><ul><li><strong>การรองรับ Variable Fonts:</strong> เพิ่มความยืดหยุ่นในการจัดรูปแบบตัวอักษรโดยรองรับฟอนต์ชนิดปรับเปลี่ยนรูปแบบได้ (Variable Fonts)</li><li><strong>การยกระดับการส่งออก HTML (MathML):</strong> รองรับการแปลงสูตรคณิตศาสตร์ไปเป็นรหัส MathML สำหรับแสดงผลบนเบราว์เซอร์ได้ทันทีโดยไม่ต้องตั้งค่าเพิ่มเติม ซึ่งช่วยเพิ่มขีดความสามารถในการแปลงไปเป็นไฟล์ EPUB ด้วย</li><li><strong>การสร้างเว็บบล็อกและเอกสารหลายหน้า (Bundle Export):</strong> เพิ่มโหมดทดลองสำหรับการส่งออกไฟล์แบบ Bundle ทำให้โครงการ Typst ไฟล์เดียวสามารถแยกส่งออกเป็นหลายไฟล์ย่อยได้</li><li><strong>การจัดการเอกสารทางวิชาการขั้นสูง:</strong> รองรับการสร้างบรรณานุกรม (Bibliography) หลายรายการแยกอิสระในไฟล์เดียว พร้อมทั้งสามารถกำหนดขอบเขตตัวเลือกโดยใช้ <code>within</code> selector</li><li><strong>การปรับปรุงความเสถียรและสิ่งอํานวยความสะดวก:</strong> เพิ่มการคำนวณทศนิยมแบบ Deterministic ข้ามแพลตฟอร์ม รวมถึงประเภทข้อมูล File Path แบบใหม่ และปรับปรุงระบบรายงานข้อผิดพลาดเชิงวินิจฉัย (Diagnostics)</li><li><strong>การเปลี่ยนแปลงสำคัญที่อาจมีผลกระทบ (Breaking Changes):</strong> การห้ามใช้เครื่องหมาย Backslash (<code>\</code>) ในการระบุไฟล์ โดยเปลี่ยนมาบังคับใช้ Forward Slash (<code>/</code>) แทนในทุกคำสั่ง</li></ul>
+                            </div>
+                        </section>
+                        <section class="content-section">
+                            <h3 class="section-header section-header-discussion">💬 สรุปประเด็นเสวนาในกระทู้</h3>
+                            <div class="section-body">
+                                <p>ความคิดเห็นจากคอมมูนิตี้ใน Hacker News แสดงความตื่นเต้นและการนำ Typst ไปประยุกต์ใช้งานจริงอย่างกว้างขวาง โดยมีประเด็นหลักดังนี้ครับ:</p><ul><li><strong>การทำลายอุตสาหกรรม SaaS เจนใบเสร็จ (Invoice Generation):</strong> นักพัฒนาหลายรายระบุว่า Typst มีประโยชน์อย่างยิ่งในการนำมาแทนที่บริการ SaaS สำหรับสร้างเอกสาร PDF (เช่น ใบแจ้งหนี้ หรือข้อเสนอโครงการ) ซึ่งปกติคิดค่าบริการต่อเอกสารในอัตราที่แพงมาก ทั้งที่ต้นทุนจริงมีค่าน้อยมาก การผสานระบบเทมเพลต JSON ของ Typst ช่วยให้สร้างเอกสารที่สวยงามได้ฟรีและสะดวกกว่าการใช้ LaTeX หรือ Weasyprint</li><li><strong>การปรับปรุงทิศทางการส่งออกเว็บ (HTML / EPUB):</strong> ชุมชนชื่นชมผู้พัฒนาที่ปรับปรุงการแสดงผลสมการคณิตศาสตร์ผ่าน MathML ซึ่งช่วยให้นักเขียนสามารถจัดรูปแบบงานวิชาการเพื่อนำไปเผยแพร่ในรูปแบบเว็บหรือหนังสืออิเล็กทรอนิกส์ (EPUB) ได้อย่างสมบูรณ์แบบ</li><li><strong>การสนับสนุนทางการเงินแก่ผู้พัฒนาโอเพนซอร์ส:</strong> นักพัฒนาบางส่วนที่นำ Typst ไปประหยัดต้นทุนทางธุรกิจได้เป็นจำนวนเงินหลักพันดอลลาร์ ได้เข้าร่วมสนับสนุนโครงการอย่างเป็นทางการผ่านระบบ GitHub Sponsors รายเดือนเพื่อทดแทนค่าใช้จ่าย SaaS ที่ประหยัดไปได้</li></ul>
+                            </div>
+                        </section>
+                        <div class="links-row">
+                            <a href="https://typst.app/docs/changelog/0.15.0/" target="_blank" class="action-btn btn-primary">อ่านบทความต้นฉบับ</a>
+                            <a href="https://news.ycombinator.com/item?id=48544396" target="_blank" class="action-btn btn-secondary">กระทู้บน Hacker News</a>
+                        </div>
+                    </div>
+                </details>
+            </article>
+            
+            <!-- STORY 14 -->
+            <article class="news-item">
+                <details>
+                    <summary>
+                        <div class="summary-header">
+                            <div class="summary-title-section">
+                                <h2 class="story-title">I Love the Computer</h2>
+                                <p class="teaser">บทความสะท้อนความคิดถึงเกี่ยวกับความรักในเทคโนโลยีคอมพิวเตอร์ยุคดั้งเดิม ท่ามกลางกระแสความขัดแย้งของนักพัฒนาที่มองว่าทุนนิยมและเทคโนโลยี AI กำลังทำลายจิตวิญญาณของคอมพิวเตอร์ส่วนบุคคล</p>
+                                <div class="meta-row">
+                                    <span class="badge badge-points">🔥 298 คะแนน</span>
+                                    <span class="badge badge-comments">💬 158 ความคิดเห็น</span>
+                                    <span class="badge badge-domain">michaelenger.com</span>
+                                </div>
+                            </div>
+                            <div class="toggle-icon">▼</div>
+                        </div>
+                    </summary>
+                    <div class="details-content">
+                        <section class="content-section">
+                            <h3 class="section-header section-header-article">📄 สรุปเนื้อหาบทความ</h3>
+                            <div class="section-body">
+                                <p>บทความเขียนขึ้นเพื่อถ่ายทอดความรู้สึกรักและผูกพันต่อคอมพิวเตอร์ในฐานะเครื่องมือสร้างสรรค์และมอบความเป็นอิสระแก่ผู้ใช้งาน โดยเล่าผ่านเรื่องราวชีวิตส่วนตัวของผู้เขียนดังนี้ครับ:</p><ul><li><strong>ความทรงจำกับคอมพิวเตอร์เครื่องแรก:</strong> ย้อนรอยความทรงจำในวัยเด็กช่วงทศวรรษที่ 90 ในนอร์เวย์ เมื่อแม่ได้นำเครื่อง IBM 486 DX6 รัน Windows 3.0 กลับมาบ้าน ซึ่งกลายเป็นพื้นที่ปลอดภัยและมอบเสถียรภาพให้แก่ชีวิตในวัยเด็กที่ต้องย้ายบ้านบ่อยตามหน้าที่การงานของแม่</li><li><strong>ยุคก่อนอินเทอร์เน็ตและนิตยสารไอที:</strong> ความตื่นเต้นของการเรียนรู้ผ่านสิ่งพิมพ์เฉพาะกลุ่ม เช่น TEKNO และ PC Gamer ซึ่งไม่มีโฆษณาคั่น ป๊อปอัปรบกวน หรือระบบอัลกอริทึมดูดเวลาแบบสื่อดิจิทัลในปัจจุบัน ช่วยหล่อหลอมอัตลักษณ์การเป็นคนรักคอมพิวเตอร์</li><li><strong>การเรียนรู้การเขียนโปรแกรมก้าวแรก:</strong> ประสบการณ์ลองผิดลองถูกในวัยรุ่นที่จดจำได้ดีคือการคัดลอกรหัสภาษา Java ลงใน Notepad แล้วบันทึกไฟล์เป็นนามสกุล <code>.exe</code> โดยไม่เข้าใจเรื่องการคอมไพล์ในขณะนั้น ก่อนที่จะพัฒนามาเรียนรู้โครงสร้างรหัสภาษา C++ และ PHP อย่างเชี่ยวชาญในเวลาต่อมา</li></ul>
+                            </div>
+                        </section>
+                        <section class="content-section">
+                            <h3 class="section-header section-header-discussion">💬 สรุปประเด็นเสวนาในกระทู้</h3>
+                            <div class="section-body">
+                                <p>การอภิปรายใน Hacker News เกี่ยวกับประเด็นนี้สะท้อนมุมมองที่หลากหลายต่อทิศทางของเทคโนโลยีปัจจุบันและปัญญาประดิษฐ์ (AI) ดังนี้ครับ:</p><ul><li><strong>ข้อถกเถียงเรื่องการเปรียบเทียบ AI กับน้ำมันงู (Snake Oil):</strong> สมาชิกบางส่วนเห็นว่าการเรียก AI ทั้งหมดว่าเป็นเพียงสินค้าหลอกลวงเป็นเรื่องไม่ยุติธรรม เนื่องจาก LLM มีประโยชน์ใช้สอยจริงในการศึกษาทฤษฎีและเริ่มต้นเขียนโค้ดสำหรับโครงการใหม่ ขณะที่อีกฝ่ายชี้แจงว่า สิ่งที่เป็นปัญหาน้ำมันงูไม่ใช่ตัวเทคโนโลยี แต่เป็นฟองสบู่ทางการเงินและการปั่นกระแสของผู้บริหารที่โฆษณาความสามารถของ AI เกินจริง</li><li><strong>ความกังวลต่อการสูญเสียการควบคุมส่วนบุคคล (Personal Computing Decay):</strong> เกิดการแลกเปลี่ยนอย่างลึกซึ้งเกี่ยวกับการเปลี่ยนผ่านคอมพิวเตอร์ไปสู่ระบบเช่าพื้นที่ประมวลผล (Renters Model) ซึ่งนักพัฒนากลัวว่า ความง่ายในการให้ AI เจนโค้ดโดยแลกกับการจ่ายค่า API ตลอดเวลา จะไปทำลายความสุขในการแก้ปัญหาด้วยตนเองบนคอมพิวเตอร์ส่วนบุคคล (Local computing) และเปลี่ยนผู้คนให้พึ่งพาแต่คลาวด์ของบริษัทยักษ์ใหญ่</li><li><strong>ปรากฏการณ์ฟองสบู่เทคโนโลยีและการเปลี่ยนผ่าน:</strong> มีการคาดการณ์เชิงบวกว่า เทคโนโลยี AI จะผ่านวงจรฟองสบู่คล้ายกับยุค Dot-com ที่ผู้ปั่นกระแสจะล้มหายตายจากไปตามกลไกตลาด แต่โครงสร้างพื้นฐานและประโยชน์ทางเทคโนโลยีที่แท้จริงจะกลายเป็นสาธารณูปโภคขั้นพื้นฐานให้สังคมได้ใช้งานอย่างมั่นคง</li></ul>
+                            </div>
+                        </section>
+                        <div class="links-row">
+                            <a href="https://michaelenger.com/blog/i-love-the-computer/" target="_blank" class="action-btn btn-primary">อ่านบทความต้นฉบับ</a>
+                            <a href="https://news.ycombinator.com/item?id=48546441" target="_blank" class="action-btn btn-secondary">กระทู้บน Hacker News</a>
+                        </div>
+                    </div>
+                </details>
+            </article>
+            
+            <!-- STORY 15 -->
+            <article class="news-item">
+                <details>
+                    <summary>
+                        <div class="summary-header">
+                            <div class="summary-title-section">
+                                <h2 class="story-title">GrapheneOS has been ported to Android 17</h2>
+                                <p class="teaser">ทีมผู้พัฒนา GrapheneOS ประกาศพอร์ตระบบปฏิบัติการเน้นความเป็นส่วนตัวไปยัง Android 17 ได้สำเร็จตั้งแต่วันแรกที่ Google เปิดตัวอย่างเป็นทางการ พร้อมรองรับสมาร์ทโฟนตระกูล Pixel รุ่นต่างๆ</p>
+                                <div class="meta-row">
+                                    <span class="badge badge-points">🔥 288 คะแนน</span>
+                                    <span class="badge badge-comments">💬 122 ความคิดเห็น</span>
+                                    <span class="badge badge-domain">discuss.grapheneos.org</span>
+                                </div>
+                            </div>
+                            <div class="toggle-icon">▼</div>
+                        </div>
+                    </summary>
+                    <div class="details-content">
+                        <section class="content-section">
+                            <h3 class="section-header section-header-article">📄 สรุปเนื้อหาบทความ</h3>
+                            <div class="section-body">
+                                <p>ในวันเปิดตัวอย่างเป็นทางการของ Android 17 ทีมงานระบบปฏิบัติการเน้นความปลอดภัยและความเป็นส่วนตัวอย่าง GrapheneOS ได้ออกประกาศความคืบหน้าสำคัญดังนี้ครับ:</p><ul><li><strong>การพอร์ตระบบเสร็จสิ้นในวันแรก:</strong> ทีมงานประสบความสำเร็จในการพอร์ตโค้ด GrapheneOS ไปยัง Android 17 เรียบร้อยแล้ว และอยู่ในขั้นตอนนำรหัสขึ้นคลังข้อมูลสาธารณะ (Repositories)</li><li><strong>รองรับอุปกรณ์ Pixel หลากหลายรุ่น:</strong> มีการทดสอบระบบปฏิบัติการตัวใหม่บนสมาร์ทโฟนตระกูล Pixel สำเร็จแล้วหลายรุ่น เช่น Pixel 6a, 7, 7a, 8, รวมถึงตระกูล Pixel 10 และ Pixel 10 Pro Fold</li><li><strong>แผนการทดสอบสู่สาธารณะ:</strong> รหัสโปรแกรมจะเปิดให้ดาวน์โหลดสำหรับนักพัฒนาเพื่อนำไปบิวด์และทดสอบส่วนตัว และจะเปิดกระบวนการทดสอบเบต้าแบบสาธารณะ (Public testing) สำหรับผู้ใช้ทั่วไปอย่างเป็นทางการในวันถัดไป</li></ul>
+                            </div>
+                        </section>
+                        <section class="content-section">
+                            <h3 class="section-header section-header-discussion">💬 สรุปประเด็นเสวนาในกระทู้</h3>
+                            <div class="section-body">
+                                <p>ความคิดเห็นบนบอร์ด Hacker News มุ่งเน้นการรีวิวและแลกเปลี่ยนประสบการณ์ใช้งานจริง รวมถึงประเด็นความปลอดภัยและความเป็นส่วนตัวในแอนดรอยด์รุ่นใหม่ ดังนี้ครับ:</p><ul><li><strong>ข้อจำกัดเบื้องต้นของแอปพลิเคชันพื้นฐาน (AOSP Apps):</strong> ผู้ใช้บางส่วนระบุว่าซอฟต์แวร์เริ่มต้นที่ติดมากับระบบ (เช่น แป้นพิมพ์และแอปส่งข้อความพื้นฐานของ AOSP) ขาดฟังก์ชันอำนวยความสะดวกในชีวิตประจำวัน เช่น การเลื่อนเคอร์เซอร์ด้วยปุ่ม Spacebar และการแสดงผลไอคอนตอบกลับ (Emoji Reactions) บน SMS แบบกลุ่มที่กลายเป็นการส่งข้อความโควทซ้ำซ้อนสร้างความน่ารำคาญ</li><li><strong>คำแนะนำเครื่องมือทางเลือกแบบเปิด (FUTO Keyboard):</strong> นักพัฒนาแนะนำให้ติดตั้งแป้นพิมพ์อิสระ เช่น FUTO Keyboard ซึ่งรองรับฟังก์ชันรูดนิ้วและพิมพ์ด้วยเสียงอัจฉริยะผ่านเทคโนโลยี Whisper AI แบบทำงานบนอุปกรณ์โดยตรง (Local Inference) โดยมีข้อสังเกตเรื่องการเป็นรหัสแบบ Source-available แต่ไม่ใช่ Open-source เต็มตัวจึงต้องใช้คลังติดตั้งส่วนตัว</li><li><strong>การหลีกเลี่ยงการถูกยัดเยียด AI จากผู้ผลิต (AI Bloatware):</strong> สมาชิกแสดงความกังวลต่อนโยบายของ Google ใน Android 17 ที่ประกาศจะเปลี่ยนระบบปฏิบัติการให้เป็นระบบอัจฉริยะ (Intelligence System) ที่ควบรวม AI เข้ากับตัวเครื่องอย่างแนบแน่น ซึ่งทำให้นักพัฒนาที่รักความเป็นส่วนตัวเห็นพ้องว่า GrapheneOS จะยิ่งกลายมาเป็นทางเลือกสำคัญในการปิดกั้นการสอดส่องและเก็บข้อมูลดังกล่าว</li></ul>
+                            </div>
+                        </section>
+                        <div class="links-row">
+                            <a href="https://discuss.grapheneos.org/d/36469-grapheneos-has-been-ported-to-android-17-and-official-releases-are-coming-soon" target="_blank" class="action-btn btn-primary">อ่านบทความต้นฉบับ</a>
+                            <a href="https://news.ycombinator.com/item?id=48561654" target="_blank" class="action-btn btn-secondary">กระทู้บน Hacker News</a>
+                        </div>
+                    </div>
+                </details>
+            </article>
+            
+            <!-- STORY 16 -->
+            <article class="news-item">
+                <details>
+                    <summary>
+                        <div class="summary-header">
+                            <div class="summary-title-section">
+                                <h2 class="story-title">SpaceX Is Buying Cursor</h2>
+                                <p class="teaser">SpaceX ของอีลอน มัสก์ ขึ้นแท่นบริษัทมูลค่าสูงสุดอันดับ 5 ของโลก แซงหน้า Amazon หลังประกาศเข้าซื้อกิจการ Cursor สตาร์ทอัปผู้พัฒนา AI ช่วยเขียนโค้ดด้วยมูลค่าสูงถึง 6 หมื่นล้านดอลลาร์</p>
+                                <div class="meta-row">
+                                    <span class="badge badge-points">🔥 286 คะแนน</span>
+                                    <span class="badge badge-comments">💬 3 ความคิดเห็น</span>
+                                    <span class="badge badge-domain">bbc.com</span>
+                                </div>
+                            </div>
+                            <div class="toggle-icon">▼</div>
+                        </div>
+                    </summary>
+                    <div class="details-content">
+                        <section class="content-section">
+                            <h3 class="section-header section-header-article">📄 สรุปเนื้อหาบทความ</h3>
+                            <div class="section-body">
+                                <p>SpaceX ได้สร้างประวัติศาสตร์ทางการเงินโดยการก้าวข้าม Amazon ขึ้นเป็นบริษัทที่มีมูลค่าตลาดมากที่สุดเป็นอันดับ 5 ของโลก ด้วยมูลค่าตลาดสูงถึง 2.78 ล้านล้านดอลลาร์ หลังจากการประกาศเข้าซื้อกิจการผู้พัฒนา AI ช่วยเขียนโค้ดชื่อดังอย่าง Cursor โดยมีประเด็นที่น่าสนใจดังนี้ครับ:</p><ul><li><strong>การควบรวมกิจการมูลค่ามหาศาล:</strong> SpaceX ตกลงเข้าซื้อกิจการ Anysphere ซึ่งเป็นบริษัทแม่ of Cursor สตาร์ทอัปผู้สร้าง AI Coding Agent ยอดนิยม ด้วยมูลค่าหุ้นแลกเปลี่ยน 6 หมื่นล้านดอลลาร์สหรัฐ</li><li><strong>แรงสนับสนุนในตลาดหุ้นและ Trillionaire คนแรก:</strong> การนำหุ้นเข้าจดทะเบียนในตลาดหลักทรัพย์ Nasdaq ส่งผลให้ราคาหุ้นพุ่งขึ้นกว่า 50% และผลักดันให้อีลอน มัสก์ กลายเป็นมหาเศรษฐีระดับล้านล้านดอลลาร์ (Trillionaire) คนแรกของโลก</li><li><strong>การวิเคราะห์ความแตกต่างด้านผลกำไร:</strong> แม้ว่ามูลค่าตลาดของ SpaceX จะแซงหน้า Amazon ไปแล้ว แต่นักวิเคราะห์ยังคงตั้งคำถามถึงความยั่งยืนของราคาหุ้น เนื่องจากโครงสร้างรายได้จริงยังแตกต่างกันมาก โดย Amazon มีกำไรในไตรมาสแรกของปี 2026 สูงถึง 30.3 พันล้านดอลลาร์ ขณะที่ SpaceX ขาดทุนสุทธิ 4.3 พันล้านดอลลาร์</li><li><strong>การขยายธุรกิจไปสู่โครงข่าย AI:</strong> ความร่วมมือกับ Cursor มีเป้าหมายเพื่อนำมารวมกับระบบประมวลผลขนาดใหญ่ Colossus ของ xAI (ผู้พัฒนาแชตบอต Grok) และส่งเสริมแผนการปล่อยศูนย์ข้อมูล AI สู่อวกาศของ SpaceX ในอนาคต</li></ul>
+                            </div>
+                        </section>
+                        <section class="content-section">
+                            <h3 class="section-header section-header-discussion">💬 สรุปประเด็นเสวนาในกระทู้</h3>
+                            <div class="section-body">
+                                <p>สำหรับข้อคิดเห็นของสมาชิกบนบอร์ด Hacker News ในกระทู้นี้ค่อนข้างมีจำกัด เนื่องจากผู้ดูแลระบบได้ทำการย้ายความคิดเห็นไปยังกระทู้หลักที่มีการสนทนาในเรื่องเดียวกันก่อนหน้านี้ เพื่อลดการโพสต์ซ้ำซ้อนในระบบครับ</p>
+                            </div>
+                        </section>
+                        <div class="links-row">
+                            <a href="https://www.bbc.com/news/articles/cvgd5g7d7gyo" target="_blank" class="action-btn btn-primary">อ่านบทความต้นฉบับ</a>
+                            <a href="https://news.ycombinator.com/item?id=48554215" target="_blank" class="action-btn btn-secondary">กระทู้บน Hacker News</a>
+                        </div>
+                    </div>
+                </details>
+            </article>
+            
+            <!-- STORY 17 -->
+            <article class="news-item">
+                <details>
+                    <summary>
+                        <div class="summary-header">
+                            <div class="summary-title-section">
+                                <h2 class="story-title">Peopleless economy? Not technically impossible</h2>
+                                <p class="teaser">การถกเถียงอย่างเผ็ดร้อนบนเว็บบอร์ดเกี่ยวกับการเกิดขึ้นของ 'ระบบเศรษฐกิจไร้มนุษย์' และความเป็นไปได้ในการเข้ามาแทนที่ของหุ่นยนต์อัจฉริยะในทุกภาคส่วนธุรกิจรวมถึงเกษตรกรรม</p>
+                                <div class="meta-row">
+                                    <span class="badge badge-points">🔥 277 คะแนน</span>
+                                    <span class="badge badge-comments">💬 545 ความคิดเห็น</span>
+                                    <span class="badge badge-domain">gmalandrakis.com</span>
+                                </div>
+                            </div>
+                            <div class="toggle-icon">▼</div>
+                        </div>
+                    </summary>
+                    <div class="details-content">
+                        <section class="content-section">
+                            <h3 class="section-header section-header-article">📄 สรุปเนื้อหาบทความ</h3>
+                            <div class="section-body">
+                                <p><strong>ข้อผิดพลาดในการเข้าถึงเนื้อหา:</strong> ระบบไม่สามารถเข้าถึงข้อมูลและเนื้อหาต้นฉบับของบทความนี้ได้เนื่องจากพบข้อผิดพลาด <strong>HTTP Error 403 (Forbidden)</strong> ซึ่งแสดงว่าหน้าเว็บดังกล่าวปฏิเสธการเชื่อมต่อ อย่างไรก็ตาม จากหัวข้อข่าว <em>"Peopleless economy? Not technically impossible"</em> บ่งชี้ถึงประเด็นการวิเคราะห์เชิงวิชาการเกี่ยวกับระบบเศรษฐกิจที่ทำงานโดยปราศจากมนุษย์ ซึ่งอาจทำงานผ่านระบบปัญญาประดิษฐ์และหุ่นยนต์อัตโนมัติอย่างเต็มรูปแบบ</p>
+                            </div>
+                        </section>
+                        <section class="content-section">
+                            <h3 class="section-header section-header-discussion">💬 สรุปประเด็นเสวนาในกระทู้</h3>
+                            <div class="section-body">
+                                <p>หัวข้อนี้จุดชนวนการอภิปรายอย่างกว้างขวางใน Hacker News เกี่ยวกับเศรษฐศาสตร์ยุคหลังการทำงานและการแทนที่มนุษย์ด้วยเครื่องจักร โดยสรุปประเด็นหลักได้ดังนี้ครับ:</p><ul><li><strong>ทฤษฎีการแบ่งแยกทวีปแห่งปัญญา (AI Island vs. Elsewhere):</strong> สมาชิกได้จำลองสถานการณ์สมมติหากโลกถูกแยกเป็นดินแดน AI ที่มีแต่เซิร์ฟเวอร์ประมวลผลกับฝั่งมนุษย์ โดยเกิดการวิเคราะห์ว่ากลุ่ม AI จะต้องการสิ่งใดมาแลกเปลี่ยนกับบริการทางซอฟต์แวร์ และหุ่นยนต์ในฝั่ง AI จะต้องมีความสามารถผลิตอาหารและสินค้าทดแทนแรงงานทางกายภาพทั้งหมดได้อย่างสมบูรณ์</li><li><strong>ความเป็นจริงของระบบอัตโนมัติในภาคเกษตรกรรม:</strong> นักพัฒนาเปรียบเทียบว่า ปัจจุบันแรงงานภาคเกษตรในสหรัฐฯ ลดลงจาก 50% เหลือเพียง 1% เนื่องจากเครื่องจักรและการทำงานกึ่งอัตโนมัติ ซึ่งไม่ใช่เรื่องเพ้อฝันที่วันหนึ่ง AI จะสามารถจัดการระบบจัดการฟาร์ม ค้นหาพื้นที่เพาะปลูก และควบคุมเครื่องจักรได้โดยปราศจากการแทรกแซงของมนุษย์</li><li><strong>ความเสี่ยงเรื่องความเหลื่อมล้ำและสภาวะการสะสมความมั่งคั่ง:</strong> มีความกังวลว่าความก้าวหน้าของระบบเศรษฐกิจแบบไร้มนุษย์จะไม่นำไปสู่สภาวะหลุดพ้นจากความขาดแคลน (Post-scarcity) สำหรับทุกคน แต่จะเอื้อให้กลุ่มทุนผู้ครอบครองเทคโนโลยีและที่ดินสามารถกอบโกยทรัพยากรทั้งหมดไว้เพียงฝ่ายเดียว ขณะที่ประชากรส่วนใหญ่ต้องเผชิญกับวิกฤตการขาดแคลนงานและรายได้</li><li><strong>ประเด็นขำขันเชิงปรัชญาต่อระบบการค้า:</strong> สมาชิกบางส่วนเสนอความเห็นเชิงตลกแกมเสียดสีว่า สุดท้ายแล้วระบบเศรษฐกิจใหม่อาจมีเพียงแค่ปัญญาประดิษฐ์ระดับสูงของบริษัทเทคโนโลยีต่างๆ ทำการซื้อขายหุ้นและแลกเปลี่ยนข้อมูลเพื่อปั่นยอดตัวเลขและเสิร์ฟโดปามีนให้แก่ผู้สร้างของตนเองเท่านั้น</li></ul>
+                            </div>
+                        </section>
+                        <div class="links-row">
+                            <a href="https://gmalandrakis.com/writings/ad-economicum.html" target="_blank" class="action-btn btn-primary">อ่านบทความต้นฉบับ</a>
+                            <a href="https://news.ycombinator.com/item?id=48547062" target="_blank" class="action-btn btn-secondary">กระทู้บน Hacker News</a>
+                        </div>
+                    </div>
+                </details>
+            </article>
+            
+            <!-- STORY 18 -->
+            <article class="news-item">
+                <details>
+                    <summary>
+                        <div class="summary-header">
+                            <div class="summary-title-section">
+                                <h2 class="story-title">Correlated randomness in Slay the Spire 2</h2>
+                                <p class="teaser">การค้นพบช่องโหว่ความสัมพันธ์เชิงเส้นของระบบสุ่ม (Correlated RNG) ในเกม Slay the Spire 2 ส่งผลให้ผู้เล่นสามารถทำนายผลการสุ่มไอเทมและคำสาปในเกมได้อย่างแม่นยำ</p>
+                                <div class="meta-row">
+                                    <span class="badge badge-points">🔥 272 คะแนน</span>
+                                    <span class="badge badge-comments">💬 85 ความคิดเห็น</span>
+                                    <span class="badge badge-domain">tck.mn</span>
+                                </div>
+                            </div>
+                            <div class="toggle-icon">▼</div>
+                        </div>
+                    </summary>
+                    <div class="details-content">
+                        <section class="content-section">
+                            <h3 class="section-header section-header-article">📄 สรุปเนื้อหาบทความ</h3>
+                            <div class="section-body">
+                                <p>บทความวิเคราะห์เชิงลึกเกี่ยวกับข้อผิดพลาดในระบบสุ่ม (Pseudorandom Number Generator) ของเกมการ์ดชื่อดังยอดนิยมอย่าง Slay the Spire 2 รุ่นทดสอบเบต้า (v0.107.0) ซึ่งสร้างความเชื่อมโยงที่คาดเดาได้ของผลลัพธ์สุ่มในเกม โดยมีรายละเอียดดังนี้ครับ:</p><ul><li><strong>ปรากฏการณ์สุ่มที่ไม่เป็นอิสระต่อกัน (CRNG):</strong> ผู้เล่นพบว่าการเลือกไอเทมเริ่มต้นบางประเภทส่งผลให้มีโอกาสได้รับคำสาปประเภทเดิมซ้ำๆ เช่น มีโอกาสได้รับคำสาปหนี้สิน (Debt) สูงถึง 54% ในด่านแรก และอัตราการดร็อปยาน้ำ (Potion) ระหว่างสองด่านแรกมีความแตกต่างกันอย่างผิดปกติ (76% เทียบกับ 4%)</li><li><strong>สาเหตุจากการใช้ System.Random ใน C#:</strong> แม้ผู้พัฒนาจะพยายามแก้ไขความบกพร่องจากภาคแรกด้วยการสุ่มแฮชเมล็ดพันธุ์ (Seed hashing) แยกสําหรับแต่ละเหตุการณ์ แต่เมื่อนำค่าเมล็ดพันธุ์เหล่านั้นไปใช้กับฟังก์ชันสุ่มมาตรฐาน <code>System.Random</code> ของ C# ซึ่งมีอัลกอริทึมสุ่มที่เป็นแนวเชิงเส้น (Linear in starting seed) ทำให้ผลลัพธ์การสุ่มช่วงต้นของ RNG แต่ละตัวมีทิศทางสัมพันธ์กันอย่างหลีกเลี่ยงไม่ได้</li><li><strong>ผลกระทบต่อรูปแบบการเล่นเกม (Gameplay Impact):</strong> ความบกพร่องนี้ส่งผลเสียต่อความหลากหลายในการเล่นเกม ทำให้สุ่มพบไอเทมระดับดีหรือการ์ดหายากมีแนวโน้มเอียงไปในทิศทางที่แน่นอนตามเส้นทางเดินและชนิดของแผนที่ที่เลือก</li></ul>
+                            </div>
+                        </section>
+                        <section class="content-section">
+                            <h3 class="section-header section-header-discussion">💬 สรุปประเด็นเสวนาในกระทู้</h3>
+                            <div class="section-body">
+                                <p>การสนทนาของเหล่านักพัฒนาและเกมเมอร์ในบอร์ด Hacker News มุ่งเน้นไปที่ทฤษฎีการออกแบบระบบบันทึกความก้าวหน้าในเกมและกลยุทธ์การสุ่ม ดังนี้ครับ:</p><ul><li><strong>การป้องกันการโกงผลลัพธ์สุ่มด้วยการโหลดเซฟ (Anti-Savescumming Design):</strong> นักพัฒนาถกเถียงถึงความจำเป็นของการแยกชุดสุ่ม (RNG engines) ออกจากกันในแต่ละเหตุการณ์ เพื่อป้องกันผู้เล่นใช้ทริกย้อนเวลากลับไปเล่นการต่อสู้เดิมใหม่ (Savescumming) โดยปรับเปลี่ยนการกระทำบางอย่างเพื่อให้ได้ผลรางวัลการ์ดหรือของรางวัลหลังจบไฟต์ที่ดีขึ้น</li><li><strong>ข้อดีและข้อเสียของการรันค่าสุ่มแบบสมบูรณ์:</strong> สมาชิกชี้ว่าการทำให้ระบบสุ่มมีความเสถียรและสามารถจำลองการสุ่มแบบเดิมได้ทุกครั้ง (Deterministic) ในเกมแบบ Single-player มีข้อดีในการเปิดโอกาสให้ผู้เล่นแชร์โค้ดแผนที่เดียวกัน (Run Seeds) ไปแข่งหรือเล่นร่วมกันได้เสมือนจริง โดยไม่มีปัจจัยแทรกแซงจากพฤติกรรมระหว่างการสู้รบ</li><li><strong>กลไกการกู้คืนสถานะเกมของทีมพัฒนา:</strong> เผยให้เห็นเทคนิคที่น่าสนใจว่า เกมบันทึกค่าสถานะด้วยการจัดเก็บจำนวนครั้งที่มีการเรียกใช้ตัวสุ่มในแต่ละสัญญะ และเมื่อผู้เล่นทำการโหลดไฟล์เซฟกลับมาใหม่ ระบบจะทำการสั่งรันสุ่มทิ้งตามจำนวนครั้งดังกล่าวเพื่อให้เข้าสู่สถานะสุ่มเดียวกันกับก่อนปิดเกม</li></ul>
+                            </div>
+                        </section>
+                        <div class="links-row">
+                            <a href="https://tck.mn/blog/correlated-randomness-sts2/" target="_blank" class="action-btn btn-primary">อ่านบทความต้นฉบับ</a>
+                            <a href="https://news.ycombinator.com/item?id=48552844" target="_blank" class="action-btn btn-secondary">กระทู้บน Hacker News</a>
+                        </div>
+                    </div>
+                </details>
+            </article>
+            
+            <!-- STORY 19 -->
+            <article class="news-item">
+                <details>
+                    <summary>
+                        <div class="summary-header">
+                            <div class="summary-title-section">
+                                <h2 class="story-title">Google Chrome update will close the door on ad blockers</h2>
+                                <p class="teaser">การยุติการสนับสนุน Manifest V2 อย่างถาวรใน Google Chrome ซึ่งส่งผลกระทบต่อส่วนขยายบล็อกโฆษณาแบบเดิม เช่น uBlock Origin และการเปลี่ยนผ่านสู่ Manifest V3</p>
+                                <div class="meta-row">
+                                    <span class="badge badge-points">🔥 262 คะแนน</span>
+                                    <span class="badge badge-comments">💬 336 ความคิดเห็น</span>
+                                    <span class="badge badge-domain">9to5google.com</span>
+                                </div>
+                            </div>
+                            <div class="toggle-icon">▼</div>
+                        </div>
+                    </summary>
+                    <div class="details-content">
+                        <section class="content-section">
+                            <h3 class="section-header section-header-article">📄 สรุปเนื้อหาบทความ</h3>
+                            <div class="section-body">
+                                <p><strong>สรุปเนื้อหาบทความ:</strong> Google Chrome กำลังดำเนินขั้นตอนสุดท้ายเพื่อปิดช่องโหว่และยุติการทำงานของส่วนขยายที่ใช้ Manifest V2 (MV2) อย่างเป็นทางการ ซึ่งส่งผลโดยตรงต่อเครื่องมือบล็อกโฆษณาแบบเดิม</p><ul><li><strong>การยุติการสนับสนุน MV2:</strong> Google กำลังลบการสนับสนุนสถานะแฟล็ก "kExtensionManifestV2Disabled" ซึ่งเป็นตัวช่วยสุดท้ายที่ยอมให้ผู้ใช้ยังคงเรียกใช้งานส่วนขยาย MV2 ได้ โดยระบุว่าเป็นโค้ดที่ไม่มีการใช้งานแล้ว (dead code)</li><li><strong>แผนการอัปเดต:</strong> ใน Chrome 150 (คาดการณ์วันที่ 30 มิถุนายน 2026) จะทำการลบแฟล็ก ExtensionManifestV2Disabled และใน Chrome 151 (คาดการณ์กรกฎาคม 2026) จะลบแฟล็กที่เกี่ยวข้องทั้งหมดเพื่อปิดการสนับสนุน MV2 อย่างสิ้นเชิง</li><li><strong>ผลกระทบต่อเบราว์เซอร์อื่น:</strong> การเปลี่ยนแปลงนี้จะมีผลต่อเบราว์เซอร์ที่พัฒนาจาก Chromium เช่น Microsoft Edge และ Opera ซึ่งมีแนวโน้มจะดำเนินการในแบบเดียวกัน อย่างไรก็ตาม ผู้พัฒนาโครเมียมระบุว่าเบราว์เซอร์อื่นสามารถเลือกที่จะสนับสนุน MV2 ต่อไปได้หากต้องการ</li></ul>
+                            </div>
+                        </section>
+                        <section class="content-section">
+                            <h3 class="section-header section-header-discussion">💬 สรุปประเด็นเสวนาในกระทู้</h3>
+                            <div class="section-body">
+                                <p>ความคิดเห็นในชุมชน Hacker News มีการถกเถียงเกี่ยวกับประเด็นความสามารถของตัวบล็อกโฆษณาบน Manifest V3 และผลกระทบต่อเบราว์เซอร์ต่างๆ ดังนี้:</p><ul><li><strong>ข้อถกเถียงเรื่องหัวข้อข่าว:</strong> สมาชิกบางส่วนชี้ว่าพาดหัวข่าวมีความเกินจริง (Clickbait) เนื่องจาก Manifest V3 ไม่ได้ปิดกั้นการทำงานของโปรแกรมบล็อกโฆษณาโดยสิ้นเชิง และตัวบล็อกโฆษณารุ่นใหม่าง uBlock Origin Lite ที่ใช้ MV3 ยังทำงานได้ดีและใช้ทรัพยากรน้อยลงโดยไม่ส่งผลกระทบต่อฟีเจอร์หลักที่คนส่วนใหญ่ใช้งาน</li><li><strong>ผลกระทบต่อเบราว์เซอร์อย่าง Brave:</strong> มีการยืนยันว่าฟีเจอร์บล็อกโฆษณาในตัวของเบราว์เซอร์ Brave (Brave Shields) ไม่ได้เรียกใช้งานผ่าน Extension API ของเบราว์เซอร์ จึงจะไม่ได้รับผลกระทบจากการยุติการสนับสนุน MV2 ใน Chromium</li><li><strong>ความสำคัญของตัวบล็อกโฆษณาต่อผู้ใช้งาน:</strong> สมาชิกหลายคนแสดงจุดยืนอย่างชัดเจนว่าจะไม่มีทางยอมแพ้เรื่องการใช้งานเครื่องมือบล็อกโฆษณาเด็ดขาด เนื่องจากเป็นสิ่งจำเป็นอย่างยิ่งสำหรับการใช้งานเว็บในปัจจุบัน</li></ul>
+                            </div>
+                        </section>
+                        <div class="links-row">
+                            <a href="https://9to5google.com/2026/06/15/google-chromes-next-update-will-mark-the-end-of-popular-ad-blockers/" target="_blank" class="action-btn btn-primary">อ่านบทความต้นฉบับ</a>
+                            <a href="https://news.ycombinator.com/item?id=48555244" target="_blank" class="action-btn btn-secondary">กระทู้บน Hacker News</a>
+                        </div>
+                    </div>
+                </details>
+            </article>
+            
+            <!-- STORY 20 -->
+            <article class="news-item">
+                <details>
+                    <summary>
+                        <div class="summary-header">
+                            <div class="summary-title-section">
+                                <h2 class="story-title">I Could've Rickrolled the FIFA World Cup. All I Needed Was My ID</h2>
+                                <p class="teaser">นักวิจัยความปลอดภัยค้นพบช่องโหว่ร้ายแรงในระบบของ FIFA ทำให้สามารถเข้าถึงการควบคุมสตรีมมิ่งกล้องทุกมุมกล้องของฟุตบอลโลก 2026 แก้ไขคะแนนสด ข้อมูลสถิติ และรายงานผู้บรรยายได้ เพียงแค่ลงทะเบียนด้วยบัตรประชาชน</p>
+                                <div class="meta-row">
+                                    <span class="badge badge-points">🔥 260 คะแนน</span>
+                                    <span class="badge badge-comments">💬 95 ความคิดเห็น</span>
+                                    <span class="badge badge-domain">bobdahacker.com</span>
+                                </div>
+                            </div>
+                            <div class="toggle-icon">▼</div>
+                        </div>
+                    </summary>
+                    <div class="details-content">
+                        <section class="content-section">
+                            <h3 class="section-header section-header-article">📄 สรุปเนื้อหาบทความ</h3>
+                            <div class="section-body">
+                                <p><strong>สรุปเนื้อหาบทความ:</strong> นักวิจัยความปลอดภัยได้เปิดเผยช่องโหว่ร้ายแรงในแพลตฟอร์มตัวแทนฟุตบอลของ FIFA (FIFA Agent Platform) ซึ่งเปิดทางให้บุคคลภายนอกสามารถเข้าควบคุมระบบถ่ายทอดสดของฟุตบอลโลกปี 2026 ได้อย่างสมบูรณ์</p><ul><li><strong>จุดเริ่มต้นของช่องโหว่:</strong> เมื่อผู้ใช้ลงทะเบียนในหน้าเว็บสาธารณะของ FIFA ระบบจะนำบัญชีนั้นเข้าไปอยู่ใน Microsoft Entra tenant (Azure AD) ตัวเดียวกับที่ควบคุมแพลตฟอร์มภายในทั้งหมดขององค์กร</li><li><strong>การตรวจสอบฝั่งไคลเอนต์เท่านั้น (Client-side Only Validation):</strong> แม้หน้าเว็บแอปพลิเคชัน Angular จะปิดกั้นไม่ให้ผู้ใช้เข้าถึงหากไม่มีบทบาทที่กำหนด แต่ตัว API ฝั่งหลังบ้าน (Backend APIs) กลับไม่มีการตรวจสอบสิทธิ์ใดๆ ส่งผลให้ผู้ลงทะเบียนทั่วไปเข้าถึงข้อมูลภายในได้โดยตรง</li><li><strong>ระดับการเข้าถึงที่น่ากังวล:</strong> นักวิจัยพบว่าสามารถดึงที่อยู่สตรีม RTMP Ingest และคีย์สตรีมของฟุตบอลโลก 2026 ทุกแมตช์ ทุกมุมกล้อง รวมถึงสามารถเริ่ม/หยุดการสตรีม และสามารถแก้ไขข้อมูลสถิติสด คะแนนแข่งขัน และข้อความสื่อสารสำหรับผู้บรรยายข่าวช่องโทรทัศน์ได้ อีกทั้งยังพบข้อมูลตารางคำนวณและรายงานการเงินภายในที่ไม่มีการป้องกัน</li><li><strong>การประสานงานเพื่อแก้ไข:</strong> เนื่องจาก FIFA ไม่มีโครงการรับรายงานช่องโหว่ (Bug Bounty) นักวิจัยต้องพยายามติดต่อหลายฝ่ายจนกระทั่งได้รับการแก้ไขอย่างรวดเร็วผ่านพันธมิตรผู้ดูแลระบบสตรีมมิ่งอย่าง MediaKind</li></ul>
+                            </div>
+                        </section>
+                        <section class="content-section">
+                            <h3 class="section-header section-header-discussion">💬 สรุปประเด็นเสวนาในกระทู้</h3>
+                            <div class="section-body">
+                                <p>การอภิปรายใน Hacker News เกี่ยวกับช่องโหว่ของ FIFA มุ่งเน้นไปที่ความหละหลวมในการพัฒนาซอฟต์แวร์และชื่อเสียงขององค์กร ดังนี้:</p><ul><li><strong>ข้อผิดพลาดด้านสถาปัตยกรรมซอฟต์แวร์ที่พบได้บ่อย:</strong> สมาชิกหลายคนชี้ว่าการตรวจสอบสิทธิ์เฉพาะฝั่งไคลเอนต์ (Client-side validation) ในแอปพลิเคชันหน้าเดียว (SPA) เป็นข้อผิดพลาดพื้นฐานที่พบได้บ่อยมากในระบบของบริษัทขนาดใหญ่ โดยนักพัฒนาอาจเคยชินกับระบบที่ใช้งานในเครือข่ายภายในองค์กร (VPN) มาก่อนจึงละเลยการตรวจสอบ JWT ที่ API</li><li><strong>ความเสี่ยงจากการใช้งานในทางที่ผิด:</strong> แม้จะมีข้อเสนอเล่นๆ ว่าสามารถสร้างรายได้จากการพนันผลหรือการแกล้งฉายวิดีโอป่วนโลก (Rickroll) แต่สมาชิกชี้ว่าเนื่องจากระบบกำหนดให้ผู้สมัครต้องส่งข้อมูลภาพระบุตัวตนจริง (ID Card) การกระทำใดๆ จึงถือเป็นการส่งตัวเองเข้าคุกอย่างแน่นอน</li><li><strong>ชื่อเสียงและมุมมองต่อองค์กร FIFA:</strong> มีการพูดถึงประเด็นการคอร์รัปชันในอดีตของ FIFA และความไม่เป็นมืออาชีพในการปฏิบัติต่อผู้รายงานช่องโหว่ความปลอดภัย โดยมีสมาชิกเล่าประสบการณ์ทำนองเดียวกันในฟุตบอลโลกปี 2022 ที่ไม่เคยได้รับรางวัลตอบแทนใดๆ จากความพยายามช่วยเหลือองค์กร</li></ul>
+                            </div>
+                        </section>
+                        <div class="links-row">
+                            <a href="https://bobdahacker.com/blog/fifa-hack" target="_blank" class="action-btn btn-primary">อ่านบทความต้นฉบับ</a>
+                            <a href="https://news.ycombinator.com/item?id=48550936" target="_blank" class="action-btn btn-secondary">กระทู้บน Hacker News</a>
+                        </div>
+                    </div>
+                </details>
+            </article>
+            
+            <!-- STORY 21 -->
+            <article class="news-item">
+                <details>
+                    <summary>
+                        <div class="summary-header">
+                            <div class="summary-title-section">
+                                <h2 class="story-title">What job interviews taught me about Kubernetes</h2>
+                                <p class="teaser">การยอมรับใช้งาน Kubernetes อย่างแพร่หลายในบริษัทสตาร์ทอัพขนาดเล็กและเหตุผลสำคัญด้านการจัดโครงสร้างองค์กรและความสม่ำเสมอในการทำงานมากกว่าเหตุผลทางเทคนิค</p>
+                                <div class="meta-row">
+                                    <span class="badge badge-points">🔥 253 คะแนน</span>
+                                    <span class="badge badge-comments">💬 204 ความคิดเห็น</span>
+                                    <span class="badge badge-domain">notnotp.com</span>
+                                </div>
+                            </div>
+                            <div class="toggle-icon">▼</div>
+                        </div>
+                    </summary>
+                    <div class="details-content">
+                        <section class="content-section">
+                            <h3 class="section-header section-header-article">📄 สรุปเนื้อหาบทความ</h3>
+                            <div class="section-body">
+                                <p><strong>สรุปเนื้อหาบทความ:</strong> จากประสบการณ์การสัมภาษณ์งานของนักเขียนพบว่า ปัจจุบันบริษัทเทคโนโลยีเกือบทั้งหมดหันมาใช้งาน Kubernetes (K8s) เป็นมาตรฐาน แม้แต่ในสตาร์ทอัพขนาดเล็กที่มีพนักงานเพียง 10 คนและไม่มีความจำเป็นต้องรองรับผู้ใช้จำนวนมหาศาล</p><ul><li><strong>ความสม่ำเสมอในการจัดวางระบบ (Uniformity):</strong> การใช้ K8s ช่วยขจัดปัญหาบริการแต่ละตัวทำงานด้วยวิธีหรือชุดคำสั่งที่แตกต่างกัน (เช่น บางบริการใช้สคริปต์โบราณบน VM ขณะที่อีกบริการใช้ Docker Compose) ทำให้ทุกบริการมีรูปแบบการใช้งานและติดตั้งที่เหมือนกันทั้งหมด</li><li><strong>การถ่ายทอดและจัดจ้างแรงงานได้ง่าย (Shared Knowledge):</strong> รูปแบบการเขียนคอนฟิกด้วยไฟล์ YAML หรือ Helm Chart กลายเป็นภาษากลางที่วิศวกรทุกคนเข้าใจร่วมกัน ช่วยให้พนักงานใหม่สามารถทำความเข้าใจโครงสร้างระบบได้ในเวลาไม่นาน และขจัดปัญหาความรู้ผูกขาดอยู่กับตัวบุคคล</li><li><strong>การตรวจสอบความถูกต้องและข้อกำหนดทางกฎหมาย (Traceability):</strong> กระบวนการ GitOps (เช่น FluxCD หรือ ArgoCD) ทำงานร่วมกับ K8s ได้เป็นอย่างดี ทำให้ทุกการเปลี่ยนแปลงระบบต้องผ่านการอนุมัติและบันทึกประวัติการพัฒนา ซึ่งมีส่วนช่วยให้บริษัทสามารถผ่านการตรวจสอบมาตรฐานความปลอดภัย เช่น ISO ได้อย่างง่ายดาย</li><li><strong>ข้อเสนอแนะในการเริ่มต้น:</strong> ผู้เขียนแนะนำว่าในช่วงแรกเริ่มของบริษัท ควรเน้นพัฒนาผลิตภัณฑ์บน VPS หรือวิธีการที่ง่ายก่อนการใช้ระบบที่ซับซ้อนอย่าง K8s เพื่อหลีกเลี่ยงการเสียเวลากับการดีบักปัญหาโครงสร้างพื้นฐาน</li></ul>
+                            </div>
+                        </section>
+                        <section class="content-section">
+                            <h3 class="section-header section-header-discussion">💬 สรุปประเด็นเสวนาในกระทู้</h3>
+                            <div class="section-body">
+                                <p>ความคิดเห็นของสมาชิกใน Hacker News มีมุมมองที่หลากหลายเกี่ยวกับความเหมาะสมของการเลือกใช้ Kubernetes สำหรับทีมขนาดเล็ก ดังนี้:</p><ul><li><strong>การยอมรับว่าคุ้มค่าตั้งแต่เริ่มต้น:</strong> สมาชิกบางส่วนเห็นด้วยว่าการเปิดใช้งานผ่านบริการ Managed Kubernetes (เช่น EKS, GKE) มีความเสถียรและใช้งานสะดวกกว่าการมาสร้างระบบเซิร์ฟเวอร์แบบเดิมด้วยตนเอง ทำให้ K8s กลายเป็นระบบที่เรียกว่า "เทคโนโลยีที่น่าเบื่อ" (Boring Technology) ซึ่งทำงานได้อย่างน่าไว้วางใจ</li><li><strong>ความซับซ้อนสำหรับการดูแลระบบ (Admin Overhead):</strong> มีข้อโต้แย้งว่าแม้ K8s จะใช้งานง่ายสำหรับนักพัฒนาทั่วไป แต่สำหรับผู้ดูแลระบบหรือฝ่ายดูแลโครงสร้างพื้นฐานนั้น การตั้งค่าเครือข่าย ความปลอดภัย และการเชื่อมต่อกับระบบคลาวด์ยังคงยุ่งยากและเสียเวลามาก นอกจากนี้รอบการอัปเดตเวอร์ชันที่รวดเร็วเกินไปก็เป็นอุปสรรคสำคัญ</li><li><strong>ประเด็น GitOps:</strong> สมาชิกมองว่าประโยชน์ที่แท้จริงคือแนวคิดการทำงานแบบ GitOps แต่ตลาดในปัจจุบันยังขาดเครื่องมือทางเลือกที่เป็นกลาง (Middle Ground) ระหว่างการใช้งานแบบไร้เซิร์ฟเวอร์ (Serverless) และระบบขนาดใหญ่อย่าง Kubernetes</li></ul>
+                            </div>
+                        </section>
+                        <div class="links-row">
+                            <a href="https://notnotp.com/notes/what-job-interviews-taught-me-about-kubernetes/" target="_blank" class="action-btn btn-primary">อ่านบทความต้นฉบับ</a>
+                            <a href="https://news.ycombinator.com/item?id=48546428" target="_blank" class="action-btn btn-secondary">กระทู้บน Hacker News</a>
+                        </div>
+                    </div>
+                </details>
+            </article>
+            
+            <!-- STORY 22 -->
+            <article class="news-item">
+                <details>
+                    <summary>
+                        <div class="summary-header">
+                            <div class="summary-title-section">
+                                <h2 class="story-title">Calvin and Hobbes and the price of integrity</h2>
+                                <p class="teaser">เรื่องราวความทุ่มเทและจุดยืนทางจริยธรรมของ Bill Watterson ผู้สร้างสรรค์การ์ตูนช่องระดับตำนานอย่าง "Calvin and Hobbes" ผู้ยอมหันหลังให้กับรายได้มหาศาลเพื่อรักษาความบริสุทธิ์ของงานศิลปะ</p>
+                                <div class="meta-row">
+                                    <span class="badge badge-points">🔥 247 คะแนน</span>
+                                    <span class="badge badge-comments">💬 107 ความคิดเห็น</span>
+                                    <span class="badge badge-domain">therepublicofletters.substack.com</span>
+                                </div>
+                            </div>
+                            <div class="toggle-icon">▼</div>
+                        </div>
+                    </summary>
+                    <div class="details-content">
+                        <section class="content-section">
+                            <h3 class="section-header section-header-article">📄 สรุปเนื้อหาบทความ</h3>
+                            <div class="section-body">
+                                <p><strong>สรุปเนื้อหาบทความ:</strong> บทความพาไปทำความรู้จักกับ Bill Watterson ผู้สร้างการ์ตูนช่องยอดนิยม "Calvin and Hobbes" และสะท้อนความซื่อสัตย์ต่อผลงานศิลปะ (Artistic Integrity) ผ่านเหตุการณ์ต่างๆ ในชีวิตของเขา</p><ul><li><strong>ความทุ่มเทเพื่อผลงานในวัยเยาว์:</strong> ในวัยเรียนมหาวิทยาลัย Watterson เคยใช้เวลาหลายเดือนนอนบนนั่งร้านชั่วคราวเพื่อวาดภาพเลียนแบบศิลปะระดับโลกอย่าง "The Creation of Adam" บนเพดานห้องพักในหอพักของเขา โดยไม่มีใครสั่ง และยินยอมทาสีขาวทับทันทีเมื่อสิ้นสุดการเรียนตามข้อตกลงกับผู้ดูแลหอพัก</li><li><strong>การตัดสินใจลาวงการที่จุดสูงสุด:</strong> ในปี 1995 ขณะอายุ 37 ปี และการ์ตูนของเขาลงตีพิมพ์ในหนังสือพิมพ์กว่า 2,400 ฉบับทั่วโลก เขาตัดสินใจเขียนจดหมายประกาศยุติการเขียนการ์ตูนอย่างเป็นถาวร เนื่องจากต้องการทำงานในจังหวะชีวิตที่ประณีตขึ้นและไม่มีความจำเป็นต้องประนีประนอมทางศิลปะกับกรอบเวลาของหนังสือพิมพ์รายวัน</li><li><strong>การปฏิเสธการทำการค้าและการสร้างสินค้าลิขสิทธิ์:</strong> Watterson เขียน วาด ระบายสี และทำทุกอย่างด้วยตัวเองทั้งหมด และเขาปฏิเสธสัญญามูลค่ามหาศาลที่จะนำตัวละครของเขาไปทำสินค้าของเล่น เสื้อผ้า หรือภาพยนตร์ เพราะเชื่อว่าจะเป็นการเจือจางความตั้งใจเดิมของผลงาน</li></ul>
+                            </div>
+                        </section>
+                        <section class="content-section">
+                            <h3 class="section-header section-header-discussion">💬 สรุปประเด็นเสวนาในกระทู้</h3>
+                            <div class="section-body">
+                                <p>การอภิปรายใน Hacker News ชื่นชมในจุดยืนอันแข็งแกร่งของ Bill Watterson และแบ่งปันเรื่องเล่าที่แสดงถึงความมุ่งมั่นของเขา ดังนี้:</p><ul><li><strong>เรื่องเล่าเด็ดเกี่ยวกับการปฏิเสธทุนนิยม:</strong> สมาชิกได้แบ่งปันเกร็ดประวัติศาสตร์ที่ระบุว่า Watterson ปฏิเสธที่จะรับสายโทรศัพท์จากผู้กำกับภาพยนตร์ชื่อดังอย่าง Steven Spielberg ที่ติดต่อเข้ามาเพื่อขอสร้างภาพยนตร์ และเคยถ่ายภาพส่งกล่องสินค้าตุ๊กตาปูนปั้นที่ทางทีมการตลาดส่งมาให้ตรวจงานขณะที่กำลังถูกเผาไฟเพื่อเป็นการตอบปฏิเสธ</li><li><strong>การตอกย้ำคุณค่าของผลงานที่แท้จริง:</strong> มีการพูดคุยว่าแม้การปฏิเสธลิขสิทธิ์จะนำไปสู่การผลิตสติกเกอร์ละเมิดลิขสิทธิ์รูปเด็กปัสสาวะใส่สิ่งต่างๆ (ซึ่งกลายเป็นภาพจำของ Calvin ในสังคมอเมริกาบางส่วน) แต่สิ่งที่แฟนการ์ตูนตัวจริงให้คุณค่าคือหนังสือการ์ตูนรวมเล่มที่รวบรวมแก่นแท้และจิตวิญญาณของผู้เขียนไว้โดยไม่มีสินค้าขยะมาปะปน</li><li><strong>ความหายากของการรักษาสัจจะในยุคปัจจุบัน:</strong> สมาชิกแสดงความนับถืออย่างสูงสุดในความสามารถในการปฏิเสธเงินตราและเดินจากไปอย่างสงบเมื่อคิดว่าตนได้พูดในสิ่งที่ต้องการพูดจนครบถ้วนแล้ว เช่นเดียวกับเรื่องราวของระบบปฏิบัติการหรืออนิเมะในตำนานเรื่องอื่นๆ (เช่น Cowboy Bebop)</li></ul>
+                            </div>
+                        </section>
+                        <div class="links-row">
+                            <a href="https://therepublicofletters.substack.com/p/calvin-and-hobbes-and-the-price-of" target="_blank" class="action-btn btn-primary">อ่านบทความต้นฉบับ</a>
+                            <a href="https://news.ycombinator.com/item?id=48557079" target="_blank" class="action-btn btn-secondary">กระทู้บน Hacker News</a>
+                        </div>
+                    </div>
+                </details>
+            </article>
+            
+            <!-- STORY 23 -->
+            <article class="news-item">
+                <details>
+                    <summary>
+                        <div class="summary-header">
+                            <div class="summary-title-section">
+                                <h2 class="story-title">TIL: You can make HTTP requests without curl using Bash /dev/TCP</h2>
+                                <p class="teaser">เทคนิคการส่งคำขอ HTTP โดยไม่ต้องใช้ curl หรือ wget ผ่านฟีเจอร์การเชื่อมต่อเครือข่ายภายในของ Bash (/dev/tcp) สำหรับใช้ดีบักในคอนเทนเนอร์ขนาดเล็ก</p>
+                                <div class="meta-row">
+                                    <span class="badge badge-points">🔥 233 คะแนน</span>
+                                    <span class="badge badge-comments">💬 130 ความคิดเห็น</span>
+                                    <span class="badge badge-domain">mareksuppa.com</span>
+                                </div>
+                            </div>
+                            <div class="toggle-icon">▼</div>
+                        </div>
+                    </summary>
+                    <div class="details-content">
+                        <section class="content-section">
+                            <h3 class="section-header section-header-article">📄 สรุปเนื้อหาบทความ</h3>
+                            <div class="section-body">
+                                <p><strong>สรุปเนื้อหาบทความ:</strong> เคล็ดลับการทดสอบการเชื่อมต่อเครือข่าย (Connectivity check) ในกรณีที่ระบบทำงานบนคอนเทนเนอร์ที่มีขนาดมินิมอลและไม่มีการติดตั้งเครื่องมือพื้นฐานอย่าง curl หรือ wget โดยการใช้ช่องทางเปลี่ยนทิศทางจำลองของ Bash <code>/dev/tcp</code> ในการสื่อสารผ่านโปรโตคอล HTTP</p><ul><li><strong>วิธีการทำงาน:</strong> Bash มีความสามารถในการเปิดซ็อกเก็ต TCP ได้เองโดยการอ้างอิงตำแหน่งเสมือน <code>/dev/tcp/host/port</code> ซึ่งไม่ใช่ไฟล์จริงบนระบบดิสก์ แต่เป็นการจัดการภายในของเชลล์เอง</li><li><strong>รูปแบบการส่งคำขอ:</strong> ผู้ใช้สามารถเปิดสิทธิ์อ่านเขียนบน File Descriptor ด้วยคำสั่ง <code>exec 3&lt;&gt;/dev/tcp/host/port</code> จากนั้นเขียนคำสั่งร้องขอ HTTP ดิบ (Raw HTTP request) ลงไป และอ่านค่าผลลัพธ์กลับมาด้วยคำสั่งเชลล์ธรรมดา</li><li><strong>ข้อจำกัดสำคัญ:</strong> วิธีการนี้ไม่มีคุณสมบัติของเว็บบราวเซอร์ เช่น การสนับสนุนรหัสความปลอดภัย (TLS/HTTPS) การแปลงข้อมูลย่อส่วน (Compression) หรือการจัดการการเปลี่ยนเส้นทาง (Redirects) และจำเป็นต้องระบุ Header <code>Connection: close</code> เพื่อป้องกันไม่ให้โปรแกรมค้างขณะรอผลลัพธ์</li></ul>
+                            </div>
+                        </section>
+                        <section class="content-section">
+                            <h3 class="section-header section-header-discussion">💬 สรุปประเด็นเสวนาในกระทู้</h3>
+                            <div class="section-body">
+                                <p>การอภิปรายของสมาชิกเกี่ยวกับกรณีนี้มีประเด็นเรื่องข้อดีและข้อเสียของการเลือกโครงสร้างพื้นฐานคอนเทนเนอร์แบบสะอาดเป็นพิเศษ (Minimalist Container) ดังนี้:</p><ul><li><strong>เหตุผลของการไม่มี curl ในโปรดักชัน:</strong> สมาชิกอธิบายว่าอิมเมจมาตรฐานของโปรแกรมจำนวนมาก (เช่น Python Slim) ถูกตั้งค่าให้มีขนาดเล็กและปลอดภัยที่สุดจึงไม่แถมเครื่องมือเครือข่ายมาให้ตั้งแต่ต้น ซึ่งช่วยลดช่องโหว่ความปลอดภัย (CVEs) ของระบบในระยะยาว</li><li><strong>แนวคิดการสร้างคอนเทนเนอร์แบบ From Scratch:</strong> สมาชิกบางส่วนเสนอแนวทางขั้นสูงสุดคือการคอมไพล์โค้ดเป็นไบนารีอิสระ (เช่น Rust ร่วมกับ MUSL) แล้วเรียกใช้ในคอนเทนเนอร์ว่างเปล่า (FROM scratch) ซึ่งไม่ต้องการระบบปฏิบัติการหรือเครื่องมือเสริมใดๆ เลยเพื่อประสิทธิภาพสูงสุดและลดงานดูแลรักษาระบบ</li><li><strong>การแก้ไขปัญหาดีบักด้วย Ephemeral Containers:</strong> สำหรับการตรวจสอบบนระบบที่ถูกจำกัดอย่างรุนแรง สมาชิกแนะนำการเปิดใช้งานฟีเจอร์ Ephemeral Containers ของ Kubernetes เพื่อเชื่อมต่อเครื่องมือดีบักเข้าไปชั่วคราวโดยไม่ต้องรื้อและติดตั้งโปรแกรมเพิ่มลงในอิมเมจหลักที่ใช้งานอยู่</li></ul>
+                            </div>
+                        </section>
+                        <div class="links-row">
+                            <a href="https://mareksuppa.com/til/bash-dev-tcp-http-without-curl/" target="_blank" class="action-btn btn-primary">อ่านบทความต้นฉบับ</a>
+                            <a href="https://news.ycombinator.com/item?id=48558018" target="_blank" class="action-btn btn-secondary">กระทู้บน Hacker News</a>
+                        </div>
+                    </div>
+                </details>
+            </article>
+            
+            <!-- STORY 24 -->
+            <article class="news-item">
+                <details>
+                    <summary>
+                        <div class="summary-header">
+                            <div class="summary-title-section">
+                                <h2 class="story-title">Game Engine White Papers: Commander Keen</h2>
+                                <p class="teaser">การสนทนาย้อนอดีตถึงประวัติศาสตร์การพัฒนาเทคนิคการเลื่อนหน้าจอที่นุ่มนวล (Smooth Scrolling) ในเกมระดับตำนานอย่าง Commander Keen และแง่มุมความแตกต่างในหนังสือประวัติของผู้พัฒนาอย่าง John Carmack และ John Romero</p>
+                                <div class="meta-row">
+                                    <span class="badge badge-points">🔥 230 คะแนน</span>
+                                    <span class="badge badge-comments">💬 79 ความคิดเห็น</span>
+                                    <span class="badge badge-domain">forgottenbytes.net</span>
+                                </div>
+                            </div>
+                            <div class="toggle-icon">▼</div>
+                        </div>
+                    </summary>
+                    <div class="details-content">
+                        <section class="content-section">
+                            <h3 class="section-header section-header-article">📄 สรุปเนื้อหาบทความ</h3>
+                            <div class="section-body">
+                                <p><strong>ข้อผิดพลาดในการเข้าถึงเนื้อหา:</strong> ระบบไม่พบข้อมูลเนื้อหาหลักในหน้าเว็บต้นฉบับ อย่างไรก็ตาม จากหัวข้อข่าวระบุว่าเป็นบทความวิเคราะห์ทางวิศวกรรมการพัฒนาเกม (Game Engine White Papers) สำหรับเกม <em>"Commander Keen"</em> ซึ่งเป็นเกมประเภทเลื่อนหน้าจอด้านข้าง (Side-scroller) ยุคบุกเบิกบนคอมพิวเตอร์ส่วนบุคคล (PC) พัฒนาโดยบริษัท id Software</p>
+                            </div>
+                        </section>
+                        <section class="content-section">
+                            <h3 class="section-header section-header-discussion">💬 สรุปประเด็นเสวนาในกระทู้</h3>
+                            <div class="section-body">
+                                <p>บทสนทนาใน Hacker News เต็มไปด้วยข้อมูลประวัติศาสตร์คอมพิวเตอร์และเทคนิคการพัฒนาเกมในอดีต โดยมีประเด็นหลักดังนี้:</p><ul><li><strong>เทคนิคการเลื่อนหน้าจอที่เป็นประวัติศาสตร์:</strong> สมาชิกอภิปรายถึงผลงานของ John Carmack ในการคิดค้นเทคนิคการเลื่อนหน้าจอด้านข้างที่ราบรื่น (Smooth Scrolling) บนพีซี ซึ่งถือเป็นนวัตกรรมที่ล้ำสมัยมากในเวลานั้น (ปี 1990) โดยมีการเปรียบเทียบว่ามีกลไกคล้ายคลึงกับเทคนิคที่เคยใช้บนเครื่อง Commodore 64 (C64) ที่เป็นการปรับเปลี่ยนตำแหน่งการอ่านข้อมูลหน้าจอของฮาร์ดแวร์เพื่อประหยัดพลังประมวลผลของซีพียู</li><li><strong>การแนะนำหนังสือประวัติศาสตร์เกม:</strong> มีการแนะนำหนังสือสองเล่มที่มีข้อมูลน่าสนใจ ได้แก่ <em>"Masters of Doom"</em> ซึ่งเล่าเรื่องราวยุคแรกเริ่มของ id Software และหนังสืออิงประวัติศาสตร์ที่ขัดแย้งกันเล็กน้อยอย่าง <em>"Doom Guy"</em> เขียนโดย John Romero ซึ่งให้มุมมองเบื้องหลังเกี่ยวกับความล้มเหลวของโครงการ Daikatana และเรื่องราวโฆษณาฉาวโฉ่ในอดีต</li><li><strong>การตั้งข้อสังเกตเกี่ยวกับลิขสิทธิ์นวัตกรรม:</strong> สมาชิกบางส่วนตั้งคำถามว่าเทคนิคการเลื่อนหน้าจอนี้เกิดขึ้นครั้งแรกบนพีซีโดย Carmack จริงหรือไม่ หรือมีเกมฝั่งญี่ปุ่นบนเครื่องคอมพิวเตอร์ซีรีส์ NEC PC-9801 ที่สามารถทำได้ก่อนหน้านั้นแล้ว</li></ul>
+                            </div>
+                        </section>
+                        <div class="links-row">
+                            <a href="https://forgottenbytes.net/commander_keen.html" target="_blank" class="action-btn btn-primary">อ่านบทความต้นฉบับ</a>
+                            <a href="https://news.ycombinator.com/item?id=48544781" target="_blank" class="action-btn btn-secondary">กระทู้บน Hacker News</a>
+                        </div>
+                    </div>
+                </details>
+            </article>
+            
+            <!-- STORY 25 -->
+            <article class="news-item">
+                <details>
+                    <summary>
+                        <div class="summary-header">
+                            <div class="summary-title-section">
+                                <h2 class="story-title">US battery manufacturing output continues to break records</h2>
+                                <p class="teaser">การเติบโตอย่างรวดเร็วของยอดการผลิตแบตเตอรี่ในสหรัฐฯ และการถกเถียงเรื่องส่วนแบ่งกำลังการผลิตเมื่อเทียบกับจีนและยุโรป</p>
+                                <div class="meta-row">
+                                    <span class="badge badge-points">🔥 225 คะแนน</span>
+                                    <span class="badge badge-comments">💬 193 ความคิดเห็น</span>
+                                    <span class="badge badge-domain">fred.stlouisfed.org</span>
+                                </div>
+                            </div>
+                            <div class="toggle-icon">▼</div>
+                        </div>
+                    </summary>
+                    <div class="details-content">
+                        <section class="content-section">
+                            <h3 class="section-header section-header-article">📄 สรุปเนื้อหาบทความ</h3>
+                            <div class="section-body">
+                                <p><strong>ข้อผิดพลาดในการดึงข้อมูล:</strong> เกิดปัญหาในการเชื่อมต่อดึงข้อมูลจากหน้าเว็บต้นฉบับเนื่องจาก Read timed out อย่างไรก็ตาม จากหัวข้อข่าวและข้อมูลสถิติชี้ให้เห็นว่า ยอดผลผลิตในอุตสาหกรรมการผลิตแบตเตอรี่ของสหรัฐอเมริกายังคงเติบโตอย่างต่อเนื่องจนทำลายสถิติใหม่</p>
+                            </div>
+                        </section>
+                        <section class="content-section">
+                            <h3 class="section-header section-header-discussion">💬 สรุปประเด็นเสวนาในกระทู้</h3>
+                            <div class="section-body">
+                                <p>ในบอร์ด Hacker News มีการวิเคราะห์และอภิปรายเกี่ยวกับรายละเอียดของข้อมูลกำลังการผลิตแบตเตอรี่ในระดับโลกดังนี้ครับ:</p><ul><li><strong>การเปรียบเทียบกำลังการผลิตระดับโลก:</strong> สมาชิกได้อ้างอิงข้อมูลปี 2024 ระบุว่าสหรัฐฯ และยุโรปมีกำลังการผลิตเซลล์แบตเตอรี่ใกล้เคียงกันที่ประมาณ 200 GWh ต่อปี โดยสหรัฐฯ มีแผนการขยายกำลังการผลิตที่สูงกว่ามาก (750 GWh/ปี เทียบกับยุโรป 350 GWh/ปี) อย่างไรก็ตาม จีนยังคงเป็นผู้นำอย่างโดดเด่นด้วยกำลังการผลิตประมาณ 2.5 TWh ต่อปี ซึ่งคิดเป็นส่วนใหญ่ของกำลังการผลิตทั่วโลก (3 TWh/ปี)</li><li><strong>อัตราการใช้งานกำลังการผลิตจริง (Actual Production):</strong> มีข้อสังเกตว่าการผลิตจริงทั่วโลกอยู่ที่ประมาณ 30% ของกำลังการผลิตทั้งหมด ซึ่งนักพัฒนาบางส่วนมองว่าเป็นเรื่องดีเพราะมีพื้นที่เหลือเฟือในการเร่งการผลิตเพื่อรองรับความต้องการที่เพิ่มขึ้นในอนาคต</li><li><strong>การตีความกราฟและหัวข้อข่าว:</strong> สมาชิกตั้งข้อสังเกตว่าพาดหัวข่าว in HN ค่อนข้างเกินจริง (Editorialized) เนื่องจากลิงก์ปลายทางเป็นเพียงกราฟสถิติอุตสาหกรรมแบตเตอรี่โดยรวมของธนาคารกลางสหรัฐฯ สาขาเซนต์หลุยส์ (FRED) ซึ่งครอบคลุมแบตเตอรี่ทุกประเภทตั้งแต่ขนาดเล็กไปจนถึงขนาดใหญ่ แต่ความจริงแล้ว ยอดการผลิตที่พุ่งสูงทำลายสถิตินั้นมาจากการผลิตแบตเตอรี่สำหรับระบบกักเก็บพลังงานไฟฟ้า (Grid Storage) และยานยนต์ไฟฟ้า (EV) เป็นหลัก</li></ul>
+                            </div>
+                        </section>
+                        <div class="links-row">
+                            <a href="https://fred.stlouisfed.org/series/IPG33591S" target="_blank" class="action-btn btn-primary">อ่านบทความต้นฉบับ</a>
+                            <a href="https://news.ycombinator.com/item?id=48546616" target="_blank" class="action-btn btn-secondary">กระทู้บน Hacker News</a>
+                        </div>
+                    </div>
+                </details>
+            </article>
+            
+            <!-- STORY 26 -->
+            <article class="news-item">
+                <details>
+                    <summary>
+                        <div class="summary-header">
+                            <div class="summary-title-section">
+                                <h2 class="story-title">Why I email complete strangers</h2>
+                                <p class="teaser">บทความสร้างแรงบันดาลใจและหลักการในการเอาชนะความกลัวเพื่อเขียนอีเมลติดต่อหาคนแปลกหน้าอย่างมีความหมายและสร้างมิตรภาพใหม่ๆ</p>
+                                <div class="meta-row">
+                                    <span class="badge badge-points">🔥 216 คะแนน</span>
+                                    <span class="badge badge-comments">💬 94 ความคิดเห็น</span>
+                                    <span class="badge badge-domain">goodinternetmagazine.com</span>
+                                </div>
+                            </div>
+                            <div class="toggle-icon">▼</div>
+                        </div>
+                    </summary>
+                    <div class="details-content">
+                        <section class="content-section">
+                            <h3 class="section-header section-header-article">📄 สรุปเนื้อหาบทความ</h3>
+                            <div class="section-body">
+                                <p><strong>สรุปเนื้อหาบทความ:</strong> ผู้เขียนเล่าถึงประสบการณ์การก้าวข้ามความกลัวและขีดจำกัดด้านความมั่นใจในตนเองต่ำเพื่อเริ่มเขียนอีเมลติดต่อบุคคลแปลกหน้า โดยให้มุมมองว่าอีเมลเป็นเครื่องมือสื่อสารที่คลาสสิก มั่นคง และมีประสิทธิภาพสูงตามกฎ Lindy's Law</p><ul><li><strong>ความถาวรและความยืดหยุ่น:</strong> ต่างจากแพลตฟอร์มโซเชียลมีเดียที่เกิดขึ้นและดับไปอย่างรวดเร็ว อีเมลมีความทนทานและไม่ถูกควบคุมโดยอัลกอริทึม ช่วยสร้างการสนทนาที่มีคุณภาพและลึกซึ้งในจังหวะชีวิตของมนุษย์จริงๆ (Human Time)</li><li><strong>หลักการส่งอีเมลหาคนแปลกหน้า:</strong> ผู้เขียนแนะนำแนวทางปฏิบัติ เช่น ควรติดต่อเฉพาะคนที่เราอยากรู้จักเป็นเพื่อนจริงๆ, ศึกษาผลงานและความสนใจร่วมกันอย่างเฉพาะเจาะจง, เขียนให้กระชับแต่ไม่แข็งกระด้าง, ให้ความสำคัญกับอีกฝ่ายพอๆ กับตัวเอง และหลีกเลี่ยงการเรียกร้องผลประโยชน์ทางธุรกิจโดยไม่จำเป็น</li><li><strong>แหล่งเริ่มต้นติดต่อ:</strong> แนะนำให้เริ่มต้นกับผู้ที่มี open inbox เช่น Derek Sivers, ชุมชน Indieweb หรือเขียนอีเมลหาตัวผู้เขียนเอง</li></ul>
+                            </div>
+                        </section>
+                        <section class="content-section">
+                            <h3 class="section-header section-header-discussion">💬 สรุปประเด็นเสวนาในกระทู้</h3>
+                            <div class="section-body">
+                                <p>บทสนทนาบน Hacker News แลกเปลี่ยนเคล็ดลับและประสบการณ์ในการส่งอีเมลหาผู้อื่นเพื่อสร้างมิตรภาพออนไลน์:</p><ul><li><strong>ก้าวแรกที่ง่ายที่สุด:</strong> สมาชิกแนะนำว่าการเริ่มต้นที่ง่ายและเสี่ยงต่ำที่สุดคือการส่งอีเมลไปขอบคุณนักเขียนหรือบล็อกเกอร์ที่ผลิตผลงานดีๆ หรือรายงานบั๊ก/โพสต์ซ้ำไปยังผู้ดูแลระบบของ Hacker News เพื่อฝึกความคุ้นเคย</li><li><strong>การทำหน้าที่ของผู้ดูแลระบบ (dang):</strong> มีการพูดคุยเกี่ยวกับ Daniel (dang) ผู้ดูแลบอร์ด HN โดยสมาชิกส่วนใหญ่ชื่นชมว่าเขาตอบอีเมลอย่างสุภาพ รอบคอบ และเป็นมิตรเสมอ แม้บางครั้งอาจจะช้าไปบ้างเนื่องจากปริมาณงานที่สูงมากหรือตัวกรองสแปม</li><li><strong>การสร้างมิตรภาพ:</strong> ทุกคนเห็นพ้องตรงกันว่าอีเมลชื่นชมเล็กๆ น้อยๆ เช่น การชมเชยการออกแบบบล็อก สามารถสร้างความสุขและเปลี่ยนวันแย่ๆ ของเจ้าของผลงานให้กลายเป็นวันที่ดีได้จริง</li></ul>
+                            </div>
+                        </section>
+                        <div class="links-row">
+                            <a href="https://www.goodinternetmagazine.com/why-i-email-complete-strangers/" target="_blank" class="action-btn btn-primary">อ่านบทความต้นฉบับ</a>
+                            <a href="https://news.ycombinator.com/item?id=48547566" target="_blank" class="action-btn btn-secondary">กระทู้บน Hacker News</a>
+                        </div>
+                    </div>
+                </details>
+            </article>
+            
+            <!-- STORY 27 -->
+            <article class="news-item">
+                <details>
+                    <summary>
+                        <div class="summary-header">
+                            <div class="summary-title-section">
+                                <h2 class="story-title">Stop Using JWTs</h2>
+                                <p class="teaser">ข้อโต้แย้งเกี่ยวกับการหลีกเลี่ยงการใช้ JWT สำหรับการจัดการเซสชันในเบราว์เซอร์ และข้อเสนอแนะในการหันมาใช้ Session Cookies แบบดั้งเดิมเพื่อความปลอดภัยที่มากกว่า</p>
+                                <div class="meta-row">
+                                    <span class="badge badge-points">🔥 216 คะแนน</span>
+                                    <span class="badge badge-comments">💬 131 ความคิดเห็น</span>
+                                    <span class="badge badge-domain">gist.github.com</span>
+                                </div>
+                            </div>
+                            <div class="toggle-icon">▼</div>
+                        </div>
+                    </summary>
+                    <div class="details-content">
+                        <section class="content-section">
+                            <h3 class="section-header section-header-article">📄 สรุปเนื้อหาบทความ</h3>
+                            <div class="section-body">
+                                <p><strong>สรุปเนื้อหาบทความ:</strong> บทความเตือนนักพัฒนาให้หยุดใช้ JWT (JSON Web Tokens) ในการคงสถานะการล็อกอินของผู้ใช้ (User Session) บนเบราว์เซอร์ โดยชี้ว่า JWT ไม่ได้ถูกออกแบบมาเพื่อสิ่งนี้ และการใช้เทคโนโลยีเซสชันคุกกี้ปกติมีความปลอดภัยและเหมาะสมมากกว่า</p><ul><li><strong>อายุการใช้งานและ State:</strong> มาตรฐาน JWT ออกแบบมาสำหรับโทเค็นอายุสั้นมาก (~5 นาทีหรือน้อยกว่า) การทำระบบเซสชันที่ปลอดภัยแบบไร้สถานะ (Stateless) บนเบราว์เซอร์ทำได้ยากมาก และหากสุดท้ายต้องเก็บสถานะเพื่อยกเลิกโทเค็น ก็ควรหันไปใช้ Session Store ตั้งแต่แรก</li><li><strong>ความเปราะบางของมาตรฐาน:</strong> มาตรฐานดั้งเดิมของ JWT ถูกวิจารณ์โดยผู้เชี่ยวชาญด้านความปลอดภัยว่ามีความซับซ้อนเกินไปและเอื้อให้เกิดการตั้งค่าที่ผิดพลาดได้ง่าย (เช่น อัลกอริทึม 'none' หรือการปลอมแปลงคีย์)</li><li><strong>กรณีขององค์กรใหญ่:</strong> บริษัทอย่าง Google ไม่ได้ใช้ JWT สำหรับเซสชันในเบราว์เซอร์ แต่ใช้คุกกี้ปกติ ส่วน JWT จะถูกใช้เฉพาะในการส่งผ่านข้อมูลเพื่อล็อกอินข้ามระบบ (Single Sign-On - SSO) เท่านั้น</li><li><strong>ทางเลือกอื่น:</strong> แนะนำโปรโตคอล PASETO แทนหากต้องการส่งข้อมูลโทเค็นอายุสั้นที่ลงลายมือชื่อแบบปลอดภัย</li></ul>
+                            </div>
+                        </section>
+                        <section class="content-section">
+                            <h3 class="section-header section-header-discussion">💬 สรุปประเด็นเสวนาในกระทู้</h3>
+                            <div class="section-body">
+                                <p>ประเด็นดราม่าและการถกเถียงใน Hacker News เกี่ยวกับความเหมาะสมในการใช้งาน JWT แบ่งออกเป็นสองฝั่งอย่างชัดเจน:</p><ul><li><strong>การยอมรับว่าไม่เหมาะกับเบราว์เซอร์เซสชัน:</strong> นักพัฒนาส่วนใหญ่เห็นพ้องกับบทความว่าการเก็บ JWT ไว้ใน localStorage/sessionStorage บนเบราว์เซอร์นั้นมีความเสี่ยงจาก XSS และขาดความสามารถในการเพิกถอนสิทธิ์ (Revocation) ได้ทันที ซึ่ง session cookie แบบดั้งเดิมทำได้ง่ายกว่ามาก</li><li><strong>การใช้งานในระบบหลังบ้าน (Service-to-Service):</strong> สมาชิกหลายคนแย้งว่า JWT มีประโยชน์อย่างมหาศาลและปลอดภัยมากสำหรับการสื่อสารระหว่างระบบย่อย (microservices) หรือ machine-to-machine โดยยกตัวอย่างระบบ AWS STS ที่ใช้ตรวจสอบสิทธิ์อย่างมีประสิทธิภาพ</li><li><strong>มุมมองต่อตัวมาตรฐานและไลบรารี:</strong> มีการวิเคราะห์ว่าข้อผิดพลาดในอดีต (เช่น Downgrade Attacks) มักเกิดจากไลบรารีที่ค่าเริ่มต้นไม่ปลอดภัย แต่ในปัจจุบันได้รับการแก้ไขและอุดช่องโหว่เรียบร้อยแล้ว แม้ผู้เชี่ยวชาญบางส่วนจะยังวิจารณ์การออกแบบมาตรฐานดั้งเดิมว่าไม่รัดกุมพอก็ตาม</li></ul>
+                            </div>
+                        </section>
+                        <div class="links-row">
+                            <a href="https://gist.github.com/samsch/0d1f3d3b4745d778f78b230cf6061452" target="_blank" class="action-btn btn-primary">อ่านบทความต้นฉบับ</a>
+                            <a href="https://news.ycombinator.com/item?id=48558147" target="_blank" class="action-btn btn-secondary">กระทู้บน Hacker News</a>
+                        </div>
+                    </div>
+                </details>
+            </article>
+            
+            <!-- STORY 28 -->
+            <article class="news-item">
+                <details>
+                    <summary>
+                        <div class="summary-header">
+                            <div class="summary-title-section">
+                                <h2 class="story-title">But yak shaving is fun (2019)</h2>
+                                <p class="teaser">บทวิเคราะห์ปรากฏการณ์ Yak Shaving หรือการทำงานย่อยที่ไม่เกี่ยวข้องกันไปเรื่อยๆ จนลืมเป้าหมายหลัก ซึ่งเป็นทั้งกับดักในการทำงานจริงและเครื่องมือชั้นยอดในการเรียนรู้</p>
+                                <div class="meta-row">
+                                    <span class="badge badge-points">🔥 197 คะแนน</span>
+                                    <span class="badge badge-comments">💬 54 ความคิดเห็น</span>
+                                    <span class="badge badge-domain">parksb.github.io</span>
+                                </div>
+                            </div>
+                            <div class="toggle-icon">▼</div>
+                        </div>
+                    </summary>
+                    <div class="details-content">
+                        <section class="content-section">
+                            <h3 class="section-header section-header-article">📄 สรุปเนื้อหาบทความ</h3>
+                            <div class="section-body">
+                                <p><strong>สรุปเนื้อหาบทความ:</strong> บทความนำเสนอคำศัพท์ทางเทคนิค 'Yak Shaving' (การโกนขนจามรี) ซึ่งหมายถึงการทำงานย่อยๆ เชื่อมโยงกันยาวเหยียดเพื่อเป้าหมายบางอย่าง จนสุดท้ายหลงลืมเป้าหมายแรกสุดไปอย่างสิ้นเชิง</p><ul><li><strong>ที่มาของคำ:</strong> คำนี้ริเริ่มโดย Carlin Vieri จากแล็บปัญญาประดิษฐ์ของ MIT โดยมีแรงบันดาลใจจากการ์ตูน Ren & Stimpy และถูกนำมาใช้อธิบายพฤติกรรมในวงการซอฟต์แวร์ที่วิศวกรมักจะเริ่ม 'สร้างระบบใหม่ตั้งแต่ต้น' เพียงเพราะไม่พอใจเครื่องมือเดิมเล็กๆ น้อยๆ</li><li><strong>กรณีศึกษาคลาสสิก:</strong> Donald Knuth ศาสตราจารย์แห่งสแตนฟอร์ด ใช้เวลาเกือบ 10 ปีในการพัฒนา TeX (รวมถึงภาษา WEB, METAFONT, Knuth-Plass Wrapping algorithm และแบบอักษร Computer Modern) เพียงเพื่อต้องการให้มีระบบจัดหน้ากระดาษที่สวยงามสำหรับพิมพ์หนังสือของตนเอง</li><li><strong>ประโยชน์เชิงการศึกษา:</strong> แม้ว่าในการทำงานจริง Yak Shaving มักจะทำให้โครงการล่าช้าหรือล้มเหลว แต่สำหรับการเรียนรู้ส่วนตัวแล้ว มันเป็นวิธีการเรียนรู้ที่ได้ผลลัพธ์ลึกซึ้งและมีประสิทธิภาพมาก ช่วยให้นักพัฒนาได้เข้าใจสถาปัตยกรรมคอมพิวเตอร์อย่างเป็นระบบ</li></ul>
+                            </div>
+                        </section>
+                        <section class="content-section">
+                            <h3 class="section-header section-header-discussion">💬 สรุปประเด็นเสวนาในกระทู้</h3>
+                            <div class="section-body">
+                                <p>ความคิดเห็นของนักพัฒนาแสดงถึงการปะทะกันทางมุมมองระหว่างการโฟกัสผลลัพธ์กับการใส่ใจในกระบวนการเรียนรู้:</p><ul><li><strong>ความแตกแยกในคอมมูนิตี้:</strong> สมาชิกชี้ว่าวงการโปรแกรมเมอร์กำลังแบ่งแยกเป็นสองกลุ่ม คือกลุ่มที่สนุกกับการเดินทางและกระบวนการเรียนรู้เทคโนโลยีแบบเจาะลึก (Journey) กับกลุ่มที่มุ่งเน้นการส่งมอบผลิตภัณฑ์ให้ถึงปลายทางเร็วที่สุดโดยยอมใช้วิธีทางลัด (Destination)</li><li><strong>บทบาทของ AI ต่อการลด Yak Shaving:</strong> มีการถกเถียงว่าการใช้งาน AI ช่วยขจัดปัญหา Yak Shaving ที่น่าเบื่อได้มาก ช่วยให้นักพัฒนามีเวลากลับไปดูแลโค้ดในส่วนสำคัญที่พวกเขารักและใส่ใจจริงๆ อย่างไรก็ตาม บางส่วนเตือนว่าการพึ่งพา AI มากเกินไปอาจทำให้นักพัฒนารุ่นใหม่ขาดทักษะการวิเคราะห์และแก้ไขปัญหาลึกๆ เมื่อระบบเกิดความเสียหาย</li></ul>
+                            </div>
+                        </section>
+                        <div class="links-row">
+                            <a href="https://parksb.github.io/en/article/32.html" target="_blank" class="action-btn btn-primary">อ่านบทความต้นฉบับ</a>
+                            <a href="https://news.ycombinator.com/item?id=48555838" target="_blank" class="action-btn btn-secondary">กระทู้บน Hacker News</a>
+                        </div>
+                    </div>
+                </details>
+            </article>
+            
+            <!-- STORY 29 -->
+            <article class="news-item">
+                <details>
+                    <summary>
+                        <div class="summary-header">
+                            <div class="summary-title-section">
+                                <h2 class="story-title">Claude: Elevated errors across many models [resolved]</h2>
+                                <p class="teaser">รายงานปัญหาการขัดข้องทางเทคนิคและอัตราความผิดพลาดที่สูงขึ้นของโมเดลตระกูล Claude จาก Anthropic และเสียงสะท้อนจากเหล่านักพัฒนา</p>
+                                <div class="meta-row">
+                                    <span class="badge badge-points">🔥 180 คะแนน</span>
+                                    <span class="badge badge-comments">💬 151 ความคิดเห็น</span>
+                                    <span class="badge badge-domain">status.claude.com</span>
+                                </div>
+                            </div>
+                            <div class="toggle-icon">▼</div>
+                        </div>
+                    </summary>
+                    <div class="details-content">
+                        <section class="content-section">
+                            <h3 class="section-header section-header-article">📄 สรุปเนื้อหาบทความ</h3>
+                            <div class="section-body">
+                                <p><strong>ข้อผิดพลาดในการดึงข้อมูล:</strong> ไม่พบเนื้อหาข้อความยาวในหน้าเว็บนี้เนื่องจากเป็นหน้าแจ้งสถานะระบบ (Status Page) อย่างไรก็ตาม หัวข้อข่าวระบุถึงปัญหาอัตราความผิดพลาดทางเทคนิคที่เพิ่มสูงขึ้นในโมเดลหลายตัวของ Claude ซึ่งปัจจุบันได้รับการแก้ไขเป็นที่เรียบร้อยแล้ว (Resolved)</p>
+                            </div>
+                        </section>
+                        <section class="content-section">
+                            <h3 class="section-header section-header-discussion">💬 สรุปประเด็นเสวนาในกระทู้</h3>
+                            <div class="section-body">
+                                <p>ปฏิกิริยาและความคิดเห็นของสมาชิกบน Hacker News ในช่วงที่ระบบของ Claude ประสบปัญหา:</p><ul><li><strong>ผลกระทบต่อผู้ใช้งาน:</strong> สมาชิกหลายคนบ่นว่าปัญหาความผิดพลาดนี้ทำลายเซสชันการสนทนาที่ยาวนานของพวกเขาจนใช้งานไม่ได้ และมีความเห็นว่าระบบควรมีระบบการถอยกลับและลองใหม่อัตโนมัติ (Backoff Retry) ที่มีประสิทธิภาพมากกว่านี้</li><li><strong>การหาทางเลือกอื่น:</strong> นักพัฒนาบางส่วนเลือกที่เปลี่ยนกลับไปใช้งานบริการอื่นๆ เช่น GPT-5.5 (หรือโมเดลอื่น) เป็นการชั่วคราวเพื่อทำงานต่อ แม้ว่าจะมีความเร็วที่ช้าลงก็ตาม</li><li><strong>อารมณ์ขันในบอร์ด:</strong> มีการล้อเลียนเชิงขำขันว่า หากระบบของ Claude ล่ม ทาง Anthropic จะแก้ไขอย่างไร โดยเสนอไอเดียตลกๆ เช่น การซื้อสมาชิก ChatGPT มาใช้เป็นระบบสำรองสำหรับทีมงาน หรือมี 'Meta-Claude' คอยตรวจซ่อมตัวเองอยู่เบื้องหลัง</li></ul>
+                            </div>
+                        </section>
+                        <div class="links-row">
+                            <a href="https://status.claude.com/incidents/xmhsglsz3h3w" target="_blank" class="action-btn btn-primary">อ่านบทความต้นฉบับ</a>
+                            <a href="https://news.ycombinator.com/item?id=48558766" target="_blank" class="action-btn btn-secondary">กระทู้บน Hacker News</a>
+                        </div>
+                    </div>
+                </details>
+            </article>
+            
+            <!-- STORY 30 -->
+            <article class="news-item">
+                <details>
+                    <summary>
+                        <div class="summary-header">
+                            <div class="summary-title-section">
+                                <h2 class="story-title">I've always wondered if anyone used sharing buttons on news sites and blogs</h2>
+                                <p class="teaser">การเปิดเผยสถิติจริงที่ชี้ให้เห็นว่าปุ่มแชร์โซเชียลมีเดียบนเว็บไซต์มีอัตราการคลิกใช้งานต่ำมากเพียงประมาณ 0.2% โดยผู้ใช้งานส่วนใหญ่คุ้นเคยกับการคัดลอกลิงก์โดยตรงมากกว่า</p>
+                                <div class="meta-row">
+                                    <span class="badge badge-points">🔥 173 คะแนน</span>
+                                    <span class="badge badge-comments">💬 91 ความคิดเห็น</span>
+                                    <span class="badge badge-domain">ankursethi.com</span>
+                                </div>
+                            </div>
+                            <div class="toggle-icon">▼</div>
+                        </div>
+                    </summary>
+                    <div class="details-content">
+                        <section class="content-section">
+                            <h3 class="section-header section-header-article">📄 สรุปเนื้อหาบทความ</h3>
+                            <div class="section-body">
+                                <p><strong>สรุปเนื้อหาบทความ:</strong> บทความตั้งคำถามถึงประโยชน์ที่แท้จริงของปุ่มแชร์โซเชียลมีเดีย (Social Sharing Buttons) ที่มักฝังอยู่ตามเว็บข่าวหรือบล็อกต่างๆ โดยอ้างอิงข้อมูลสถิติจากหลายแหล่งงานวิจัยที่พบว่าฟังก์ชันนี้มีอัตราการใช้งานต่ำอย่างเหลือเชื่อ</p><ul><li><strong>ผลวิจัยของรัฐบาลอังกฤษ (GOV.UK):</strong> จากการทดสอบเป็นเวลา 10 สัปดาห์บนหน้าเพจ 6.8 ล้านครั้ง มีการคลิกปุ่มแชร์เพียง 14,078 ครั้ง หรือคิดเป็นเพียง 0.21% (ประมาณ 1 ใน 476 คน) ซึ่งเป็นฟีเจอร์ที่ไม่มีผู้ใช้รายใดเคยร้องขอเลย</li><li><strong>ข้อมูลจาก Moovweb และ Luke Wroblewski:</strong> งานวิจัยจากผู้ใช้มือถือ 61 ล้านเซสชัน และผู้อ่าน 18 ล้านหน้าเพจ ยืนยันตรงกันว่ายอดการใช้งานอยู่ที่ประมาณ 0.2% - 0.25% เท่านั้น โดยผู้ใช้มือถือมีแนวโน้มจะคลิกโฆษณามากกว่าปุ่มแชร์ถึง 12 เท่า</li><li><strong>พฤติกรรมจริงของผู้ใช้:</strong> ผู้ใช้นิยมใช้วิธีคัดลอก URL แล้วนำไปวางในแอปแชต อีเมล หรือ Slack โดยตรง ซึ่งอธิบายได้ว่าทำไมยอดผู้เข้าชมประเภท "Direct Traffic" ในเครื่องมือวิเคราะห์ระบบจึงมักครองส่วนแบ่งสูงสุด</li></ul>
+                            </div>
+                        </section>
+                        <section class="content-section">
+                            <h3 class="section-header section-header-discussion">💬 สรุปประเด็นเสวนาในกระทู้</h3>
+                            <div class="section-body">
+                                <p>ความคิดเห็นของเหล่านักพัฒนาเห็นพ้องและร่วมแบ่งปันแง่มุมเพิ่มเติมเกี่ยวกับปัญหาของปุ่มแชร์โซเชียลมีเดีย:</p><ul><li><strong>ปัญหาด้านความเป็นส่วนตัวและการลอกเลียนแบบ:</strong> สมาชิกวิพากษ์วิจารณ์ว่าปุ่มแชร์เหล่านี้เป็นช่องทางแฝงในการดึงข้อมูลส่วนบุคคลและพฤติกรรมผู้ใช้ผ่าน Third-Party Cookies และมองว่าการติดตั้งปุ่มเหล่านี้เป็นการทำตามๆ กันแบบไม่มีเหตุผล (Cargo-Cult) คล้ายกับการพยายามใส่แชตบอตในปัจจุบัน</li><li><strong>ทางเลือกสายกลาง (navigator.share):</strong> มีการแนะนำให้ใช้ฟังก์ชัน `navigator.share()` ซึ่งเป็นมาตรฐานเว็บในการเรียกใช้เครื่องมือแชร์ดั้งเดิมของระบบปฏิบัติการ (Native Share UI) แทนการฝังปุ่มแชร์ของโซเชียลมีเดียเฉพาะราย เพื่อความปลอดภัยของข้อมูลและรักษาความสวยงามของเว็บ</li><li><strong>พฤติกรรมการใช้งานในปัจจุบัน:</strong> นักพัฒนาเห็นตรงกันว่าระบบแชร์ดั้งเดิมของมือถือบางครั้งทำลายประสบการณ์ใช้งานที่ดีเนื่องจากสร้างขั้นตอนหลายคลิก และผู้ใช้ยุคปัจจุบันนิยมใช้วิธีก็อปปี้ URL หรือการกดปุ่ม 'คัดลอกลิงก์' (Copy Link API) เพื่อส่งต่อตรงๆ มากกว่า</li></ul>
+                            </div>
+                        </section>
+                        <div class="links-row">
+                            <a href="https://ankursethi.com/links/nobody-clicks-your-share-buttons/" target="_blank" class="action-btn btn-primary">อ่านบทความต้นฉบับ</a>
+                            <a href="https://news.ycombinator.com/item?id=48561332" target="_blank" class="action-btn btn-secondary">กระทู้บน Hacker News</a>
+                        </div>
+                    </div>
+                </details>
+            </article>
+            
+            <!-- STORY 31 -->
+            <article class="news-item">
+                <details>
+                    <summary>
+                        <div class="summary-header">
+                            <div class="summary-title-section">
+                                <h2 class="story-title">How TimescaleDB compresses time-series data</h2>
+                                <p class="teaser">TimescaleDB สามารถบีบอัดข้อมูลอนุกรมเวลา (Time-series data) ได้สูงสุดถึง 98% ด้วยสถาปัตยกรรมแถวและคอลัมน์แบบไฮบริดร่วมกับอัลกอริทึมบีบอัดเฉพาะทางครับ</p>
+                                <div class="meta-row">
+                                    <span class="badge badge-points">🔥 169 คะแนน</span>
+                                    <span class="badge badge-comments">💬 24 ความคิดเห็น</span>
+                                    <span class="badge badge-domain">roszigit.com</span>
+                                </div>
+                            </div>
+                            <div class="toggle-icon">▼</div>
+                        </div>
+                    </summary>
+                    <div class="details-content">
+                        <section class="content-section">
+                            <h3 class="section-header section-header-article">📄 สรุปเนื้อหาบทความ</h3>
+                            <div class="section-body">
+                                <p>TimescaleDB สามารถบีบอัดข้อมูลอนุกรมเวลาได้สูงสุดถึง 98% ซึ่งเป็นความสามารถที่สำคัญสำหรับระบบที่มีปริมาณข้อมูลมหาศาลและจำเป็นต้องเก็บรักษาข้อมูลไว้เป็นเวลานาน โดยมีจุดเด่นและกลไกการทำงานดังนี้ครับ:</p><ul><li><strong>การออกแบบที่ต่างจากฐานข้อมูลทั่วไป:</strong> ต่างจากระบบ OLTP และกลไก TOAST ของ PostgreSQL ที่ออกแบบมาเพื่อย่อข้อมูลขนาดใหญ่แบบทีละค่า (เช่น JSONB, Text ยาว ๆ) แต่ TimescaleDB เน้นการบีบอัดรูปแบบข้อมูลข้ามแถว (Cross-row patterns) โดยบีบอัดข้อมูลอนุกรมเวลาได้ดีกว่าถึง 10-100 เท่า</li><li><strong>เอนจิน Hypercore แบบไฮบริด:</strong> ใช้กลไกจัดเก็บข้อมูลแบบผสมผสาน (Row-Columnar) โดยข้อมูลใหม่จะถูกบันทึกเป็นแบบแถว (Row-based) เพื่อการเขียนและอัปเดตข้อมูลที่รวดเร็ว จากนั้นระบบจะแปลงข้อมูลเก่าให้เป็นแบบคอลัมน์ (Columnar format) และทำการบีบอัดโดยอัตโนมัติ ซึ่งช่วยเพิ่มความเร็วในการสืบค้นข้อมูลเชิงวิเคราะห์</li><li><strong>การบีบอัดระดับคอลัมน์:</strong> ข้อมูลแต่ละส่วนจะถูกจัดกลุ่มเป็นบล็อกสูงสุด 1,000 แถว และบีบอัดตามประเภทข้อมูลที่แตกต่างกัน ได้แก่:</li><ul><li><em>ตัวเลขและเวลา (Integers/Timestamps):</em> ใช้การเข้ารหัสแบบ Delta, Delta-of-delta, Simple-8b และ Run-Length Encoding (RLE) โดยหากค่าเวลามีช่วงสม่ำเสมอ ค่า Delta-of-delta จะเป็น 0 ทำให้ใช้พื้นที่จัดเก็บน้อยมาก</li><li><em>ข้อมูลที่มีการซ้ำซ้อนสูง (เช่น machine_id):</em> ใช้ระบบ Run-Length Encoding (RLE) เพื่อลดความซ้ำซ้อนอย่างมหาศาล</li><li><em>ข้อมูลทศนิยม (Floats):</em> ใช้การบีบอัดแบบ XOR ตามแนวทางอัลกอริทึม Gorilla ของ Facebook เพื่อลดขนาดบิตหลัก</li><li><em>ข้อมูล JSONB และอื่น ๆ:</em> ใช้ระบบ Dictionary ร่วมกับกลไกบีบอัดดั้งเดิม</li></ul><li><strong>พารามิเตอร์ที่ต้องใส่ใจ:</strong> ผู้ใช้งานต้องกำหนดพารามิเตอร์ <code>segmentby</code> (แบ่งกลุ่มตามฟิลด์เฉพาะ เช่น รหัสเครื่อง) และ <code>orderby</code> (เรียงลำดับเวลาเพื่อให้เก็บค่าต่างได้คุ้มค่า) ซึ่งช่วยให้ตัวประมวลผลคำสั่งสามารถข้ามบล็อกที่ไม่ตรงกับเงื่อนไขได้เลยโดยไม่ต้องอ่านดิสก์</li><li><strong>ประสิทธิภาพการสืบค้น:</strong> การบีบอัดทำให้ปริมาณข้อมูล I/O ลดลง 10-20 เท่า ส่งผลให้คำสั่งสืบค้นทั่วไป เช่น การหาค่าเฉลี่ยหรือยอดรวมตามช่วงเวลา ทำงานได้เร็วขึ้นอย่างมาก</li></ul>
+                            </div>
+                        </section>
+                        <section class="content-section">
+                            <h3 class="section-header section-header-discussion">💬 สรุปประเด็นเสวนาในกระทู้</h3>
+                            <div class="section-body">
+                                <p>ประเด็นแลกเปลี่ยนความคิดเห็นบน Hacker News มีความน่าสนใจเกี่ยวกับการนำแนวคิดการบีบอัดไปใช้กับฐานข้อมูลและผลลัพธ์ประสิทธิภาพดังนี้ครับ:</p><ul><li><strong>จุดกำเนิดและทางเลือกอื่น ๆ:</strong> สมาชิกบอร์ดกล่าวถึงความเป็นมาของอัลกอริทึม Gorilla ของ Facebook ที่เก็บค่าต่างของเวลาและตัวเลข และชี้ว่า ClickHouse มีการสนับสนุนอัลกอริทึมบีบอัดเหล่านี้และเขียนเอกสารประกอบไว้อย่างดีเช่นกัน</li><li><strong>การบีบอัดกับประสิทธิภาพ:</strong> มีการอภิปรายว่าการแลกเปลี่ยนทรัพยากรระหว่าง I/O กับ CPU เป็นเรื่องที่ต้องตัดสินใจอย่างระมัดระวัง วิธีการบีบอัดที่ดีต้องช่วยให้การกรองและสแกนข้อมูลทำได้เร็วขึ้น ไม่ใช่แค่การประหยัดพื้นที่เพียงอย่างเดียว ยกตัวอย่างการใช้ Dictionary ในการสืบค้นคำสั่ง IN ที่ลดขั้นตอนการเปรียบเทียบข้อความยาว ๆ ให้เหลือเพียง O(1) ของตัวเลขดัชนี</li><li><strong>ประเด็นการบีบอัด JSONB:</strong> มีการพูดถึงประเด็นร้องเรียนเรื่องประสิทธิภาพการบีบอัดข้อมูลประเภท JSONB บน TimescaleDB ซึ่งถูกเปิดประเด็นไว้กว่า 5 ปีแล้วแต่ยังไม่ได้รับการแก้ไขอย่างสมบูรณ์ และมีสมาชิกบางรายเสนอให้ลองเปลี่ยนไปใช้ MongoDB แทน</li><li><strong>แนวคิดการพัฒนาและส่วนเสริมใหม่:</strong> สมาชิกบางรายเปิดเผยโครงการ <code>deltax</code> ซึ่งเป็นส่วนขยายของ PostgreSQL สำหรับข้อมูลอนุกรมเวลาเพื่อประชันประสิทธิภาพบน ClickBench โดยเล่าถึงเทคนิคต่าง ๆ เช่น การเก็บข้อมูลสรุป (min/max/sum) ประจำเซกเมนต์เพื่อใช้ตอบคำถามจาก Metadata โดยไม่ต้องถอดรหัสบีบอัด การทำระบบดึงตัวกรองลงไประดับถอดรหัส (Filter pushdown) และการพยายามตัดอ่านดิสก์ให้เร็วที่สุดสำหรับคำสั่ง Top N</li></ul>
+                            </div>
+                        </section>
+                        <div class="links-row">
+                            <a href="https://roszigit.com/en/blog/timescaledb-compression-hypercore" target="_blank" class="action-btn btn-primary">อ่านบทความต้นฉบับ</a>
+                            <a href="https://news.ycombinator.com/item?id=48544451" target="_blank" class="action-btn btn-secondary">กระทู้บน Hacker News</a>
+                        </div>
+                    </div>
+                </details>
+            </article>
+            
+            <!-- STORY 32 -->
+            <article class="news-item">
+                <details>
+                    <summary>
+                        <div class="summary-header">
+                            <div class="summary-title-section">
+                                <h2 class="story-title">'Ghost jobs' could soon be illegal in New York</h2>
+                                <p class="teaser">นิวยอร์กเสนอร่างกฎหมายใหม่เพื่อแบน 'Ghost jobs' หรือตำแหน่งงานหลอกที่ไม่มีการรับสมัครจริง เพื่อป้องกันการสร้างสถิติหลอกลวงและความปวดหัวของแคนดิเดตครับ</p>
+                                <div class="meta-row">
+                                    <span class="badge badge-points">🔥 168 คะแนน</span>
+                                    <span class="badge badge-comments">💬 102 ความคิดเห็น</span>
+                                    <span class="badge badge-domain">fastcompany.com</span>
+                                </div>
+                            </div>
+                            <div class="toggle-icon">▼</div>
+                        </div>
+                    </summary>
+                    <div class="details-content">
+                        <section class="content-section">
+                            <h3 class="section-header section-header-article">📄 สรุปเนื้อหาบทความ</h3>
+                            <div class="section-body">
+                                <p>เนื่องจากตัวลิงก์ต้นทางเกิดข้อผิดพลาดในการดึงข้อมูล (HTTP Error 403) รายละเอียดจึงอ้างอิงจากชื่องานและข้อมูลในบอร์ดอภิปราย โดยประเด็นหลักคือรัฐนิวยอร์กได้ผ่านเสนอร่างกฎหมายรัฐสภา (NY State Senate Bill S8877) เพื่อควบคุมการประกาศรับสมัครงานแบบหลอกหลวง หรือ <strong>"Ghost jobs"</strong> (การที่บริษัทโพสต์ประกาศรับสมัครงานค้างไว้บนเว็บไซต์ต่าง ๆ โดยไม่มีเป้าหมายที่จะรับคนทำงานเข้ามาจริง หรือลืมถอนการประกาศออกหลังจากได้คนไปแล้ว) เพื่อปรับปรุงความโปร่งใสในตลาดแรงงานและลดภาระของฝั่งผู้หางาน</p>
+                            </div>
+                        </section>
+                        <section class="content-section">
+                            <h3 class="section-header section-header-discussion">💬 สรุปประเด็นเสวนาในกระทู้</h3>
+                            <div class="section-body">
+                                <p>กระทู้สนทนาแลกเปลี่ยนบน Hacker News เต็มไปด้วยการวิเคราะห์กลโกงและผลกระทบของร่างกฎหมายนี้อย่างคึกคักครับ:</p><ul><li><strong>การเลี่ยงกฎหมายและจุดบกพร่อง:</strong> สมาชิกบอร์ดมองว่ากฎหมายนี้อาจถูกหลบเลี่ยงได้ง่าย ๆ เพียงแค่บริษัททำการแก้ไขวันที่กำหนดการรับสมัคร (Fill-by date) เลื่อนออกไปเรื่อย ๆ อย่างไรก็ตาม บางส่วนมองว่าสัญญาณความเคลื่อนไหวของการเลื่อนวันที่อย่างต่อเนื่องนี้ จะช่วยเป็นตัวบ่งชี้ที่มีประโยชน์ให้ผู้หางานทราบได้ว่างานนั้นไม่มีการจ้างจริง</li><li><strong>ความจำเป็นและเหตุผลทางธุรกิจที่ถูกต้อง:</strong> นักพัฒนาชี้แจงว่ามีหลายกรณีที่เป็นการกระทำโดยสุจริตแต่เข้าข่ายนี้ เช่น บริษัทกำลังรอเซ็นสัญญากับลูกค้าที่มีโอกาสสำเร็จ 85% จึงจำเป็นต้องประกาศหาคนทำงานเตรียมพร้อมไว้ก่อน แต่เมื่อการเจรจาสัญญายืดเยื้อออกไปทำให้ไม่สามารถตกลงจ้างงานได้ หรือกรณีที่บริษัทต้องประกาศตำแหน่งงานสู่สาธารณะตามข้อบังคับทางกฎหมายแม้ว่าจะมีคนในใจที่เตรียมเลื่อนตำแหน่งไว้แล้วก็ตาม</li><li><strong>มุมมองด้านมาตรการการลงโทษ:</strong> มีการอภิปรายว่าอัตราค่าปรับ $2,500 ทุก ๆ 30 วันอาจดูน้อยเกินไปสำหรับองค์กรขนาดใหญ่ ซึ่งอาจพิจารณาเป็นเพียงต้นทุนดำเนินงานทั่วไป (Cost of doing business) แต่อุดมการณ์ของฝั่งกฎหมายชี้ว่าควรเริ่มต้นที่จุดใดจุดหนึ่งก่อนแล้วค่อยพัฒนาแก้ไขปิดช่องโหว่ตามหลัง</li></ul>
+                            </div>
+                        </section>
+                        <div class="links-row">
+                            <a href="https://www.fastcompany.com/91558427/ghost-jobs-could-soon-be-illegal-in-new-york" target="_blank" class="action-btn btn-primary">อ่านบทความต้นฉบับ</a>
+                            <a href="https://news.ycombinator.com/item?id=48558338" target="_blank" class="action-btn btn-secondary">กระทู้บน Hacker News</a>
+                        </div>
+                    </div>
+                </details>
+            </article>
+            
+            <!-- STORY 33 -->
+            <article class="news-item">
+                <details>
+                    <summary>
+                        <div class="summary-header">
+                            <div class="summary-title-section">
+                                <h2 class="story-title">Commodore Releases Flip Phone</h2>
+                                <p class="teaser">แบรนด์ไอทีในตำนาน Commodore เปิดตัวมือถือฝาพับรุ่น 'Callback' เพื่อสนับสนุนวิถีชีวิตดิจิทัลมินิมอล โดยการบล็อกเบราว์เซอร์และโซเชียลมีเดียในระดับระบบปฏิบัติการครับ</p>
+                                <div class="meta-row">
+                                    <span class="badge badge-points">🔥 167 คะแนน</span>
+                                    <span class="badge badge-comments">💬 99 ความคิดเห็น</span>
+                                    <span class="badge badge-domain">commodore.net</span>
+                                </div>
+                            </div>
+                            <div class="toggle-icon">▼</div>
+                        </div>
+                    </summary>
+                    <div class="details-content">
+                        <section class="content-section">
+                            <h3 class="section-header section-header-article">📄 สรุปเนื้อหาบทความ</h3>
+                            <div class="section-body">
+                                <p>แบรนด์คอมพิวเตอร์ระดับตำนานอย่าง Commodore ได้ประกาศทิศทางใหม่ด้วยการเปิดตัวโทรศัพท์ฝาพับรุ่น <strong>"Callback"</strong> ซึ่งพัฒนาขึ้นมาเพื่อเป็นสะพานเชื่อมระหว่างสมาร์ตโฟนและฟีเจอร์โฟนธรรมดา โดยเน้นแนวคิดความเป็นมิตรและการตัดขาดจากความวุ่นวายทางดิจิทัล (Digital Minimalism) โดยมีจุดเด่นดังนี้ครับ:</p><ul><li><strong>การทำงานและแอปพลิเคชัน:</strong> โทรศัพท์รุ่นนี้มีแอปที่จำเป็นสำหรับการติดต่อและเดินทาง เช่น WhatsApp, Signal, Telegram, แอปฟังเพลง, พ็อดคาสต์, แผนที่ และบริการเรียกรถ พร้อมกล้องถ่ายภาพคุณภาพดี รวมถึงฟังก์ชันจำลองเครื่อง Commodore 64 และเสียงเรียกเข้าสไตล์ชิป SID สำหรับแฟนเดนตาย</li><li><strong>การปิดกั้นระดับระบบ (System-level blocking):</strong> ตัวเครื่องไม่มีเว็บเบราว์เซอร์และระบบโซเชียลมีเดีย โดยระบบปฏิบัติการจะบล็อกการเข้าถึงในระดับระบบเพื่อไม่ให้เกิดความวิตกกังวลจากกลไกอัลกอริทึมและฟีดข่าวที่เสพติด</li><li><strong>การเปลี่ยนนิยามความเป็นมิตรของคอมพิวเตอร์:</strong> ซีอีโออธิบายว่า ยุค 1980 คอมพิวเตอร์จำเป็นต้องเปิดกว้างเพื่อให้ผู้ใช้คุ้นเคย แต่ในปัจจุบันระบบที่เปิดกว้างมักถูกใช้เพื่อสอดแนมและเก็บข้อมูลผู้ใช้ ดังนั้น Callback จึงเลือกปิดส่วนที่เอื้อให้เกิดการขโมยข้อมูล และเปิดเฉพาะสิ่งที่สร้างความเป็นมิตรต่อมนุษย์อย่างแท้จริง</li><li><strong>ระบบปฏิบัติการ Sailfish OS:</strong> ตัวเครื่องรันระบบปฏิบัติการ Sailfish OS เวอร์ชันที่พัฒนาโดยทีมอดีตวิศวกร Nokia จาก Jolla ซึ่งเน้นเรื่องความเป็นส่วนตัว ไม่มีการนำข้อมูลไปขายเชิงพาณิชย์ และสามารถรันแอป Android ยอดนิยมได้โดยไม่ต้องล็อกอินบัญชี</li></ul>
+                            </div>
+                        </section>
+                        <section class="content-section">
+                            <h3 class="section-header section-header-discussion">💬 สรุปประเด็นเสวนาในกระทู้</h3>
+                            <div class="section-body">
+                                <p>ฝั่งนักพัฒนาในบอร์ด Hacker News แสดงมุมมองอย่างตรงไปตรงมาเกี่ยวกับทิศทางใหม่และตั้งคำถามต่อตัวโปรเจกต์นี้ครับ:</p><ul><li><strong>ราคาตั้งต้นที่สูงเกินจริง:</strong> จุดวิจารณ์ที่รุนแรงที่สุดคือราคาจำหน่ายสูงถึง $500 (ประมาณ 18,000 บาท) ซึ่งผู้ใช้อภิปรายว่ามันไม่มีความต่างทางเทคนิคจากโทรศัพท์ทั่วไปเลย และเปรียบเทียบว่ามีประสิทธิภาพเท่ากับฟีเจอร์โฟนเครื่องละ $30 จาก AliExpress ที่ติดตั้ง WhatsApp ได้เท่านั้น ทำให้ถูกมองว่าเป็นแค่การขายความหลังเก่า ๆ (Nostalgia-bait) เพื่อฟันกำไรสูง</li><li><strong>ความกังขาในสิทธิ์การตัดสินใจของผู้ใช้:</strong> มีการถกเถียงว่าการตัดสินใจแทนผู้ใหญ่ด้วยการบล็อกเบราว์เซอร์และโดเมนโซเชียลมีเดียในระดับระบบเป็นการจำกัดเสรีภาพมากเกินไป บางคนมองว่าหากไม่ต้องการเล่นโซเชียลควรควบคุมตนเองไม่ใช่ให้ระบบสั่งห้าม ในขณะที่อีกฝั่งเห็นพ้องว่าสำหรับผู้ที่ติดโซเชียลมีเดียอย่างรุนแรง การตั้งระบบบล็อกถาวรแบบนี้คือหนทางเดียวที่จะช่วยพวกเขาได้</li><li><strong>ความสับสนเรื่องกลุ่มเป้าหมายของแบรนด์:</strong> สมาชิกชี้ว่าการผสมผสานแบรนด์ยุคคอมพิวเตอร์ 8 บิตอย่าง Commodore เข้ากับยุคมือถือฝาพับช่วง Y2K เป็นทิศทางที่แปลกและสับสน เพราะสองยุคนี้ห่างกันร่วมยี่สิบปี ทำให้ไม่แน่ใจว่าต้องการจับกลุ่มผู้ใช้รุ่นใดกันแน่ แต่อย่างไรก็ดี แนวคิดมือถือที่มีการติดตั้งโปรแกรมจำกัดแต่มี WhatsApp/Signal/Maps นั้นมีจุดขายของตัวเองแน่นอน</li></ul>
+                            </div>
+                        </section>
+                        <div class="links-row">
+                            <a href="https://commodore.net/why-a-flip-phone/" target="_blank" class="action-btn btn-primary">อ่านบทความต้นฉบับ</a>
+                            <a href="https://news.ycombinator.com/item?id=48552614" target="_blank" class="action-btn btn-secondary">กระทู้บน Hacker News</a>
+                        </div>
+                    </div>
+                </details>
+            </article>
+            
+            <!-- STORY 34 -->
+            <article class="news-item">
+                <details>
+                    <summary>
+                        <div class="summary-header">
+                            <div class="summary-title-section">
+                                <h2 class="story-title">Humanity isn't ready for the coming intelligence explosion</h2>
+                                <p class="teaser">วงการนักพัฒนาถกเถียงกันอย่างเผ็ดร้อนว่ามนุษยชาติพร้อมรับมือการก้าวกระโดดของปัญญาประดิษฐ์ (Singularity) หรือไม่ หลังผู้บริหาร AI ทยอยปรับคำทำนายเกี่ยวกับตลาดแรงงานครับ</p>
+                                <div class="meta-row">
+                                    <span class="badge badge-points">🔥 166 คะแนน</span>
+                                    <span class="badge badge-comments">💬 463 ความคิดเห็น</span>
+                                    <span class="badge badge-domain">economist.com</span>
+                                </div>
+                            </div>
+                            <div class="toggle-icon">▼</div>
+                        </div>
+                    </summary>
+                    <div class="details-content">
+                        <section class="content-section">
+                            <h3 class="section-header section-header-article">📄 สรุปเนื้อหาบทความ</h3>
+                            <div class="section-body">
+                                <p>เนื่องจากตัวลิงก์ต้นทางเกิดข้อผิดพลาดในการดึงข้อมูล (HTTP Error 403) รายละเอียดจึงอ้างอิงจากข้อมูลบทสนทนาในบอร์ดโดยตรง หัวข้อหลักเน้นย้ำถึงความไม่พร้อมของมนุษยชาติในการเผชิญหน้ากับการเติบโตแบบก้าวกระโดดของระดับสติปัญญาปัญญาประดิษฐ์ (Intelligence Explosion) ซึ่งจะส่งผลกระทบต่ออาชีพและการดำเนินชีวิตของมนุษย์อย่างรวดเร็วเกินกว่าสถาบันทางสังคมจะปรับตัวตามได้ทัน</p>
+                            </div>
+                        </section>
+                        <section class="content-section">
+                            <h3 class="section-header section-header-discussion">💬 สรุปประเด็นเสวนาในกระทู้</h3>
+                            <div class="section-body">
+                                <p>กระทู้นี้กลายเป็นสมรภูมิการถกเถียงเรื่องอนาคตของอาชีพโปรแกรมเมอร์และการพึ่งพา AI ในการเขียนโค้ดครับ:</p><ul><li><strong>การคาดการณ์ที่คลาดเคลื่อนของผู้เชี่ยวชาญ:</strong> มีการวิพากษ์วิจารณ์ผู้เชี่ยวชาญและซีอีโอบริษัท AI (เช่น Sam Altman และ Dario Amodei) ที่มักเปลี่ยนคำทำนายไปมา โดยเฉพาะกรณีที่เคยระบุว่า AI จะเข้ามาแย่งงานคนทำงานออฟฟิศไปกว่า 50% แต่ปัจจุบันเริ่มปรับคำพูดว่าการใช้ระบบอัตโนมัติอาจจะช่วยขยายโอกาสและปริมาณงานให้ผู้คนทำมากขึ้นแทน</li><li><strong>ข้อโต้แย้งเรื่อง "AI แย่งงานเขียนโค้ดหมดแล้ว":</strong> มีสมาชิกบางรายออกมาอ้างว่าปัจจุบันเหล่านักพัฒนาที่รู้จักหยุดเขียนโค้ดเองเกือบทั้งหมดแล้ว และเปลี่ยนไปทำหน้าที่ควบคุมสั่งงาน (Agentic workflows) เพื่อให้ AI คัดกรองและแก้บั๊กของตัวเองแทน ซึ่งข้อความนี้สร้างแรงกระเพื่อมและความไม่เห็นด้วยจากกลุ่มนักพัฒนาจำนวนมากที่แย้งว่า โค้ดที่มีคุณภาพและระบบที่ใช้งานได้จริงยังคงต้องการฝีมือการเขียนด้วยมือของมนุษย์อย่างไม่มีทางเลี่ยง</li><li><strong>มุมมองต่อการใช้ AI เป็นเพียงผู้ช่วย:</strong> สมาชิกหลายท่านระบุว่า ในชีวิตจริง AI ปัจจุบันมีความแม่นยำในการให้คำตอบและแก้ปัญหาเฉพาะจุดเพียงประมาณ 40% เท่านั้น หน้าที่ส่วนใหญ่จึงเป็นเพียงสิ่งทดแทนระบบการค้นหาแบบ Google หรือช่วยในการแปลงโค้ดจากภาษาหนึ่งไปอีกภาษาหนึ่ง (Transpilation) ภายใต้การนำทางอย่างละเอียดของมนุษย์เท่านั้น</li></ul>
+                            </div>
+                        </section>
+                        <div class="links-row">
+                            <a href="https://www.economist.com/by-invitation/2026/06/15/humanity-isnt-ready-for-the-coming-intelligence-explosion" target="_blank" class="action-btn btn-primary">อ่านบทความต้นฉบับ</a>
+                            <a href="https://news.ycombinator.com/item?id=48549628" target="_blank" class="action-btn btn-secondary">กระทู้บน Hacker News</a>
+                        </div>
+                    </div>
+                </details>
+            </article>
+            
+            <!-- STORY 35 -->
+            <article class="news-item">
+                <details>
+                    <summary>
+                        <div class="summary-header">
+                            <div class="summary-title-section">
+                                <h2 class="story-title">Claude Corps</h2>
+                                <p class="teaser">Anthropic เปิดตัวโครงการ 'Claude Corps' มอบทุน 150 ล้านดอลลาร์เพื่อฝึกสอนและส่งผู้เชี่ยวชาญ AI รุ่นใหม่ไปช่วยเหลือองค์กรไม่แสวงหากำไรทั่วสหรัฐฯ ครับ</p>
+                                <div class="meta-row">
+                                    <span class="badge badge-points">🔥 155 คะแนน</span>
+                                    <span class="badge badge-comments">💬 115 ความคิดเห็น</span>
+                                    <span class="badge badge-domain">anthropic.com</span>
+                                </div>
+                            </div>
+                            <div class="toggle-icon">▼</div>
+                        </div>
+                    </summary>
+                    <div class="details-content">
+                        <section class="content-section">
+                            <h3 class="section-header section-header-article">📄 สรุปเนื้อหาบทความ</h3>
+                            <div class="section-body">
+                                <p>บริษัท Anthropic ได้เปิดตัวโครงการระดับชาติชื่อว่า <strong>"Claude Corps"</strong> เพื่อสร้างสะพานเชื่อมประโยชน์ของเทคโนโลยีปัญญาประดิษฐ์สู่สังคมทั่วไป โดยมีรายละเอียดของโครงการทุนดังนี้ครับ:</p><ul><li><strong>รายละเอียดและเป้าหมายของโครงการ:</strong> โครงการนี้จะรับสมัครคนรุ่นใหม่ที่เริ่มก้าวสู่โลกการทำงานจำนวน 1,000 คนมาฝึกสอนวิธีการใช้งานโมเดล Claude อย่างเชี่ยวชาญ ก่อนจับคู่ให้ไปทำงานเต็มเวลา ณ องค์กรไม่แสวงหากำไร (Nonprofit) ทั่วประเทศสหรัฐอเมริกาเป็นเวลา 1 ปี เพื่อนำไอทีช่วยยกระดับหน่วยงานเหล่านั้น</li><li><strong>งบประมาณและพันธมิตรผู้ดำเนินงาน:</strong> Anthropic สนับสนุนงบประมาณเบื้องต้น 150 ล้านดอลลาร์สหรัฐ โดยมี CodePath (ผู้จัดอบรมวิศวกรรมคอมพิวเตอร์ระดับอุดมศึกษา) เป็นผู้จ้างงานอย่างเป็นทางการและดูแลด้านการให้คำปรึกษา และ Social Finance รับหน้าที่วัดผลการทำงานเพื่อใช้ออกแบบกองทุนในอนาคต</li><li><strong>สวัสดิการของผู้ได้รับทุน:</strong> ผู้เข้าร่วมโครงการจะได้รับเงินเดือนประจำปี $85,000 พร้อมประกันสังคม สิทธิ์การปรึกษากับที่ปรึกษาจาก CodePath และผู้เชี่ยวชาญจาก Anthropic รวมถึงโควตา Token สำหรับใช้งานโมเดล Claude อย่างเต็มที่</li><li><strong>ขอบเขตการปฏิบัติงาน:</strong> มีองค์กรการกุศลกว่า 400 แห่งพร้อมรับผู้แทนเข้าทำงาน เช่น สมาคมสิ่งแวดล้อมทางทะเล, ธนาคารอาหาร และสมาคมเพื่อสุขภาพของทหารผ่านศึก</li><li><strong>ความเคลื่อนไหวอื่น ๆ:</strong> นอกเหนือจากโครงการรับสมัครแล้ว Anthropic ยังประกาศหยุดการเข้าใช้งานโมเดล Fable 5 และ Mythos 5 ตามคำสั่งควบคุมการส่งออกของรัฐบาลสหรัฐฯ รวมถึงประกาศพันธมิตรกับ Tata Consultancy Services (TCS) เพื่อจัดหา Claude แก่พนักงานกว่า 50,000 คน</li></ul>
+                            </div>
+                        </section>
+                        <section class="content-section">
+                            <h3 class="section-header section-header-discussion">💬 สรุปประเด็นเสวนาในกระทู้</h3>
+                            <div class="section-body">
+                                <p>บอร์ดสนทนามีท่าทีที่ต่อต้านและระแวงกลยุทธ์การตลาดของ Anthropic ในโครงการนี้อย่างชัดเจนครับ:</p><ul><li><strong>ทฤษฎีการสร้างการเสพติดบริการ (Vendor Lock-in):</strong> สมาชิกเปรียบเทียบว่าโครงการเพื่อสังคมนี้คือเครื่องมือที่ทำให้คนรุ่นใหม่และมูลนิธิต่าง ๆ เกิดการพึ่งพาโมเดล Claude จนไม่สามารถย้ายค่ายได้ เปรียบเสมือนสิ่งที่ Adobe เคยทำด้วยการปล่อยให้ดาวน์โหลดเถื่อนได้ง่ายในอดีต หรือปล่อยซอฟต์แวร์ให้ภาคการศึกษาใช้งานฟรี เพื่อให้นักเรียนคุ้นชินและบังคับให้นายจ้างต้องซื้อลิขสิทธิ์จริงในราคาแพงในตอนโต</li><li><strong>ความขัดแย้งของเป้าหมายทางธุรกิจและการโฆษณา:</strong> นักพัฒนาสังเกตเห็นความย้อนแย้งที่ด้านหนึ่งบริษัท AI โฆษณาขายลูกค้าระดับองค์กรว่า AI จะมาทดแทนมนุษย์และลดค่าใช้จ่ายพนักงาน แต่อีกด้านกลับต้องลงเงินหลายล้านดอลลาร์เพื่อจ่ายให้คนมานั่งสอนองค์กรการกุศลให้ใช้ AI</li><li><strong>ความท้าทายในระดับทักษะ:</strong> มีข้อถกเถียงว่าหาก AI เป็นเรื่องง่ายจริง คงไม่มีความจำเป็นต้องสร้างหลักสูตรส่งคนไปประกบองค์กรเป็นปี ๆ ทั้งนี้สมาชิกหลายคนยืนยันว่าการประยุกต์ใช้โมเดลในระดับอุตสาหกรรมหรือองค์กรจริงมีความซับซ้อนสูงมากในการเชื่อมฐานข้อมูลและระบบการทำงานให้ปลอดภัยและยั่งยืน</li></ul>
+                            </div>
+                        </section>
+                        <div class="links-row">
+                            <a href="https://www.anthropic.com/news/claude-corps" target="_blank" class="action-btn btn-primary">อ่านบทความต้นฉบับ</a>
+                            <a href="https://news.ycombinator.com/item?id=48544637" target="_blank" class="action-btn btn-secondary">กระทู้บน Hacker News</a>
+                        </div>
+                    </div>
+                </details>
+            </article>
+            
+            <!-- STORY 36 -->
+            <article class="news-item">
+                <details>
+                    <summary>
+                        <div class="summary-header">
+                            <div class="summary-title-section">
+                                <h2 class="story-title">Microsoft turns to AWS as GitHub faces AI capacity crunch</h2>
+                                <p class="teaser">ไมโครซอฟท์เตรียมหันไปพึ่งพาบริการระบบคลาวด์ AWS ของอเมซอน หลังระบบ GitHub เผชิญวิกฤตความสามารถในการรองรับปริมาณการทำงานของ AI ที่เติบโตอย่างก้าวกระโดดครับ</p>
+                                <div class="meta-row">
+                                    <span class="badge badge-points">🔥 154 คะแนน</span>
+                                    <span class="badge badge-comments">💬 70 ความคิดเห็น</span>
+                                    <span class="badge badge-domain">runtimewire.com</span>
+                                </div>
+                            </div>
+                            <div class="toggle-icon">▼</div>
+                        </div>
+                    </summary>
+                    <div class="details-content">
+                        <section class="content-section">
+                            <h3 class="section-header section-header-article">📄 สรุปเนื้อหาบทความ</h3>
+                            <div class="section-body">
+                                <p>เนื่องจากลิงก์ข่าวเกิดปัญหาด้านการตรวจสอบใบรับรองความปลอดภัย SSL (Max retries exceeded / SSLError) ข้อมูลนี้จึงเรียบเรียงขึ้นจากความคิดเห็นของบอร์ด โดยหัวข้อข่าวหลักระบุว่า ไมโครซอฟท์ต้องตัดสินใจนำบริการของ GitHub บางส่วนไปเปิดทำงานบนระบบคลาวด์ AWS (Amazon Web Services) ของคู่แข่ง เนื่องจากโครงสร้างคลาวด์ Azure เดิมไม่สามารถรองรับปริมาณการประมวลผลและความต้องการระบบ AI ที่พุ่งทะยานสูงขึ้นได้ทัน</p>
+                            </div>
+                        </section>
+                        <section class="content-section">
+                            <h3 class="section-header section-header-discussion">💬 สรุปประเด็นเสวนาในกระทู้</h3>
+                            <div class="section-body">
+                                <p>การเคลื่อนไหวของยักษ์ใหญ่นี้ได้รับความสนใจจากกลุ่มวิศวกรซอฟต์แวร์เป็นจำนวนมากพร้อมความคิดเห็นที่น่าประเด็นดังนี้ครับ:</p><ul><li><strong>สถิติตัวเลขที่พุ่งทะยานจาก AI:</strong> ข้อมูลระบุว่าปริมาณการ Commit ซอร์สโค้ดบน GitHub คาดว่าจะพุ่งไปถึง 14,000 ล้านครั้งในปี 2026 เพิ่มขึ้นถึง 14 เท่าจากสถิติ 1,000 ล้านครั้งในปี 2025 ซึ่งเป็นผลมาจากระบบ AI และผู้ช่วยเขียนโค้ดที่สั่งบันทึกการทำงานอย่างรวดเร็วถี่ถ้วน</li><li><strong>พฤติกรรมการเขียนโค้ดที่เปลี่ยนไป:</strong> นักพัฒนาอธิบายว่าการใช้งาน AI ทำงานทำให้ต้อง Commit ข้อมูลถี่ยิบเพื่อเป็นจุดบันทึกความปลอดภัย (Checkpoint) ป้องกันไม่ให้ AI ทำโค้ดเสียหายหรือสูญหายระหว่างรันคำสั่ง นอกจากนี้ปริมาณ Commit มหาศาลยังสร้างภาระผูกพันอย่างรุนแรงต่อระบบ CI/CD, การคำนวณ diff ของ PR และการจัดเก็บฐานข้อมูล</li><li><strong>ปัญหาความเร็วของ Azure Virtual Disks:</strong> มีการแบ่งปันเกร็ดประวัติศาสตร์ว่า ผู้ร่วมก่อตั้ง GitHub เคยบอกกับผู้บริหารไมโครซอฟท์ในอดีตตั้งแต่ช่วงที่เข้าซื้อกิจการว่า ปัญหาร้ายแรงในการรัน Git บน Azure คือความเร็วของดิสก์เสมือน (IOPS) ที่ช้าเกินไปและมีราคาสูง ซึ่ง AWS ให้ประสิทธิภาพด้านดิสก์และการอ่านเขียน I/O ที่เหมาะสมกับความต้องการในการอ่านเขียนซอร์สโค้ดมหาศาลมากกว่า</li><li><strong>ปัญหาจากบอทอัตโนมัติ:</strong> บอร์ดอภิปรายชี้ว่าปริมาณทราฟฟิกและภาระของระบบกว่า 1% ในปัจจุบันเกิดจากการอัปเดตเวอร์ชันไลบรารีอัตโนมัติของ Dependabot และบอทรีวิวโค้ดต่าง ๆ ซึ่งส่งคำขอเข้ามาเป็นระลอกอย่างไม่ขาดสาย</li></ul>
+                            </div>
+                        </section>
+                        <div class="links-row">
+                            <a href="https://runtimewire.com/article/microsoft-github-aws-ai-capacity-crunch" target="_blank" class="action-btn btn-primary">อ่านบทความต้นฉบับ</a>
+                            <a href="https://news.ycombinator.com/item?id=48549918" target="_blank" class="action-btn btn-secondary">กระทู้บน Hacker News</a>
+                        </div>
+                    </div>
+                </details>
+            </article>
+            
+        </main>
+        <footer class="page-footer">
+            <p>Hacker News Daily Digest • จัดทำขึ้นโดยอัตโนมัติในทุกเช้าสำหรับคุณ</p>
+            <p>ขนาดฟอนต์ถูกปรับแต่งให้อ่านง่ายเป็นพิเศษ (18px/1.75 Line Height)</p>
+        </footer>
+    </div>
+</body>
+</html>
+    
