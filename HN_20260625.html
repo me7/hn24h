@@ -1,0 +1,1716 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hacker News สรุปข่าวเด่นประจำวัน - 25 มิถุนายน 2569</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700&family=Sarabun:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #0b0f19;
+            --card-bg: rgba(22, 29, 49, 0.75);
+            --card-border: rgba(255, 255, 255, 0.08);
+            --text-primary: #f8fafc;
+            --text-secondary: #94a3b8;
+            --accent-color: #f97316;
+            --accent-hover: #ea580c;
+            --badge-bg: rgba(249, 115, 22, 0.1);
+            --shadow: 0 4px 30px rgba(0, 0, 0, 0.4);
+            --font-display: 'Outfit', 'Sarabun', sans-serif;
+            --font-sans: 'Inter', 'Sarabun', sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            background-image: 
+                radial-gradient(at 0% 0%, rgba(249, 115, 22, 0.07) 0px, transparent 50%),
+                radial-gradient(at 100% 100%, rgba(99, 102, 241, 0.07) 0px, transparent 50%);
+            background-attachment: fixed;
+            color: var(--text-primary);
+            font-family: var(--font-sans);
+            margin: 0;
+            padding: 0;
+            font-size: 18px;
+            line-height: 1.75;
+        }
+
+        .container {
+            max-width: 950px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        h1 {
+            font-family: var(--font-display);
+            font-size: 2.8rem;
+            font-weight: 700;
+            margin: 0 0 12px 0;
+            background: linear-gradient(to right, #f97316, #fb923c, #818cf8);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .date-badge {
+            display: inline-block;
+            padding: 6px 20px;
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 20px;
+            font-size: 1.05rem;
+            color: var(--text-secondary);
+            margin-bottom: 20px;
+            font-weight: 600;
+        }
+
+        .subtitle {
+            color: var(--text-secondary);
+            font-size: 1.25rem;
+            margin: 0;
+        }
+
+        .news-list {
+            display: flex;
+            flex-direction: column;
+            gap: 28px;
+        }
+
+        .news-item {
+            background: var(--card-bg);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid var(--card-border);
+            border-radius: 16px;
+            padding: 26px;
+            box-shadow: var(--shadow);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .news-item:hover {
+            border-color: rgba(249, 115, 22, 0.35);
+            box-shadow: 0 10px 30px rgba(249, 115, 22, 0.07);
+            transform: translateY(-2px);
+        }
+
+        details {
+            width: 100%;
+        }
+
+        summary {
+            list-style: none;
+            outline: none;
+            cursor: pointer;
+        }
+
+        summary::-webkit-details-marker {
+            display: none;
+        }
+
+        .summary-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 18px;
+        }
+
+        .summary-title-section {
+            flex-grow: 1;
+        }
+
+        .story-title {
+            font-family: var(--font-display);
+            font-size: 1.45rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin: 0 0 10px 0;
+            line-height: 1.4;
+            transition: color 0.2s ease;
+        }
+
+        .story-title:hover {
+            color: var(--accent-color);
+        }
+
+        .teaser {
+            font-size: 1.15rem;
+            color: var(--text-secondary);
+            margin: 0 0 18px 0;
+            font-weight: 400;
+        }
+
+        .meta-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 14px;
+            align-items: center;
+        }
+
+        .badge {
+            font-size: 0.85rem;
+            padding: 5px 12px;
+            border-radius: 8px;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            color: var(--text-secondary);
+        }
+
+        .badge-points {
+            background: var(--badge-bg);
+            border-color: rgba(249, 115, 22, 0.25);
+            color: var(--accent-color);
+        }
+
+        .badge-comments {
+            background: rgba(99, 102, 241, 0.1);
+            border-color: rgba(99, 102, 241, 0.25);
+            color: #818cf8;
+        }
+
+        .badge-domain {
+            text-transform: lowercase;
+            max-width: 220px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        .toggle-icon {
+            flex-shrink: 0;
+            width: 36px;
+            height: 36px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid var(--card-border);
+            color: var(--text-secondary);
+            transition: all 0.3s ease;
+            font-size: 0.9rem;
+        }
+
+        details[open] .toggle-icon {
+            transform: rotate(180deg);
+            background: var(--badge-bg);
+            border-color: rgba(249, 115, 22, 0.3);
+            color: var(--accent-color);
+        }
+
+        .details-content {
+            margin-top: 26px;
+            padding-top: 26px;
+            border-top: 1px solid rgba(255, 255, 255, 0.06);
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 26px;
+            animation: fadeIn 0.4s ease-out;
+        }
+
+        @media (min-width: 800px) {
+            .details-content {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .content-section {
+            background: rgba(255, 255, 255, 0.015);
+            border: 1px solid rgba(255, 255, 255, 0.03);
+            border-radius: 12px;
+            padding: 22px;
+        }
+
+        .section-header {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin: 0 0 18px 0;
+            font-family: var(--font-display);
+        }
+
+        .section-header-article {
+            color: #fb923c;
+        }
+
+        .section-header-discussion {
+            color: #818cf8;
+        }
+
+        .section-body {
+            font-size: 1.08rem;
+            color: #cbd5e1;
+            margin: 0;
+        }
+
+        .section-body p {
+            margin: 0 0 14px 0;
+        }
+
+        .section-body p:last-child {
+            margin-bottom: 0;
+        }
+
+        .section-body ul {
+            margin: 0;
+            padding-left: 24px;
+        }
+
+        .section-body li {
+            margin-bottom: 10px;
+        }
+
+        .section-body li:last-child {
+            margin-bottom: 0;
+        }
+
+        .links-row {
+            grid-column: 1 / -1;
+            display: flex;
+            gap: 16px;
+            margin-top: 14px;
+        }
+
+        .action-btn {
+            font-size: 0.95rem;
+            text-decoration: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.2s ease;
+        }
+
+        .btn-primary {
+            background: var(--accent-color);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: var(--accent-hover);
+        }
+
+        .btn-secondary {
+            background: rgba(255, 255, 255, 0.05);
+            color: var(--text-primary);
+            border: 1px solid var(--card-border);
+        }
+
+        .btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        footer.page-footer {
+            text-align: center;
+            margin-top: 70px;
+            padding-top: 30px;
+            border-top: 1px solid var(--card-border);
+            font-size: 0.95rem;
+            color: var(--text-secondary);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="date-badge">25 มิถุนายน 2569</div>
+            <h1>Hacker News Daily Digest</h1>
+            <p class="subtitle">สรุปข่าวยอดนิยมในรอบ 24 ชั่วโมงที่ผ่านมา แปลและสรุปผลการวิเคราะห์ในบอร์ดภาษาไทย</p>
+        </header>
+
+        <main class="news-list">
+        
+            <!-- STORY 1 -->
+            <article class="news-item">
+                <details>
+                    <summary>
+                        <div class="summary-header">
+                            <div class="summary-title-section">
+                                <h2 class="story-title">We’re making Bunny DNS free</h2>
+                                <p class="teaser">We’re making Bunny DNS free</p>
+                                <div class="meta-row">
+                                    <span class="badge badge-points">🔥 837 คะแนน</span>
+                                    <span class="badge badge-comments">💬 254 ความคิดเห็น</span>
+                                    <span class="badge badge-domain">bunny.net</span>
+                                </div>
+                            </div>
+                            <div class="toggle-icon">▼</div>
+                        </div>
+                    </summary>
+                    <div class="details-content">
+                        <section class="content-section">
+                            <h3 class="section-header section-header-article">📄 สรุปเนื้อหาบทความ</h3>
+                            <div class="section-body">
+                                <p>เนื้อหาบทความต้นฉบับ: ...</p>
+                            </div>
+                        </section>
+                        <section class="content-section">
+                            <h3 class="section-header section-header-discussion">💬 สรุปประเด็นเสวนาในกระทู้</h3>
+                            <div class="section-body">
+                                <p>สรุปความคิดเห็นเบื้องต้น: มีจำนวนความคิดเห็น 254 รายการในกระทู้</p>
+                            </div>
+                        </section>
+                        <div class="links-row">
+                            <a href="https://bunny.net/blog/were-making-bunny-dns-free/" target="_blank" class="action-btn btn-primary">อ่านบทความต้นฉบับ</a>
+                            <a href="https://news.ycombinator.com/item?id=48657030" target="_blank" class="action-btn btn-secondary">กระทู้บน Hacker News</a>
+                        </div>
+                    </div>
+                </details>
+            </article>
+            
+            <!-- STORY 2 -->
+            <article class="news-item">
+                <details>
+                    <summary>
+                        <div class="summary-header">
+                            <div class="summary-title-section">
+                                <h2 class="story-title">Fired by Google for creating the Google workspace CLI</h2>
+                                <p class="teaser">Fired by Google for creating the Google workspace CLI</p>
+                                <div class="meta-row">
+                                    <span class="badge badge-points">🔥 683 คะแนน</span>
+                                    <span class="badge badge-comments">💬 411 ความคิดเห็น</span>
+                                    <span class="badge badge-domain">twitter.com</span>
+                                </div>
+                            </div>
+                            <div class="toggle-icon">▼</div>
+                        </div>
+                    </summary>
+                    <div class="details-content">
+                        <section class="content-section">
+                            <h3 class="section-header section-header-article">📄 สรุปเนื้อหาบทความ</h3>
+                            <div class="section-body">
+                                <p>เนื้อหาบทความต้นฉบับ: ...</p>
+                            </div>
+                        </section>
+                        <section class="content-section">
+                            <h3 class="section-header section-header-discussion">💬 สรุปประเด็นเสวนาในกระทู้</h3>
+                            <div class="section-body">
+                                <p>สรุปความคิดเห็นเบื้องต้น: มีจำนวนความคิดเห็น 411 รายการในกระทู้</p>
+                            </div>
+                        </section>
+                        <div class="links-row">
+                            <a href="https://twitter.com/JPoehnelt/status/2069482265953087602" target="_blank" class="action-btn btn-primary">อ่านบทความต้นฉบับ</a>
+                            <a href="https://news.ycombinator.com/item?id=48649011" target="_blank" class="action-btn btn-secondary">กระทู้บน Hacker News</a>
+                        </div>
+                    </div>
+                </details>
+            </article>
+            
+            <!-- STORY 3 -->
+            <article class="news-item">
+                <details>
+                    <summary>
+                        <div class="summary-header">
+                            <div class="summary-title-section">
+                                <h2 class="story-title">FUTO Swipe – A new swipe typing model</h2>
+                                <p class="teaser">FUTO Swipe – A new swipe typing model</p>
+                                <div class="meta-row">
+                                    <span class="badge badge-points">🔥 678 คะแนน</span>
+                                    <span class="badge badge-comments">💬 239 ความคิดเห็น</span>
+                                    <span class="badge badge-domain">swipe.futo.tech</span>
+                                </div>
+                            </div>
+                            <div class="toggle-icon">▼</div>
+                        </div>
+                    </summary>
+                    <div class="details-content">
+                        <section class="content-section">
+                            <h3 class="section-header section-header-article">📄 สรุปเนื้อหาบทความ</h3>
+                            <div class="section-body">
+                                <p>เนื้อหาบทความต้นฉบับ: ...</p>
+                            </div>
+                        </section>
+                        <section class="content-section">
+                            <h3 class="section-header section-header-discussion">💬 สรุปประเด็นเสวนาในกระทู้</h3>
+                            <div class="section-body">
+                                <p>สรุปความคิดเห็นเบื้องต้น: มีจำนวนความคิดเห็น 239 รายการในกระทู้</p>
+                            </div>
+                        </section>
+                        <div class="links-row">
+                            <a href="https://swipe.futo.tech/" target="_blank" class="action-btn btn-primary">อ่านบทความต้นฉบับ</a>
+                            <a href="https://news.ycombinator.com/item?id=48648619" target="_blank" class="action-btn btn-secondary">กระทู้บน Hacker News</a>
+                        </div>
+                    </div>
+                </details>
+            </article>
+            
+            <!-- STORY 4 -->
+            <article class="news-item">
+                <details>
+                    <summary>
+                        <div class="summary-header">
+                            <div class="summary-title-section">
+                                <h2 class="story-title">In memory of the man who put red and green squiggles under words</h2>
+                                <p class="teaser">In memory of the man who put red and green squiggles under words</p>
+                                <div class="meta-row">
+                                    <span class="badge badge-points">🔥 577 คะแนน</span>
+                                    <span class="badge badge-comments">💬 103 ความคิดเห็น</span>
+                                    <span class="badge badge-domain">devblogs.microsoft.com</span>
+                                </div>
+                            </div>
+                            <div class="toggle-icon">▼</div>
+                        </div>
+                    </summary>
+                    <div class="details-content">
+                        <section class="content-section">
+                            <h3 class="section-header section-header-article">📄 สรุปเนื้อหาบทความ</h3>
+                            <div class="section-body">
+                                <p>เนื้อหาบทความต้นฉบับ: ...</p>
+                            </div>
+                        </section>
+                        <section class="content-section">
+                            <h3 class="section-header section-header-discussion">💬 สรุปประเด็นเสวนาในกระทู้</h3>
+                            <div class="section-body">
+                                <p>สรุปความคิดเห็นเบื้องต้น: มีจำนวนความคิดเห็น 103 รายการในกระทู้</p>
+                            </div>
+                        </section>
+                        <div class="links-row">
+                            <a href="https://devblogs.microsoft.com/oldnewthing/20260622-00/?p=112451" target="_blank" class="action-btn btn-primary">อ่านบทความต้นฉบับ</a>
+                            <a href="https://news.ycombinator.com/item?id=48648959" target="_blank" class="action-btn btn-secondary">กระทู้บน Hacker News</a>
+                        </div>
+                    </div>
+                </details>
+            </article>
+            
+            <!-- STORY 5 -->
+            <article class="news-item">
+                <details>
+                    <summary>
+                        <div class="summary-header">
+                            <div class="summary-title-section">
+                                <h2 class="story-title">Jerry's Map</h2>
+                                <p class="teaser">Jerry's Map</p>
+                                <div class="meta-row">
+                                    <span class="badge badge-points">🔥 567 คะแนน</span>
+                                    <span class="badge badge-comments">💬 62 ความคิดเห็น</span>
+                                    <span class="badge badge-domain">jerrysmap.com</span>
+                                </div>
+                            </div>
+                            <div class="toggle-icon">▼</div>
+                        </div>
+                    </summary>
+                    <div class="details-content">
+                        <section class="content-section">
+                            <h3 class="section-header section-header-article">📄 สรุปเนื้อหาบทความ</h3>
+                            <div class="section-body">
+                                <p>เนื้อหาบทความต้นฉบับ: ...</p>
+                            </div>
+                        </section>
+                        <section class="content-section">
+                            <h3 class="section-header section-header-discussion">💬 สรุปประเด็นเสวนาในกระทู้</h3>
+                            <div class="section-body">
+                                <p>สรุปความคิดเห็นเบื้องต้น: มีจำนวนความคิดเห็น 62 รายการในกระทู้</p>
+                            </div>
+                        </section>
+                        <div class="links-row">
+                            <a href="http://www.jerrysmap.com/the-map" target="_blank" class="action-btn btn-primary">อ่านบทความต้นฉบับ</a>
+                            <a href="https://news.ycombinator.com/item?id=48649435" target="_blank" class="action-btn btn-secondary">กระทู้บน Hacker News</a>
+                        </div>
+                    </div>
+                </details>
+            </article>
+            
+            <!-- STORY 6 -->
+            <article class="news-item">
+                <details>
+                    <summary>
+                        <div class="summary-header">
+                            <div class="summary-title-section">
+                                <h2 class="story-title">Founding a company in Germany: €9600, 152 days and I still can't send an invoice</h2>
+                                <p class="teaser">Founding a company in Germany: €9600, 152 days and I still can't send an invoice</p>
+                                <div class="meta-row">
+                                    <span class="badge badge-points">🔥 555 คะแนน</span>
+                                    <span class="badge badge-comments">💬 680 ความคิดเห็น</span>
+                                    <span class="badge badge-domain">paolino.me</span>
+                                </div>
+                            </div>
+                            <div class="toggle-icon">▼</div>
+                        </div>
+                    </summary>
+                    <div class="details-content">
+                        <section class="content-section">
+                            <h3 class="section-header section-header-article">📄 สรุปเนื้อหาบทความ</h3>
+                            <div class="section-body">
+                                <p>เนื้อหาบทความต้นฉบับ: ...</p>
+                            </div>
+                        </section>
+                        <section class="content-section">
+                            <h3 class="section-header section-header-discussion">💬 สรุปประเด็นเสวนาในกระทู้</h3>
+                            <div class="section-body">
+                                <p>สรุปความคิดเห็นเบื้องต้น: มีจำนวนความคิดเห็น 680 รายการในกระทู้</p>
+                            </div>
+                        </section>
+                        <div class="links-row">
+                            <a href="https://paolino.me/founding-a-company-in-germany/" target="_blank" class="action-btn btn-primary">อ่านบทความต้นฉบับ</a>
+                            <a href="https://news.ycombinator.com/item?id=48658718" target="_blank" class="action-btn btn-secondary">กระทู้บน Hacker News</a>
+                        </div>
+                    </div>
+                </details>
+            </article>
+            
+            <!-- STORY 7 -->
+            <article class="news-item">
+                <details>
+                    <summary>
+                        <div class="summary-header">
+                            <div class="summary-title-section">
+                                <h2 class="story-title">There are a few things that I look back on as my mistakes in the early days</h2>
+                                <p class="teaser">There are a few things that I look back on as my mistakes in the early days</p>
+                                <div class="meta-row">
+                                    <span class="badge badge-points">🔥 470 คะแนน</span>
+                                    <span class="badge badge-comments">💬 236 ความคิดเห็น</span>
+                                    <span class="badge badge-domain">twitter.com</span>
+                                </div>
+                            </div>
+                            <div class="toggle-icon">▼</div>
+                        </div>
+                    </summary>
+                    <div class="details-content">
+                        <section class="content-section">
+                            <h3 class="section-header section-header-article">📄 สรุปเนื้อหาบทความ</h3>
+                            <div class="section-body">
+                                <p>เนื้อหาบทความต้นฉบับ: ...</p>
+                            </div>
+                        </section>
+                        <section class="content-section">
+                            <h3 class="section-header section-header-discussion">💬 สรุปประเด็นเสวนาในกระทู้</h3>
+                            <div class="section-body">
+                                <p>สรุปความคิดเห็นเบื้องต้น: มีจำนวนความคิดเห็น 236 รายการในกระทู้</p>
+                            </div>
+                        </section>
+                        <div class="links-row">
+                            <a href="https://twitter.com/ID_AA_Carmack/status/2069799283369345247" target="_blank" class="action-btn btn-primary">อ่านบทความต้นฉบับ</a>
+                            <a href="https://news.ycombinator.com/item?id=48661825" target="_blank" class="action-btn btn-secondary">กระทู้บน Hacker News</a>
+                        </div>
+                    </div>
+                </details>
+            </article>
+            
+            <!-- STORY 8 -->
+            <article class="news-item">
+                <details>
+                    <summary>
+                        <div class="summary-header">
+                            <div class="summary-title-section">
+                                <h2 class="story-title">OpenAI unveils its first custom chip, built by Broadcom</h2>
+                                <p class="teaser">OpenAI unveils its first custom chip, built by Broadcom</p>
+                                <div class="meta-row">
+                                    <span class="badge badge-points">🔥 468 คะแนน</span>
+                                    <span class="badge badge-comments">💬 302 ความคิดเห็น</span>
+                                    <span class="badge badge-domain">techcrunch.com</span>
+                                </div>
+                            </div>
+                            <div class="toggle-icon">▼</div>
+                        </div>
+                    </summary>
+                    <div class="details-content">
+                        <section class="content-section">
+                            <h3 class="section-header section-header-article">📄 สรุปเนื้อหาบทความ</h3>
+                            <div class="section-body">
+                                <p>เนื้อหาบทความต้นฉบับ: ...</p>
+                            </div>
+                        </section>
+                        <section class="content-section">
+                            <h3 class="section-header section-header-discussion">💬 สรุปประเด็นเสวนาในกระทู้</h3>
+                            <div class="section-body">
+                                <p>สรุปความคิดเห็นเบื้องต้น: มีจำนวนความคิดเห็น 302 รายการในกระทู้</p>
+                            </div>
+                        </section>
+                        <div class="links-row">
+                            <a href="https://techcrunch.com/2026/06/24/openai-unveils-its-first-custom-chip-built-by-broadcom/" target="_blank" class="action-btn btn-primary">อ่านบทความต้นฉบับ</a>
+                            <a href="https://news.ycombinator.com/item?id=48663324" target="_blank" class="action-btn btn-secondary">กระทู้บน Hacker News</a>
+                        </div>
+                    </div>
+                </details>
+            </article>
+            
+            <!-- STORY 9 -->
+            <article class="news-item">
+                <details>
+                    <summary>
+                        <div class="summary-header">
+                            <div class="summary-title-section">
+                                <h2 class="story-title">Extreme Heat conference cancelled due to extreme heat warning</h2>
+                                <p class="teaser">Extreme Heat conference cancelled due to extreme heat warning</p>
+                                <div class="meta-row">
+                                    <span class="badge badge-points">🔥 396 คะแนน</span>
+                                    <span class="badge badge-comments">💬 457 ความคิดเห็น</span>
+                                    <span class="badge badge-domain">lse.ac.uk</span>
+                                </div>
+                            </div>
+                            <div class="toggle-icon">▼</div>
+                        </div>
+                    </summary>
+                    <div class="details-content">
+                        <section class="content-section">
+                            <h3 class="section-header section-header-article">📄 สรุปเนื้อหาบทความ</h3>
+                            <div class="section-body">
+                                <p>เนื้อหาบทความต้นฉบับ: ...</p>
+                            </div>
+                        </section>
+                        <section class="content-section">
+                            <h3 class="section-header section-header-discussion">💬 สรุปประเด็นเสวนาในกระทู้</h3>
+                            <div class="section-body">
+                                <p>สรุปความคิดเห็นเบื้องต้น: มีจำนวนความคิดเห็น 457 รายการในกระทู้</p>
+                            </div>
+                        </section>
+                        <div class="links-row">
+                            <a href="https://www.lse.ac.uk/granthaminstitute/events/extreme-heat-improving-governance-and-strengthening-action-around-the-world/" target="_blank" class="action-btn btn-primary">อ่านบทความต้นฉบับ</a>
+                            <a href="https://news.ycombinator.com/item?id=48653060" target="_blank" class="action-btn btn-secondary">กระทู้บน Hacker News</a>
+                        </div>
+                    </div>
+                </details>
+            </article>
+            
+            <!-- STORY 10 -->
+            <article class="news-item">
+                <details>
+                    <summary>
+                        <div class="summary-header">
+                            <div class="summary-title-section">
+                                <h2 class="story-title">Vulnerability reports are not special anymore</h2>
+                                <p class="teaser">Vulnerability reports are not special anymore</p>
+                                <div class="meta-row">
+                                    <span class="badge badge-points">🔥 367 คะแนน</span>
+                                    <span class="badge badge-comments">💬 213 ความคิดเห็น</span>
+                                    <span class="badge badge-domain">words.filippo.io</span>
+                                </div>
+                            </div>
+                            <div class="toggle-icon">▼</div>
+                        </div>
+                    </summary>
+                    <div class="details-content">
+                        <section class="content-section">
+                            <h3 class="section-header section-header-article">📄 สรุปเนื้อหาบทความ</h3>
+                            <div class="section-body">
+                                <p>เนื้อหาบทความต้นฉบับ: ...</p>
+                            </div>
+                        </section>
+                        <section class="content-section">
+                            <h3 class="section-header section-header-discussion">💬 สรุปประเด็นเสวนาในกระทู้</h3>
+                            <div class="section-body">
+                                <p>สรุปความคิดเห็นเบื้องต้น: มีจำนวนความคิดเห็น 213 รายการในกระทู้</p>
+                            </div>
+                        </section>
+                        <div class="links-row">
+                            <a href="https://words.filippo.io/vuln-reports/" target="_blank" class="action-btn btn-primary">อ่านบทความต้นฉบับ</a>
+                            <a href="https://news.ycombinator.com/item?id=48653216" target="_blank" class="action-btn btn-secondary">กระทู้บน Hacker News</a>
+                        </div>
+                    </div>
+                </details>
+            </article>
+            
+            <!-- STORY 11 -->
+            <article class="news-item">
+                <details>
+                    <summary>
+                        <div class="summary-header">
+                            <div class="summary-title-section">
+                                <h2 class="story-title">RubyLLM: A Ruby framework for all major AI providers</h2>
+                                <p class="teaser">RubyLLM: A Ruby framework for all major AI providers</p>
+                                <div class="meta-row">
+                                    <span class="badge badge-points">🔥 334 คะแนน</span>
+                                    <span class="badge badge-comments">💬 51 ความคิดเห็น</span>
+                                    <span class="badge badge-domain">rubyllm.com</span>
+                                </div>
+                            </div>
+                            <div class="toggle-icon">▼</div>
+                        </div>
+                    </summary>
+                    <div class="details-content">
+                        <section class="content-section">
+                            <h3 class="section-header section-header-article">📄 สรุปเนื้อหาบทความ</h3>
+                            <div class="section-body">
+                                <p>เนื้อหาบทความต้นฉบับ: ...</p>
+                            </div>
+                        </section>
+                        <section class="content-section">
+                            <h3 class="section-header section-header-discussion">💬 สรุปประเด็นเสวนาในกระทู้</h3>
+                            <div class="section-body">
+                                <p>สรุปความคิดเห็นเบื้องต้น: มีจำนวนความคิดเห็น 51 รายการในกระทู้</p>
+                            </div>
+                        </section>
+                        <div class="links-row">
+                            <a href="https://rubyllm.com/" target="_blank" class="action-btn btn-primary">อ่านบทความต้นฉบับ</a>
+                            <a href="https://news.ycombinator.com/item?id=48660711" target="_blank" class="action-btn btn-secondary">กระทู้บน Hacker News</a>
+                        </div>
+                    </div>
+                </details>
+            </article>
+            
+            <!-- STORY 12 -->
+            <article class="news-item">
+                <details>
+                    <summary>
+                        <div class="summary-header">
+                            <div class="summary-title-section">
+                                <h2 class="story-title">Meta Pauses Employee-Tracking Program Following Internal Data Leak</h2>
+                                <p class="teaser">Meta Pauses Employee-Tracking Program Following Internal Data Leak</p>
+                                <div class="meta-row">
+                                    <span class="badge badge-points">🔥 318 คะแนน</span>
+                                    <span class="badge badge-comments">💬 247 ความคิดเห็น</span>
+                                    <span class="badge badge-domain">wired.com</span>
+                                </div>
+                            </div>
+                            <div class="toggle-icon">▼</div>
+                        </div>
+                    </summary>
+                    <div class="details-content">
+                        <section class="content-section">
+                            <h3 class="section-header section-header-article">📄 สรุปเนื้อหาบทความ</h3>
+                            <div class="section-body">
+                                <p>เนื้อหาบทความต้นฉบับ: ...</p>
+                            </div>
+                        </section>
+                        <section class="content-section">
+                            <h3 class="section-header section-header-discussion">💬 สรุปประเด็นเสวนาในกระทู้</h3>
+                            <div class="section-body">
+                                <p>สรุปความคิดเห็นเบื้องต้น: มีจำนวนความคิดเห็น 247 รายการในกระทู้</p>
+                            </div>
+                        </section>
+                        <div class="links-row">
+                            <a href="https://www.wired.com/story/meta-pauses-employee-tracking-program-following-internal-security-breach/" target="_blank" class="action-btn btn-primary">อ่านบทความต้นฉบับ</a>
+                            <a href="https://news.ycombinator.com/item?id=48653575" target="_blank" class="action-btn btn-secondary">กระทู้บน Hacker News</a>
+                        </div>
+                    </div>
+                </details>
+            </article>
+            
+            <!-- STORY 13 -->
+            <article class="news-item">
+                <details>
+                    <summary>
+                        <div class="summary-header">
+                            <div class="summary-title-section">
+                                <h2 class="story-title">California AB 2047 makes 3D printers off-limits to students, educators, business</h2>
+                                <p class="teaser">California AB 2047 makes 3D printers off-limits to students, educators, business</p>
+                                <div class="meta-row">
+                                    <span class="badge badge-points">🔥 280 คะแนน</span>
+                                    <span class="badge badge-comments">💬 199 ความคิดเห็น</span>
+                                    <span class="badge badge-domain">the3dprintingnerd.com</span>
+                                </div>
+                            </div>
+                            <div class="toggle-icon">▼</div>
+                        </div>
+                    </summary>
+                    <div class="details-content">
+                        <section class="content-section">
+                            <h3 class="section-header section-header-article">📄 สรุปเนื้อหาบทความ</h3>
+                            <div class="section-body">
+                                <p>เนื้อหาบทความต้นฉบับ: ...</p>
+                            </div>
+                        </section>
+                        <section class="content-section">
+                            <h3 class="section-header section-header-discussion">💬 สรุปประเด็นเสวนาในกระทู้</h3>
+                            <div class="section-body">
+                                <p>สรุปความคิดเห็นเบื้องต้น: มีจำนวนความคิดเห็น 199 รายการในกระทู้</p>
+                            </div>
+                        </section>
+                        <div class="links-row">
+                            <a href="https://www.the3dprintingnerd.com/ab2047" target="_blank" class="action-btn btn-primary">อ่านบทความต้นฉบับ</a>
+                            <a href="https://news.ycombinator.com/item?id=48652184" target="_blank" class="action-btn btn-secondary">กระทู้บน Hacker News</a>
+                        </div>
+                    </div>
+                </details>
+            </article>
+            
+            <!-- STORY 14 -->
+            <article class="news-item">
+                <details>
+                    <summary>
+                        <div class="summary-header">
+                            <div class="summary-title-section">
+                                <h2 class="story-title">The war on terror primed America for autocracy</h2>
+                                <p class="teaser">The war on terror primed America for autocracy</p>
+                                <div class="meta-row">
+                                    <span class="badge badge-points">🔥 278 คะแนน</span>
+                                    <span class="badge badge-comments">💬 267 ความคิดเห็น</span>
+                                    <span class="badge badge-domain">economist.com</span>
+                                </div>
+                            </div>
+                            <div class="toggle-icon">▼</div>
+                        </div>
+                    </summary>
+                    <div class="details-content">
+                        <section class="content-section">
+                            <h3 class="section-header section-header-article">📄 สรุปเนื้อหาบทความ</h3>
+                            <div class="section-body">
+                                <p>เนื้อหาบทความต้นฉบับ: ...</p>
+                            </div>
+                        </section>
+                        <section class="content-section">
+                            <h3 class="section-header section-header-discussion">💬 สรุปประเด็นเสวนาในกระทู้</h3>
+                            <div class="section-body">
+                                <p>สรุปความคิดเห็นเบื้องต้น: มีจำนวนความคิดเห็น 267 รายการในกระทู้</p>
+                            </div>
+                        </section>
+                        <div class="links-row">
+                            <a href="https://www.economist.com/by-invitation/2026/06/02/how-the-war-on-terror-primed-america-for-autocracy" target="_blank" class="action-btn btn-primary">อ่านบทความต้นฉบับ</a>
+                            <a href="https://news.ycombinator.com/item?id=48654367" target="_blank" class="action-btn btn-secondary">กระทู้บน Hacker News</a>
+                        </div>
+                    </div>
+                </details>
+            </article>
+            
+            <!-- STORY 15 -->
+            <article class="news-item">
+                <details>
+                    <summary>
+                        <div class="summary-header">
+                            <div class="summary-title-section">
+                                <h2 class="story-title">Raspberry Pi Pico W as USB Wi-Fi Adapter</h2>
+                                <p class="teaser">Raspberry Pi Pico W as USB Wi-Fi Adapter</p>
+                                <div class="meta-row">
+                                    <span class="badge badge-points">🔥 248 คะแนน</span>
+                                    <span class="badge badge-comments">💬 126 ความคิดเห็น</span>
+                                    <span class="badge badge-domain">gitlab.com</span>
+                                </div>
+                            </div>
+                            <div class="toggle-icon">▼</div>
+                        </div>
+                    </summary>
+                    <div class="details-content">
+                        <section class="content-section">
+                            <h3 class="section-header section-header-article">📄 สรุปเนื้อหาบทความ</h3>
+                            <div class="section-body">
+                                <p>เนื้อหาบทความต้นฉบับ: ...</p>
+                            </div>
+                        </section>
+                        <section class="content-section">
+                            <h3 class="section-header section-header-discussion">💬 สรุปประเด็นเสวนาในกระทู้</h3>
+                            <div class="section-body">
+                                <p>สรุปความคิดเห็นเบื้องต้น: มีจำนวนความคิดเห็น 126 รายการในกระทู้</p>
+                            </div>
+                        </section>
+                        <div class="links-row">
+                            <a href="https://gitlab.com/baiyibai/pico-usb-wifi" target="_blank" class="action-btn btn-primary">อ่านบทความต้นฉบับ</a>
+                            <a href="https://news.ycombinator.com/item?id=48654676" target="_blank" class="action-btn btn-secondary">กระทู้บน Hacker News</a>
+                        </div>
+                    </div>
+                </details>
+            </article>
+            
+            <!-- STORY 16 -->
+            <article class="news-item">
+                <details>
+                    <summary>
+                        <div class="summary-header">
+                            <div class="summary-title-section">
+                                <h2 class="story-title">Slate EV truck starts at $24,950</h2>
+                                <p class="teaser">Slate EV truck starts at $24,950</p>
+                                <div class="meta-row">
+                                    <span class="badge badge-points">🔥 237 คะแนน</span>
+                                    <span class="badge badge-comments">💬 379 ความคิดเห็น</span>
+                                    <span class="badge badge-domain">slate.auto</span>
+                                </div>
+                            </div>
+                            <div class="toggle-icon">▼</div>
+                        </div>
+                    </summary>
+                    <div class="details-content">
+                        <section class="content-section">
+                            <h3 class="section-header section-header-article">📄 สรุปเนื้อหาบทความ</h3>
+                            <div class="section-body">
+                                <p>เนื้อหาบทความต้นฉบับ: ...</p>
+                            </div>
+                        </section>
+                        <section class="content-section">
+                            <h3 class="section-header section-header-discussion">💬 สรุปประเด็นเสวนาในกระทู้</h3>
+                            <div class="section-body">
+                                <p>สรุปความคิดเห็นเบื้องต้น: มีจำนวนความคิดเห็น 379 รายการในกระทู้</p>
+                            </div>
+                        </section>
+                        <div class="links-row">
+                            <a href="https://www.slate.auto/en" target="_blank" class="action-btn btn-primary">อ่านบทความต้นฉบับ</a>
+                            <a href="https://news.ycombinator.com/item?id=48659451" target="_blank" class="action-btn btn-secondary">กระทู้บน Hacker News</a>
+                        </div>
+                    </div>
+                </details>
+            </article>
+            
+            <!-- STORY 17 -->
+            <article class="news-item">
+                <details>
+                    <summary>
+                        <div class="summary-header">
+                            <div class="summary-title-section">
+                                <h2 class="story-title">Swift Package Index joins Apple</h2>
+                                <p class="teaser">Swift Package Index joins Apple</p>
+                                <div class="meta-row">
+                                    <span class="badge badge-points">🔥 234 คะแนน</span>
+                                    <span class="badge badge-comments">💬 81 ความคิดเห็น</span>
+                                    <span class="badge badge-domain">swiftpackageindex.com</span>
+                                </div>
+                            </div>
+                            <div class="toggle-icon">▼</div>
+                        </div>
+                    </summary>
+                    <div class="details-content">
+                        <section class="content-section">
+                            <h3 class="section-header section-header-article">📄 สรุปเนื้อหาบทความ</h3>
+                            <div class="section-body">
+                                <p>เนื้อหาบทความต้นฉบับ: ...</p>
+                            </div>
+                        </section>
+                        <section class="content-section">
+                            <h3 class="section-header section-header-discussion">💬 สรุปประเด็นเสวนาในกระทู้</h3>
+                            <div class="section-body">
+                                <p>สรุปความคิดเห็นเบื้องต้น: มีจำนวนความคิดเห็น 81 รายการในกระทู้</p>
+                            </div>
+                        </section>
+                        <div class="links-row">
+                            <a href="https://swiftpackageindex.com/blog/swift-package-index-joins-apple" target="_blank" class="action-btn btn-primary">อ่านบทความต้นฉบับ</a>
+                            <a href="https://news.ycombinator.com/item?id=48648779" target="_blank" class="action-btn btn-secondary">กระทู้บน Hacker News</a>
+                        </div>
+                    </div>
+                </details>
+            </article>
+            
+            <!-- STORY 18 -->
+            <article class="news-item">
+                <details>
+                    <summary>
+                        <div class="summary-header">
+                            <div class="summary-title-section">
+                                <h2 class="story-title">Reid Hoffman says SpaceX 'not an AI company', xAI 'complete train wreck'</h2>
+                                <p class="teaser">Reid Hoffman says SpaceX 'not an AI company', xAI 'complete train wreck'</p>
+                                <div class="meta-row">
+                                    <span class="badge badge-points">🔥 220 คะแนน</span>
+                                    <span class="badge badge-comments">💬 257 ความคิดเห็น</span>
+                                    <span class="badge badge-domain">fortune.com</span>
+                                </div>
+                            </div>
+                            <div class="toggle-icon">▼</div>
+                        </div>
+                    </summary>
+                    <div class="details-content">
+                        <section class="content-section">
+                            <h3 class="section-header section-header-article">📄 สรุปเนื้อหาบทความ</h3>
+                            <div class="section-body">
+                                <p>เนื้อหาบทความต้นฉบับ: ...</p>
+                            </div>
+                        </section>
+                        <section class="content-section">
+                            <h3 class="section-header section-header-discussion">💬 สรุปประเด็นเสวนาในกระทู้</h3>
+                            <div class="section-body">
+                                <p>สรุปความคิดเห็นเบื้องต้น: มีจำนวนความคิดเห็น 257 รายการในกระทู้</p>
+                            </div>
+                        </section>
+                        <div class="links-row">
+                            <a href="https://fortune.com/2026/06/24/reid-hoffman-spacex-musk-openai-anthropic-gen-z-mistake/" target="_blank" class="action-btn btn-primary">อ่านบทความต้นฉบับ</a>
+                            <a href="https://news.ycombinator.com/item?id=48658647" target="_blank" class="action-btn btn-secondary">กระทู้บน Hacker News</a>
+                        </div>
+                    </div>
+                </details>
+            </article>
+            
+            <!-- STORY 19 -->
+            <article class="news-item">
+                <details>
+                    <summary>
+                        <div class="summary-header">
+                            <div class="summary-title-section">
+                                <h2 class="story-title">NSA lost access to Mythos amid Anthropic dispute</h2>
+                                <p class="teaser">NSA lost access to Mythos amid Anthropic dispute</p>
+                                <div class="meta-row">
+                                    <span class="badge badge-points">🔥 215 คะแนน</span>
+                                    <span class="badge badge-comments">💬 209 ความคิดเห็น</span>
+                                    <span class="badge badge-domain">nytimes.com</span>
+                                </div>
+                            </div>
+                            <div class="toggle-icon">▼</div>
+                        </div>
+                    </summary>
+                    <div class="details-content">
+                        <section class="content-section">
+                            <h3 class="section-header section-header-article">📄 สรุปเนื้อหาบทความ</h3>
+                            <div class="section-body">
+                                <p>เนื้อหาบทความต้นฉบับ: ...</p>
+                            </div>
+                        </section>
+                        <section class="content-section">
+                            <h3 class="section-header section-header-discussion">💬 สรุปประเด็นเสวนาในกระทู้</h3>
+                            <div class="section-body">
+                                <p>สรุปความคิดเห็นเบื้องต้น: มีจำนวนความคิดเห็น 209 รายการในกระทู้</p>
+                            </div>
+                        </section>
+                        <div class="links-row">
+                            <a href="https://www.nytimes.com/2026/06/23/us/politics/nsa-lost-access-anthropic-tool.html" target="_blank" class="action-btn btn-primary">อ่านบทความต้นฉบับ</a>
+                            <a href="https://news.ycombinator.com/item?id=48658300" target="_blank" class="action-btn btn-secondary">กระทู้บน Hacker News</a>
+                        </div>
+                    </div>
+                </details>
+            </article>
+            
+            <!-- STORY 20 -->
+            <article class="news-item">
+                <details>
+                    <summary>
+                        <div class="summary-header">
+                            <div class="summary-title-section">
+                                <h2 class="story-title">"Fix" MacBook Neo Cursor Lag: Record 1 Pixel of the Screen Every 10 Seconds</h2>
+                                <p class="teaser">"Fix" MacBook Neo Cursor Lag: Record 1 Pixel of the Screen Every 10 Seconds</p>
+                                <div class="meta-row">
+                                    <span class="badge badge-points">🔥 207 คะแนน</span>
+                                    <span class="badge badge-comments">💬 89 ความคิดเห็น</span>
+                                    <span class="badge badge-domain">gist.github.com</span>
+                                </div>
+                            </div>
+                            <div class="toggle-icon">▼</div>
+                        </div>
+                    </summary>
+                    <div class="details-content">
+                        <section class="content-section">
+                            <h3 class="section-header section-header-article">📄 สรุปเนื้อหาบทความ</h3>
+                            <div class="section-body">
+                                <p>เนื้อหาบทความต้นฉบับ: ...</p>
+                            </div>
+                        </section>
+                        <section class="content-section">
+                            <h3 class="section-header section-header-discussion">💬 สรุปประเด็นเสวนาในกระทู้</h3>
+                            <div class="section-body">
+                                <p>สรุปความคิดเห็นเบื้องต้น: มีจำนวนความคิดเห็น 89 รายการในกระทู้</p>
+                            </div>
+                        </section>
+                        <div class="links-row">
+                            <a href="https://gist.github.com/retroplasma/ec21767d0a8380c7ea9c2fbee1c7d6bf" target="_blank" class="action-btn btn-primary">อ่านบทความต้นฉบับ</a>
+                            <a href="https://news.ycombinator.com/item?id=48654465" target="_blank" class="action-btn btn-secondary">กระทู้บน Hacker News</a>
+                        </div>
+                    </div>
+                </details>
+            </article>
+            
+            <!-- STORY 21 -->
+            <article class="news-item">
+                <details>
+                    <summary>
+                        <div class="summary-header">
+                            <div class="summary-title-section">
+                                <h2 class="story-title">Stealing Is a Skill</h2>
+                                <p class="teaser">Stealing Is a Skill</p>
+                                <div class="meta-row">
+                                    <span class="badge badge-points">🔥 202 คะแนน</span>
+                                    <span class="badge badge-comments">💬 123 ความคิดเห็น</span>
+                                    <span class="badge badge-domain">ben-mini.com</span>
+                                </div>
+                            </div>
+                            <div class="toggle-icon">▼</div>
+                        </div>
+                    </summary>
+                    <div class="details-content">
+                        <section class="content-section">
+                            <h3 class="section-header section-header-article">📄 สรุปเนื้อหาบทความ</h3>
+                            <div class="section-body">
+                                <p>เนื้อหาบทความต้นฉบับ: ...</p>
+                            </div>
+                        </section>
+                        <section class="content-section">
+                            <h3 class="section-header section-header-discussion">💬 สรุปประเด็นเสวนาในกระทู้</h3>
+                            <div class="section-body">
+                                <p>สรุปความคิดเห็นเบื้องต้น: มีจำนวนความคิดเห็น 123 รายการในกระทู้</p>
+                            </div>
+                        </section>
+                        <div class="links-row">
+                            <a href="https://ben-mini.com/2026/stealing-is-a-skill" target="_blank" class="action-btn btn-primary">อ่านบทความต้นฉบับ</a>
+                            <a href="https://news.ycombinator.com/item?id=48659165" target="_blank" class="action-btn btn-secondary">กระทู้บน Hacker News</a>
+                        </div>
+                    </div>
+                </details>
+            </article>
+            
+            <!-- STORY 22 -->
+            <article class="news-item">
+                <details>
+                    <summary>
+                        <div class="summary-header">
+                            <div class="summary-title-section">
+                                <h2 class="story-title">75% More Pedestrians Have Been Killed Since 2009. Giant Trucks and SUVs Are Why</h2>
+                                <p class="teaser">75% More Pedestrians Have Been Killed Since 2009. Giant Trucks and SUVs Are Why</p>
+                                <div class="meta-row">
+                                    <span class="badge badge-points">🔥 197 คะแนน</span>
+                                    <span class="badge badge-comments">💬 16 ความคิดเห็น</span>
+                                    <span class="badge badge-domain">thedrive.com</span>
+                                </div>
+                            </div>
+                            <div class="toggle-icon">▼</div>
+                        </div>
+                    </summary>
+                    <div class="details-content">
+                        <section class="content-section">
+                            <h3 class="section-header section-header-article">📄 สรุปเนื้อหาบทความ</h3>
+                            <div class="section-body">
+                                <p>เนื้อหาบทความต้นฉบับ: ...</p>
+                            </div>
+                        </section>
+                        <section class="content-section">
+                            <h3 class="section-header section-header-discussion">💬 สรุปประเด็นเสวนาในกระทู้</h3>
+                            <div class="section-body">
+                                <p>สรุปความคิดเห็นเบื้องต้น: มีจำนวนความคิดเห็น 16 รายการในกระทู้</p>
+                            </div>
+                        </section>
+                        <div class="links-row">
+                            <a href="https://www.thedrive.com/news/75-more-pedestrians-have-been-killed-since-2009-giant-trucks-and-suvs-are-why" target="_blank" class="action-btn btn-primary">อ่านบทความต้นฉบับ</a>
+                            <a href="https://news.ycombinator.com/item?id=48648371" target="_blank" class="action-btn btn-secondary">กระทู้บน Hacker News</a>
+                        </div>
+                    </div>
+                </details>
+            </article>
+            
+            <!-- STORY 23 -->
+            <article class="news-item">
+                <details>
+                    <summary>
+                        <div class="summary-header">
+                            <div class="summary-title-section">
+                                <h2 class="story-title">For Most of the World, Open-Source AI Is the Only Way Forward</h2>
+                                <p class="teaser">For Most of the World, Open-Source AI Is the Only Way Forward</p>
+                                <div class="meta-row">
+                                    <span class="badge badge-points">🔥 196 คะแนน</span>
+                                    <span class="badge badge-comments">💬 131 ความคิดเห็น</span>
+                                    <span class="badge badge-domain">techstrong.ai</span>
+                                </div>
+                            </div>
+                            <div class="toggle-icon">▼</div>
+                        </div>
+                    </summary>
+                    <div class="details-content">
+                        <section class="content-section">
+                            <h3 class="section-header section-header-article">📄 สรุปเนื้อหาบทความ</h3>
+                            <div class="section-body">
+                                <p>เนื้อหาบทความต้นฉบับ: ...</p>
+                            </div>
+                        </section>
+                        <section class="content-section">
+                            <h3 class="section-header section-header-discussion">💬 สรุปประเด็นเสวนาในกระทู้</h3>
+                            <div class="section-body">
+                                <p>สรุปความคิดเห็นเบื้องต้น: มีจำนวนความคิดเห็น 131 รายการในกระทู้</p>
+                            </div>
+                        </section>
+                        <div class="links-row">
+                            <a href="https://techstrong.ai/articles/for-most-of-the-world-open-source-ai-is-the-only-way-forward/" target="_blank" class="action-btn btn-primary">อ่านบทความต้นฉบับ</a>
+                            <a href="https://news.ycombinator.com/item?id=48660839" target="_blank" class="action-btn btn-secondary">กระทู้บน Hacker News</a>
+                        </div>
+                    </div>
+                </details>
+            </article>
+            
+            <!-- STORY 24 -->
+            <article class="news-item">
+                <details>
+                    <summary>
+                        <div class="summary-header">
+                            <div class="summary-title-section">
+                                <h2 class="story-title">Anthropic updates their terms to verify age or identity</h2>
+                                <p class="teaser">Anthropic updates their terms to verify age or identity</p>
+                                <div class="meta-row">
+                                    <span class="badge badge-points">🔥 195 คะแนน</span>
+                                    <span class="badge badge-comments">💬 181 ความคิดเห็น</span>
+                                    <span class="badge badge-domain">anthropic.com</span>
+                                </div>
+                            </div>
+                            <div class="toggle-icon">▼</div>
+                        </div>
+                    </summary>
+                    <div class="details-content">
+                        <section class="content-section">
+                            <h3 class="section-header section-header-article">📄 สรุปเนื้อหาบทความ</h3>
+                            <div class="section-body">
+                                <p>เนื้อหาบทความต้นฉบับ: ...</p>
+                            </div>
+                        </section>
+                        <section class="content-section">
+                            <h3 class="section-header section-header-discussion">💬 สรุปประเด็นเสวนาในกระทู้</h3>
+                            <div class="section-body">
+                                <p>สรุปความคิดเห็นเบื้องต้น: มีจำนวนความคิดเห็น 181 รายการในกระทู้</p>
+                            </div>
+                        </section>
+                        <div class="links-row">
+                            <a href="https://www.anthropic.com/legal/privacy" target="_blank" class="action-btn btn-primary">อ่านบทความต้นฉบับ</a>
+                            <a href="https://news.ycombinator.com/item?id=48650311" target="_blank" class="action-btn btn-secondary">กระทู้บน Hacker News</a>
+                        </div>
+                    </div>
+                </details>
+            </article>
+            
+            <!-- STORY 25 -->
+            <article class="news-item">
+                <details>
+                    <summary>
+                        <div class="summary-header">
+                            <div class="summary-title-section">
+                                <h2 class="story-title">Qwen-AgentWorld: Language World Models for General Agents</h2>
+                                <p class="teaser">Qwen-AgentWorld: Language World Models for General Agents</p>
+                                <div class="meta-row">
+                                    <span class="badge badge-points">🔥 194 คะแนน</span>
+                                    <span class="badge badge-comments">💬 53 ความคิดเห็น</span>
+                                    <span class="badge badge-domain">arxiv.org</span>
+                                </div>
+                            </div>
+                            <div class="toggle-icon">▼</div>
+                        </div>
+                    </summary>
+                    <div class="details-content">
+                        <section class="content-section">
+                            <h3 class="section-header section-header-article">📄 สรุปเนื้อหาบทความ</h3>
+                            <div class="section-body">
+                                <p>เนื้อหาบทความต้นฉบับ: ...</p>
+                            </div>
+                        </section>
+                        <section class="content-section">
+                            <h3 class="section-header section-header-discussion">💬 สรุปประเด็นเสวนาในกระทู้</h3>
+                            <div class="section-body">
+                                <p>สรุปความคิดเห็นเบื้องต้น: มีจำนวนความคิดเห็น 53 รายการในกระทู้</p>
+                            </div>
+                        </section>
+                        <div class="links-row">
+                            <a href="https://arxiv.org/abs/2606.24597" target="_blank" class="action-btn btn-primary">อ่านบทความต้นฉบับ</a>
+                            <a href="https://news.ycombinator.com/item?id=48654351" target="_blank" class="action-btn btn-secondary">กระทู้บน Hacker News</a>
+                        </div>
+                    </div>
+                </details>
+            </article>
+            
+            <!-- STORY 26 -->
+            <article class="news-item">
+                <details>
+                    <summary>
+                        <div class="summary-header">
+                            <div class="summary-title-section">
+                                <h2 class="story-title">Show HN: Nub – A Bun-like all-in-one toolkit for Node.js</h2>
+                                <p class="teaser">Show HN: Nub – A Bun-like all-in-one toolkit for Node.js</p>
+                                <div class="meta-row">
+                                    <span class="badge badge-points">🔥 192 คะแนน</span>
+                                    <span class="badge badge-comments">💬 54 ความคิดเห็น</span>
+                                    <span class="badge badge-domain">github.com</span>
+                                </div>
+                            </div>
+                            <div class="toggle-icon">▼</div>
+                        </div>
+                    </summary>
+                    <div class="details-content">
+                        <section class="content-section">
+                            <h3 class="section-header section-header-article">📄 สรุปเนื้อหาบทความ</h3>
+                            <div class="section-body">
+                                <p>เนื้อหาบทความต้นฉบับ: ...</p>
+                            </div>
+                        </section>
+                        <section class="content-section">
+                            <h3 class="section-header section-header-discussion">💬 สรุปประเด็นเสวนาในกระทู้</h3>
+                            <div class="section-body">
+                                <p>สรุปความคิดเห็นเบื้องต้น: มีจำนวนความคิดเห็น 54 รายการในกระทู้</p>
+                            </div>
+                        </section>
+                        <div class="links-row">
+                            <a href="https://github.com/nubjs/nub" target="_blank" class="action-btn btn-primary">อ่านบทความต้นฉบับ</a>
+                            <a href="https://news.ycombinator.com/item?id=48660267" target="_blank" class="action-btn btn-secondary">กระทู้บน Hacker News</a>
+                        </div>
+                    </div>
+                </details>
+            </article>
+            
+            <!-- STORY 27 -->
+            <article class="news-item">
+                <details>
+                    <summary>
+                        <div class="summary-header">
+                            <div class="summary-title-section">
+                                <h2 class="story-title">Don't verify email addresses by sending spam to them</h2>
+                                <p class="teaser">Don't verify email addresses by sending spam to them</p>
+                                <div class="meta-row">
+                                    <span class="badge badge-points">🔥 190 คะแนน</span>
+                                    <span class="badge badge-comments">💬 59 ความคิดเห็น</span>
+                                    <span class="badge badge-domain">milek7.pl</span>
+                                </div>
+                            </div>
+                            <div class="toggle-icon">▼</div>
+                        </div>
+                    </summary>
+                    <div class="details-content">
+                        <section class="content-section">
+                            <h3 class="section-header section-header-article">📄 สรุปเนื้อหาบทความ</h3>
+                            <div class="section-body">
+                                <p>เนื้อหาบทความต้นฉบับ: ...</p>
+                            </div>
+                        </section>
+                        <section class="content-section">
+                            <h3 class="section-header section-header-discussion">💬 สรุปประเด็นเสวนาในกระทู้</h3>
+                            <div class="section-body">
+                                <p>สรุปความคิดเห็นเบื้องต้น: มีจำนวนความคิดเห็น 59 รายการในกระทู้</p>
+                            </div>
+                        </section>
+                        <div class="links-row">
+                            <a href="https://milek7.pl/mailverifyspam/" target="_blank" class="action-btn btn-primary">อ่านบทความต้นฉบับ</a>
+                            <a href="https://news.ycombinator.com/item?id=48650837" target="_blank" class="action-btn btn-secondary">กระทู้บน Hacker News</a>
+                        </div>
+                    </div>
+                </details>
+            </article>
+            
+            <!-- STORY 28 -->
+            <article class="news-item">
+                <details>
+                    <summary>
+                        <div class="summary-header">
+                            <div class="summary-title-section">
+                                <h2 class="story-title">Trains halted across Germany because of communication system problem</h2>
+                                <p class="teaser">Trains halted across Germany because of communication system problem</p>
+                                <div class="meta-row">
+                                    <span class="badge badge-points">🔥 183 คะแนน</span>
+                                    <span class="badge badge-comments">💬 187 ความคิดเห็น</span>
+                                    <span class="badge badge-domain">apnews.com</span>
+                                </div>
+                            </div>
+                            <div class="toggle-icon">▼</div>
+                        </div>
+                    </summary>
+                    <div class="details-content">
+                        <section class="content-section">
+                            <h3 class="section-header section-header-article">📄 สรุปเนื้อหาบทความ</h3>
+                            <div class="section-body">
+                                <p>เนื้อหาบทความต้นฉบับ: ...</p>
+                            </div>
+                        </section>
+                        <section class="content-section">
+                            <h3 class="section-header section-header-discussion">💬 สรุปประเด็นเสวนาในกระทู้</h3>
+                            <div class="section-body">
+                                <p>สรุปความคิดเห็นเบื้องต้น: มีจำนวนความคิดเห็น 187 รายการในกระทู้</p>
+                            </div>
+                        </section>
+                        <div class="links-row">
+                            <a href="https://apnews.com/article/germany-trains-halted-communications-radio-problem-deutsche-bahn-e8fd970b2d889f3ae7ce03322d5c726b" target="_blank" class="action-btn btn-primary">อ่านบทความต้นฉบับ</a>
+                            <a href="https://news.ycombinator.com/item?id=48651613" target="_blank" class="action-btn btn-secondary">กระทู้บน Hacker News</a>
+                        </div>
+                    </div>
+                </details>
+            </article>
+            
+            <!-- STORY 29 -->
+            <article class="news-item">
+                <details>
+                    <summary>
+                        <div class="summary-header">
+                            <div class="summary-title-section">
+                                <h2 class="story-title">A deadly fungus that can infect cats and people is spreading</h2>
+                                <p class="teaser">A deadly fungus that can infect cats and people is spreading</p>
+                                <div class="meta-row">
+                                    <span class="badge badge-points">🔥 182 คะแนน</span>
+                                    <span class="badge badge-comments">💬 135 ความคิดเห็น</span>
+                                    <span class="badge badge-domain">sciencenews.org</span>
+                                </div>
+                            </div>
+                            <div class="toggle-icon">▼</div>
+                        </div>
+                    </summary>
+                    <div class="details-content">
+                        <section class="content-section">
+                            <h3 class="section-header section-header-article">📄 สรุปเนื้อหาบทความ</h3>
+                            <div class="section-body">
+                                <p>เนื้อหาบทความต้นฉบับ: ...</p>
+                            </div>
+                        </section>
+                        <section class="content-section">
+                            <h3 class="section-header section-header-discussion">💬 สรุปประเด็นเสวนาในกระทู้</h3>
+                            <div class="section-body">
+                                <p>สรุปความคิดเห็นเบื้องต้น: มีจำนวนความคิดเห็น 135 รายการในกระทู้</p>
+                            </div>
+                        </section>
+                        <div class="links-row">
+                            <a href="https://www.sciencenews.org/article/deadly-fungus-cats-people-spreading" target="_blank" class="action-btn btn-primary">อ่านบทความต้นฉบับ</a>
+                            <a href="https://news.ycombinator.com/item?id=48658186" target="_blank" class="action-btn btn-secondary">กระทู้บน Hacker News</a>
+                        </div>
+                    </div>
+                </details>
+            </article>
+            
+            <!-- STORY 30 -->
+            <article class="news-item">
+                <details>
+                    <summary>
+                        <div class="summary-header">
+                            <div class="summary-title-section">
+                                <h2 class="story-title">Thomann takes legal action against Fender</h2>
+                                <p class="teaser">Thomann takes legal action against Fender</p>
+                                <div class="meta-row">
+                                    <span class="badge badge-points">🔥 174 คะแนน</span>
+                                    <span class="badge badge-comments">💬 109 ความคิดเห็น</span>
+                                    <span class="badge badge-domain">thomann.de</span>
+                                </div>
+                            </div>
+                            <div class="toggle-icon">▼</div>
+                        </div>
+                    </summary>
+                    <div class="details-content">
+                        <section class="content-section">
+                            <h3 class="section-header section-header-article">📄 สรุปเนื้อหาบทความ</h3>
+                            <div class="section-body">
+                                <p>เนื้อหาบทความต้นฉบับ: ...</p>
+                            </div>
+                        </section>
+                        <section class="content-section">
+                            <h3 class="section-header section-header-discussion">💬 สรุปประเด็นเสวนาในกระทู้</h3>
+                            <div class="section-body">
+                                <p>สรุปความคิดเห็นเบื้องต้น: มีจำนวนความคิดเห็น 109 รายการในกระทู้</p>
+                            </div>
+                        </section>
+                        <div class="links-row">
+                            <a href="https://www.thomann.de/blog/en/inside/thomann-takes-legal-action-against-fender/" target="_blank" class="action-btn btn-primary">อ่านบทความต้นฉบับ</a>
+                            <a href="https://news.ycombinator.com/item?id=48664384" target="_blank" class="action-btn btn-secondary">กระทู้บน Hacker News</a>
+                        </div>
+                    </div>
+                </details>
+            </article>
+            
+            <!-- STORY 31 -->
+            <article class="news-item">
+                <details>
+                    <summary>
+                        <div class="summary-header">
+                            <div class="summary-title-section">
+                                <h2 class="story-title">PR spam today looks like email spam in the early 2000s</h2>
+                                <p class="teaser">PR spam today looks like email spam in the early 2000s</p>
+                                <div class="meta-row">
+                                    <span class="badge badge-points">🔥 169 คะแนน</span>
+                                    <span class="badge badge-comments">💬 96 ความคิดเห็น</span>
+                                    <span class="badge badge-domain">greptile.com</span>
+                                </div>
+                            </div>
+                            <div class="toggle-icon">▼</div>
+                        </div>
+                    </summary>
+                    <div class="details-content">
+                        <section class="content-section">
+                            <h3 class="section-header section-header-article">📄 สรุปเนื้อหาบทความ</h3>
+                            <div class="section-body">
+                                <p>เนื้อหาบทความต้นฉบับ: ...</p>
+                            </div>
+                        </section>
+                        <section class="content-section">
+                            <h3 class="section-header section-header-discussion">💬 สรุปประเด็นเสวนาในกระทู้</h3>
+                            <div class="section-body">
+                                <p>สรุปความคิดเห็นเบื้องต้น: มีจำนวนความคิดเห็น 96 รายการในกระทู้</p>
+                            </div>
+                        </section>
+                        <div class="links-row">
+                            <a href="https://www.greptile.com/blog/prs-on-openclaw" target="_blank" class="action-btn btn-primary">อ่านบทความต้นฉบับ</a>
+                            <a href="https://news.ycombinator.com/item?id=48660579" target="_blank" class="action-btn btn-secondary">กระทู้บน Hacker News</a>
+                        </div>
+                    </div>
+                </details>
+            </article>
+            
+            <!-- STORY 32 -->
+            <article class="news-item">
+                <details>
+                    <summary>
+                        <div class="summary-header">
+                            <div class="summary-title-section">
+                                <h2 class="story-title">45°C cooling design cuts data center water use to near zero</h2>
+                                <p class="teaser">45°C cooling design cuts data center water use to near zero</p>
+                                <div class="meta-row">
+                                    <span class="badge badge-points">🔥 161 คะแนน</span>
+                                    <span class="badge badge-comments">💬 111 ความคิดเห็น</span>
+                                    <span class="badge badge-domain">blogs.nvidia.com</span>
+                                </div>
+                            </div>
+                            <div class="toggle-icon">▼</div>
+                        </div>
+                    </summary>
+                    <div class="details-content">
+                        <section class="content-section">
+                            <h3 class="section-header section-header-article">📄 สรุปเนื้อหาบทความ</h3>
+                            <div class="section-body">
+                                <p>เนื้อหาบทความต้นฉบับ: ...</p>
+                            </div>
+                        </section>
+                        <section class="content-section">
+                            <h3 class="section-header section-header-discussion">💬 สรุปประเด็นเสวนาในกระทู้</h3>
+                            <div class="section-body">
+                                <p>สรุปความคิดเห็นเบื้องต้น: มีจำนวนความคิดเห็น 111 รายการในกระทู้</p>
+                            </div>
+                        </section>
+                        <div class="links-row">
+                            <a href="https://blogs.nvidia.com/blog/liquid-cooling-ai-factories/" target="_blank" class="action-btn btn-primary">อ่านบทความต้นฉบับ</a>
+                            <a href="https://news.ycombinator.com/item?id=48660178" target="_blank" class="action-btn btn-secondary">กระทู้บน Hacker News</a>
+                        </div>
+                    </div>
+                </details>
+            </article>
+            
+            <!-- STORY 33 -->
+            <article class="news-item">
+                <details>
+                    <summary>
+                        <div class="summary-header">
+                            <div class="summary-title-section">
+                                <h2 class="story-title">The Xteink X4 E-Ink Reader</h2>
+                                <p class="teaser">The Xteink X4 E-Ink Reader</p>
+                                <div class="meta-row">
+                                    <span class="badge badge-points">🔥 156 คะแนน</span>
+                                    <span class="badge badge-comments">💬 102 ความคิดเห็น</span>
+                                    <span class="badge badge-domain">blog.omgmog.net</span>
+                                </div>
+                            </div>
+                            <div class="toggle-icon">▼</div>
+                        </div>
+                    </summary>
+                    <div class="details-content">
+                        <section class="content-section">
+                            <h3 class="section-header section-header-article">📄 สรุปเนื้อหาบทความ</h3>
+                            <div class="section-body">
+                                <p>เนื้อหาบทความต้นฉบับ: ...</p>
+                            </div>
+                        </section>
+                        <section class="content-section">
+                            <h3 class="section-header section-header-discussion">💬 สรุปประเด็นเสวนาในกระทู้</h3>
+                            <div class="section-body">
+                                <p>สรุปความคิดเห็นเบื้องต้น: มีจำนวนความคิดเห็น 102 รายการในกระทู้</p>
+                            </div>
+                        </section>
+                        <div class="links-row">
+                            <a href="https://blog.omgmog.net/post/xteink-x4-e-ink-reader/" target="_blank" class="action-btn btn-primary">อ่านบทความต้นฉบับ</a>
+                            <a href="https://news.ycombinator.com/item?id=48662381" target="_blank" class="action-btn btn-secondary">กระทู้บน Hacker News</a>
+                        </div>
+                    </div>
+                </details>
+            </article>
+            
+            <!-- STORY 34 -->
+            <article class="news-item">
+                <details>
+                    <summary>
+                        <div class="summary-header">
+                            <div class="summary-title-section">
+                                <h2 class="story-title">Boffin claims Microsoft’s “quantum leap” is invalid due to “basic Python errors”</h2>
+                                <p class="teaser">Boffin claims Microsoft’s “quantum leap” is invalid due to “basic Python errors”</p>
+                                <div class="meta-row">
+                                    <span class="badge badge-points">🔥 156 คะแนน</span>
+                                    <span class="badge badge-comments">💬 53 ความคิดเห็น</span>
+                                    <span class="badge badge-domain">theregister.com</span>
+                                </div>
+                            </div>
+                            <div class="toggle-icon">▼</div>
+                        </div>
+                    </summary>
+                    <div class="details-content">
+                        <section class="content-section">
+                            <h3 class="section-header section-header-article">📄 สรุปเนื้อหาบทความ</h3>
+                            <div class="section-body">
+                                <p>เนื้อหาบทความต้นฉบับ: ...</p>
+                            </div>
+                        </section>
+                        <section class="content-section">
+                            <h3 class="section-header section-header-discussion">💬 สรุปประเด็นเสวนาในกระทู้</h3>
+                            <div class="section-body">
+                                <p>สรุปความคิดเห็นเบื้องต้น: มีจำนวนความคิดเห็น 53 รายการในกระทู้</p>
+                            </div>
+                        </section>
+                        <div class="links-row">
+                            <a href="https://www.theregister.com/research/2026/06/24/boffin-claims-microsofts-supposed-quantum-leap-does-not-compute-due-to-basic-python-errors/5260489" target="_blank" class="action-btn btn-primary">อ่านบทความต้นฉบับ</a>
+                            <a href="https://news.ycombinator.com/item?id=48661535" target="_blank" class="action-btn btn-secondary">กระทู้บน Hacker News</a>
+                        </div>
+                    </div>
+                </details>
+            </article>
+            
+            <!-- STORY 35 -->
+            <article class="news-item">
+                <details>
+                    <summary>
+                        <div class="summary-header">
+                            <div class="summary-title-section">
+                                <h2 class="story-title">Computer use in Gemini 3.5 Flash</h2>
+                                <p class="teaser">Computer use in Gemini 3.5 Flash</p>
+                                <div class="meta-row">
+                                    <span class="badge badge-points">🔥 152 คะแนน</span>
+                                    <span class="badge badge-comments">💬 94 ความคิดเห็น</span>
+                                    <span class="badge badge-domain">blog.google</span>
+                                </div>
+                            </div>
+                            <div class="toggle-icon">▼</div>
+                        </div>
+                    </summary>
+                    <div class="details-content">
+                        <section class="content-section">
+                            <h3 class="section-header section-header-article">📄 สรุปเนื้อหาบทความ</h3>
+                            <div class="section-body">
+                                <p>เนื้อหาบทความต้นฉบับ: ...</p>
+                            </div>
+                        </section>
+                        <section class="content-section">
+                            <h3 class="section-header section-header-discussion">💬 สรุปประเด็นเสวนาในกระทู้</h3>
+                            <div class="section-body">
+                                <p>สรุปความคิดเห็นเบื้องต้น: มีจำนวนความคิดเห็น 94 รายการในกระทู้</p>
+                            </div>
+                        </section>
+                        <div class="links-row">
+                            <a href="https://blog.google/innovation-and-ai/models-and-research/gemini-models/introducing-computer-use-gemini-3-5-flash/" target="_blank" class="action-btn btn-primary">อ่านบทความต้นฉบับ</a>
+                            <a href="https://news.ycombinator.com/item?id=48662999" target="_blank" class="action-btn btn-secondary">กระทู้บน Hacker News</a>
+                        </div>
+                    </div>
+                </details>
+            </article>
+            
+            <!-- STORY 36 -->
+            <article class="news-item">
+                <details>
+                    <summary>
+                        <div class="summary-header">
+                            <div class="summary-title-section">
+                                <h2 class="story-title">Algorithmic Monocultures in Hiring</h2>
+                                <p class="teaser">Algorithmic Monocultures in Hiring</p>
+                                <div class="meta-row">
+                                    <span class="badge badge-points">🔥 151 คะแนน</span>
+                                    <span class="badge badge-comments">💬 160 ความคิดเห็น</span>
+                                    <span class="badge badge-domain">hai.stanford.edu</span>
+                                </div>
+                            </div>
+                            <div class="toggle-icon">▼</div>
+                        </div>
+                    </summary>
+                    <div class="details-content">
+                        <section class="content-section">
+                            <h3 class="section-header section-header-article">📄 สรุปเนื้อหาบทความ</h3>
+                            <div class="section-body">
+                                <p>เนื้อหาบทความต้นฉบับ: ...</p>
+                            </div>
+                        </section>
+                        <section class="content-section">
+                            <h3 class="section-header section-header-discussion">💬 สรุปประเด็นเสวนาในกระทู้</h3>
+                            <div class="section-body">
+                                <p>สรุปความคิดเห็นเบื้องต้น: มีจำนวนความคิดเห็น 160 รายการในกระทู้</p>
+                            </div>
+                        </section>
+                        <div class="links-row">
+                            <a href="https://hai.stanford.edu/news/ai-hiring-tools-can-yield-racial-bias-and-systemic-rejection" target="_blank" class="action-btn btn-primary">อ่านบทความต้นฉบับ</a>
+                            <a href="https://news.ycombinator.com/item?id=48649673" target="_blank" class="action-btn btn-secondary">กระทู้บน Hacker News</a>
+                        </div>
+                    </div>
+                </details>
+            </article>
+            
+        </main>
+        <footer class="page-footer">
+            <p>Hacker News Daily Digest • จัดทำขึ้นโดยอัตโนมัติในทุกเช้าสำหรับคุณ</p>
+            <p>ขนาดฟอนต์ถูกปรับแต่งให้อ่านง่ายเป็นพิเศษ (18px/1.75 Line Height)</p>
+        </footer>
+    </div>
+</body>
+</html>
+    
